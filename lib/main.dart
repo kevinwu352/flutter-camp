@@ -9,11 +9,17 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
+      title: 'Flutter Camp',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.brown, brightness: Brightness.light),
+      ),
       home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
+        appBar: AppBar(
+          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+          title: Text("Flutter Camp"),
         ),
+        body: Text("hello"),
       ),
     );
   }
