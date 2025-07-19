@@ -18,7 +18,7 @@ class FutureAndStreamPage extends StatefulWidget {
 class _FutureAndStreamPageState extends State<FutureAndStreamPage> {
   Future<String> getFuture() async {
     await Future.delayed(Duration(seconds: 2));
-    return 'abc';
+    return "abc";
   }
 
   Stream<int> getStream() async* {
@@ -48,7 +48,7 @@ class _FutureAndStreamPageState extends State<FutureAndStreamPage> {
           //             onPressed: () {
           //               setState(() {});
           //             },
-          //             child: Text('refresh'),
+          //             child: Text("refresh"),
           //           ),
           //         ],
           //       );
@@ -76,7 +76,7 @@ class _FutureAndStreamPageState extends State<FutureAndStreamPage> {
                       // 如果检查 hasData，第一次获取数据以后它就有数据了，所以判断一直是真
                       // 如果检查 state == waiting，这状态会变
                     },
-                    child: Text('refresh'),
+                    child: Text("refresh"),
                   ),
                 ],
               );
