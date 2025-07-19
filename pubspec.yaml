@@ -20,3 +20,9 @@ flutter:
 
   assets:
     - assets/images/
+
+  fonts:
+    - family: Bitcount Single
+      fonts:
+        - asset: assets/fonts/BitcountSingle-Regular.ttf
+        - asset: assets/fonts/BitcountSingle-Medium.ttf
