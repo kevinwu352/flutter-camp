@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_camp/async-2/FutureAndStreamPage.dart';
+import 'package:flutter_camp/text-3/TextPage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
           brightness: Brightness.light,
         ),
       ),
-      home: FutureAndStreamPage(),
+      home: TextPage(),
     );
   }
 }
