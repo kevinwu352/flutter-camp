@@ -81,3 +81,13 @@
 
 // List<FontFeature>? fontFeatures, 不清楚作用？
 // List<FontVariation>? fontVariations, 不清楚作用？
+
+
+
+
+
+// 没想通这和直接覆盖有何不同？
+// DefaultTextStyle.merge(
+//   style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+//   child: const Center(child: Text('Flutter')),
+// )

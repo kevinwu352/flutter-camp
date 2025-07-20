@@ -10,17 +10,6 @@
 // 多行用这样式
 //   看起来不传这三参数就是多行
 
-// 多种样式拼接
-// Text.rich(
-//   TextSpan(
-//     text: "Hello", // default text style
-//     children: <TextSpan>[
-//       TextSpan(text: " beautiful ", style: TextStyle(fontStyle: FontStyle.italic)),
-//       TextSpan(text: "world", style: TextStyle(fontWeight: FontWeight.bold)),
-//     ],
-//   ),
-// )
-
 // overflow.fade 最大行数 1，softWrap = true 内部会换行，阴影在下边，否则阴影在右边
 // Container(
 //   width: 100,
@@ -59,3 +48,93 @@
 //
 // String? semanticsLabel
 // String? semanticsIdentifier
+
+
+
+
+
+// TextSpan 响应点击事件
+TextSpan(
+  text: 'Login Here',
+  style: TextStyle(
+    fontSize: 20,
+    letterSpacing: 0.5,
+    color: Colors.blueAccent,
+    fontWeight: FontWeight.w600,
+    decoration: TextDecoration.underline,
+  ),
+  recognizer: TapGestureRecognizer()
+    ..onTap = () {
+      print('abc');
+    },
+)
+
+// 多种样式拼接
+// Text.rich(
+//   TextSpan(
+//     text: "Hello", // default text style
+//     children: <TextSpan>[
+//       TextSpan(text: " beautiful ", style: TextStyle(fontStyle: FontStyle.italic)),
+//       TextSpan(text: "world", style: TextStyle(fontWeight: FontWeight.bold)),
+//     ],
+//   ),
+// )
+
+Text.rich() 能接受一个 TextStyle 参数。RichText 不行
+Text.rich(style: ..., TextSpan())
+RichText(text: TextSpan())
+TextSpan(
+  text: '',
+  style: ...,
+  children: []
+)
+
+Text.rich(
+  style: DefaultTextStyle.of(context).style..color,
+  TextSpan(
+    children: [
+      TextSpan(
+        text: 'Already have an account',
+        style: TextStyle(fontSize: 16, letterSpacing: 0.5),
+      ),
+      TextSpan(
+        text: 'Login Here',
+        style: TextStyle(
+          fontSize: 16,
+          letterSpacing: 0.5,
+          color: Colors.red,
+          fontWeight: FontWeight.w600,
+          fontFamily: 'Gilroy',
+          fontStyle: FontStyle.italic,
+        ),
+      ),
+    ],
+  ),
+)
+RichText(
+  textAlign: TextAlign.justify,
+  overflow: TextOverflow.fade,
+  maxLines: 3,
+  text: TextSpan(
+    children: [
+      TextSpan(
+        text: 'Already have an account',
+        style: TextStyle(fontSize: 16, letterSpacing: 0.5),
+      ),
+      TextSpan(
+        text: 'Login Here',
+        style: TextStyle(
+          fontSize: 16,
+          letterSpacing: 0.5,
+          color: Colors.blueAccent,
+          fontWeight: FontWeight.w600,
+          decoration: TextDecoration.underline,
+        ),
+        recognizer: TapGestureRecognizer()
+          ..onTap = () {
+            print('abc');
+          },
+      ),
+    ],
+  ),
+),
