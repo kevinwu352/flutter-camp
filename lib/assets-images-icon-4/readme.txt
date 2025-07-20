@@ -1,0 +1,35 @@
+
+
+icon 默认是方形的，如果不是，可能会渲染不正确
+
+IconButton(
+  iconSize: 72,
+  icon: const Icon(Icons.favorite), // size 不要写到这里面
+  onPressed: () {
+    // ...
+  },
+)
+
+给 IconButton 加背景，新的方式是用 IconButton.filled(...)
+Ink(
+  decoration: ShapeDecoration(shape: CircleBorder(), color: Colors.red),
+  child: IconButton(
+    icon: const Icon(Icons.android),
+    color: Colors.white,
+    onPressed: () {},
+  ),
+)
+
+isSelected 让 IconButton 变成一个 toggle。并且点击不会自动切换
+selectedIcon 还能改变选中时候的图标
+
+tooltip 长按弹出来一行字
+
+highlightColor: Colors.green,
+
+
+
+
+
+Image 有 width height 参数
+Image.network for a shorthand of an Image widget backed by NetworkImage.
