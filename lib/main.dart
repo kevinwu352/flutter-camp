@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
           brightness: Brightness.light,
         ),
       ),
-      home: TextPage(),
+      home: HomePage(),
     );
   }
 }
@@ -28,21 +28,13 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final data = MediaQuery.of(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text("Flutter Camp"),
       ),
-      body: Column(
-        children: [
-          ElevatedButton(
-            onPressed: () {
-              print("doit");
-            },
-            child: Text("doit"),
-          ),
-        ],
-      ),
+      body: Text(data.size.toString()),
     );
   }
 }
