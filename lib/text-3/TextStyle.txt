@@ -1,0 +1,83 @@
+
+
+// TextStyle 很多时候不用自己创建，而是获取一个
+// style: Theme.of(context).textTheme.body1.copyWith(...)
+// Text("abc",
+//   style: DefaultTextStyle.of(context,).style.apply(fontSizeFactor: 0.5), 获取周围的样式，再把字号缩小到一半
+// )
+// 传一个 TextStyle，然后 Text 会把它和周围的 DefaultTextStyle 合并，形成新的 style 并使用
+
+// color / backgroundColor 是 foreground / background 的短形式，不能同时设置，会崩
+// Text("Some text...",
+//   style: TextStyle(backgroundColor: Colors.blue), 短形式
+//   style: TextStyle(background: Paint()..color = Colors.blue), 完整形式
+// )
+
+// 行高，默认用字体的行高，默认行高可能比字号大或小。height 是设置为字号的倍数，所以，很多字体 给 height 传 1 和不传 效果是有差异的，因为前面那句话
+// 这里字号是 10，传 1 的话，三行字总高 30。不传的话，三行字总高 42
+// const Text(
+//   'Ladies and gentlemen, you coulda been anywhere in the world tonight, but you’re here with us in New York City.',
+//   style: TextStyle(height: 1, fontSize: 10),
+// )
+// 当加入 height 以后，可能会很高，如何分配上下空间？用 leadingDistribution，以后再研究
+// 引申，要控制段落行高之类的用 StrutStyle，研究一下？
+
+// 类似拼写错误那个红色波浪下划线
+// decoration: TextDecoration.underline,
+// decorationColor: Colors.red,
+// decorationStyle: TextDecorationStyle.wavy,
+
+// 镂空填充字怎么做
+// Stack(
+//   children: [
+//     Text( // 这部分只画边框。。。这里还能是渐变的，用到再研究？
+//       'Greetings, planet!',
+//       style: TextStyle(
+//         fontSize: 40,
+//         foreground: Paint()
+//           ..style = PaintingStyle.stroke
+//           ..strokeWidth = 3
+//           ..color = Colors.blue[700]!,
+//       ),
+//     ),
+//     Text( // 这部分是实心的
+//       'Greetings, planet!',
+//       style: TextStyle(fontSize: 40, color: Colors.red),
+//     ),
+//   ],
+// ),
+
+// double? fontSize,
+// FontWeight? fontWeight,
+// FontStyle? fontStyle, 斜体
+// String? fontFamily, 自定义字体
+// List<String>? fontFamilyFallback, ['Noto Sans CJK SC', 'Noto Color Emoji'] 找不到字体时的后备
+// String? package,
+// 不同系统字体不同，如果想要样式统一，有必要提供自定义字体
+
+// Color? color,
+// Color? backgroundColor,
+// Paint? foreground,
+// Paint? background,
+
+// TextOverflow? overflow
+
+// double? letterSpacing,
+// double? wordSpacing,
+// double? height,
+// TextLeadingDistribution? leadingDistribution,
+// TextBaseline? textBaseline, 不清楚作用？
+
+// TextDecoration? decoration, 上中下划线
+// Color? decorationColor,
+// TextDecorationStyle? decorationStyle,
+// double? decorationThickness,
+
+// List<Shadow>? shadows,
+
+//String? debugLabel,
+
+// Locale? locale, 不清楚作用？
+
+// List<FontFeature>? fontFeatures, 不清楚作用？
+// List<FontVariation>? fontVariations, 不清楚作用？

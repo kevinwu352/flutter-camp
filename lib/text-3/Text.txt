@@ -1,0 +1,61 @@
+
+
+// 文档说必须设 text direction，如果用 MaterialApp 的话，它帮你设了
+// runApp(Text("Hello, world!", textDirection: TextDirection.ltr));
+
+// 单行用这样式
+//   maxLines: 1,
+//   softWrap: false,
+//   overflow: TextOverflow.ellipsis,
+// 多行用这样式
+//   看起来不传这三参数就是多行
+
+// 多种样式拼接
+// Text.rich(
+//   TextSpan(
+//     text: "Hello", // default text style
+//     children: <TextSpan>[
+//       TextSpan(text: " beautiful ", style: TextStyle(fontStyle: FontStyle.italic)),
+//       TextSpan(text: "world", style: TextStyle(fontWeight: FontWeight.bold)),
+//     ],
+//   ),
+// )
+
+// overflow.fade 最大行数 1，softWrap = true 内部会换行，阴影在下边，否则阴影在右边
+// Container(
+//   width: 100,
+//   decoration: BoxDecoration(border: Border.all()),
+//   child: Text(
+//     'Hello, how are you?',
+//     overflow: TextOverflow.fade,
+//     maxLines: 1,
+//     softWrap: true,
+//   ),
+// ),
+
+// 让文字能选中
+// SelectionArea(child: Text('Selectable text'))
+// 要让中间部分选中不了，用 SelectionContainer.disabled(child: Text('Non-selectable text'))
+
+// TextStyle? style
+// StrutStyle? strutStyle
+//
+// TextAlign? textAlign
+// TextDirection? textDirection
+//
+// int? maxLines
+// bool? softWrap
+// TextOverflow? overflow
+//
+// Color? selectionColor 选中部分的颜色，不是左右那两个柄
+//
+// Locale? locale
+//
+// TextScaler? textScaler 用到再研究？
+//
+// TextWidthBasis? textWidthBasis 用到再研究？
+//
+// TextHeightBehavior? textHeightBehavior 设置 height 后要不要显示上下的 leading，只管第一最后，多行的中间一直是显示的
+//
+// String? semanticsLabel
+// String? semanticsIdentifier
