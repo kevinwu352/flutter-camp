@@ -12,10 +12,41 @@ class SamplePage extends StatelessWidget {
     // 3) Center 占满屏幕，它要求子尺寸不超过屏幕即可
     // return Center(child: Container(width: 100, height: 100, color: Colors.red));
     // 4) Align 是 Center 的父类，子类也能自由决定自己的尺寸
-    return Align(
-      alignment: Alignment.centerLeft,
-      child: Container(width: 100, height: 100, color: Colors.red),
-    );
+    // return Align(
+    //   alignment: Alignment.centerLeft,
+    //   child: Container(width: 100, height: 100, color: Colors.red),
+    // );
+    //*5) Center 占满屏幕，子想要无限或有限，都不能超过父
+    // 例 3 是有限，这里是无限，例 6 是不给子
+    // return Center(
+    //   child: Container(
+    //     width: double.infinity,
+    //     height: double.infinity,
+    //     color: Colors.red,
+    //   ),
+    // );
+    // 6) Center 占满屏幕，Container 无子无尺寸，它决定占尽量大
+    // return Center(child: Container(color: Colors.red));
+    // 7) Center 占满屏幕，红色有子，跟随子的尺寸
+    // 红色加上宽高，为何只见绿色？
+    // return Center(
+    //   child: Container(
+    //     color: Colors.red,
+    //     // width: 100,
+    //     // height: 100,
+    //     child: Container(color: Colors.green, width: 30, height: 30),
+    //   ),
+    // );
+    // 8)
+    // return Center(
+    //   child: Container(
+    //     padding: const EdgeInsets.all(20),
+    //     color: Colors.red,
+    //     child: Container(color: Colors.green, width: 30, height: 30),
+    //   ),
+    // );
+
+    return Text("data");
   }
 }
 
