@@ -115,18 +115,18 @@ class LayoutPage extends StatelessWidget {
     //   ),
     // );
     // 其它修饰
-    return Center(
-      child: Container(
-        decoration: BoxDecoration(
-          shape: BoxShape.rectangle,
-          color: Colors.green,
-        ),
-        // padding: EdgeInsets.symmetric(vertical: 50),
-        // transform: Matrix4.rotationZ(pi / 4),
-        child: Text("abc"),
-      ),
-    );
+    // return Center(
+    //   child: Container(
+    //     decoration: BoxDecoration(
+    //       shape: BoxShape.rectangle,
+    //       color: Colors.green,
+    //     ),
+    //     // padding: EdgeInsets.symmetric(vertical: 50),
+    //     // transform: Matrix4.rotationZ(pi / 4),
+    //     child: Text("abc"),
+    //   ),
+    // );
 
-    // return Text("data");
+    return Text("data");
   }
 }
