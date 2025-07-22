@@ -109,18 +109,32 @@ class SamplePage extends StatelessWidget {
     // Center 收到紧约束 402，LimitedBox 收到松约束 0-402，Container 收到松约束 0-402
     // LimitedBox 的 100 丢掉了，重点：LimitedBox 只有在收到上面传过来的无限约束时，才会把自己那个值传下去
     // 我感觉：一般用它来做那些想尽量大的控件，这些控件想占多大就多大，但这控件如果在列表等无限的环境下又会接受那个限制参数而变得有限
-    return Center(
-      child: LimitedBox(
-        maxWidth: 100,
-        child: Container(
-          color: Colors.red,
-          width: double.infinity,
-          height: 100,
-        ),
-      ),
-    );
+    // return Center(
+    //   child: LimitedBox(
+    //     maxWidth: 100,
+    //     child: Container(
+    //       color: Colors.red,
+    //       width: double.infinity,
+    //       height: 100,
+    //     ),
+    //   ),
+    // );
 
-    // return Text("data");
+    //*18) Text 收到无限约束，让它能随意大小，但最后 FittedBox 缩放它。变大变小
+    // return FittedBox(child: Text('god is a girl god is a girl god is a girl'));
+    // 19) Text 收到无限约束，文字少不拉大，文字多会缩小。只会变小
+    // return Center(child: FittedBox(child: Text('123')));
+    // 20) 文字太长会缩小
+    // 21) 长文字直接放 Center 会换行
+    // return Center(
+    //   child: Text('This is some very very very large text that is too big to fit a regular screen in a single line.'),
+    // );
+    //*22) 会崩。它只会缩放 非无限 的控件
+    // return FittedBox(
+    //   child: Container(height: 20, width: double.infinity, color: Colors.red),
+    // );
+
+    return Text("data");
 
     // return Center(
     //   child: Container(
