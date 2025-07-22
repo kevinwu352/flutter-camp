@@ -83,7 +83,7 @@ class SamplePage extends StatelessWidget {
     // return UnconstrainedBox(
     //   child: Container(color: Colors.red, width: 1000, height: 50),
     // );
-    // 15) 没有溢出警告。传infinity就收到的是无限约束，传具体值则收到松约束，传100也不会有溢出警告但尺寸变成100了
+    // 15) 没有溢出警告。传infinity就收到的是无限约束，传具体值则收到松约束，传100也不会有溢出警告但尺寸变成100了。溢出的不会被切掉
     // return OverflowBox(
     //   minWidth: 0,
     //   minHeight: 0,

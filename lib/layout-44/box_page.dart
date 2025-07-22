@@ -69,6 +69,22 @@ class BoxPage extends StatelessWidget {
     //     ),
     //   ),
     // );
+    // OverflowBox 溢出的部分也不会被切掉
+    // return Center(
+    //   child: Container(
+    //     width: 200,
+    //     height: 200,
+    //     color: Colors.orange,
+    //     child: OverflowBox(
+    //       minWidth: 0,
+    //       minHeight: 0,
+    //       maxWidth: 1000,
+    //       maxHeight: 1000,
+    //       // alignment: Alignment.bottomRight,
+    //       child: Text("god is a girl"),
+    //     ),
+    //   ),
+    // );
 
     // FractionallySizedBox 用父的百分比宽高
     // 向下传紧约束 201 437
