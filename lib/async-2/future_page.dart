@@ -8,14 +8,14 @@ import 'package:flutter/material.dart';
 
 // 要细细研究 snapshot.connectionState 的几种状态？
 
-class FutureAndStreamPage extends StatefulWidget {
-  const FutureAndStreamPage({super.key});
+class FuturePage extends StatefulWidget {
+  const FuturePage({super.key});
 
   @override
-  State<FutureAndStreamPage> createState() => _FutureAndStreamPageState();
+  State<FuturePage> createState() => _FuturePageState();
 }
 
-class _FutureAndStreamPageState extends State<FutureAndStreamPage> {
+class _FuturePageState extends State<FuturePage> {
   Future<String> getFuture() async {
     await Future.delayed(Duration(seconds: 2));
     return "abc";

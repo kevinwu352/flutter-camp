@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_camp/text-3/TextPage.dart';
+import 'package:flutter_camp/home_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,22 +19,6 @@ class MyApp extends StatelessWidget {
         ),
       ),
       home: HomePage(),
-    );
-  }
-}
-
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final data = MediaQuery.of(context);
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text("Flutter Camp"),
-      ),
-      body: Text(data.size.toString()),
     );
   }
 }
