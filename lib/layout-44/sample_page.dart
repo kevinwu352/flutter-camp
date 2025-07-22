@@ -40,8 +40,8 @@ class SamplePage extends StatelessWidget {
     //   ),
     // );
 
-    //*9) 红色占满全屏
-    // Container 收到的是紧约束 402 807
+    //*9) 红色占满全屏。ConstrainedBox 只会给子施加比它从父得到的约束更多的约束
+    // 我的理解：ConstrainedBox 收到紧约束，它自己那个松的附加约束就传不下去，只能往下传紧，Container 收到的是紧约束 402 807
     // return ConstrainedBox(
     //   constraints: const BoxConstraints(
     //     minWidth: 70,
@@ -51,11 +51,72 @@ class SamplePage extends StatelessWidget {
     //   ),
     //   child: Container(color: Colors.red, width: 10, height: 10),
     // );
+    // 10) 尺寸是 70*70
+    // 我的理解：ConstrainedBox 收到的是松约束，它附加的约束比这松约束紧一点，所以传下去了
+    // return Center(
+    //   child: ConstrainedBox(
+    //     constraints: const BoxConstraints(minWidth: 70, minHeight: 70, maxWidth: 150, maxHeight: 150),
+    //     child: Container(color: Colors.red, width: 10, height: 10),
+    //   ),
+    // );
+    // 11) 尺寸是 150*150
+    // return Center(
+    //   child: ConstrainedBox(
+    //     constraints: const BoxConstraints(minWidth: 70, minHeight: 70, maxWidth: 150, maxHeight: 150),
+    //     child: Container(color: Colors.red, width: 1000, height: 1000),
+    //   ),
+    // );
+    // 12) 尺寸是 100*100
+    // Container 收到的是 70-150，而自己要的尺寸刚好在这区间内
+    // return Center(
+    //   child: ConstrainedBox(
+    //     constraints: const BoxConstraints(minWidth: 70, minHeight: 70, maxWidth: 150, maxHeight: 150),
+    //     child: Container(color: Colors.red, width: 100, height: 100),
+    //   ),
+    // );
 
+    // 13) 尺寸是 20*50。子收到的是无限约束
+    // return UnconstrainedBox(
+    //   child: Container(color: Colors.red, width: 20, height: 50),
+    // );
+    // 14) 显示溢出警告
+    // return UnconstrainedBox(
+    //   child: Container(color: Colors.red, width: 1000, height: 50),
+    // );
+    // 15) 没有溢出警告。传infinity就收到的是无限约束，传具体值则收到松约束，传100也不会有溢出警告但尺寸变成100了
+    // return OverflowBox(
+    //   minWidth: 0,
+    //   minHeight: 0,
+    //   maxWidth: double.infinity,
+    //   maxHeight: double.infinity,
+    //   // maxWidth: 5000,
+    //   // maxHeight: 5000,
+    //   child: Container(color: Colors.red, width: 4000, height: 50),
+    // );
+    //*16) 会崩。父提供无限约束，子真的想要无限，不答应
+    // return UnconstrainedBox(
+    //   child: Container(color: Colors.red, width: double.infinity, height: 100),
+    // );
+    // 17) 尺寸是 100*100
+    // UnconstrainedBox 收到紧，LimitedBox 收到无限约束，它传给 Container 的是松约束 0-100
+    // return UnconstrainedBox(
+    //   child: LimitedBox(
+    //     maxWidth: 100,
+    //     child: Container(color: Colors.red, width: double.infinity, height: 100),
+    //   ),
+    // );
+    // 尺寸是 402*100
+    // Center 收到紧约束 402，LimitedBox 收到松约束 0-402，Container 收到松约束 0-402
+    // LimitedBox 的 100 丢掉了，重点：LimitedBox 只有在收到上面传过来的无限约束时，才会把自己那个值传下去
+    // 我感觉：一般用它来做那些想尽量大的控件，这些控件想占多大就多大，但这控件如果在列表等无限的环境下又会接受那个限制参数而变得有限
     return Center(
-      child: ConstrainedBox(
-        constraints: const BoxConstraints(maxWidth: 200),
-        child: Text("god is a girl"),
+      child: LimitedBox(
+        maxWidth: 100,
+        child: Container(
+          color: Colors.red,
+          width: double.infinity,
+          height: 100,
+        ),
       ),
     );
 
