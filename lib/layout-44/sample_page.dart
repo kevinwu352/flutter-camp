@@ -18,17 +18,11 @@ class SamplePage extends StatelessWidget {
     // );
     //*5) Center 占满屏幕，子想要无限或有限，都不能超过父
     // 例 3 是有限，这里是无限，例 6 是不给子
-    // return Center(
-    //   child: Container(
-    //     width: double.infinity,
-    //     height: double.infinity,
-    //     color: Colors.red,
-    //   ),
-    // );
-    // 6) Center 占满屏幕，Container 无子无尺寸，它决定占尽量大
+    // return Center(child: Container(width: double.infinity, height: double.infinity, color: Colors.red));
+    //*6) Center 占满屏幕，Container 无子无尺寸，它决定占尽量大
     // return Center(child: Container(color: Colors.red));
-    // 7) Center 占满屏幕，红色有子，跟随子的尺寸
-    // 红色加上宽高，为何只见绿色？
+    //*7) Center 占满屏幕，红色有子，跟随子的尺寸
+    // 红色加上宽高，只见变大的绿色。因为：无100*100时收到 0-402 0-807 松约束，有100*100时收到 100 100 紧约束
     // return Center(
     //   child: Container(
     //     color: Colors.red,
@@ -40,13 +34,41 @@ class SamplePage extends StatelessWidget {
     // 8)
     // return Center(
     //   child: Container(
-    //     padding: const EdgeInsets.all(20),
+    //     padding: EdgeInsets.all(30),
     //     color: Colors.red,
     //     child: Container(color: Colors.green, width: 30, height: 30),
     //   ),
     // );
 
-    return Text("data");
+    //*9) 红色占满全屏
+    // Container 收到的是紧约束 402 807
+    // return ConstrainedBox(
+    //   constraints: const BoxConstraints(
+    //     minWidth: 70,
+    //     minHeight: 70,
+    //     maxWidth: 150,
+    //     maxHeight: 150,
+    //   ),
+    //   child: Container(color: Colors.red, width: 10, height: 10),
+    // );
+
+    return Center(
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(maxWidth: 200),
+        child: Text("god is a girl"),
+      ),
+    );
+
+    // return Text("data");
+
+    // return Center(
+    //   child: Container(
+    //     color: Colors.red,
+    //     width: 300,
+    //     height: 300,
+    //     child: Text("data"),
+    //   ),
+    // );
   }
 }
 
