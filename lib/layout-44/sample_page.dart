@@ -134,16 +134,104 @@ class SamplePage extends StatelessWidget {
     //   child: Container(height: 20, width: double.infinity, color: Colors.red),
     // );
 
-    return Text("data");
+    //*23) Row 限高不限宽。Container 收到 0-inf 0-874，Text 也是
+    // return Row(
+    //   children: [
+    //     Container(
+    //       color: Colors.red,
+    //       child: const Text('Hello!', style: TextStyle(fontSize: 20)),
+    //     ),
+    //     Container(
+    //       color: Colors.green,
+    //       child: const Text('Goodbye!', style: TextStyle(fontSize: 20)),
+    //     ),
+    //   ],
+    // );
+    // 24) 内容太长会显示溢出警告
+    // 25) 用 Expanded 包起来以后，这个子的尺寸不重要了，其它子先布局，剩下的空间才是它的
+    // Expanded 收到 300.4紧 0-874松，Container 也是，Text 也是
+    // 例子中为何要用 Center 包起来？感觉要不要效果一样
+    // return Row(
+    //   children: [
+    //     Expanded(
+    //       child: Container(
+    //         color: Colors.red,
+    //         child: const Text(
+    //           'This is a very long text that won\'t fit the line.',
+    //           style: TextStyle(fontSize: 20),
+    //         ),
+    //       ),
+    //     ),
+    //     Container(
+    //       color: Colors.green,
+    //       child: const Text('Goodbye!', style: TextStyle(fontSize: 20)),
+    //     ),
+    //   ],
+    // );
+    // 26) 左右等宽。Expanded 收到 201紧 0-874松
+    // return Row(
+    //   children: [
+    //     Expanded(
+    //       child: Container(
+    //         color: Colors.red,
+    //         child: const Text(
+    //           'This is a very long text that won\'t fit the line.',
+    //           style: TextStyle(fontSize: 20),
+    //         ),
+    //       ),
+    //     ),
+    //     Expanded(
+    //       child: Container(
+    //         color: Colors.green,
+    //         child: const Text('Goodbye!', style: TextStyle(fontSize: 20)),
+    //       ),
+    //     ),
+    //   ],
+    // );
+    //*27) Flexible 收到 0-201 0-874，Container 也是，Text 也是
+    // 可见，Row 给 Expanded 紧约束，给 Flexible 松约束。结果就是，F 的子 <= F，E 的子 == E。它俩都忽略子的尺寸
+    // return Row(
+    //   children: [
+    //     Flexible(
+    //       child: Container(
+    //         color: Colors.red,
+    //         child: const Text(
+    //           'This is a very long text that won\'t fit the line.',
+    //           style: TextStyle(fontSize: 20),
+    //         ),
+    //       ),
+    //     ),
+    //     Flexible(
+    //       child: Container(
+    //         color: Colors.green,
+    //         child: const Text('Goodbye!', style: TextStyle(fontSize: 20)),
+    //       ),
+    //     ),
+    //   ],
+    // );
 
-    // return Center(
-    //   child: Container(
-    //     color: Colors.red,
-    //     width: 300,
-    //     height: 300,
-    //     child: Text("data"),
+    // 28) Column 占据屏幕左侧部分空间
+    // 注意 Scaffold 不强制全屏，它向下传递的是松约束
+    // Container 收到松约束 0-402 0-874，Column 也是，Text 限宽不限高
+    // return Scaffold(
+    //   body: Container(
+    //     color: Colors.blue,
+    //     child: const Column(children: [Text('Hello!'), Text('Goodbye!')]),
     //   ),
     // );
+    // 29)
+    // 注意 SizedBox 向下传紧约束
+    // SizedBox 收到松约束 0-402 0-874，Container 收到 402 874 紧，Column 也是
+    // return Scaffold(
+    //   body: SizedBox.expand(
+    //     child: Container(
+    //       color: Colors.blue,
+    //       child: const Column(children: [Text('Hello!'), Text('Goodbye!')]),
+    //     ),
+    //   ),
+    // );
+
+    return Text("data");
   }
 }
 
