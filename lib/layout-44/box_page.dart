@@ -59,6 +59,7 @@ class BoxPage extends StatelessWidget {
     //   ),
     // );
     // 这个例子抄的，更直观
+    // 也可以 decoration: BoxDecoration(border: Border.all(color: Colors.red)),
     // return Center(
     //   child: Container(
     //     color: Colors.orange,
