@@ -1,5 +1,24 @@
 import 'package:flutter/material.dart';
 
+// 顶层就撑满屏幕，加上 Center 则放松约束
+// Center-Container，有约束就用约束，无限则满屏，无子也满屏
+// Center-Container，有子随子，但如果 Container 有宽高向下传递的是紧约束 (7)
+
+// ConstrainedBox 向下传比收到的更严格的约束。所以它顶层时收到全屏紧约束，它自己的松就会被忽略掉，继续向下传紧 (9)
+
+// UnconstrainedBox 向下传无限约束，子小无所谓，子太大会有溢出警告，子无限会崩 (13)(14)(16)
+// UnconstrainedBox-LimitedBox 如果 LimitedBox 收到无限约束才起效 (17)
+// OverflowBox 那一堆约束参数是往下传的，溢出不警告，也不会被切 (15)
+
+// FittedBox 在顶层时，缩放它的内容。内容如果无限会崩
+// Center-FittedBox 内容大会缩小，不拉大
+// Center-长文字 会换行
+
+// Row 给 Expanded 紧约束，给 Flexible 松约束。所以，F 的子 <= F，E 的子 == E。它俩都忽略子的尺寸
+
+// 注意 Scaffold 不强制全屏，它向下传递的是松约束
+// 注意 SizedBox 向下传紧约束
+
 class SamplePage extends StatelessWidget {
   const SamplePage({super.key});
 
