@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_camp/home_page.dart';
 
 void main() {
+  // debugPaintSizeEnabled = true;
   runApp(const MyApp());
 }
 

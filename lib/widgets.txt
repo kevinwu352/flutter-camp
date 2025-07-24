@@ -1,4 +1,17 @@
 
+开启布局边框
+import 'package:flutter/rendering.dart';
+void main() {
+  debugPaintSizeEnabled = true;
+  runApp(const MyApp());
+}
+
+注意这个样式的用法
+final iconList = DefaultTextStyle.merge(
+  style: descTextStyle,
+  child: ,
+);
+
 
 CarouselView
 Flow 能做很炫那种，弹出一堆按钮的按钮
