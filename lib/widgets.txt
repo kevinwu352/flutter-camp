@@ -12,6 +12,12 @@ final iconList = DefaultTextStyle.merge(
   child: ,
 );
 
+可以用来生成固定数量的子视图
+List<int>.generate(10, (i) => i * i)
+
+一个看不见，占位0的视图
+SizedBox.shrink()
+
 
 CarouselView
 Flow 能做很炫那种，弹出一堆按钮的按钮
