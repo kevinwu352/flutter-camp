@@ -25,6 +25,36 @@ Icon(Icons.arrow_back)
 Icon(Icons.adaptive.arrow_back)
 但好像数量不多，arrow* flip* more* share*
 
+Material 3 要用新组件
+BottomNavigationBar to NavigationBar
+Drawer to NavigationDrawer
+
+支持的字体类型
+OpenType font collections: .ttc
+TrueType fonts: .ttf
+OpenType fonts: .otf
+
+
+系统定义的回调 ValueChanged
+final ValueChanged<bool> onChanged;
+
+
+加载 bundle 的文件
+推荐用这种方式，单元测试的时候能替换
+final str = await DefaultAssetBundle.of(context,).loadString("assets/jsons/user.json");
+如果在 widget 外面，没有 context，用下面这种方式
+import 'package:flutter/services.dart' show rootBundle;
+final str = await rootBundle.loadString("assets/jsons/user.json");
+
+.../my_icon.png       (mdpi baseline)
+.../1.5x/my_icon.png  (hdpi)
+.../2.0x/my_icon.png  (xhdpi)
+.../3.0x/my_icon.png  (xxhdpi)
+.../4.0x/my_icon.png  (xxxhdpi)
+真的加载了 3.0x 目录下的图片
+且这些子目录不用在 pubspec.yaml 中分别列出来
+Image.asset("assets/images/num.png")
+
 
 CarouselView
 Flow 能做很炫那种，弹出一堆按钮的按钮

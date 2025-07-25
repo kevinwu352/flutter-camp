@@ -20,6 +20,7 @@ flutter:
 
   assets:
     - assets/images/
+    - assets/jsons/
 
   fonts:
     - family: Bitcount Single
