@@ -52,8 +52,10 @@ final str = await rootBundle.loadString("assets/jsons/user.json");
 .../3.0x/my_icon.png  (xxhdpi)
 .../4.0x/my_icon.png  (xxxhdpi)
 真的加载了 3.0x 目录下的图片
-且这些子目录不用在 pubspec.yaml 中分别列出来
+且这些子目录不用在 pubspec.yaml 中分别列出来，这是例外，其它资源的子目录都要列出来
+不加 my_icon.png 好像会崩，一定要它吗？
 Image.asset("assets/images/num.png")
+
 
 
 CarouselView
