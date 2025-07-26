@@ -81,22 +81,3 @@ class RouteDetailPage extends StatelessWidget {
     );
   }
 }
-
-// class RouteDetailPage extends StatelessWidget {
-//   const RouteDetailPage({super.key, required this.para});
-
-//   final String para;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(title: Text("Detail")),
-//       body: ElevatedButton(
-//         onPressed: () {
-//           Navigator.pop(context);
-//         },
-//         child: Text("back: $para"),
-//       ),
-//     );
-//   }
-// }

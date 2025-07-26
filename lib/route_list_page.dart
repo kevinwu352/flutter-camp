@@ -68,10 +68,6 @@ class RouteListPage extends StatelessWidget {
           // );
           // 后边参数无名字：静态路由传参数
           // Navigator.of(context).pushNamed("/detail", arguments: "yep2");
-
-          // Navigator.of(
-          //   context,
-          // ).pushNamed("/detail", arguments: {"para": "godis"});
         },
         child: Text("detail"),
       ),

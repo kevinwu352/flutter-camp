@@ -19,7 +19,13 @@ class MyApp extends StatelessWidget {
           brightness: Brightness.light,
         ),
       ),
-      home: HomePage(),
+      // home: RouteListPage(),
+      initialRoute: "/",
+      routes: {
+        "/": (_) => HomePage(),
+        "/list": (_) => RouteListPage(),
+        "/detail": (_) => RouteDetailPage(),
+      },
     );
   }
 }
