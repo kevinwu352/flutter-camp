@@ -64,3 +64,17 @@ AnimatedWidget
 
   AnimatedBuilder, which uses a builder pattern that is useful for complex Animation use cases.
   ListenableBuilder, which uses a builder pattern that is useful for complex Listenable use cases.
+
+
+
+Tween 的用法
+
+// 给一个普通 tween 加上 curve
+final tween = Tween(begin: Offset(0.0, 1.0), end: Offset.zero).chain(CurveTween(curve: Curves.ease));
+return SlideTransition(position: animation.drive(tween), child: child);
+
+另一种方法
+final tween = Tween(begin: Offset(0.0, 1.0), end: Offset.zero);
+final curve = CurvedAnimation(parent: animation, curve: curve);
+return SlideTransition(position: tween.animate(curve), child: child);
+
