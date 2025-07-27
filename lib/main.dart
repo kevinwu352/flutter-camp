@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'l10n/app_localizations.dart';
 import 'package:flutter_camp/home_page.dart';
 
 void main() {
@@ -12,6 +13,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
+      locale: Locale("en"),
       title: "Flutter Camp",
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
@@ -19,13 +23,7 @@ class MyApp extends StatelessWidget {
           brightness: Brightness.light,
         ),
       ),
-      // home: RouteListPage(),
-      initialRoute: "/",
-      routes: {
-        "/": (_) => HomePage(),
-        "/list": (_) => RouteListPage(),
-        "/detail": (_) => RouteDetailPage(),
-      },
+      home: HomePage(),
     );
   }
 }
