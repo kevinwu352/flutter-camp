@@ -30,6 +30,14 @@ class Counter extends ChangeNotifier {
   }
 }
 
+// 如果不想使用 ConsumerWidget，可以像下面一样，类似于 Builder
+// Consumer(
+//   builder: (context, ref, _) {
+//     final counter = ref.watch(counter2Provider);
+//     return Text('${counter.count}');
+//   },
+// )
+
 class PodHomePage extends ConsumerWidget {
   const PodHomePage({super.key});
 
@@ -71,7 +79,7 @@ class PodCountPage extends ConsumerWidget {
             // 修改的时候 StateProvider 和 NotifierProvider 不一样
             // ref.read(clickCountProvider.notifier).state++;
             // ref.read(clickCountProvider.notifier).increase();
-            // 用 ChangeNotifierProvider
+            // 用 ChangeNotifierProvider，也能加 .notifier，有啥不一样呢？
             ref.read(counterProvider).increase();
           },
           child: Text("increase"),
