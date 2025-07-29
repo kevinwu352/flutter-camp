@@ -1,8 +1,9 @@
 三种构建模式
 flutter run // 能启动模拟器，应该就是 F5
 flutter run --profile
-flutter build --release
-
+flutter build ios --release // 发布的时候用这个，打出 release 的 App.framework 和 Flutter.framework，再用 xcode archive 上传
+flutter build ipa // 直接编译成 ipa，然后用 Apple Transport App 去上传
+flutter build ipa --export-method enterprise // 导出企业版
 
 开启布局边框
 import 'package:flutter/rendering.dart';
