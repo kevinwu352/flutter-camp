@@ -1,3 +1,8 @@
+三种构建模式
+flutter run // 能启动模拟器，应该就是 F5
+flutter run --profile
+flutter build --release
+
 
 开启布局边框
 import 'package:flutter/rendering.dart';
