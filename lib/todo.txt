@@ -1,0 +1,45 @@
+
+widget 生命周期，createState() / initState()
+  override initState to do work that needs to happen just once
+  Implementations of dispose typically end by calling super.dispose
+
+
+Key 的工作机制？Global Keys？
+
+
+那一堆 decoration
+
+
+
+ImageProvider<Object> / AssetImage / Image.asset()
+
+
+
+禁止横屏
+
+
+MediaQuery vs LayoutBuilder
+
+
+
+有必须用 google_fonts 吗
+
+
+
+手势冲突
+
+
+
+InheritedWidget, InheritedNotifier, InheritedModel
+
+
+
+获取数据的方法说要放到 initState() 或 didChangeDependencies()，这后者是什么方法？
+
+
+User? get user => _user; 这样拿到实例以后，能改它的属性吗？
+
+
+
+
+Provider / Router
