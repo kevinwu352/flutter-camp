@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class BoardScreen extends StatelessWidget {
   const BoardScreen({super.key});
@@ -9,11 +10,26 @@ class BoardScreen extends StatelessWidget {
       appBar: AppBar(title: Text("BOARD")),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // context.push('/child');
+          GoRouter.of(
+            context,
+          ).routerDelegate.currentConfiguration.matches.forEach(print);
         },
-        child: Icon(Icons.run_circle_rounded),
+        child: Icon(Icons.run_circle_outlined),
       ),
-      body: Text("router"),
+      body: Column(
+        children: [
+          ElevatedButton(
+            onPressed: () {
+              print('object');
+              // context.push("/board");
+              // context.go("/blah");
+              // context.replace("/blah");
+              context.pushReplacement("/blah");
+            },
+            child: Text('jump'),
+          ),
+        ],
+      ),
     );
   }
 }

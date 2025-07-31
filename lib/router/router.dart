@@ -5,6 +5,7 @@ import 'package:flutter_camp/router/para_screen.dart';
 import 'package:flutter_camp/router/home_screen.dart';
 import 'package:flutter_camp/router/board_screen.dart';
 import 'package:flutter_camp/router/login_screen.dart';
+import 'package:flutter_camp/router/blah_screen.dart';
 
 // 父路由只相当于一个 group，并不会在导航栈上创建多个页面
 // push 子路由的时候，并不会创建父路由的实例
@@ -12,9 +13,9 @@ import 'package:flutter_camp/router/login_screen.dart';
 
 // pop
 // push / pushNamed
-// go / goNamed
-// replace / replaceNamed
-// pushReplacement / pushReplacementNamed
+// go / goNamed                             会替换掉原来的整个栈，有 push 动画
+// replace / replaceNamed                   替换栈顶这个页面，无动画
+// pushReplacement / pushReplacementNamed   替换栈顶这个页面，有 push 动画
 // 调用时，路径末尾的 / 不影响
 
 // GoRoute(
@@ -39,11 +40,12 @@ import 'package:flutter_camp/router/login_screen.dart';
 // GoRouter.of(context).routerDelegate.currentConfiguration.matches.forEach(print);
 
 final router = GoRouter(
-  initialLocation: '/board',
+  initialLocation: '/login',
   routes: [
     GoRoute(path: '/', builder: (context, state) => HomeScreen()),
     GoRoute(path: '/login', builder: (context, state) => LoginScreen()),
     GoRoute(path: '/board', builder: (context, state) => BoardScreen()),
+    GoRoute(path: '/blah', builder: (context, state) => BlahScreen()),
     GoRoute(
       path: '/dad/:name',
       // builder: (context, state) => DadScreen(),

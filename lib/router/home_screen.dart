@@ -10,17 +10,22 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(title: Text("HOME")),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // context.push('/child');
-
-          // context.push('/para/kim/18');
-          // context.push('/para?name=kkk&age=19');
-
-          // context.push('/dad/kim/18/son');
-          context.push('/dad/son/son');
+          GoRouter.of(
+            context,
+          ).routerDelegate.currentConfiguration.matches.forEach(print);
         },
-        child: Icon(Icons.run_circle_rounded),
+        child: Icon(Icons.run_circle_outlined),
       ),
-      body: Text("router"),
+      body: Column(
+        children: [
+          ElevatedButton(
+            onPressed: () {
+              print('object');
+            },
+            child: Text('jump'),
+          ),
+        ],
+      ),
     );
   }
 }

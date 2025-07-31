@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+class BlahScreen extends StatelessWidget {
+  const BlahScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("LOGIN")),
+      appBar: AppBar(title: Text("BLAH")),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           GoRouter.of(
@@ -16,17 +16,7 @@ class LoginScreen extends StatelessWidget {
         },
         child: Icon(Icons.run_circle_outlined),
       ),
-      body: Column(
-        children: [
-          ElevatedButton(
-            onPressed: () {
-              print('object');
-              context.push("/board");
-            },
-            child: Text('jump'),
-          ),
-        ],
-      ),
+      body: Text("router"),
     );
   }
 }
