@@ -45,3 +45,66 @@ class ProviderPage extends StatelessWidget {
     );
   }
 }
+
+// Proxy 用法
+
+// ChangeNotifierProvider(
+//   create: (context) {
+//     print("create my user");
+//     return MyUser();
+//   },
+// ),
+// ChangeNotifierProxyProvider<MyUser, MySettings>(
+//   create: (context) {
+//     print("create my settings");
+//     return MySettings(user: context.read<MyUser>());
+//   },
+//   update: (context, value, previous) {
+//     print("update my settings, ${value.name}, ${previous?.greet()}");
+//     return (previous?..setUser(value)) ?? MySettings(user: value);
+//   },
+// ),
+//
+// 简写
+// ChangeNotifierProvider(create: (context) => MyUser()),
+// ChangeNotifierProxyProvider<MyUser, MySettings>(
+//   create: (context) => MySettings(user: context.read<MyUser>()),
+//   update: (context, value, previous) =>
+//       (previous?..setUser(value)) ?? MySettings(user: value),
+// ),
+
+// 使用 Consumer<MySettings>
+// flutter: create my settings
+// flutter: create my user
+// flutter: init my user
+// flutter: init my settings
+// flutter: update my settings, --, hello --
+// flutter: set user
+// 调用 context.read<MyUser>().name = "god";
+// flutter: update my settings, god, hello god
+// flutter: set user
+
+class MyUser with ChangeNotifier {
+  // MyUser() { print("init my user"); }
+  var _name = "--";
+  String get name => _name;
+  set name(String value) {
+    _name = value;
+    notifyListeners();
+  }
+}
+
+class MySettings with ChangeNotifier {
+  MySettings({required MyUser user}) : _user = user;
+  // { print("init my settings"); }
+  MyUser _user;
+  void setUser(MyUser user) {
+    // print("set user");
+    _user = user;
+    notifyListeners();
+  }
+
+  String greet() {
+    return "hello ${_user.name}";
+  }
+}
