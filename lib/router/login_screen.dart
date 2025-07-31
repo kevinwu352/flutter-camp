@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
-class ChildScreen extends StatelessWidget {
-  const ChildScreen({super.key});
+class LoginScreen extends StatelessWidget {
+  const LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("CHILD")),
+      appBar: AppBar(title: Text("LOGIN")),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => context.go("/"),
+        onPressed: () {
+          // context.push('/child');
+        },
         child: Icon(Icons.run_circle_rounded),
       ),
-      body: Text("data"),
+      body: Text("router"),
     );
   }
 }

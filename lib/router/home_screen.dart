@@ -13,11 +13,14 @@ class HomeScreen extends StatelessWidget {
           // context.push('/child');
 
           // context.push('/para/kim/18');
-          context.push('/para?name=kkk&age=19');
+          // context.push('/para?name=kkk&age=19');
+
+          // context.push('/dad/kim/18/son');
+          context.push('/dad/son/son');
         },
         child: Icon(Icons.run_circle_rounded),
       ),
-      body: Text("data"),
+      body: Text("router"),
     );
   }
 }

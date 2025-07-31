@@ -1,13 +1,21 @@
-import 'package:flutter_camp/router/para_screen.dart';
 import 'package:go_router/go_router.dart';
-import 'package:flutter_camp/router/child_screen.dart';
+
+import 'package:flutter_camp/router/dad_screen.dart';
+import 'package:flutter_camp/router/para_screen.dart';
 import 'package:flutter_camp/router/home_screen.dart';
+import 'package:flutter_camp/router/board_screen.dart';
+import 'package:flutter_camp/router/login_screen.dart';
+
+// 父路由只相当于一个 group，并不会在导航栈上创建多个页面
+// push 子路由的时候，并不会创建父路由的实例
+// 父路由有参数的时候，子路由要把参数带上
 
 // pop
 // push / pushNamed
 // go / goNamed
 // replace / replaceNamed
 // pushReplacement / pushReplacementNamed
+// 调用时，路径末尾的 / 不影响
 
 // GoRoute(
 //   name: 'song',
@@ -27,10 +35,44 @@ import 'package:flutter_camp/router/home_screen.dart';
 // 返回结果
 // onTap: () => context.pop(true)
 
+// 打印路由栈
+// GoRouter.of(context).routerDelegate.currentConfiguration.matches.forEach(print);
+
 final router = GoRouter(
+  initialLocation: '/board',
   routes: [
     GoRoute(path: '/', builder: (context, state) => HomeScreen()),
-    GoRoute(path: '/child', builder: (context, state) => ChildScreen()),
+    GoRoute(path: '/login', builder: (context, state) => LoginScreen()),
+    GoRoute(path: '/board', builder: (context, state) => BoardScreen()),
+    GoRoute(
+      path: '/dad/:name',
+      // builder: (context, state) => DadScreen(),
+      // builder: (context, state) => DadScreen(
+      //   name: state.pathParameters['name'],
+      //   age: state.pathParameters['age'],
+      // ),
+      builder: (context, state) {
+        print("create dad");
+        return DadScreen(
+          name: state.pathParameters['name'],
+          // age: state.pathParameters['age'],
+        );
+      },
+      routes: [
+        GoRoute(
+          path: 'son',
+          // builder: (context, state) => SonScreen(),
+          // builder: (context, state) => SonScreen(
+          //   name: state.pathParameters['name'],
+          //   age: state.pathParameters['age'],
+          // ),
+          builder: (context, state) {
+            print('create son');
+            return SonScreen();
+          },
+        ),
+      ],
+    ),
     GoRoute(
       path: '/para/:name/:age',
       builder: (context, state) => ParaScreen(
