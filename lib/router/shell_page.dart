@@ -214,6 +214,20 @@ class ProfileScreen extends StatelessWidget {
         children: [
           Text("profile"),
           ElevatedButton(
+            onPressed: () => context.push("/detail"),
+            child: Text("push detail"),
+          ),
+          ElevatedButton(
+            onPressed: () => context.push("/home/sub"),
+            child: Text("push sub"),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              context.push("/settings");
+            },
+            child: Text("push settings"),
+          ),
+          ElevatedButton(
             onPressed: () => context.go("/login"),
             child: Text("logout"),
           ),
