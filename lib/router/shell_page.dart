@@ -11,8 +11,8 @@ class LoginScreen extends StatelessWidget {
         children: [
           Text("login"),
           ElevatedButton(
-            onPressed: () => context.go("/home"),
-            child: Text("go home"),
+            onPressed: () => context.go("/favorite"),
+            child: Text("go"),
           ),
         ],
       ),
@@ -35,6 +35,7 @@ class MainScreen extends StatelessWidget {
         selectedIndex: shell.currentIndex,
         destinations: [
           NavigationDestination(icon: Icon(Icons.home), label: 'Home'),
+          NavigationDestination(icon: Icon(Icons.favorite), label: 'Favorite'),
           NavigationDestination(icon: Icon(Icons.person), label: 'Profile'),
         ],
       ),
@@ -52,24 +53,35 @@ class HomeScreen extends StatelessWidget {
       children: [
         Text("home"),
         ElevatedButton(
-          onPressed: () => context.push("/homi"),
-          child: Text("go homi"),
+          onPressed: () => context.push("/settings"),
+          child: Text("go settings"),
         ),
       ],
     );
   }
 }
 
-class HomiScreen extends StatelessWidget {
-  const HomiScreen({super.key});
+class SettingsScreen extends StatelessWidget {
+  const SettingsScreen({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("homi")),
+      appBar: AppBar(title: Text("Settings")),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [Text("homi")],
+        children: [Text("settings")],
       ),
+    );
+  }
+}
+
+class FavoriteScreen extends StatelessWidget {
+  const FavoriteScreen({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [Text("favorite")],
     );
   }
 }
@@ -80,7 +92,13 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: [Text("profile")],
+      children: [
+        Text("profile"),
+        ElevatedButton(
+          onPressed: () => context.go("/login"),
+          child: Text("logout"),
+        ),
+      ],
     );
   }
 }
@@ -88,15 +106,24 @@ class ProfileScreen extends StatelessWidget {
 // ================================================================================
 
 final GoRouter shell_router = GoRouter(
+  initialLocation: "/login",
   routes: [
-    GoRoute(path: "/", builder: (context, state) => LoginScreen()),
+    GoRoute(path: "/login", builder: (context, state) => LoginScreen()),
+    GoRoute(path: "/settings", builder: (context, state) => SettingsScreen()),
     StatefulShellRoute.indexedStack(
       builder: (context, state, shell) => MainScreen(shell: shell),
       branches: [
         StatefulShellBranch(
           routes: [
             GoRoute(path: "/home", builder: (context, state) => HomeScreen()),
-            GoRoute(path: "/homi", builder: (context, state) => HomiScreen()),
+          ],
+        ),
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              path: "/favorite",
+              builder: (context, state) => FavoriteScreen(),
+            ),
           ],
         ),
         StatefulShellBranch(
