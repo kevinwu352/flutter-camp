@@ -69,13 +69,9 @@ final parsed = (jsonDecode(responseBody) as List)
 return parsed.map<Photo>((json) => Photo.fromJson(json)).toList();
 
 
-当 BuildContext 在 StatefulWidget 中使用时，await 操作后要检查 mounted 属性，为什么？
-  final result = await Navigator.push(context, MaterialPageRoute(builder: (context) => const SelectionScreen()));
-  if (!context.mounted) return;
-  ScaffoldMessenger.of(context)
-    ..removeCurrentSnackBar()
-    ..showSnackBar(SnackBar(content: Text('$result')));
 
+
+================================================================================
 
 
 CarouselView
