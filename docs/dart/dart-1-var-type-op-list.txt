@@ -1,0 +1,289 @@
+
+无 public / private，下划线开头的为 library 私有，好像并非靠程序员自觉，而是编译器保证它不可被外部访问
+
+final val = a ? 1 :
+            b ? 2 : 3;
+
+list
+  .where((c) => c >= 3)
+  .map((c) => c + 10)
+  .forEach((c) => print(c));
+map((item) { return item.toUpperCase(); })
+
+final u = User()
+  ..name = "bob"
+  ..age = 10
+  ..add()
+  ..log();
+
+obj.runtimeType 类型是 Type。用 obj is Type，尽量不要用 obj.runtimeType == Type
+
+class WannabeFunction {
+  String call(String a, String b, String c) => '$a $b $c!'; // swift 的 callAsFunction
+}
+
+空集合上面调用 first/last 会崩
+
+
+
+变量 ================================================================================
+String name = '';
+var name = 'bob'; // 不能接类型名
+
+// final 声明时可以不给值，只要使用前给值就行
+final name = 'bob';
+late final int a; // 文档里讲到 late 时说它是延迟初始化，但实际上这里有无 late 效果相同
+
+// 后面再给值
+final String name;
+if (b1) {
+  name = 'John';
+} else {
+  name = 'Jane';
+}
+
+// 这三种写法前后都不能改
+const foo = [1, 2, 3]; // 编译时能确定的常量，用这种写法
+final foo = const ['one', 'two', 'three'];
+final foo = List<String>.unmodifiable(['apple', 'orange', 'pear']);
+// 前不可变，后可变
+final foo = ['one', 'two', 'three'];
+
+类成员，如果写 const，它必须弄成静态的。所以我感觉实例常量只能用 final
+
+final foo1 = [1, 2, 3];
+const bar1 = foo1; // final 不能赋给 const
+const foo2 = [1, 2, 3];
+const bar2 = foo2; // const 可以赋给 const
+
+
+typedef IntList = List<int>;
+
+typedef ListMapper<X> = Map<X, List<X>>;
+Map<String, List<String>> m1 = {}; // Verbose.
+ListMapper<String> m2 = {};
+
+typedef Compare<T> = int Function(T a, T b);
+int sort(int a, int b) => a - b;
+assert(sort is Compare<int>);
+
+
+
+类型 ================================================================================
+所有类的基类是 Object，Null 除外
+枚举的基类 Enum，Enum 是 Object 的子类吗？
+
+所有类型全是 class，包括基础类型 int/double
+int 和 double 能比较
+
+bool
+num, int, double // 没有 unsigned 这类数字，全是 signed
+String
+Null
+List, Map, Set
+
+Records / Functions / Runes / Symbols
+
+var x = 5/2;  // 2.5，值是 double，不能赋给 int，4/2 也不行
+int x = 5~/2; // 2，值是 int
+
+
+Record 类型感觉就是元组，虽然文档说无 Tuple。可以像函数一样有命名参数，且名字是类型的一部分
+(int, int) swap((int, int) aa) {
+  var (a, b) = aa;
+  return (b, a);
+} // 这里用的是位置参数。
+({int a, bool b}) record = (a: 123, b: true); 这是命名参数
+
+访问起点是 $1，跳过命名部分，再到 $2
+var bt = (label: "button",
+          icon: "img",
+          onPressed: () => print(""),
+          )
+定义 Record 别名
+typedef ButtonItem = ({String label, Icon icon, void Function()? onPressed});
+
+
+String 单双引号都行，没有 Character 类型
+final unicode = '\u{1F60E}'; // 😎
+如果是 4 位，能用这写法 '\u2665'，三位五位好像就不行了
+这三行会合并成一行，还能用 + 拼接字符串
+  final s1 =
+    'String '
+    'concatenation'
+    " even works over line breaks.";
+
+下面 s2 是两行，双引号效果相同
+如果 You 换行到下一行行首，效果一样，会忽略这个换行符
+第二行前的四个空格会保留，并不会按照最后一行的位置来截断
+字符串最后的换行符会保留
+  final s2 = '''You can create
+    multiline strings like this one.
+    ''';
+字符串前面加 r 就成原始字符串，内部的转义就不起作用了
+
+int.parse('1');
+double.parse('1.1');
+1.toString();
+3.14159.toStringAsFixed(2);
+
+推断不出类型时，类型是 dynamic。编译器会给警告，如果真的要这样做，用 Object?
+各种文章都说：用 Object/Object?，少用 dynamic
+网上说：
+  dynamic 是类型声明，相当于 swift 中的 Any，它是一个具体类型的声明，如 String
+  Object 可以父类指向子类对象
+  dynamic 是运行时报错，Object 是编译时报错
+
+int assume(dynamic object) { // 运行时传非字符串会崩
+  String string = object;
+  return string.length;
+}
+
+
+
+运算符 ================================================================================
+不能定义新运算符(swift 可以)，但能重载
+class Vector {
+  final double x, y , z;
+  Vector operator +(Vector v) {
+    return Vector(x: x + v.x, y: y + v.y, z: z+v.z);
+  }
+}
+
+a is int
+a is! int
+a as int // 有可能会崩，如果不确定，就先用 is 测试一下，相当于 swift 的 as!，没有 as? 对应的写法
+
+解包的时候，swift 要 if let，这里 is 判断成功后，里面可以直接用，但花括号后面不行
+  final u = get_user();
+  if (u is User) {
+    u.log();
+  }
+
+全局变量/静态变量 都是懒加载的
+late 变量后如果给初始值，这就是懒加载。当此属性赋值需要用到 this 时，懒加载就很有用
+第二个作用类似于隐式解包!，访问时如果未初始化会崩（可选也必须初始化），就算访问时加上问号也会崩。这就要自己注意安全了
+class Weather {
+  late int _temperature = _readThermometer(); // 访问此属性的时候才会初始化
+}
+可空的类实例成员变量也有默认值
+
+?. 和 ?? 作用和 swift 相同
+?.. ignores any operations when the target expression resolves to null 这不太懂？
+
+a ??= b，a 为空时才把 b 赋给 a，等于 a = a ?? b。可能会赋值，?? 一定会赋值
+
+可空变量有默认值 null。可空的类实例成员变量也有默认值
+
+int? a = 5;
+int b = a; // Not allowed. 但实际上，这里编译通过了，为何？
+int b = a!; // Allowed.
+解释
+int? a = get_num(); // 1)函数内部随机，偶尔能得到非 null 的值
+// a = 20; // 3)但是，如果把这里打开，a 的类型还是 int 吗?，下面就能编译通过了。估计编译器认为这是安全的
+int b = a; // 2)这里也的确编译不过，a 的类型是 int?
+
+似乎 a 的类型不是可选一样，给它赋个值，连问号都不要了，为何？
+定义的时候加不加问号都行，使用的时候加不加问号也行，似乎没啥关系
+double? a = 5.123;
+print(a.toInt());
+print(a?.toInt());
+
+
+
+集合 ================================================================================
+列表
+final List<String> list1 = <String>['one', 'two', 'three'];
+final list2 = <String>['one', 'two', 'three'];
+final list3 = ['one', 'two', 'three'];
+fruits.add('peach');
+fruits.addAll(['kiwi', 'mango']);
+
+[5, 2.0] 类型是 List<num>
+
+const Object i = 3;
+const list = [i as int]; // [3]
+
+空感知
+[1, ?absentValue, ?presentValue, absentValue, 5]
+类型是 List<int?>，如果不要最后的 absentValue，类型是 List<int>
+前面加问号时，如果这变量为空，则不会有值加到数组里
+
+展开
+final list1 = [1, 2, 3];
+final list2 = [0, ...list1];
+final list3 = [0, ...?list]; // 可选的时候用这种
+
+if 用法
+var items = [
+  0,
+  if (name == 'kiwi') 10 else if (name == 'pear') 20 else 30, // 可以没有 else if 和 else
+  2,
+];
+
+Object data = 123;
+var typeInfo = [
+  if (data case int i) 'Data is an integer: $i',
+  if (data case String s) 'Data is a string: $s',
+  if (data case bool b) 'Data is a boolean: $b',
+  if (data case double d) 'Data is a double: $d',
+];
+
+var word = 'hello';
+var items = [
+  1,
+  if (word case String(length: var wordLength)) wordLength,
+  3,
+];
+
+var orderDetails = ['Apples', 12, 'bb'];
+var summary = [
+  'Product: ${orderDetails[0]}',
+  if (orderDetails case [_, int qty, _]) 'Quantity: $qty',
+  if (orderDetails case [_, _, '']) 'Delivery: Not Started' else 'Delivery: In Progress',
+];
+
+for 用法，for 和 if 还能交叉集合起来用
+[1, for (var n in numbers) n * n, 7];
+[1, for (var x = 5; x > 2; x--) x, 7];
+
+
+
+字典，每个 Object 都有 hash，swift 里需要明确实现 Hashable
+final gifts = <String, Object>{};
+final gifts = {
+  'first': 'partridge',
+  'second': 'turtle doves',
+  'fifth': 'golden rings',
+};
+gifts['first']; // 获取值
+gifts.containsKey('fifth');
+gifts['second'] = 'turtle'; // 新加/更新。会返回最新的值
+gifts.remove('first');      // 会返回被移除的值
+gifts.removeWhere((key, value) => value == 'partridge');
+
+空感知
+var itemsA = {presentKey: absentValue}; // {Apple: null}
+var itemsB = {presentKey: ?absentValue}; // {}
+var itemsC = {absentKey: presentValue}; // {null: 3} <String?:int>
+var itemsD = {?absentKey: presentValue}; // {}
+var itemsE = {absentKey: absentValue}; // {null: null} <String?:int?>
+var itemsF = {?absentKey: ?absentValue};
+
+if 用法
+const map = {if (i is int) i: 'int'};
+
+
+
+集合，存 hashCode 不同的值，默认的实现基于 object's identity。如果两个不同实例通过 == 能判断相等，需要重写 hashCode
+final abc = {'a', 'b', 'c'};
+final abc = Set<String>.unmodifiable(['a', 'b', 'c']);
+abc.add('');
+
+空集合用这两方式
+final names = <String>{};
+Set<String> alsoNames = {};
+// final names = {}; // 这会被当成空字典，类型是 Map<dynamic, dynamic>
+
+if 用法
+const set = {if (list is List<int>) ...list};

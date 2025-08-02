@@ -1,0 +1,30 @@
+
+xcrun simctl list
+open -a Simulator --args -CurrentDeviceUDID B064EFFA-5833-423F-8DB0-E1083EA4B76C
+
+编译，检测语法是否正确
+dart compile exe min.dart
+
+
+能把其它目录删了，需要的时候再建
+flutter create --platforms=android
+
+
+
+看看这个接口的定义，带默认实现的，实现它的类只需要实现一个方法即可
+abstract interface class Comparable<T> {
+  int compareTo(T other);
+  static int compare(Comparable a, Comparable b) => a.compareTo(b);
+}
+
+================================================================================
+
+
+Dart DevTools includes additional tools for debugging and profiling Flutter apps, including a Widget Inspector. Try it?
+
+
+
+
+研究 Object 根类
+https://api.dart.dev/dart-core/Object-class.html
+

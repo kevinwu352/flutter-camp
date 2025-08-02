@@ -1,0 +1,135 @@
+
+函数 ================================================================================
+函数是一等公民。返回值为 int 的函数不能返回 null，编译出错
+
+任何函数都有返回值，如果你不写，系统自动返回 null
+
+不同实例的同名函数不相等
+
+箭头函数后面要接表达式，不能接语句，print 可以，?: 可以，if 语句不行
+
+位置参数(Positional Parameter) a b，这是默认的。后接命名参数或可选位置参数，不能接两者，貌似位置参数必须在前面
+命名参数(Named Parameter) c d，必须满足三者之一：给默认值；类型定义为可选；类型前加 required
+int multiply(int a, int b, {int c = 1, required int? d}) { } // required 参数能是可选的
+可选位置参数(Optional Positional Parameter)，必须满足二者之一：给默认值；类型定义为可选
+int multiply(int a, int b, [int c = 1, int d = 1]) { }
+
+函数的类型，函数名改为 Function，位置参数名字去掉
+  命名参数名字不能去掉，默认值能去掉，required 需保留
+  可选位置参数，只留着类型就行
+void Function(String, {String greeting}) grt = greet;
+
+// 定义函数类型
+typedef int MultiplierFunction(int value);
+// 返回函数类型
+MultiplierFunction multiplyBy(int multiplier) {
+  return (int value) {
+    return value * multiplier;
+  };
+}
+// 获取
+MultiplierFunction multiplyByTwo = multiplyBy(2);
+// 调用
+print(multiplyByTwo(3));
+
+匿名函数也叫闭包，有两种
+[1, 2, 3].map((e) { return e * 2; }).toList(); // map 后得到的是 Iterable<T>，将其转化为 List<T>
+箭头函数
+[1,2,3].map((e) => e * 2).toList();
+命名函数也能用箭头语法，注意这里没有返回类型，return 关键字，花括号。但分号得有
+multiply(int a, int b) => a * b;
+赋给某变量
+var loudify = (msg) => '<${msg.toUpperCase()}>';
+
+Tear-Off，函数/成员方法/命名构造器，不加括号。像 forEach 这种，不要写闭包，然后再闭包里调它，直接传它的名字给 forEach
+list.forEach(print);
+list.map(String.fromCharCode); // 类的命名构造器，String.fromCharCode(code)
+list.map(StringBuffer.new); // 类的匿名构造器，StringBuffer(code)
+
+Generator 函数，yield 抛出单个值，yield* 抛出多个值
+Iterable<int> numbers(int n) sync* {
+  int k = 0;
+  while (k < n) yield k++;
+}
+print(numbers(5)); 0 1 2 3 4
+Iterable<int> numbersTo(int n) sync* {
+  int k = 0;
+  while (k < n) {
+    yield* [k, k];
+    k++;
+  }
+}
+print(numbers(3)); 0 0 1 1 2 2
+如果是递归的，用 yield*
+Iterable<int> naturalsDownFrom(int n) sync* {
+  if (n > 0) {
+    yield n;
+    yield* naturalsDownFrom(n - 1);
+  }
+}
+
+外部函数，声明和实现分开，一般是 其它库的 或 其它语言的。可以是 全局函数/成员方法/getter&setter/非重定向构造器/成员变量的 getter&setter
+external void someFunc(int i);
+
+
+
+枚举 ================================================================================
+实例变量必须是 final，从 mixin 得来的也是
+生成式构造器必须是常量构造器
+工厂构造器只能返回一个固定的已知的枚举实例
+不能继承其它类，因为已经继承自 Enum
+不能重写 index / hashCode / ==
+不能命名为 values，因为这是个自动生成的静态成员
+所有实现必须在开头声明，且至少要有一个实例
+enum Vehicle { // implements Comparable<Vehicle> 能实现接口，这里省了
+  // 猜测：下面那三个属性必须有，这里三行调用构造器造三个实例
+  car(tires: 4, passengers: 5, carbonPerKilometer: 400),
+  bus(tires: 6, passengers: 50, carbonPerKilometer: 800),
+  bicycle(tires: 2, passengers: 1, carbonPerKilometer: 0);
+  // 前面逗号，结束是分号
+
+  // 外面不能调它，说这构造器只能用于重定向
+  // 要获得实例用：Vehicle.bus
+  const Vehicle({
+    required this.tires,
+    required this.passengers,
+    required this.carbonPerKilometer,
+  });
+
+  final int tires;
+  final int passengers;
+  final int carbonPerKilometer;
+
+  // 自定义只读属性
+  bool get isTwoWheeled => this == Vehicle.bicycle;
+}
+
+
+
+库 ================================================================================
+
+dart pub get
+dart pub upgrade [transmogrify]
+dart pub outdated // 列出过时的包
+dart create -t package <PACKAGE_NAME>
+
+一个文件就是一个模块或一个库
+dart:core 核心库无需导入，直接能用
+
+两个库有同名类时，定义个别名
+import 'liba.dart' as liba;
+import 'libb.dart';
+但定义 _ 别名有何用？没看懂
+Import prefixes with the wildcard name _ are non-binding, but will provide access to the non-private extensions in that library.
+
+import 'package:lib1/lib1.dart' show foo; // 只导入 foo
+import 'package:lib2/lib2.dart' hide foo; // 不导入 foo
+
+import 'dart:async';              // 系统库
+import 'package:http/http.dart';  // 三方库
+import 'path/math_utils.dart';    // 自定义库
+
+import 'package:transmogrify/parser.dart'; // 自定义包
+transmogrify/
+  lib/transmogrify.dart
+  test/parser/

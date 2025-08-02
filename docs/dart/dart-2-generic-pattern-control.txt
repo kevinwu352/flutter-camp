@@ -1,0 +1,165 @@
+
+泛型 ================================================================================
+运行时能测试出 names 是 List<String>，而 Java 运行时只能测出它是 List
+names is List<String>
+
+泛型函数
+T transform<T, Q>(T param1, Q param2) {
+  return param1;
+}
+transform<int, String>(5, 'string value');
+transform(5, 'string value'); // 能省略
+
+泛型类
+class Cache<T> {
+  T getByKey(String key) {}
+  void setByKey(String key, T value) {}
+}
+// 如果省略的话，类型是 Cache<dynamic>
+var cache = Cache<String>();
+
+泛型限制
+class NumberManager<T extends num> { }
+var manager1 = NumberManager<int>();
+var manager2 = NumberManager<double>();
+var manager3 = NumberManager<String>(); // 报错
+
+非空限制，T 不能是可选类型了
+class Foo<T extends Object> { }
+
+研究这个 F-bound 规则，有点绕？
+https://dart.dev/language/generics
+
+
+
+模式匹配 ================================================================================
+// 匹配两个元素的数组，且元素与 a b 相等
+// 如果是 [a, _]，则 b 不用相等
+switch (obj) {
+  case [a, b]:
+}
+
+// 匹配 Square 或 Circle 对象，它们都要有 size 属性，size > 0
+switch (shape) {
+  case Square(size: var s) || Circle(size: var s) when s > 0:
+    print('non-empty');
+}
+
+// 这写法好骚
+var str = "222";
+var value = switch (str) {
+  "111" || "222" || "333" => true,
+  _ => false,
+};
+文档里：这些原来是正常的 swift 语句，只是用这种语法改写成了表达式
+
+switch (char) {
+  < space => 'control',
+  == space => 'space',
+  _ => '',
+};
+
+// 这写法好骚
+// 有一堆图形，算面积的方式不同，用这方法统一算。其实我感觉这样不好，最好写在类自己体内
+double calculateArea(Shape shape) => switch (shape) {
+  Square(length: var l) => l * l,
+  Circle(radius: var r) => math.pi * r * r,
+};
+
+解构记录
+var user = ('toly', 29);
+var (name, age) = user;
+解构命名记录
+var position = (x: 1, y: 3, 'p0');
+var (x: a, :y, c) = position; // 沿用 y 的名字
+
+解构数组，数量要严格相等，否则会崩
+var [a, b, _] = numList;
+var (a, [b, c]) = ('str', [1, 2]);
+
+解构字典，key 写错会崩
+var data = {'name': 'toly', 'age': '20'};
+var {'name': name, 'age': age} = data;
+
+解构普通对象，属性和 getter 都能解构
+class Square {
+  int size;
+  Square(this.size); // Square(1);
+  Square({required this.size}); // Square(size: 1);
+  // int get size => 11;
+}
+var shape = Square(1);
+var Square(size: sz) = shape; // 也能用 : 沿用名字
+
+验证 JSON 数据，极大节省代码，以前要十多行代码对数据进行检查
+var data = {
+  'user': ['Lily', 13],
+};
+if (data case {'user': [String name, int age]}) {
+  print('$name $age');
+}
+
+
+
+控制流 ================================================================================
+if 内容单行时，可以不要花括号
+
+break / continue 效果与其它语言一样
+
+for 不能像 swift 那样遍历 range，没有定义 range 的语法。能遍历任何 Iterable 的东西
+for (var i in list) { }
+for (var i = 0; i < 2; i++) { }
+
+遍历字典，不能像 swift 一样直接遍历 for (key, value) in dict { }
+for (var e in dict.entries) {
+  print('${e.key}, ${e.value}');
+}
+dict.forEach((key, value) {
+  print('$key, $value');
+});
+for (var MapEntry(key: k, :value) in dict.entries) { // 沿用 value 的名字
+  print('$k occurred $value times');
+}
+
+switch 空内容会漏下去，其它不会
+
+switch 应该匹配所有情况，比如枚举。对于类来说，加上 sealed，将来它有新的子类时，编译器会提醒
+sealed class Shape {}
+double calculateArea(Shape shape) => switch (shape) { // 这里提醒有未覆盖的情况
+  Square(length: var l) => l * l,
+  Circle(radius: var r) => r * r,
+};
+
+
+提供了 Exception/Error，和一堆预定义的子类型，我们能定义自己的，也能抛出非空对象作为异常
+错误，程序无法恢复，访问空对象/数组越界/无法找到API，Error 和它的子类。用来在开发阶段提示哪有问题，这是程序员该避免的。
+异常，程序可以恢复，加载文件错误/网络请求错误/非法输入，Exception 和它的子类。这通常可以处理，如展示信息。通常无法避免，文件打不开怪我代码问题吗
+网上说：
+1)异常通常是外部原因，可预见，能处理
+2)错误本来就不该被捕捉和处理。这有点不可理解？
+3)try catch 是给异常用的，但也能用来捕捉错误
+
+详细研究研究 异常和错误 的捕捉情况？
+try {
+} on OutOfLlamasException {
+} on Exception catch (e) {
+  // 任何其它的 Exception（上面已经处理了一种异常了）
+} catch (e) {
+  // 不指定类型，处理所有的
+}
+on 用于指定异常类型，catch 当你想抓住这个异常对象，catch 有两个参数第二个是 StackTrace
+
+catch (e) {
+  print('misbehave() partially handled ${e.runtimeType}.');
+  rethrow;
+}
+
+try {
+  var num = getnum();
+  print("got: $num"); // 抛出异常后，这里不会执行
+} catch(e) {
+  print("got excep");
+} finally {
+  print("clean up"); // 不管是否异常，这里都会执行
+}
+finally 在 catch 之后执行，如果没抓住异常，finally 执行完后，继续往外抛

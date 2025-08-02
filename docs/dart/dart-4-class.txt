@@ -1,0 +1,234 @@
+
+类 ================================================================================
+
+class Point {
+  double x;
+  double y;
+
+  static var value; // 类型是 dynamic
+  static int year = 10; // 必须初始化
+  static void run() { }
+
+  所有实例成员都有 getter
+  非 final 实例成员有 setter
+  无初始值的 late final 都有 setter，注意：有初值的 late final 没 setter
+  double get right => left + width;
+  set right(double value) => width = value - left;
+  get name => _name;
+  set name(String name) => _name = name;
+  子类重写 getter 时，能把返回值改成子类
+  子类重写 method 时，不能把参数类型收紧，可以扩大到 Object
+
+
+  // 匿名构造器只能有一个
+  // 当成员有初始值时，可以在函数体内赋值
+  // 构造器可以包含上面提到的：命名参数{} 和 可选位置参数[]
+  Point(double a, double b) { ... }
+  Point([double a = 0, double b = 0]) { ... }
+  Point({double a = 0, double b = 0}) { ... }
+
+  // 简化的构造器，在构造器 body 执行前。成员有无初始值都能这样写
+  Point(this.x, this.y);
+  Point([this.x = 0, this.y = 0]);
+  Point({this.x = 0, this.y = 0});
+  它们都没 body，但都可以加
+
+  // 这是 C++ 的初始化列表，在构造器 body 执行前。成员无初始值也行
+  Point(double a, double) : x = a, y = b;
+  Point(Map<String, double> json) : x = json['x']!, y = json['y']! { ... }
+  初始化列表里面还能写一个 assert 语句
+
+  // 命名构造器。一匿名多命名 / 只包含命名
+  // 子类不继承命名构造器，要用就自己实现
+  Point.fromJson(Map<String, double> json) : x = json['x']!, y = json['y']!;
+
+  // 调用其它构造器
+  Point.alongXAxis(double x) : this(x, 0);
+
+  // 调用父类构造器
+  Vector3d(final double x, final double y, this.z) : super(x, y);
+  Vector3d(super.x, super.y, this.z); // 这俩等价，当然父类里面也是位置参数
+  // 这里的父类是命名参数
+  Vector3d({super.x, super.y, this.z = 0}); // z 也能放前面。而且调用的时候，xyz 顺序貌似随意
+
+  // 当父类是位置参数时，不能将 xy 分开
+  Vector3d.err(super.x): z = 0, super(0);
+  // 当父类是命名参数时，可以将 xy 分开
+  Vector3d.yes({required super.y, required this.z}) : super.named(x: 0);
+}
+
+
+抽象类
+abstract class AbstractContainer {
+  // 抽象方法，子类必须实现
+  void updateChildren();
+  // 默认实现，子类可以重写
+  String toString() => "AbstractContainer";
+}
+class Container extends AbstractContainer {
+  @override void updateChildren() { }
+  @override String toString() { return "Container"; }
+}
+
+
+元数据
+class Todo {
+  final String who;
+  final String what;
+  const Todo(this.who, this.what);
+}
+@Todo("who", "what")
+
+
+
+其它构造器 ================================================================================
+常量构造器，文档说谨慎使用此特性，移除 const 的时候是 breaking change
+所有实例成员变量必须是 final
+class ImmutablePoint {
+  final double x, y;
+  const ImmutablePoint(this.x, this.y);
+}
+常量构造器新建的实例能赋给常量，这是编译时能确定的。如果没这构造器不能赋给 const
+const origin = ImmutablePoint(0, 0);
+两个常量构造器新建的实例，identical(a, b) 是真，即是同一实例，移除 const 则是假
+  var a = const Cat(2);
+  var b = const Cat(2);
+  identical(a, b)
+常量字典里面创建的实例，也是常量，常量字典提供了常量环境
+常量构造器调用的时候，前面可以不加 const，结果也就不是常量了
+
+
+工厂构造器，普通构造器不用 return，而工厂构造器要自己 return 一个实例
+不能访问 this
+class Logger {
+  static final _cache = <String, Logger>{};
+  String name;
+  // 字典中有就返回，没有就新建。注意这个很洋气的运算符
+  factory Logger(String name) => _cache[name] ??= Logger._internal(name);
+  // 私有构造器。外面也能调用，这私有靠的是程序员自觉吗？
+  Logger._internal(this.name);
+  // 命名工厂构造器
+  factory Logger.fromJson
+}
+
+
+
+隐式接口 ================================================================================
+定义一个类时，它既是类，也是接口
+必须重写(override) 接口过来的方法，内部不能调用 super 获取原实现     <= 比较这里，和 mixin
+class Animal {
+  String name;
+  Animal(this.name);
+  void eat() { print('eatting'); }
+}
+class Runner {
+  void run() { print('running'); }
+}
+class Flyer {
+  void fly() { print('flying'); }
+}
+class SuperMan extends Animal implements Runner, Flyer {
+  SuperMan(super.name);
+  @override void fly() { print("fly"); }
+  @override void run() { print("run"); }
+  @override void eat() {
+    super.eat();
+    print("eat");
+  }
+}
+
+
+
+混入 ================================================================================
+定义用 mixin，使用用 with
+无法 extends 其它类，也无法 with 其它 mixin，但能 implements 接口
+本是单继承语言，通过 mixin 来实现多继承
+可以重写(override) mixin 来的方法 和 继承来的方法，内部能调用 super 获取原实现  <= 比较这里，和隐式接口
+mixin Play {
+  void play() { print('play'); }
+}
+mixin Jump {
+  void jump() { print('jump'); }
+}
+class Robbit extends Animal with Play, Jump {
+  Robbit(super.name);
+}
+如果这四位都实现了同一个方法，查找方法的顺序和定义时候顺序有关。顺序是：Robbit / Jump / Play / Animal
+
+mixin 能定义抽象方法，让其它类必须提供实现
+mixin NameIdentity {
+  String get name; // 要求实现它的类必须提供这个属性，并且根据这个属性，提供了 hashCode 和 == 的默认实现
+  @override int get hashCode => name.hashCode;
+  @override bool operator ==(other) => other is NameIdentity && name == other.name;
+}
+如果 mixin 实现一个接口，但不提供方法的实现，和抽象方法类似，最终那个类必须提供实现
+abstract interface class Tuner {
+  void tuneInstrument();
+}
+mixin Guitarist implements Tuner {
+  void playSong() {
+    tuneInstrument();
+  }
+}
+
+约束父类，当 mixin 要用到父类的方法，声明时加上 on，使用这个 mixin 的类就必须继承于那个父类
+class Musician {
+  musicianMethod() { }
+}
+mixin MusicalPerformer on Musician {
+  performerMethod() {
+    super.musicianMethod();
+  }
+}
+class SingerDancer extends Musician with MusicalPerformer {}
+
+还能定义 mixin class，既是 mixin，也是 class
+
+
+
+扩展 ================================================================================
+可以有 方法 / getter&setter / 运算符，还有 静态变量 / 静态方法
+扩展名字可以不要，文档说匿名扩展只能在当前库内使用，匿名扩展的静态成员只能在扩展声明内部调用
+extension NumberParsing on String {
+  int parseInt() {
+    return int.parse(this);
+  }
+}
+不能在 dynamic 上面调用扩展方法，会崩。扩展方法是根据接收者的静态类型解析的
+dynamic d = '2';
+print(d.parseInt());
+
+不同扩展的 API 冲突时
+1)可以在导入时用 show hide 来选择
+2)用扩展的名字来区别：NumberParsing('42').parseInt() 这语法好怪
+3)导入时给库取别名：rad.NumberParsing('42').parseInt()
+
+泛型参数
+extension MyFancyList<T> on List<T> {
+  int get doubleLength => length * 2;
+  List<T> operator -() => reversed.toList();
+  List<List<T>> split(int at) => [sublist(0, at), sublist(at)];
+}
+
+扩展无法增加构造器，但能加静态方法来创建新实例
+class Person {
+  Person(this.fullName);
+  final String fullName;
+}
+extension ExtendedPerson on Person {
+  static Person create(String firstName, String lastName) {
+    return Person("$firstName $lastName");
+  }
+}
+final person = ExtendedPerson.create('John', 'Doe'); // 注意使用方法
+
+
+
+修饰符 ================================================================================
+控制类在 库内部 和 库外部 的限制
+abstract
+mixin
+base      内部可继承实现，外部只能继承。子类要标记为 base / final / sealed
+interface 内部可继承实现，外部只能实现。最佳用法是当纯接口 abstract interface
+final     内部可继承实现，外部不行。final 包含了 base 的效果，所以子类要标记为 base / final / sealed
+sealed    内部可继承实现，外部不能继承实现混入，不能创建实例
