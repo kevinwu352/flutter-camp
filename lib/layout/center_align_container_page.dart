@@ -8,7 +8,7 @@ class CenterPage extends StatelessWidget {
     // Center
     // 如果有 factor 参数，子尺寸 * factor。但如果是根还是会被拉满屏幕
     // return Center(widthFactor: 2, child: Text("abc"));
-    // return Center(child: Center(widthFactor: 2, child: Text("abc"))); // 不是根 factor 起作用了
+    // return Center(child: Center(widthFactor: 2, child: Text("abc"))); // 第二个 Center 不是根，所以 factor 起作用了
     // 如果无 factor 参数
     //   如果有限定，尺寸是尽量大
     // return Center(child: Text("abc")); // 屏幕就是它的限定吧？

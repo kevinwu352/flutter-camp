@@ -32,7 +32,7 @@ class SamplePage extends StatelessWidget {
     // return Center(child: Container(width: 100, height: 100, color: Colors.red));
     // 4) Align 是 Center 的父类，子类也能自由决定自己的尺寸
     // return Align(
-    //   alignment: Alignment.centerLeft,
+    //   alignment: Alignment.centerRight,
     //   child: Container(width: 100, height: 100, color: Colors.red),
     // );
     //*5) Center 占满屏幕，子想要无限或有限，都不能超过父。它尽量大
@@ -41,7 +41,8 @@ class SamplePage extends StatelessWidget {
     // 6) Center 占满屏幕，Container 无子无尺寸，它决定占尽量大
     // return Center(child: Container(color: Colors.red));
     //*7) Center 占满屏幕，红色有子，跟随子的尺寸
-    // 红色加上宽高，只见变大的绿色。因为：无100*100时收到 0-402 0-807 松约束，有100*100时收到 100 100 紧约束
+    // ***重点关注***
+    // 红色加上宽高，只见变大的绿色。因为：无100*100时绿色收到 0-402 0-807 松约束，有100*100时收到 100 100 紧约束
     // return Center(
     //   child: Container(
     //     color: Colors.red,
@@ -60,6 +61,7 @@ class SamplePage extends StatelessWidget {
     // );
 
     //*9) 红色占满全屏。ConstrainedBox 只会给子施加比它从父得到的约束更多的约束
+    // ***重点关注***
     // 我的理解：ConstrainedBox 收到紧约束，它自己那个松的附加约束就传不下去，只能往下传紧，Container 收到的是紧约束 402 807
     // return ConstrainedBox(
     //   constraints: const BoxConstraints(
@@ -94,7 +96,7 @@ class SamplePage extends StatelessWidget {
     //   ),
     // );
 
-    //*13) 尺寸是 20*50。子收到的是无限约束
+    //*13) 尺寸是 20*50，居中。子收到的是无限约束
     // return UnconstrainedBox(
     //   child: Container(color: Colors.red, width: 20, height: 50),
     // );

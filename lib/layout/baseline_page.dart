@@ -17,6 +17,8 @@ class BaselinePage extends StatelessWidget {
     //   ),
     // );
 
+    // 指定一个值作为基线，0在最上面。子元素全部用基线对齐
+
     return Center(
       child: Container(
         decoration: BoxDecoration(border: Border.all(color: Colors.red)),

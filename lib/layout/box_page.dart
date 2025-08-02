@@ -14,7 +14,7 @@ class BoxPage extends StatelessWidget {
     //   child: ConstrainedBox(
     //     constraints: const BoxConstraints(
     //       maxWidth: 200,
-    //     ), // 让文字换行，如果文字只有 150 宽，实际也会是 150
+    //     ), // 让文字换行，如果文字只有 150 宽，并不会拉宽到 200
     //     child: Text("god is a girl"),
     //   ),
     // );
@@ -54,7 +54,7 @@ class BoxPage extends StatelessWidget {
     // return Center(
     //   child: SizedOverflowBox(
     //     size: Size(200, 200),
-    //     alignment: Alignment.centerRight,
+    //     alignment: Alignment.centerLeft,
     //     child: Text("god is a girl"),
     //   ),
     // );

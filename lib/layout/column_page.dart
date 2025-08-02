@@ -11,7 +11,8 @@ import 'package:flutter/material.dart';
 // MainAxisAlignment.spaceAround 前后的空白是中间空白的一半
 // MainAxisAlignment.spaceEvenly 前后中间空白一致
 //
-// CrossAxisAlignment.stretch Column 收到的是松约束 0-402，stretch 向下传递的是紧约束 402，其它情况传递的是松约束，这导致 Column 撑宽到屏幕
+// CrossAxisAlignment.stretch 时，Column 收到的是松约束 0-402，向下传递的是紧约束 402，高度还是松无限。这导致 Column 撑宽到屏幕
+// 其它情况传递的是松约束，0-402 0-inf
 //
 // return Center(
 //   child: Column(
