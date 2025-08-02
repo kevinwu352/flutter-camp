@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_camp/codes/route_detail_page.dart';
+import 'package:flutter_camp/router/route_detail_page.dart';
 
 // home: RouteListPage(), 不要这句了
 // initialRoute: "/",
