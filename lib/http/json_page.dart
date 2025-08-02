@@ -2,6 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'dart:convert';
 
+// 解析一个数组是这样的
+// final parsed = (jsonDecode(responseBody) as List)
+//       .cast<Map<String, dynamic>>();
+// return parsed.map<Photo>((json) => Photo.fromJson(json)).toList();
+
 // list => model
 //   reviewsData.map((reviewData) => Review.fromJson(reviewData)).toList()
 // model => list

@@ -63,12 +63,6 @@ final str = await rootBundle.loadString("assets/jsons/user.json");
 Image.asset("assets/images/num.png")
 
 
-解析一个数组是这样的
-final parsed = (jsonDecode(responseBody) as List)
-      .cast<Map<String, dynamic>>();
-return parsed.map<Photo>((json) => Photo.fromJson(json)).toList();
-
-
 
 
 ================================================================================
