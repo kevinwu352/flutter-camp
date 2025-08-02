@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'l10n/app_localizations.dart';
 import 'package:flutter_camp/home_page.dart';
 
-import 'package:flutter_camp/router/shell_page.dart';
+import 'package:flutter_camp/router/router_page.dart';
 
 void main() {
   // debugPaintSizeEnabled = true;
@@ -27,6 +27,6 @@ class MyApp extends StatelessWidget {
     //   ),
     //   home: KeyPage(),
     // );
-    return MaterialApp.router(routerConfig: shell_router);
+    return MaterialApp.router(routerConfig: router);
   }
 }

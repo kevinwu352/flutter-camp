@@ -239,7 +239,7 @@ class ProfileScreen extends StatelessWidget {
 
 // ================================================================================
 
-final GoRouter shell_router = GoRouter(
+final GoRouter router = GoRouter(
   initialLocation: "/login",
   navigatorKey: root_key,
   routes: [
