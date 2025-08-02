@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_camp/states/bloc/reader_bloc.dart';
+import 'package:flutter_camp/states/not-use/bloc/reader_bloc.dart';
 
 // home: BlocProvider(
 //   create: (context) => ReaderBloc(),

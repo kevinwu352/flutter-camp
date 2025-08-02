@@ -1,10 +1,6 @@
-继承
+// 继承
 class MyState extends InheritedWidget {
-  const MyState({
-    super.key,
-    required this.data,
-    required super.child,
-  });
+  const MyState({super.key, required this.data, required super.child});
 
   final String data;
 
@@ -18,21 +14,17 @@ class MyState extends InheritedWidget {
   bool updateShouldNotify(MyState oldWidget) => data != oldWidget.data;
 }
 
-使用
+// 使用
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
   @override
   Widget build(BuildContext context) {
     var data = MyState.of(context).data;
-    return Scaffold(
-      body: Center(
-        child: Text(data),
-      ),
-    );
+    return Scaffold(body: Center(child: Text(data)));
   }
 }
 
-包装，这里是一个 StatefulWidget
+// 包装，这里是一个 StatefulWidget
 class _TestInheritedWidgetState extends State<TestInheritedWidget> {
   int count = 0;
 
@@ -46,12 +38,13 @@ class _TestInheritedWidgetState extends State<TestInheritedWidget> {
           children: [
             HomeScreen(),
             RaisedButton(
-                child: Text('add'),
-                onPressed: () {
-                  setState(() {
-                    ++count;
-                  });
-                })
+              child: Text('add'),
+              onPressed: () {
+                setState(() {
+                  ++count;
+                });
+              },
+            ),
           ],
         ),
       ),
