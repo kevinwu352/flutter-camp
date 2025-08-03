@@ -56,20 +56,19 @@ class ScrollWidget extends StatelessWidget {
         );
       }
     } else {
-      if (color is Color) {
-        return Container(
+      return LayoutBuilder(
+        builder: (context, constraints) => Container(
           color: color,
+          constraints: BoxConstraints(
+            minWidth: constraints.maxWidth,
+            minHeight: constraints.maxHeight,
+          ),
           child: SingleChildScrollView(
             padding: padding,
             child: SafeArea(child: Column(children: children)),
           ),
-        );
-      } else {
-        return SingleChildScrollView(
-          padding: padding,
-          child: SafeArea(child: Column(children: children)),
-        );
-      }
+        ),
+      );
     }
   }
 }
