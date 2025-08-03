@@ -3,6 +3,64 @@ import 'package:flutter/material.dart';
 final strlong =
     'children are placed next to each other from left to right within the available horizontal space';
 
+class ListWidget extends StatelessWidget {
+  const ListWidget({
+    super.key,
+    this.color,
+    this.padding,
+    this.header,
+    this.footer,
+    required this.children,
+  });
+
+  final Color? color;
+  final EdgeInsetsGeometry? padding;
+  final Widget? header;
+  final Widget? footer;
+  final List<Widget> children;
+
+  @override
+  Widget build(BuildContext context) {
+    final list = ListView(
+      physics: BouncingScrollPhysics(),
+      padding: padding,
+      children: children,
+    );
+    if (footer is Widget || footer is Widget) {
+      if (color is Color) {
+        return Container(
+          color: color,
+          child: SafeArea(
+            child: Column(
+              children: [
+                if (header is Widget) header!,
+                Expanded(child: list),
+                if (footer is Widget) footer!,
+              ],
+            ),
+          ),
+        );
+      } else {
+        return SafeArea(
+          child: Column(
+            children: [
+              if (header is Widget) header!,
+              Expanded(child: list),
+              if (footer is Widget) footer!,
+            ],
+          ),
+        );
+      }
+    } else {
+      if (color is Color) {
+        return Container(color: color, child: list);
+      } else {
+        return list;
+      }
+    }
+  }
+}
+
 class FramePage extends StatelessWidget {
   const FramePage({super.key});
 
@@ -10,6 +68,29 @@ class FramePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Frame')),
+
+      body: ListWidget(
+        color: Colors.green,
+        padding: EdgeInsetsGeometry.all(20),
+        footer: ElevatedButton(onPressed: () {}, child: Text('Done')),
+        children: [
+          Text(strlong),
+          FlutterLogo(size: 100),
+          ...List.generate(70, (i) => Text('data $i')),
+          Text(strlong),
+        ],
+      ),
+
+      // body: ListView(
+      //   physics: BouncingScrollPhysics(),
+      //   padding: EdgeInsetsGeometry.all(20),
+      //   children: [
+      //     Text(strlong),
+      //     FlutterLogo(size: 100),
+      //     ...List.generate(20, (i) => Text('data $i')),
+      //     Text(strlong),
+      //   ],
+      // ),
 
       // 无底部
       // body: Container(
@@ -26,27 +107,45 @@ class FramePage extends StatelessWidget {
       // ),
 
       // 有底部
-      body: Container(
-        color: Colors.green,
-        child: SafeArea(
-          child: Column(
-            children: [
-              Expanded(
-                child: ListView(
-                  physics: BouncingScrollPhysics(),
-                  padding: EdgeInsetsGeometry.all(20),
-                  children: [
-                    // Text(strlong),
-                    ...List.generate(20, (i) => Text('data $i')),
-                    // Text(strlong),
-                  ],
-                ),
-              ),
-              ElevatedButton(onPressed: () {}, child: Text('Done')),
-            ],
-          ),
-        ),
-      ),
+      // body: Container(
+      //   color: Colors.green,
+      //   child: SafeArea(
+      //     child: Column(
+      //       children: [
+      //         Expanded(
+      //           child: ListView(
+      //             physics: BouncingScrollPhysics(),
+      //             padding: EdgeInsetsGeometry.all(20),
+      //             children: [
+      //               // Text(strlong),
+      //               ...List.generate(20, (i) => Text('data $i')),
+      //               // Text(strlong),
+      //             ],
+      //           ),
+      //         ),
+      //         ElevatedButton(onPressed: () {}, child: Text('Done')),
+      //       ],
+      //     ),
+      //   ),
+      // ),
+      // body: SafeArea(
+      //   child: Column(
+      //     children: [
+      //       Expanded(
+      //         child: ListView(
+      //           physics: BouncingScrollPhysics(),
+      //           padding: EdgeInsetsGeometry.all(20),
+      //           children: [
+      //             // Text(strlong),
+      //             ...List.generate(70, (i) => Text('data $i')),
+      //             // Text(strlong),
+      //           ],
+      //         ),
+      //       ),
+      //       ElevatedButton(onPressed: () {}, child: Text('Done')),
+      //     ],
+      //   ),
+      // ),
 
       // ================================================================================
 
