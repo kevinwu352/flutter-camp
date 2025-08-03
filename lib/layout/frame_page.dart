@@ -1,65 +1,9 @@
 import 'package:flutter/material.dart';
 
+import 'list_widget.dart';
+
 final strlong =
     'children are placed next to each other from left to right within the available horizontal space';
-
-class ListWidget extends StatelessWidget {
-  const ListWidget({
-    super.key,
-    this.color,
-    this.padding,
-    this.header,
-    this.footer,
-    required this.children,
-  });
-
-  final Color? color;
-  final EdgeInsetsGeometry? padding;
-  final Widget? header;
-  final Widget? footer;
-  final List<Widget> children;
-
-  @override
-  Widget build(BuildContext context) {
-    final list = ListView(
-      physics: BouncingScrollPhysics(),
-      padding: padding,
-      children: children,
-    );
-    if (footer is Widget || footer is Widget) {
-      if (color is Color) {
-        return Container(
-          color: color,
-          child: SafeArea(
-            child: Column(
-              children: [
-                if (header is Widget) header!,
-                Expanded(child: list),
-                if (footer is Widget) footer!,
-              ],
-            ),
-          ),
-        );
-      } else {
-        return SafeArea(
-          child: Column(
-            children: [
-              if (header is Widget) header!,
-              Expanded(child: list),
-              if (footer is Widget) footer!,
-            ],
-          ),
-        );
-      }
-    } else {
-      if (color is Color) {
-        return Container(color: color, child: list);
-      } else {
-        return list;
-      }
-    }
-  }
-}
 
 class FramePage extends StatelessWidget {
   const FramePage({super.key});
@@ -69,17 +13,164 @@ class FramePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text('Frame')),
 
-      body: ListWidget(
-        color: Colors.green,
-        padding: EdgeInsetsGeometry.all(20),
-        footer: ElevatedButton(onPressed: () {}, child: Text('Done')),
-        children: [
-          Text(strlong),
-          FlutterLogo(size: 100),
-          ...List.generate(70, (i) => Text('data $i')),
-          Text(strlong),
-        ],
-      ),
+      // body: ListWidget(
+      //   color: Colors.green,
+      //   padding: EdgeInsetsGeometry.all(20),
+      //   footer: ElevatedButton(onPressed: () {}, child: Text('Done')),
+      //   children: [
+      //     Text(strlong),
+      //     FlutterLogo(size: 100),
+      //     ...List.generate(70, (i) => Text('data $i')),
+      //     Text(strlong),
+      //   ],
+      // ),
+
+      // 有附加，有背景色
+      // body: Container(
+      //   color: Colors.green,
+      //   child: SafeArea(
+      //     child: Column(
+      //       crossAxisAlignment: CrossAxisAlignment.stretch,
+      //       children: [
+      //         ElevatedButton(onPressed: () {}, child: Text('Done')),
+      //         Expanded(
+      //           child: SingleChildScrollView(
+      //             padding: EdgeInsetsGeometry.all(20),
+      //             child: Column(
+      //               children: [
+      //                 Text(strlong),
+      //                 FlutterLogo(size: 100),
+      //                 ...List.generate(70, (i) => Text('data $i')),
+      //                 Text(strlong),
+      //               ],
+      //             ),
+      //           ),
+      //         ),
+      //         ElevatedButton(onPressed: () {}, child: Text('Done')),
+      //       ],
+      //     ),
+      //   ),
+      // ),
+
+      // 有附加，无背景色
+      // body: SafeArea(
+      //   child: Column(
+      //     crossAxisAlignment: CrossAxisAlignment.stretch,
+      //     children: [
+      //       ElevatedButton(onPressed: () {}, child: Text('Done')),
+      //       Expanded(
+      //         child: SingleChildScrollView(
+      //           // padding: EdgeInsetsGeometry.all(20),
+      //           child: Column(
+      //             children: [
+      //               Text(strlong),
+      //               FlutterLogo(size: 100),
+      //               ...List.generate(10, (i) => Text('data $i')),
+      //               Text(strlong),
+      //             ],
+      //           ),
+      //         ),
+      //       ),
+      //       ElevatedButton(onPressed: () {}, child: Text('Done')),
+      //     ],
+      //   ),
+      // ),
+
+      // 无附加，无背景色
+      // body: SingleChildScrollView(
+      //   padding: EdgeInsetsGeometry.all(20),
+      //   child: SafeArea(
+      //     child: Column(
+      //       children: [
+      //         Text(strlong),
+      //         FlutterLogo(size: 100),
+      //         ...List.generate(50, (i) => Text('data $i')),
+      //         Text(strlong),
+      //       ],
+      //     ),
+      //   ),
+      // ),
+
+      // 无附加，有背景色
+      // body: Container(
+      //   color: Colors.green,
+      //   child: SingleChildScrollView(
+      //     // padding: EdgeInsetsGeometry.all(20),
+      //     child: SafeArea(
+      //       child: Column(
+      //         children: [
+      //           Text(strlong),
+      //           FlutterLogo(size: 100),
+      //           ...List.generate(50, (i) => Text('data $i')),
+      //           Text(strlong),
+      //         ],
+      //       ),
+      //     ),
+      //   ),
+      // ),
+
+      // body: LayoutBuilder(
+      //   builder: (context, constraints) => Container(
+      //     color: Colors.green,
+      //     constraints: BoxConstraints(
+      //       minWidth: constraints.maxWidth,
+      //       minHeight: constraints.maxHeight,
+      //     ),
+      //     child: SingleChildScrollView(
+      //       padding: EdgeInsetsGeometry.all(20),
+      //       child: Column(
+      //         children: [
+      //           Text(strlong),
+      //           FlutterLogo(size: 100),
+      //           ...List.generate(70, (i) => Text('data $i')),
+      //           Text(strlong),
+      //         ],
+      //       ),
+      //     ),
+      //   ),
+      // ),
+      // body: LayoutBuilder(
+      //   builder: (context, constraints) => Container(
+      //     color: Colors.green,
+      //     constraints: BoxConstraints(
+      //       minWidth: constraints.maxWidth,
+      //       minHeight: constraints.maxHeight,
+      //     ),
+      //     // child: SingleChildScrollView(
+      //     //   padding: EdgeInsetsGeometry.all(20),
+      //     //   child: Column(
+      //     //     children: [
+      //     //       Text(strlong),
+      //     //       FlutterLogo(size: 100),
+      //     //       ...List.generate(70, (i) => Text('data $i')),
+      //     //       Text(strlong),
+      //     //     ],
+      //     //   ),
+      //     // ),
+      //     child: SafeArea(
+      //       child: Column(
+      //         crossAxisAlignment: CrossAxisAlignment.stretch,
+      //         children: [
+      //           ElevatedButton(onPressed: () {}, child: Text('Done')),
+      //           Expanded(
+      //             child: SingleChildScrollView(
+      //               padding: EdgeInsetsGeometry.all(20),
+      //               child: Column(
+      //                 children: [
+      //                   Text(strlong),
+      //                   FlutterLogo(size: 100),
+      //                   ...List.generate(50, (i) => Text('data $i')),
+      //                   Text(strlong),
+      //                 ],
+      //               ),
+      //             ),
+      //           ),
+      //           ElevatedButton(onPressed: () {}, child: Text('Done')),
+      //         ],
+      //       ),
+      //     ),
+      //   ),
+      // ),
 
       // body: ListView(
       //   physics: BouncingScrollPhysics(),
