@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_camp/layout/scroll_widget.dart';
 
 import 'list_widget.dart';
 
@@ -16,7 +17,10 @@ class FramePage extends StatelessWidget {
       // body: ListWidget(
       //   color: Colors.green,
       //   padding: EdgeInsetsGeometry.all(20),
-      //   footer: ElevatedButton(onPressed: () {}, child: Text('Done')),
+      //   footer: Container(
+      //     padding: EdgeInsetsGeometry.symmetric(horizontal: 20),
+      //     child: ElevatedButton(onPressed: () {}, child: Text('Done')),
+      //   ),
       //   children: [
       //     Text(strlong),
       //     FlutterLogo(size: 100),
@@ -24,6 +28,19 @@ class FramePage extends StatelessWidget {
       //     Text(strlong),
       //   ],
       // ),
+      body: ScrollWidget(
+        color: Colors.green,
+        footer: Container(
+          padding: EdgeInsetsGeometry.symmetric(horizontal: 20),
+          child: ElevatedButton(onPressed: () {}, child: Text('Done')),
+        ),
+        children: [
+          Text(strlong),
+          FlutterLogo(size: 100),
+          ...List.generate(70, (i) => Text('data $i')),
+          Text(strlong),
+        ],
+      ),
 
       // 有附加，有背景色
       // body: Container(
