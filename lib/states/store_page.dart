@@ -33,6 +33,42 @@ import 'package:path_provider/path_provider.dart';
 // final val = int.parse(contents);
 // print(val);
 
+// 读写 Hive
+// final box = await Hive.openBox('defaults');
+//
+// await box.delete('username');
+// 返回被删除数量
+// final num = await box.clear();
+//
+// 存 null 不会删除相应的 key
+// await box.put('username', 'kevin');
+//
+// 如果改成 int 来接数据，会崩
+// final username_raw = box.get('username');
+// final username = username_raw is String ? username_raw : '--';
+// print(username);
+// final age = username_raw is int ? username_raw : 101;
+// print(age);
+//
+// final bee = Bee(name: 'kim', role: 'worker');
+// await box.put('beeobj', bee.toJson());
+//
+// final beeobj_raw = box.get('beeobj');
+// final beeobj_map = beeobj_raw is Map<dynamic, dynamic>
+//     ? beeobj_raw.map((k, v) => MapEntry(k.toString(), v))
+//     : null;
+// final bee = beeobj_map is Map<String, dynamic> ? Bee.fromJson(beeobj_map) : null;
+// print(bee);
+//
+// class Bee {
+//   Bee({required this.name, required this.role});
+//   final String name;
+//   final String role;
+//   factory Bee.fromJson(Map<String, dynamic> json) => Bee(name: json['name'] as String, role: json['role'] as String);
+//   Map<String, dynamic> toJson() => {'name': name, 'role': role};
+//   @override String toString() => '$name $role';
+// }
+
 class StorePage extends StatelessWidget {
   const StorePage({super.key});
 
