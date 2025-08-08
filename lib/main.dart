@@ -2,10 +2,6 @@ import 'package:flutter/material.dart';
 import 'l10n/app_localizations.dart';
 import 'package:flutter_camp/test_page.dart';
 
-import 'package:flutter_camp/router/router_page.dart';
-
-import 'package:flutter_camp/layout/baseline_page.dart';
-
 void main() {
   // debugPaintSizeEnabled = true;
   runApp(const MyApp());
@@ -22,12 +18,9 @@ class MyApp extends StatelessWidget {
       locale: Locale("en"),
       title: "Flutter Camp",
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.red,
-          brightness: Brightness.light,
-        ),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.red, brightness: Brightness.light),
       ),
-      home: BaselinePage(),
+      home: TestPage(),
     );
     // return MaterialApp.router(routerConfig: router);
   }
