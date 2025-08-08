@@ -1,4 +1,15 @@
 
+xcrun simctl list
+open -a Simulator --args -CurrentDeviceUDID B064EFFA-5833-423F-8DB0-E1083EA4B76C
+
+编译，检测语法是否正确
+dart compile exe min.dart
+
+能把其它目录删了，需要的时候再建
+flutter create --platforms=android
+
+================================================================================
+
 无 public / private，下划线开头的为 library 私有，好像并非靠程序员自觉，而是编译器保证它不可被外部访问
 
 final val = a ? 1 :
@@ -9,12 +20,6 @@ list
   .map((c) => c + 10)
   .forEach((c) => print(c));
 map((item) { return item.toUpperCase(); })
-
-final u = User()
-  ..name = "bob"
-  ..age = 10
-  ..add()
-  ..log();
 
 obj.runtimeType 类型是 Type。用 obj is Type，尽量不要用 obj.runtimeType == Type
 
@@ -169,7 +174,6 @@ class Weather {
 可空的类实例成员变量也有默认值
 
 ?. 和 ?? 作用和 swift 相同
-?.. ignores any operations when the target expression resolves to null 这不太懂？
 
 a ??= b，a 为空时才把 b 赋给 a，等于 a = a ?? b。可能会赋值，?? 一定会赋值
 

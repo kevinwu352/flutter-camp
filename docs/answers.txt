@@ -158,7 +158,11 @@ Element 持有 Widget 和 Render，连接他俩，将 Widget 的变化同步到 
   在 ListView 上使用 shrinkWrap 属性
   用 Expanded 封装 ListView 来
 
+自定义 View 流程
+  已有控件继承/组合
+  自定义 widget，用 paint / canvas 绘制
 
+dart 是值传递，强引用
 
 
 
