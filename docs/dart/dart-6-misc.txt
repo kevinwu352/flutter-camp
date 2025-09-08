@@ -1,0 +1,40 @@
+xcrun simctl list
+open -a Simulator --args -CurrentDeviceUDID B064EFFA-5833-423F-8DB0-E1083EA4B76C
+
+编译，检测语法是否正确
+dart compile exe min.dart
+
+能把其它目录删了，需要的时候再建
+flutter create --platforms=android
+
+
+
+Swift 给可选添加扩展
+  extension Optional where Wrapped == Bool {
+      func orFalse() -> Bool {
+          return self ?? false
+      }
+  }
+  let x: Bool? = nil
+  print(x.orFalse())
+
+Dart 给可选添加扩展
+  extension UnwrapOrFalse on bool? {
+      bool orFalse() {
+          return this ?? false;
+      }
+  }
+  bool? x;
+  print(x.orFalse());
+
+
+
+typedef IntList = List<int>;
+
+typedef ListMapper<X> = Map<X, List<X>>;
+Map<String, List<String>> m1 = {}; // Verbose.
+ListMapper<String> m2 = {};
+
+typedef Compare<T> = int Function(T a, T b);
+int sort(int a, int b) => a - b;
+assert(sort is Compare<int>);

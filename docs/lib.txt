@@ -1,0 +1,41 @@
+double
+
+isFinite
+sign / isNegative
+
+abs
+
+toDouble / toInt
+toString
+toStringAsExponential(3) // 1.235e+5
+toStringAsPrecision // 没搞懂这函数？
+toStringAsFixed
+  0 去掉小数位，也不会有小数点
+  n 位数不足会补 0，是四舍五入
+
+ceil x 轴向右，所以 -1.1 => -1
+floor x 轴向左，所以 -1.1 => -2
+round 四舍五入，所以 -3.2 => -3 / -3.5 => -4
+truncate 直接丢弃小数部分
+上面四个返回值是 int，~ToDouble 返回值是 double
+
+超过上限或下限，则返回上限或下限
+num clamp(num lowerLimit, num upperLimit)
+
+整除后的余数
+double remainder(num other)
+
+
+
+int
+
+gcd 最大公约数
+
+toRadixString(2) 转成几进制的字符串
+
+toSigned / toUnsigned // 没搞懂这函数？
+modInverse / modPow // 没搞懂这函数？
+
+
+
+
