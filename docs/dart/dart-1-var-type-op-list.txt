@@ -158,6 +158,7 @@ class Vector {
 a is int
 a is! int
 a as int // 有可能会崩，如果不确定，就先用 is 测试一下，相当于 swift 的 as!，没有 as? 对应的写法
+我试了，能被 try catch 捕获，所以它是个异常，以后遇到解包的时候，最好用 try catch
 
 解包的时候，swift 要 if let，这里 is 判断成功后，里面可以直接用，但花括号后面不行
   final u = get_user();
@@ -267,12 +268,12 @@ gifts.remove('first');      // 会返回被移除的值
 gifts.removeWhere((key, value) => value == 'partridge');
 
 空感知
-var itemsA = {presentKey: absentValue}; // {Apple: null}
-var itemsB = {presentKey: ?absentValue}; // {}
-var itemsC = {absentKey: presentValue}; // {null: 3} <String?:int>
-var itemsD = {?absentKey: presentValue}; // {}
-var itemsE = {absentKey: absentValue}; // {null: null} <String?:int?>
-var itemsF = {?absentKey: ?absentValue};
+  var itemsA = {presentKey: absentValue}; // {Apple: null} <String:int?>
+  var itemsB = {presentKey: ?absentValue}; // {} <String:int> 为什么又记不住类型？int?呢？应该是 ?absentValue 的作用
+  var itemsC = {absentKey: presentValue}; // {null: 3} <String?:int>
+  var itemsD = {?absentKey: presentValue}; // {} <String:int>
+  var itemsE = {absentKey: absentValue}; // {null: null} <String?:int?>
+  var itemsF = {?absentKey: ?absentValue}; // {} <String:int>
 
 if 用法
 const map = {if (i is int) i: 'int'};
