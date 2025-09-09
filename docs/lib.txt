@@ -61,51 +61,5 @@ toSigned / toUnsigned // 没搞懂这函数？
 modInverse / modPow // 没搞懂这函数？
 
 
-Iterable<E>
-
-new
-empty
-
-Iterable.generate(10)
-类型是 Iterable<dynamic>，内容是 0-9 的 int
-不缓存，每次重新算
-Iterable.generate(n, generator)) 等价于 const [0, ..., n-1].map(generator)
-
-Iterable.withIterator
-此 Iterable 的 iterator 被访问时，调用初始化里那参数，那参数每次返回一个新的 iterator
-
-
-获取一个值
-
-first / last 在空流上也会崩
-用 firstOrNull / lastOrNull
-single 空流或多元素流会崩
-用 singleOrNull
-
-byName
-流里面是 Enum，通过 name 来找，找不到会崩
-MyEnum.values.byName('xx')
-
-asNameMap
-流里面是 Enum，转换成 String:Enum 键值对
-MyEnum.values.asNameMap()
-
-
-indexed
-前面是位置，后面是元素
-final it1 = Iterable.generate(5, (i) => i * 2).indexed;
-for (var (e, f) in it1) {
-  print('$e $f');
-}
-
-nonNulls
-将 Iterable<int?> 转化成 Iterable<int>
-
-cast 将流转换成新流
-比如流的类型是 List<Object>，但里面全是字符串，则可以如下转换
-  list.cast<String>();
-如果流里不止字符串，则会崩
-
-
 
 

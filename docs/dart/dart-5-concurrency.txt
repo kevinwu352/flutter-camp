@@ -280,7 +280,10 @@ first / last -> Future<T>
 流空会崩
 
 elementAt -> Future<T>
-得到值后停止订阅源
+  得到值后停止订阅源
+  如果 Stream.value(12) 这种有结束的流，如果越界会崩。
+  如果 StreamController 这种没结束的流，不会崩，只是它会一直等第 n 个出现
+  但如果我调用 sc.close，的确出现了 onDone 事件，但没崩，为何？
 error 先出 / done 先出，都是异常
 
 firstWhere -> Future<T>
@@ -324,9 +327,6 @@ where -> Stream<T>
 distinct -> Stream<T>
 间隔的元素可以相等，连续不行。如果不传比较函数，用 ==
 
-cast -> Stream<R>
-从 T adapt 到 R，并不是转换成 R，而是运行时检查 T 真的是 R
-
 handleError -> Stream<T>
 处理符合 test 的错误，如果不传 test 则处理所有的错
 
@@ -349,3 +349,6 @@ map -> Stream<S>
 就是 map，转换函数的返回值是 S
 asyncMap ->Stream<E>
 转换函数的返回值是 FutureOr<E>
+
+cast -> Stream<R>
+从 T adapt 到 R，并不是转换成 R，而是运行时检查 T 真的是 R

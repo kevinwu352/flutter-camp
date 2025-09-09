@@ -201,8 +201,6 @@ class Vector {
 final List<String> list1 = <String>['one', 'two', 'three'];
 final list2 = <String>['one', 'two', 'three'];
 final list3 = ['one', 'two', 'three'];
-fruits.add('peach');
-fruits.addAll(['kiwi', 'mango']);
 
 [5, 2.0] 类型是 List<num>
 

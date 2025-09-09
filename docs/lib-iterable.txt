@@ -1,0 +1,92 @@
+
+Iterable.new
+Iterable.empty
+
+Iterable.generate(10)
+类型是 Iterable<dynamic>，内容是 0-9 的 int
+不缓存，每次重新算
+Iterable.generate(n, generator)) 等价于 const [0, ..., n-1].map(generator)
+
+Iterable.withIterator
+此 Iterable 的 iterator 被访问时，调用初始化里那参数，那参数每次返回一个新的 iterator
+
+toList
+toSet
+forEach
+
+followedBy                                <= Stream 没有
+拼接另外一个流
+  var planets = ['Earth', 'Jupiter'];
+  var updated = planets.followedBy(['Mars', 'Venus']);
+  print(updated);
+
+
+检查有没有某个值
+
+every
+any
+contains
+
+
+获取一个值
+
+first / last 在空流上也会崩
+用 firstOrNull / lastOrNull              <= Stream 没有
+firstWhere / lastWhere
+找第一个，如果找不到又没 orElse，会崩
+
+single 空流或多元素流会崩
+用 singleOrNull                          <= Stream 没有
+singleWhere
+找第一个，如果找不到又没 orElse，会崩
+
+elementAt
+elementAtOrNull                           <= Stream 没有
+
+byName                                    <= Stream 没有
+  流里面是 Enum，通过 name 来找，找不到会崩
+  MyEnum.values.byName('xx')
+asNameMap                                 <= Stream 没有
+  流里面是 Enum，转换成 String:Enum 键值对
+  MyEnum.values.asNameMap()
+
+
+变成一个值
+
+reduce 无初始值，空流会崩
+fold 有初始值，空流不崩
+
+join
+
+<= Stream 里面有 drain，这里没有
+
+
+筛选流中元素
+
+skip / skipWhile 数太大会造成空流，不会崩
+take / takeWhile
+
+where 就是 filter
+
+nonNulls                                  <= Stream 没有
+将 Iterable<int?> 转化成 Iterable<int>
+
+<= Stream 里面有 distinct / handleError / timeout，这里没有
+
+
+转换流中元素
+
+expand 相当于 flatMap
+map
+
+cast 将流转换成新流
+比如流的类型是 List<Object>，但里面全是字符串，则可以如下转换
+  list.cast<String>();
+如果流里不止字符串，则会崩
+
+indexed                                   <= Stream 没有
+  前面是位置，后面是元素
+  final it1 = Iterable.generate(5, (i) => i * 2).indexed;
+  for (var (e, f) in it1) {
+    print('$e $f');
+  }
