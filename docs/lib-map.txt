@@ -1,0 +1,64 @@
+
+Map.new
+
+Map.of(other)
+  复制 other，一般用这种
+Map.from(other)
+  other 的类型可以不一样，一般用于向下转换成更精确类型，且你知道里面真的是那种类型
+
+Map.fromEntries
+  参数是 MapEntry 数组
+  如果有重复 key，后来的覆盖前面的
+
+Map.fromIterable
+  三个参数：数组，key(e), value(e)，迭代数据，分别调用两个函数来生成 key/value
+  如果有重复 key，后来的覆盖前面的
+Map.fromIterables
+  参数是两个数组，长度必须相同，否则会崩
+  如果有重复 key，后来的覆盖前面的
+
+Map.identity
+  按照文档，其它字典用 Object.== 和 Object.hashCode 来判断 key 相等，而此字典用 identical 和 identityHashCode。有啥用呢？
+
+Map.unmodifiable
+
+
+
+entries 返回 MapEntry 序列
+
+clear
+forEach
+
+containsKey 根据字典的 key 比较算法来比较，应该是对应上面的 Map.identity
+containsValue 用 == 比较
+
+
+
+cast
+  元素的真实类型如果不对，会崩
+map(MapEntry<K2, V2> convert(K1, V1))
+  键和值类型都能变
+
+
+
+final val1 = dict['aa'] = 100;
+  会返回最新的值
+
+addAll
+  合并字典，如果 key 相同，后来的覆盖前面的
+addEntries
+  参数是 MapEntry 序列，如果 key 相同，后来的覆盖前面的
+dict.putIfAbsent('cc', () => 4)
+  如果没 cc，添加，返回新加值 4
+  如果有 cc，无用，返回旧值，反正返回的是最新的值
+
+dict.remove('bb')
+  返回被删除的值
+  如果字典允许空值，当返回 null 时，可能是有且删了，也可能是没删着
+removeWhere
+
+dict.update('bb', (v) => v * 2)
+  如果有值，更新值，返回新值
+  如果无值，添加值，返回新值。第三个参数必须提供，否则会崩
+updateAll
+  迭代所有，但只更新 value

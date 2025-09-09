@@ -1,0 +1,134 @@
+Stream.new
+Stream.empty 虽是空流，但不会空等，有 done 的。默认是广播流
+Stream.error 等于 Future.error(error).asStream()
+Stream.value 等于 Future.value(value).asStream()
+
+Stream.eventTransformed 没研究透？source 广播则结果也是广播
+
+Stream.fromFuture
+Stream.fromFutures 数据顺序是它们完成的顺序
+如果在调用 fromFutures 之前有几个 Future 已经完成，它们的顺序是未定义的
+如果 Future 列表为空，这个 Stream 会尽快完成
+
+Stream.fromIterable()
+能从数据创建流，能多个订阅，每个订阅都能得到从头到尾的数据
+
+Stream.multi 创建广播流，没研究透？
+
+Stream.periodic 起点是 0
+Stream<int> stream = Stream.periodic(Duration(seconds: 1), (i) => i);
+
+
+
+asBroadcastStream
+
+forEach -> Future<void>
+listen -> StreamSubscription<T>
+
+length -> Future<int>
+isEmpty -> Future<bool>
+
+
+single -> Future<T>
+流产生异常，则 Future 也异常
+流空 或 多数据，则 Future 异常，真的
+像是 Future.asStream() 的相反操作
+
+pipe -> Future
+没研究透？把当前流导向一个 StreamConsumer
+
+transform -> Stream<S>
+没研究透？
+stream_transformer.bind(this) 的链式简便写法
+
+
+
+检查有没有某个值
+
+every -> Future<bool>
+检查每一个元素符合 test，有不符合的马上返回 false。空流会返回 true。流错或 test 错 Future 也错
+any -> Future<bool>
+检查是否有元素符合 test，有符合的马上返回 true。流错或 test 错 Future 也错
+contains -> Future<bool>
+参数是 Object?，通过 == 比较，any 是用一个比较函数
+
+
+
+获取一个值
+
+first / last -> Future<T>
+流空会崩
+
+elementAt -> Future<T>
+  得到值后停止订阅源
+  如果 Stream.value(12) 这种有结束的流，如果越界会崩。
+  如果 StreamController 这种没结束的流，不会崩，只是它会一直等第 n 个出现
+  但如果我调用 sc.close，的确出现了 onDone 事件，但没崩，为何？
+error 先出 / done 先出，都是异常
+
+firstWhere -> Future<T>
+lastWhere -> Future<T>
+得到值后停止订阅源
+找到的第一个，如果没找到，第二个参数的值作为值，没找到也不给值第二个参数会崩
+singleWhere -> Future<T>
+等于 lastWhere，不过，如果有多个元素匹配会崩，没找到也不给值第二个参数会崩
+
+
+
+变成一个值
+
+reduce -> Future<T>
+无初始值，空流会崩
+fold -> Future<T>
+有初始值，空流不崩
+
+join -> Future<String>
+对每个元素使用 Object.toString，然后用分隔符拼接起来
+
+drain -> Future<E>
+清空所有元素，只保留 done/error
+它有个参数接受一个值，如果 done 发生了，Future 就发出那个值，不传就是 null
+
+
+
+筛选流中元素
+
+skip -> Stream<T>
+源流如果数量不足，则生成空流
+skipWhile -> Stream<T>
+匹配的时候就跳过，直到不匹配。后续再有数据不匹配也不会过滤了
+
+take -> Stream<T>
+takeWhile -> Stream<T> 只取前面符合的数据，直到不匹配。后续再有数据匹配也不要了
+
+where -> Stream<T>
+就是 filter
+
+distinct -> Stream<T>
+间隔的元素可以相等，连续不行。如果不传比较函数，用 ==
+
+handleError -> Stream<T>
+处理符合 test 的错误，如果不传 test 则处理所有的错
+
+timeout -> Stream<T>
+有人订阅开始计时，新数据来则重新计时
+如果超时，不给第二参数，会抛出 TimeoutException。后面的 listen 先收到异常，过一会收到数据
+如果超时，给了第二参数，不会抛出异常。但后面的 listen 过一会收到数据
+如果超时，给了第二参数，不会抛出异常。如果 sink.close()，后面就不会收到数据了。关闭前还能 sink.add("123") 加数据
+
+
+
+转换流中元素
+
+expand -> Stream<S>
+先升维再降维，相当于 flatMap
+asyncExpand -> Stream<E>
+上面的转换方法把元素转换成 Iterable<S>，这里转换成 Stream<E>
+
+map -> Stream<S>
+就是 map，转换函数的返回值是 S
+asyncMap ->Stream<E>
+转换函数的返回值是 FutureOr<E>
+
+cast -> Stream<R>
+从 T adapt 到 R，并不是转换成 R，而是运行时检查 T 真的是 R

@@ -1,0 +1,100 @@
+Future.new 参数是函数，必传，函数返回 FutureOr<T>
+  函数抛出异常，这个新建的 Future 也会异常
+  函数返回 Future，等 Future 的结果
+  函数返回 value
+Future(() => "abc");
+
+Future.delayed 参数是函数，可选，如果传 0 貌似又是事件周期结束再调用？
+  函数不传，相当于传了个 () => null
+  函数抛出异常，这个新建的 Future 也会异常
+  函数返回 Future，等 Future 的结果
+  函数返回 value
+Future<String> foo() => Future.delayed(Duration(seconds: 2), () => 'Large Latte');
+
+Future.error 参数是 Object，必传，任何对象都行
+Future.error("abc")
+
+Future.value 参数是 FutureOr<T>，可选
+  传 Future，等 Future 的结果
+  传 value，等于 sync(() => value)
+  不传，null
+
+Future.sync 参数是函数，必传，马上调用函数
+  函数抛出异常，这个新建的 Future 也会异常
+  函数返回 Future，等 Future 的结果
+  函数返回 value
+
+Future.microtask 参数是函数，必传
+  函数抛出异常，这个新建的 Future 也会异常
+  函数返回 Future，等 Future 的结果
+  函数返回 value
+
+
+
+Future.asStream()
+
+Future.ignore()
+一个不再被需要的 Future，如果直接丢弃，它可能会抛出异常，最终导致异常没人处理，保险的做法是 ignore 它
+
+Future.whenComplete(() { print("done"); });
+相当于 finally，不管成功失败都会调用。它还能返回 Future<void>，有点复杂了理不清了
+好像是：前面的 Future 给它什么它就接着往下传递，它自己也能抛出异常
+
+Future.timeout()
+如果源 Future 没及时返回，它的 value/error 会被忽略，虽然它可能会执行完，但它的结果被抛弃了
+如果超时，第二个参数 FutureOr<T> onTimeout() 会执行，这个新的 Future 作为整个链的返回，就算源比新的更快执行完
+如果超时，如果忽略第二个参数，会抛出异常 TimeoutException
+
+Future.catchError()
+相当于 catch 语句，第二个参数 test 为真时，才会处理这个异常，默认是真
+Future.onError<SomeException>()
+捕捉某类异常，有个泛型约束
+
+Future.then()，这是以前的方法，现在新的方式是 async await
+如果 Future 已经完成，then 它不会马上执行，而是启动一个 microtask？
+
+print("begin");
+final f = Future.sync(() {
+  print("emit");
+  return "abc";
+});
+f.then((v) => print(v));
+print("end");
+// begin emit end abc
+前面 then 了，延迟 2 秒再 then，也能拿到数据
+所以，能在任何时候给 Future 赋 then，数据始终在那里，但是 catchError 如果赋晚了就捕捉不到异常了，就崩了
+Future.delayed(Duration(seconds: 2), () {
+  f.then((v) => print(v));
+});
+
+then 能串起来。如果 onValue 返回了数据，onError 里面也要 return 12，否则就阻塞了，main() 不结束
+串起来的 then 中，任何一个抛出异常都会跳过后续的 then，直接走到 catchError
+Future<String> getstr() {
+  return Future.delayed(Duration(seconds: 2), () => "abc");
+  // return Future.delayed(Duration(seconds: 2), () => Future.error("err"));
+}
+getstr()
+  .then(
+    (v) {
+      print(v);
+      return 11;
+    },
+    //onError: (e) { // 文档说，onError 能收到 getstr() 抛出的异常，但收不到上面 onValue 内部抛出的异常
+    //  print(e);
+    //  return 12;
+    //},
+  )
+  .catchError((e) { // 文档说，通常不用 then 里面的 onError，而是用和 then 同级的 catchError
+    print(e);
+    return 12;
+  })
+  .then((v) => print(v));
+
+一个坑：解决办法是把它们全部包到一个 return Future.sync(() {}); 中
+Future<int> parseAndRead(Map<String, dynamic> data) {
+  final filename = obtainFilename(data); // 这是同步抛出的，catchError 抓不住这个异常
+  final file = File(filename);
+  return file.readAsString().then((contents) {
+    return parseFileData(contents); // 这是在 then 内部抛出的，catchError 能抓住此异常
+  });
+}

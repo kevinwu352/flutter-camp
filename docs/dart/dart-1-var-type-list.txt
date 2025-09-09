@@ -259,11 +259,6 @@ final gifts = {
   'second': 'turtle doves',
   'fifth': 'golden rings',
 };
-gifts['first']; // 获取值
-gifts.containsKey('fifth');
-gifts['second'] = 'turtle'; // 新加/更新。会返回最新的值
-gifts.remove('first');      // 会返回被移除的值
-gifts.removeWhere((key, value) => value == 'partridge');
 
 空感知
   var itemsA = {presentKey: absentValue}; // {Apple: null} <String:int?>
@@ -281,7 +276,6 @@ const map = {if (i is int) i: 'int'};
 集合，存 hashCode 不同的值，默认的实现基于 object's identity。如果两个不同实例通过 == 能判断相等，需要重写 hashCode
 final abc = {'a', 'b', 'c'};
 final abc = Set<String>.unmodifiable(['a', 'b', 'c']);
-abc.add('');
 
 空集合的声明方式有两种
 final names = <String>{};
