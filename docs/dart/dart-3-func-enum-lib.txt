@@ -81,6 +81,7 @@ external void someFunc(int i);
 不能重写 index / hashCode / ==
 不能命名为 values，因为这是个自动生成的静态成员
 所有实现必须在开头声明，且至少要有一个实例
+index 从 0 开始，name 只是括号前的名字
 enum Vehicle { // implements Comparable<Vehicle> 能实现接口，这里省了
   // 猜测：下面那三个属性必须有，这里三行调用构造器造三个实例
   car(tires: 4, passengers: 5, carbonPerKilometer: 400),

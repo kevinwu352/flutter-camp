@@ -61,20 +61,20 @@ Future<String> foo() => Future.delayed(Duration(seconds: 2), () => 'Large Latte'
 Future.error 参数是 Object，必传，任何对象都行
 Future.error("abc")
 
-Future.microtask 参数是函数，必传
-  函数抛出异常，这个新建的 Future 也会异常
-  函数返回 Future，等 Future 的结果
-  函数返回 value
+Future.value 参数是 FutureOr<T>，可选
+  传 Future，等 Future 的结果
+  传 value，等于 sync(() => value)
+  不传，null
 
 Future.sync 参数是函数，必传，马上调用函数
   函数抛出异常，这个新建的 Future 也会异常
   函数返回 Future，等 Future 的结果
   函数返回 value
 
-Future.value 参数是 FutureOr<T>，可选
-  传 Future，等 Future 的结果
-  传 value，等于 sync(() => value)
-  不传，null
+Future.microtask 参数是函数，必传
+  函数抛出异常，这个新建的 Future 也会异常
+  函数返回 Future，等 Future 的结果
+  函数返回 value
 
 
 
@@ -185,7 +185,7 @@ final controller = StreamController<int>(
 );
 controller.add(1);
 创建个 stream，它背后在运行，main() 退出不了
-这个流有两个问题：1)没人订阅它也会产生数据；2)无法取消，它会一直产生数据
+下面这个流有两个问题：1)没人订阅它也会产生数据；2)无法取消，它会一直产生数据
 Stream<int> timedCounter(Duration interval, [int? maxCount]) {
   var controller = StreamController<int>();
   int counter = 0;
@@ -203,7 +203,9 @@ Stream<int> timedCounter(Duration interval, [int? maxCount]) {
 var stream = timedCounter(Duration(seconds: 1));
 await Future.delayed(const Duration(seconds: 5));
 await for (var e in stream) { } // 5 秒后突然收到 12345，然后每秒收到一个
-// stream.listen((e) => print); // 这无法收到数据，为何？
+// 这无法收到数据，为何？
+// 经研究，不是收不到，是写错了。应该是 stream.listen(print);
+// stream.listen((e) => print);
 
 
 await for (final value in stream) { } // 0 1 2 3... <= 会阻塞后续代码
@@ -275,6 +277,7 @@ contains -> Future<bool>
 获取一个值
 
 first / last -> Future<T>
+流空会崩
 
 elementAt -> Future<T>
 得到值后停止订阅源
@@ -310,10 +313,10 @@ drain -> Future<E>
 skip -> Stream<T>
 源流如果数量不足，则生成空流
 skipWhile -> Stream<T>
-匹配的时候就跳过，直到不匹配
+匹配的时候就跳过，直到不匹配。后续再有数据不匹配也不会过滤了
 
 take -> Stream<T>
-takeWhile -> Stream<T>
+takeWhile -> Stream<T> 只取前面符合的数据，直到不匹配。后续再有数据匹配也不要了
 
 where -> Stream<T>
 就是 filter
