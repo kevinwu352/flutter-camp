@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'app_localizations.dart';
 
 class TheApp extends StatefulWidget {
@@ -9,6 +10,13 @@ class TheApp extends StatefulWidget {
 
 class _TheAppState extends State<TheApp> {
   Locale? lc;
+
+  @override
+  void initState() {
+    super.initState();
+
+    print(DateFormat.Hms().format(DateTime.timestamp()));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,11 +48,13 @@ class _TheAppState extends State<TheApp> {
           builder: (context) {
             return Column(
               children: [
-                Text(AppLocalizations.of(context)!.welcom_msg("kim")),
-                Text(AppLocalizations.of(context)!.n_wombats(0)),
-                Text(AppLocalizations.of(context)!.n_wombats(1)),
-                Text(AppLocalizations.of(context)!.n_wombats(2)),
-                Text(AppLocalizations.of(context)!.n_wombats(3)),
+                Text(AppLocalizations.of(context)!.dt_msg(DateTime.timestamp())),
+
+                // Text(AppLocalizations.of(context)!.welcom_msg("kim")),
+                // Text(AppLocalizations.of(context)!.n_wombats(0)),
+                // Text(AppLocalizations.of(context)!.n_wombats(1)),
+                // Text(AppLocalizations.of(context)!.n_wombats(2)),
+                // Text(AppLocalizations.of(context)!.n_wombats(3)),
 
                 // 上面是数字，这里用字符串
                 // 还能 he she it

@@ -27,4 +27,17 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get escap => 'Hello! {Isn\'t} this\'s a wonderful day?';
+
+  @override
+  String dt_msg(DateTime val) {
+    final intl.DateFormat valDateFormat = intl.DateFormat.Hms(localeName);
+    final String valString = valDateFormat.format(val);
+
+    return 'Hello, dt:$valString!';
+  }
+
+  @override
+  String num_msg(Object val) {
+    return 'Hello, num:$val!';
+  }
 }

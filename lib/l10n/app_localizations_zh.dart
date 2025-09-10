@@ -27,6 +27,19 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get escap => '你好! {Isn\'t} this\'s a wonderful day?';
+
+  @override
+  String dt_msg(DateTime val) {
+    final intl.DateFormat valDateFormat = intl.DateFormat.Hms(localeName);
+    final String valString = valDateFormat.format(val);
+
+    return '你好, dt:$valString!';
+  }
+
+  @override
+  String num_msg(Object val) {
+    return 'Hello, num:$val!';
+  }
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -52,4 +65,12 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get escap => '您好! {Isn\'t} this\'s a wonderful day?';
+
+  @override
+  String dt_msg(DateTime val) {
+    final intl.DateFormat valDateFormat = intl.DateFormat.Hms(localeName);
+    final String valString = valDateFormat.format(val);
+
+    return '您好, dt:$valString!';
+  }
 }

@@ -2,5 +2,14 @@
   "@@locale": "fr",
   "welcom_msg": "Bonjour, {name}!",
   "n_wombats": "Bonjour, {count, plural, =0{no wombats} =1{1 wombat} other{{count} wombats}}",
-  "escap": "Bonjour! '{Isn''t}' this''s a wonderful day?"
+  "escap": "Bonjour! '{Isn''t}' this''s a wonderful day?",
+  "dt_msg": "Bonjour, dt:{val}!",
+  "@dt_msg": {
+    "placeholders": {
+      "val": {
+        "type": "DateTime",
+        "format": "Hms"
+      }
+    }
+  }
 }

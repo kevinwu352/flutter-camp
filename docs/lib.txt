@@ -10,9 +10,6 @@ Random().nextDouble 无参数，0.0-1.0
 JsonCodec 这是类，内部使用 JsonEncoder / JsonDecoder
 json 是 JsonCodec 的实例，有俩函数 jsonEncode = json.encode / jsonDecode = json.decode
 
-DateTime 是时间，DateFormat 用来格式化，它属于 intl 包
-国际化的时候指定显示格式 https://docs.flutter.dev/ui/accessibility-and-internationalization/internationalization#messages-with-dates
-
 函数类型可选时，调用如下
   maybeFun?.call(1)
 
@@ -20,6 +17,71 @@ var it = obj.iterator;
 while (it.moveNext()) {
   use(it.current);
 }
+
+
+
+DateTime 是时间，DateFormat 用来格式化，它属于 intl 包
+国际化的时候指定显示格式 https://docs.flutter.dev/ui/accessibility-and-internationalization/internationalization#messages-with-dates
+
+DateTime.now() 本地时区
+DateTime.timestamp() 零时区
+  这俩的时间是相同的，只是不在同一时区。用 now.toUtc() 就变成零时区了
+
+DateTime(2022)
+DateTime.utc(2022)
+  这俩时间是不一样的，是不同时区的 2022-1-1，如果把时区转换一下就能明显看出来
+
+加载 locale 前，调用：
+  await initializeDateFormatting();
+
+默认样式
+  print(DateFormat().format(DateTime.now())); // September 10, 2025 2:56:27 PM
+预设格式，默认美国
+  print(DateFormat.yMMMd().add_Hms().format(DateTime.timestamp())); // Sep 10, 2025 03:22:37
+  print(DateFormat.yMMMd().add_Hms().format(DateTime.now()));       // Sep 10, 2025 11:22:37 它们的时间相差了 8 小时
+预设格式，自定义 locale
+  print(DateFormat.yMEd('en_US').add_Hms().format(DateTime.now())); // Wed, 9/10/2025 11:26:04 没随着系统的设置而变化，为何？
+  print(DateFormat.yMEd('zh_TW').add_Hms().format(DateTime.now())); // 2025/9/10（週三） 11:26:04
+自定义格式，自定义 locale
+  print(DateFormat('EEE, M/d/y', 'en_US').format(DateTime.now())); // Wed, 9/10/2025
+  print(DateFormat('EEE, M/d/y', 'zh_TW').format(DateTime.now())); // 週三, 9/10/2025
+自定义格式，不需要 locale
+  print(DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.now())); // 2025-09-10 14:54:49
+
+arb 文件中，只支持预设格式，写个 'yyyy-MM-dd HH:mm:ss' 会报错
+  "dt_msg": "Hello, dt:{val}!"
+  "@dt_msg": {
+    "placeholders": {
+      "val": {
+        "type": "DateTime",
+        "format": "Hms"
+      }
+    }
+  }
+"E", "EEEE" // Wed | Wednesday | W
+"LLL", "LLLL" // Sep | September
+"QQQ", "QQQQ" // Q3 | 3rd quarter
+"yQQQ", "yQQQQ" // Q3 2025 | 3rd quarter 2025
+
+"y", "M", "MMM", "MMMM", "d" // 2025 | 9 | Sep | September | 10
+
+"yM", "yMMM", "yMMMM" // 9/2025 | Sep 2025 | September 2025
+
+"Md", "MMMd", "MMMMd" // 9/10 | Sep 10 | September 10
+"yMd", "yMMMd", "yMMMMd" // 9/10/2025 | Sep 10, 2025 | September 10, 2025
+
+"MEd", "MMMEd", "MMMMEEEEd" // Wed, 9/10 | Wed, Sep 10 | Wednesday, September 10
+"yMEd", "yMMMEd", "yMMMMEEEEd" // Wed, 9/10/2025 | Wed, Sep 10, 2025 | Wednesday, September 10, 2025
+
+"H", "Hm", "Hms" // 07 | 07:37 | 07:37:53
+"j", "jm", "jms" // 7 AM | 7:35 AM | 7:35:45 AM
+"m", "ms", "s" // 37 | 37:20 | 20
+
+
+
+
+
+
 
 
 

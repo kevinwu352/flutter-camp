@@ -118,6 +118,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Hello! \'{Isn\'\'t}\' this\'\'s a wonderful day?'**
   String get escap;
+
+  /// No description provided for @dt_msg.
+  ///
+  /// In en, this message translates to:
+  /// **'Hello, dt:{val}!'**
+  String dt_msg(DateTime val);
+
+  /// No description provided for @num_msg.
+  ///
+  /// In en, this message translates to:
+  /// **'Hello, num:{val}!'**
+  String num_msg(Object val);
 }
 
 class _AppLocalizationsDelegate
