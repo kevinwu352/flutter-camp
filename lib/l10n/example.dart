@@ -15,7 +15,42 @@ class _TheAppState extends State<TheApp> {
   void initState() {
     super.initState();
 
-    print(DateFormat.Hms().format(DateTime.timestamp()));
+    final val = 1200000;
+    // final val = 1200000.5678;
+    // final val = 1.5678;
+    // final val = 0.345618;
+
+    print(NumberFormat().format(val)); // 1,200,000 | 1,200,000.568 | 1.568
+    print(NumberFormat.compact(locale: "zh_TW").format(val)); // 1.2M 120萬 | 120萬 | 1.57
+    print(NumberFormat.compactLong().format(val)); // 1.2 million | 1.2 million | 1.57
+
+    // 前缀用什么？优先级递减：symbol(€) > name(JPY) > locale(USD)。有 symbol 用的是单符号，否则是 JPY 这种名字
+    print(NumberFormat.currency().format(val)); // USD1,200,000.00 | USD1,200,000.57 | USD1.57
+    print(NumberFormat.compactCurrency().format(val)); // USD1.2M | USD1.2M | USD1.57
+    // 货币的 name 是 CNY / JPY 这种。如果随便给字符串，位数用 locale 的，前面符号是传的那值
+    // 个人感觉 name 和 locale 最好匹配，比如 en_US 和 JPY 感觉很别扭
+    // 货币小数点后面的位数是多少？优先级递减：decimalDigits 参数 > name 的 > locale 的
+    print(NumberFormat.simpleCurrency().format(val)); // $1,200,000.00 | $1,200,000.57 | $1.57
+    print(NumberFormat.compactSimpleCurrency().format(val)); // $1.2M | $1.2M | $1.57
+
+    // 默认三位小数，且是四舍五入
+    // 第一个方法会去除末尾的 0，第二个方法会保持 0
+    print(NumberFormat.decimalPattern().format(val)); // 0.345678 => 0.346
+    print(NumberFormat.decimalPatternDigits(decimalDigits: 2).format(val)); // 0.345678 => 0.35
+
+    // 百分比数，它会把数乘以 100 再加百分号
+    print(NumberFormat.percentPattern().format(val)); // 0.345678 => 35%
+    print(NumberFormat.decimalPercentPattern(decimalDigits: 2).format(val)); // 0.345678 => 34.57%
+
+    print(NumberFormat.scientificPattern().format(val)); // 1E6
+
+    // var f = NumberFormat("###.##", "en_US");
+    // print(f.format(12.345));
+    // print(f.format(12345.345));
+    // print(f.format(12.3));
+    // print(f.format(12));
+    // print(f.format(12.345));
+    // print(f.format(12.345));
   }
 
   @override
