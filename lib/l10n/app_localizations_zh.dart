@@ -33,12 +33,22 @@ class AppLocalizationsZh extends AppLocalizations {
     final intl.DateFormat valDateFormat = intl.DateFormat.Hms(localeName);
     final String valString = valDateFormat.format(val);
 
-    return '你好, dt:$valString!';
+    return '你好, dt:$valString';
   }
 
   @override
-  String num_msg(Object val) {
-    return 'Hello, num:$val!';
+  String num_msg(int val) {
+    final intl.NumberFormat valNumberFormat = intl.NumberFormat.compact(
+      locale: localeName,
+    );
+    final String valString = valNumberFormat.format(val);
+
+    return 'Hello, num:$valString';
+  }
+
+  @override
+  String str_msg(String val) {
+    return 'Hello, str:$val';
   }
 }
 
@@ -71,6 +81,6 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
     final intl.DateFormat valDateFormat = intl.DateFormat.Hms(localeName);
     final String valString = valDateFormat.format(val);
 
-    return '您好, dt:$valString!';
+    return '您好, dt:$valString';
   }
 }

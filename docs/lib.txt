@@ -49,13 +49,15 @@ DateTime.utc(2022)
 自定义格式，不需要 locale
   print(DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.now())); // 2025-09-10 14:54:49
 
-arb 文件中，只支持预设格式，写个 'yyyy-MM-dd HH:mm:ss' 会报错
+arb 文件中，有一堆预设格式，也能用自定义格式
   "dt_msg": "Hello, dt:{val}!"
   "@dt_msg": {
     "placeholders": {
       "val": {
         "type": "DateTime",
         "format": "Hms"
+        // "format": "yyyy-MM-dd HH:mm:ss",
+        // "isCustomDateFormat": "true"
       }
     }
   }

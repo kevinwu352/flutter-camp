@@ -33,11 +33,21 @@ class AppLocalizationsFr extends AppLocalizations {
     final intl.DateFormat valDateFormat = intl.DateFormat.Hms(localeName);
     final String valString = valDateFormat.format(val);
 
-    return 'Bonjour, dt:$valString!';
+    return 'Bonjour, dt:$valString';
   }
 
   @override
-  String num_msg(Object val) {
-    return 'Hello, num:$val!';
+  String num_msg(int val) {
+    final intl.NumberFormat valNumberFormat = intl.NumberFormat.compact(
+      locale: localeName,
+    );
+    final String valString = valNumberFormat.format(val);
+
+    return 'Hello, num:$valString';
+  }
+
+  @override
+  String str_msg(String val) {
+    return 'Hello, str:$val';
   }
 }

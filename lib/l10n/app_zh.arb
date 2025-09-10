@@ -3,7 +3,7 @@
   "welcom_msg": "你好, {name}!",
   "n_wombats": "你好, {count, plural, =0{no wombats} =1{1 wombat} other{{count} wombats}}",
   "escap": "你好! '{Isn''t}' this''s a wonderful day?",
-  "dt_msg": "你好, dt:{val}!",
+  "dt_msg": "你好, dt:{val}",
   "@dt_msg": {
     "placeholders": {
       "val": {

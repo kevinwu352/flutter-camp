@@ -85,6 +85,9 @@ class _TheAppState extends State<TheApp> {
               children: [
                 Text(AppLocalizations.of(context)!.dt_msg(DateTime.timestamp())),
 
+                Text(AppLocalizations.of(context)!.num_msg(1200000)),
+                Text(AppLocalizations.of(context)!.str_msg('god')),
+
                 // Text(AppLocalizations.of(context)!.welcom_msg("kim")),
                 // Text(AppLocalizations.of(context)!.n_wombats(0)),
                 // Text(AppLocalizations.of(context)!.n_wombats(1)),

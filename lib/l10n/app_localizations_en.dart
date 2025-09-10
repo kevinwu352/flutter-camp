@@ -30,14 +30,27 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String dt_msg(DateTime val) {
-    final intl.DateFormat valDateFormat = intl.DateFormat.Hms(localeName);
+    final intl.DateFormat valDateFormat = intl.DateFormat(
+      'yyyy-MM-dd HH:mm:ss',
+      localeName,
+    );
     final String valString = valDateFormat.format(val);
 
-    return 'Hello, dt:$valString!';
+    return 'Hello, dt:$valString';
   }
 
   @override
-  String num_msg(Object val) {
-    return 'Hello, num:$val!';
+  String num_msg(int val) {
+    final intl.NumberFormat valNumberFormat = intl.NumberFormat.compact(
+      locale: localeName,
+    );
+    final String valString = valNumberFormat.format(val);
+
+    return 'Hello, num:$valString';
+  }
+
+  @override
+  String str_msg(String val) {
+    return 'Hello, str:$val';
   }
 }
