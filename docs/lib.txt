@@ -33,15 +33,15 @@ abs
 toDouble / toInt
 toString
 toStringAsExponential(3) // 1.235e+5
-toStringAsPrecision // 没搞懂这函数？
+toStringAsPrecision(6) // 小数点前后的有效数字个数，123456789.xxx(6) => 1.23457e+8
 toStringAsFixed
   0 去掉小数位，也不会有小数点
   n 位数不足会补 0，四舍五入不管正负
 
 ceil x 轴向右，所以 -1.1 => -1
 floor x 轴向左，所以 -1.1 => -2
+truncate x 轴向内，直接丢弃小数部分
 round 四舍五入，所以 -3.2 => -3 / -3.5 => -4
-truncate 直接丢弃小数部分
 上面四个返回值是 int，~ToDouble 返回值是 double
 
 超过上限或下限，则返回上限或下限

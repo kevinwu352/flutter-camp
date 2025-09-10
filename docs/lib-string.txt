@@ -1,0 +1,70 @@
+
+String.fromCharCode(65)
+String.fromCharCodes([65, 66])
+
+String.fromEnvironment 没研究透？
+
+'abc' * 3 // abcabcabc
+
+
+
+
+compareTo
+
+toLowerCase / toUpperCase
+
+',,a,b,,c,,'.split(',') // 返回 List<String>，8 个元素
+''.split(',') // 1 个元素
+''.split('')  // 0 个元素
+
+
+
+
+string[0] // 单个字母的 String
+string.codeUnitAt(0) // 返回 int
+string.codeUnits // List<int>
+string.runes.toList() // List<int> 最好用这种，因为 codeUnits 无法处理 BMP 以外的字符
+  const clef = '\u{1D11E}';
+  for (final item in clef.codeUnits) {
+    print(item.toRadixString(16)); // d834 dd1e
+  }
+  for (final item in clef.runes) {
+    print(item.toRadixString(16)); // 1d11e
+  }
+
+substring(1)
+substring(1, 3) // 1,2，都是不包括结束的
+
+
+
+
+contains(Pattern)
+  string.contains('D')
+  string.contains(RegExp(r'[A-Z]'))
+
+startsWith(Pattern) / endsWith(String)
+
+indexOf(Pattern) / lastIndexOf(Pattern)
+
+
+
+
+trim / trimLeft / trimRight
+
+'D'.padLeft(4, '>>') // >>>>>>D
+padRight
+  如果 width 小于 length，无效果
+  如果 width 负数，当成 0
+
+replaceAll(Pattern, String)
+replaceFirst(Pattern, String, [int])
+replaceAllMapped(Pattern, String(Match)) // 上面俩的替换字符串是固定的，这里是一个闭包
+replaceFirstMapped
+replaceRange(8, null, 'open source') // 如果 end 为空，从 8 替换到尾。1-3 替换的是 1,2 都是不包括结束的
+
+
+
+
+final buffer = StringBuffer('DART');
+buffer.write(' is open source');
+final text = buffer.toString();
