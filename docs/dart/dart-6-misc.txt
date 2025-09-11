@@ -9,6 +9,15 @@ flutter create --platforms=android
 
 
 
+
+dart pub get
+dart pub upgrade [transmogrify]
+dart pub outdated // 列出过时的包
+dart create -t package <PACKAGE_NAME>
+
+
+
+
 Swift 给可选添加扩展
   extension Optional where Wrapped == Bool {
       func orFalse() -> Bool {

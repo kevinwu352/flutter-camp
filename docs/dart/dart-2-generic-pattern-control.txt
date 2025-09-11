@@ -121,14 +121,14 @@ for (var MapEntry(key: k, :value) in dict.entries) { // 沿用 value 的名字
   print('$k occurred $value times');
 }
 
-switch 空内容会漏下去，其它不会
-
 switch 应该匹配所有情况，比如枚举。对于类来说，加上 sealed，将来它有新的子类时，编译器会提醒
 sealed class Shape {}
 double calculateArea(Shape shape) => switch (shape) { // 这里提醒有未覆盖的情况
   Square(length: var l) => l * l,
   Circle(radius: var r) => r * r,
 };
+匹配多个
+  case 'abc' || 'bbc':
 
 
 提供了 Exception/Error，和一堆预定义的子类型，我们能定义自己的，也能抛出非空对象作为异常

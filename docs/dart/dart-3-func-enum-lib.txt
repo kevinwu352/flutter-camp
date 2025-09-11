@@ -4,7 +4,7 @@
 
 任何函数都有返回值，如果你不写，系统自动返回 null
 
-不同实例的同名函数不相等
+同一类的 不同实例的 同名函数 不相等
 
 箭头函数后面要接表达式，不能接语句，print 可以，?: 可以，if 语句不行
 
@@ -27,15 +27,12 @@ MultiplierFunction multiplyBy(int multiplier) {
     return value * multiplier;
   };
 }
-// 获取
 MultiplierFunction multiplyByTwo = multiplyBy(2);
-// 调用
-print(multiplyByTwo(3));
+print( multiplyByTwo(3) );
 
 匿名函数也叫闭包，有两种
-[1, 2, 3].map((e) { return e * 2; }).toList(); // map 后得到的是 Iterable<T>，将其转化为 List<T>
-箭头函数
-[1,2,3].map((e) => e * 2).toList();
+  [1, 2, 3].map((e) { return e * 2; }).toList();
+  [1, 2, 3].map((e) => e * 2).toList();
 命名函数也能用箭头语法，注意这里没有返回类型，return 关键字，花括号。但分号得有
 multiply(int a, int b) => a * b;
 赋给某变量
@@ -108,11 +105,6 @@ enum Vehicle { // implements Comparable<Vehicle> 能实现接口，这里省了
 
 
 库 ================================================================================
-
-dart pub get
-dart pub upgrade [transmogrify]
-dart pub outdated // 列出过时的包
-dart create -t package <PACKAGE_NAME>
 
 一个文件就是一个模块或一个库
 dart:core 核心库无需导入，直接能用

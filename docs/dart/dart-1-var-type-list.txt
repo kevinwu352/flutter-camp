@@ -18,6 +18,8 @@ class WannabeFunction {
 
 !> 空集合上面调用 first/last 会崩
 
+switch 空内容会漏下去，其它不会
+
 
 
 变量 ================================================================================
@@ -64,7 +66,7 @@ const bar2 = foo2; // 成功
 类型 ================================================================================
 !> 所有类的基类是 Object，Null 除外
 !> 枚举的基类 Enum，Enum 是 Object 的子类吗？
-答：文档里 Enum 是抽象接口，且 ReqMethod.get is Object 是真
+答：文档里 Enum 是抽象接口，且 ReqMethod.post is Object 是真
 
 所有类型全是 class，包括基础类型 int/double
 !> int 和 double 能比较大小
@@ -254,11 +256,7 @@ for 用法，for 和 if 还能交叉集合起来用
 
 字典，每个 Object 都有 hash，swift 里需要明确实现 Hashable
 final gifts = <String, Object>{};
-final gifts = {
-  'first': 'partridge',
-  'second': 'turtle doves',
-  'fifth': 'golden rings',
-};
+final gifts = { 'first': 'partridge', 'second': 'turtle doves' };
 
 空感知
   var itemsA = {presentKey: absentValue}; // {Apple: null} <String:int?>
