@@ -11,5 +11,22 @@
         "format": "Hms"
       }
     }
+  },
+  "num_msg": "Bonjour, num:{val}",
+  "@num_msg": {
+    "placeholders": {
+      "val": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "str_msg": "Bonjour, str:{val}",
+  "@str_msg": {
+    "placeholders": {
+      "val": {
+        "type": "String"
+      }
+    }
   }
 }

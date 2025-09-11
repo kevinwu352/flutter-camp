@@ -11,5 +11,22 @@
         "format": "Hms"
       }
     }
+  },
+  "num_msg": "您好, num:{val}",
+  "@num_msg": {
+    "placeholders": {
+      "val": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "str_msg": "您好, str:{val}",
+  "@str_msg": {
+    "placeholders": {
+      "val": {
+        "type": "String"
+      }
+    }
   }
 }

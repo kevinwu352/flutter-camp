@@ -43,11 +43,11 @@ class AppLocalizationsFr extends AppLocalizations {
     );
     final String valString = valNumberFormat.format(val);
 
-    return 'Hello, num:$valString';
+    return 'Bonjour, num:$valString';
   }
 
   @override
   String str_msg(String val) {
-    return 'Hello, str:$val';
+    return 'Bonjour, str:$val';
   }
 }
