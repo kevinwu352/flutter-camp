@@ -101,7 +101,7 @@ arb 文件中，有一堆预设格式，也能用自定义格式
   print(NumberFormat.simpleCurrency().format(val)); // $1,200,000.00 | $1,200,000.57 | $1.57
   print(NumberFormat.compactSimpleCurrency().format(val)); // $1.2M | $1.2M | $1.57
 
-  // 默认三位小数，且是四舍五入
+  // 默认三位小数，且是四舍五入。整数部分是会分组的
   // 第一个方法会去除末尾的 0，第二个方法会保持 0
   print(NumberFormat.decimalPattern().format(val)); // 0.345678 => 0.346
   print(NumberFormat.decimalPatternDigits(decimalDigits: 2).format(val)); // 0.345678 => 0.35
@@ -111,6 +111,13 @@ arb 文件中，有一堆预设格式，也能用自定义格式
   print(NumberFormat.decimalPercentPattern(decimalDigits: 2).format(val)); // 0.345678 => 34.57%
 
   print(NumberFormat.scientificPattern().format(val)); // 1E6
+
+arb 里 int 格式
+  "val": { "type": "int" } 120000 不会分组
+  "val": { "type": "int", "format": "decimalPattern" } 120,000 外面用的时候不能传浮点数
+arb 里 double 格式
+  "val": { "type": "double" } 120000.0 不会分组
+  "val": { "type": "double", "format": "decimalPattern" } 120,000.0
 
 
 

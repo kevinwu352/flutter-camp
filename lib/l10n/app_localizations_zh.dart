@@ -38,8 +38,8 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String num_msg(int val) {
-    final intl.NumberFormat valNumberFormat = intl.NumberFormat.compact(
-      locale: localeName,
+    final intl.NumberFormat valNumberFormat = intl.NumberFormat.decimalPattern(
+      localeName,
     );
     final String valString = valNumberFormat.format(val);
 

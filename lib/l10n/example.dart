@@ -83,10 +83,10 @@ class _TheAppState extends State<TheApp> {
           builder: (context) {
             return Column(
               children: [
-                Text(AppLocalizations.of(context)!.dt_msg(DateTime.timestamp())),
-
+                // Text(AppLocalizations.of(context)!.dt_msg(DateTime.timestamp())),
                 Text(AppLocalizations.of(context)!.num_msg(1200000)),
-                Text(AppLocalizations.of(context)!.str_msg('god')),
+                // Text(AppLocalizations.of(context)!.num_msg(1200000.12345)),
+                // Text(AppLocalizations.of(context)!.str_msg('god')),
 
                 // Text(AppLocalizations.of(context)!.welcom_msg("kim")),
                 // Text(AppLocalizations.of(context)!.n_wombats(0)),
@@ -103,7 +103,7 @@ class _TheAppState extends State<TheApp> {
 
                 // "escap": "Bonjour! '{Isn''t}' this''s a wonderful day?"
                 // 单引号内的东西原样输出，如果要输出单引号，双写
-                Text(AppLocalizations.of(context)!.escap),
+                // Text(AppLocalizations.of(context)!.escap),
                 // Bonjour! {Isn't} this's a wonderful day?
                 Row(
                   children: [
