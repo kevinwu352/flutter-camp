@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'app_localizations.dart';
 
-class TheApp extends StatefulWidget {
-  const TheApp({super.key});
+class LocaleApp extends StatefulWidget {
+  const LocaleApp({super.key});
   @override
-  State<TheApp> createState() => _TheAppState();
+  State<LocaleApp> createState() => _LocaleAppState();
 }
 
-class _TheAppState extends State<TheApp> {
+class _LocaleAppState extends State<LocaleApp> {
   Locale? lc;
 
   @override
