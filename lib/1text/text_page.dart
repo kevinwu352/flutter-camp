@@ -1,7 +1,44 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/gestures.dart';
 
 // 文档说必须设 text direction，如果用 MaterialApp 的话，它帮你设了
 // runApp(Text("Hello, world!", textDirection: TextDirection.ltr));
+
+// ================================================================================
+// Text 参数
+
+// TextStyle? style
+// StrutStyle? strutStyle
+//
+// TextAlign? textAlign
+// TextDirection? textDirection
+//
+// int? maxLines
+// bool? softWrap
+// TextOverflow? overflow
+
+// Color? selectionColor
+// 选中部分的颜色，不是左右那两个柄
+
+// TextHeightBehavior? textHeightBehavior
+// 设置 height 后要不要显示上下的 leading，只管第一最后，多行的中间一直是显示的
+
+// TextWidthBasis? textWidthBasis
+// 前提：父给了约束
+//   .parent 当文字是单行时，和文字一样宽；当文字是多行时，和父的约束那样宽。默认是这
+//   .longestLine 文字肯定无法刚好满足父的宽，所以每行文字肯定都比父的宽度小。这通常用于做聊天那种泡泡
+
+// TextScaler? textScaler
+// 系统设置 Accessibility 时，用这参数来缩放字典
+// 传 TextScaler.linear(2)，行高会变成 2 倍
+
+// Locale? locale
+//
+// String? semanticsLabel
+// String? semanticsIdentifier
+
+// ================================================================================
+// TextStyle 参数
 
 class TextPage extends StatelessWidget {
   const TextPage({super.key});
@@ -12,10 +49,6 @@ class TextPage extends StatelessWidget {
       appBar: AppBar(title: Text('Text')),
       body: Column(
         children: [
-          // 设置文字背景色
-          Text('abc', style: TextStyle(backgroundColor: Colors.blue)),
-          Container(color: Colors.purple, child: Text('abc')),
-
           // 单行，完全展示
           // 用 clip|ellipsis 根据实际情况，默认好像是 clip
           // 后俩属性没必要设置，看心情吧
@@ -51,11 +84,101 @@ class TextPage extends StatelessWidget {
             ),
           ),
 
-          // Container(
-          //   width: 200,
-          //   color: Colors.purple,
-          //   child: Text('abc', textAlign: TextAlign.center),
+          // 多行，完全展示
+          // 其它模式没啥特别的，但 ellipsis 居然不换行了，而是在末尾加上省略号
+          Text('Setting maxLines to 1 is not equivalent to disabling soft wrapping.'),
+
+          // ================================================================================
+
+          // 横排两个 Text 如何分配空间？空间太多时拉谁？空间不够时压谁？
+
+          // ================================================================================
+
+          // Text 接受的参数是 String，RichText 接受的参数是 TextSpan
+          Text.rich(
+            // 这里有一堆其它参数，参数类似 Text
+            // style: TextStyle(), 里面的样式会覆盖这里的
+            TextSpan(
+              // 这四个参数都是可选的
+              text: 'abc',
+              // style: TextStyle(),
+              // recognizer: TapGestureRecognizer()..onTap = () => print('tapped'),
+              // children: [],
+            ),
+          ),
+
+          RichText(
+            // 这里有一堆其它参数，参数类似 Text，但无 TextStyle
+            text: TextSpan(
+              // 这四个参数都是可选的
+              // text: 'abc',
+              // style: TextStyle(),
+              // recognizer: TapGestureRecognizer()..onTap = () => print('tapped'),
+              children: [
+                TextSpan(
+                  text: 'abc',
+                  style: TextStyle(color: Colors.red),
+                  recognizer: TapGestureRecognizer()..onTap = () => print('tapped1'),
+                ),
+                TextSpan(
+                  text: '123',
+                  style: TextStyle(color: Colors.blue),
+                  recognizer: TapGestureRecognizer()..onTap = () => print('tapped2'),
+                ),
+              ],
+            ),
+          ),
+
+          // 有父样式，子继承样式，但修改了字号
+          DefaultTextStyle(
+            style: TextStyle(fontSize: 14, color: Colors.red),
+            child: Text('111', style: TextStyle(fontSize: 30)),
+          ),
+          // 有父样式，子继承样式
+          // TextSpan 里面和外面都能修改样式
+          DefaultTextStyle(
+            style: TextStyle(fontSize: 14, color: Colors.green),
+            child: Text.rich(TextSpan(text: '222')),
+          ),
+          // 有父样式，但 RichText 没继承，而且界面上看不到 333
+          DefaultTextStyle(
+            style: DefaultTextStyle.of(
+              context,
+            ).style.copyWith(fontSize: 30, color: Colors.purple), //TextStyle(fontSize: 14, color: Colors.blue),
+            child: RichText(
+              text: TextSpan(
+                text: '333',
+                // 加上这行能看见 333，但有黄线
+                style: DefaultTextStyle.of(context).style,
+                // 加上这行能看见 333，但有黄线，且字号和颜色都起作用了
+                // style: DefaultTextStyle.of(context).style.copyWith(fontSize: 30, color: Colors.purple),
+                // 下级也看不见
+                // children: [TextSpan(text: '444')],
+              ),
+            ),
+          ),
+
+          // RichText(
+          //   text: TextSpan(
+          //     // text: 'inherit no',
+          //     style: DefaultTextStyle.of(context).style,
+          //     children: [TextSpan(text: '123', style: TextStyle(fontSize: 14))],
+          //   ),
           // ),
+
+          // ================================================================================
+
+          // 设置文字背景色
+          // 如果是多行文字，TextStyle 的背景色可能是参差不齐的，第一行宽 100，第二行宽 80，第三行宽 110
+          Text('abc', style: TextStyle(backgroundColor: Colors.blue)),
+          Container(color: Colors.purple, child: Text('abc')),
+
+          // 让文字能选中
+          // selectionColor 选中部分的颜色，不是左右那两个柄
+          // 要让中间部分选中不了，用 SelectionContainer.disabled(child: Text('Non-selectable text'))
+          SelectionArea(child: Text('Selectable text', selectionColor: Colors.red)),
+
+          // ================================================================================
         ],
       ),
     );
