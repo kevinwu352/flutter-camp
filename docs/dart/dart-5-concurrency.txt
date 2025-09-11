@@ -35,6 +35,11 @@ var res = await Isolate.run(() => slowFib(43));
 可以给个异步函数字面量，注意那个 async
 await Isolate.run(() async { return ...; });
 
+比较：
+  compute 是 Flutter 框架提供的高层次 API，隐藏细节，自动管理 isolate 创建、销毁、通信
+  Isolate.run 比 compute 多点控制，但比 Isolate.spawn 少
+  Isolate.spawn 比较底层，自己管理 SendPort/ReceivePort 之类的
+
 
 
 Future 表示异步操作的结果，这是一种承诺，承诺将来会以 value 或 error 结束

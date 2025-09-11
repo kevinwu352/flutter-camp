@@ -9,8 +9,7 @@ class Point {
   static int year = 10; // 必须初始化
   static void run() { }
 
-  所有实例成员都有 getter
-  非 final 实例成员有 setter
+  所有实例成员都有 getter，非 final 实例成员有 setter
   无初始值的 late final 都有 setter，注意：有初值的 late final 没 setter
   double get right => left + width;
   set right(double value) => width = value - left;
@@ -22,7 +21,7 @@ class Point {
 
   // 匿名构造器只能有一个
   // 当成员有初始值时，可以在函数体内赋值
-  // 构造器可以包含上面提到的：命名参数{} 和 可选位置参数[]
+  // 构造器可以包含前面提到的：命名参数{} 和 可选位置参数[]
   Point(double a, double b) { ... }
   Point([double a = 0, double b = 0]) { ... }
   Point({double a = 0, double b = 0}) { ... }
