@@ -1,16 +1,16 @@
 // ignore: unused_import
 import 'package:intl/intl.dart' as intl;
-import 'app_localizations.dart';
+import 'localizations.dart';
 
 // ignore_for_file: type=lint
 
-/// The translations for English (`en`).
-class AppLocalizationsEn extends AppLocalizations {
-  AppLocalizationsEn([String locale = 'en']) : super(locale);
+/// The translations for French (`fr`).
+class AppLocalizationsFr extends AppLocalizations {
+  AppLocalizationsFr([String locale = 'fr']) : super(locale);
 
   @override
   String welcom_msg(Object name) {
-    return 'Hello, $name!';
+    return 'Bonjour, $name!';
   }
 
   @override
@@ -22,21 +22,18 @@ class AppLocalizationsEn extends AppLocalizations {
       one: '1 wombat',
       zero: 'no wombats',
     );
-    return 'Hello, $_temp0';
+    return 'Bonjour, $_temp0';
   }
 
   @override
-  String get escap => 'Hello! {Isn\'t} this\'s a wonderful day?';
+  String get escap => 'Bonjour! {Isn\'t} this\'s a wonderful day?';
 
   @override
   String dt_msg(DateTime val) {
-    final intl.DateFormat valDateFormat = intl.DateFormat(
-      'yyyy-MM-dd HH:mm:ss',
-      localeName,
-    );
+    final intl.DateFormat valDateFormat = intl.DateFormat.Hms(localeName);
     final String valString = valDateFormat.format(val);
 
-    return 'Hello, dt:$valString';
+    return 'Bonjour, dt:$valString';
   }
 
   @override

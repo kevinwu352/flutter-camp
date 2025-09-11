@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'l10n/app_localizations.dart';
-import 'package:flutter_camp/test_page.dart';
+import 'l10n/localizations.dart';
+import 'test_page.dart';
 
 void main() {
   // debugPaintSizeEnabled = true;

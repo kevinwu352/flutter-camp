@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'app_localizations.dart';
+import 'localizations.dart';
 
 class LocaleApp extends StatefulWidget {
   const LocaleApp({super.key});
