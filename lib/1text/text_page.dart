@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/gestures.dart';
 
 // 文档说必须设 text direction，如果用 MaterialApp 的话，它帮你设了
 // runApp(Text("Hello, world!", textDirection: TextDirection.ltr));
@@ -94,80 +93,6 @@ class TextPage extends StatelessWidget {
 
           // ================================================================================
 
-          // Text 接受的参数是 String，RichText 接受的参数是 TextSpan
-          Text.rich(
-            // 这里有一堆其它参数，参数类似 Text
-            // style: TextStyle(), 里面的样式会覆盖这里的
-            TextSpan(
-              // 这四个参数都是可选的
-              text: 'abc',
-              // style: TextStyle(),
-              // recognizer: TapGestureRecognizer()..onTap = () => print('tapped'),
-              // children: [],
-            ),
-          ),
-
-          RichText(
-            // 这里有一堆其它参数，参数类似 Text，但无 TextStyle
-            text: TextSpan(
-              // 这四个参数都是可选的
-              // text: 'abc',
-              // style: TextStyle(),
-              // recognizer: TapGestureRecognizer()..onTap = () => print('tapped'),
-              children: [
-                TextSpan(
-                  text: 'abc',
-                  style: TextStyle(color: Colors.red),
-                  recognizer: TapGestureRecognizer()..onTap = () => print('tapped1'),
-                ),
-                TextSpan(
-                  text: '123',
-                  style: TextStyle(color: Colors.blue),
-                  recognizer: TapGestureRecognizer()..onTap = () => print('tapped2'),
-                ),
-              ],
-            ),
-          ),
-
-          // 有父样式，子继承样式，但修改了字号
-          DefaultTextStyle(
-            style: TextStyle(fontSize: 14, color: Colors.red),
-            child: Text('111', style: TextStyle(fontSize: 30)),
-          ),
-          // 有父样式，子继承样式
-          // TextSpan 里面和外面都能修改样式
-          DefaultTextStyle(
-            style: TextStyle(fontSize: 14, color: Colors.green),
-            child: Text.rich(TextSpan(text: '222')),
-          ),
-          // 有父样式，但 RichText 没继承，而且界面上看不到 333
-          DefaultTextStyle(
-            style: DefaultTextStyle.of(
-              context,
-            ).style.copyWith(fontSize: 30, color: Colors.purple), //TextStyle(fontSize: 14, color: Colors.blue),
-            child: RichText(
-              text: TextSpan(
-                text: '333',
-                // 加上这行能看见 333，但有黄线
-                style: DefaultTextStyle.of(context).style,
-                // 加上这行能看见 333，但有黄线，且字号和颜色都起作用了
-                // style: DefaultTextStyle.of(context).style.copyWith(fontSize: 30, color: Colors.purple),
-                // 下级也看不见
-                // children: [TextSpan(text: '444')],
-              ),
-            ),
-          ),
-
-          // RichText(
-          //   text: TextSpan(
-          //     // text: 'inherit no',
-          //     style: DefaultTextStyle.of(context).style,
-          //     children: [TextSpan(text: '123', style: TextStyle(fontSize: 14))],
-          //   ),
-          // ),
-
-          // ================================================================================
-
           // 设置文字背景色
           // 如果是多行文字，TextStyle 的背景色可能是参差不齐的，第一行宽 100，第二行宽 80，第三行宽 110
           Text('abc', style: TextStyle(backgroundColor: Colors.blue)),
@@ -182,21 +107,6 @@ class TextPage extends StatelessWidget {
         ],
       ),
     );
-
-    // return Scaffold(
-    //   appBar: AppBar(title: Text('StrutStyle Example')),
-    //   body: Center(
-    //     child: Text(
-    //       'This text uses StrutStyle to control line height and spacing.',
-    //       style: TextStyle(fontSize: 20),
-    //       strutStyle: StrutStyle(
-    //         fontSize: 20, // Should match the TextStyle's fontSize for consistency
-    //         height: 1.5, // 1.5 times the font size
-    //         leading: 0, // Half of the font size as leading
-    //       ),
-    //     ),
-    //   ),
-    // );
 
     // return Scaffold(
     //   appBar: AppBar(backgroundColor: Theme.of(context).colorScheme.inversePrimary, title: Text("Text")),
@@ -249,87 +159,6 @@ class TextPage extends StatelessWidget {
     //       //     textScaleFactor: 2,
     //       //   ),
     //       // ),
-    //       // RichText(
-    //       //   textAlign: TextAlign.justify,
-    //       //   overflow: TextOverflow.fade,
-    //       //   maxLines: 3,
-    //       //   text: TextSpan(
-    //       //     children: [
-    //       //       TextSpan(
-    //       //         text: 'Already have an account',
-    //       //         style: TextStyle(fontSize: 16, letterSpacing: 0.5),
-    //       //       ),
-    //       //       TextSpan(
-    //       //         text: 'Login Here',
-    //       //         style: TextStyle(
-    //       //           fontSize: 16,
-    //       //           letterSpacing: 0.5,
-    //       //           color: Colors.blueAccent,
-    //       //           fontWeight: FontWeight.w600,
-    //       //           decoration: TextDecoration.underline,
-    //       //         ),
-    //       //         recognizer: TapGestureRecognizer()
-    //       //           ..onTap = () {
-    //       //             print('abc');
-    //       //           },
-    //       //       ),
-    //       //     ],
-    //       //   ),
-    //       // ),
-    //       // Text.rich(
-    //       //   style: DefaultTextStyle.of(context).style..color,
-    //       //   TextSpan(
-    //       //     children: [
-    //       //       TextSpan(
-    //       //         text: 'Already have an account',
-    //       //         style: TextStyle(fontSize: 16, letterSpacing: 0.5),
-    //       //       ),
-    //       //       TextSpan(
-    //       //         text: 'Login Here',
-    //       //         style: TextStyle(
-    //       //           fontSize: 16,
-    //       //           letterSpacing: 0.5,
-    //       //           color: Colors.red,
-    //       //           fontWeight: FontWeight.w600,
-    //       //           fontFamily: 'Gilroy',
-    //       //           fontStyle: FontStyle.italic,
-    //       //         ),
-    //       //       ),
-    //       //     ],
-    //       //   ),
-    //       // ),
-    //       // Row(
-    //       //   children: <Widget>[
-    //       //     Container(
-    //       //       color: Colors.green,
-    //       //       child: const Text("ABC", style: TextStyle(fontSize: 32.0)),
-    //       //     ),
-    //       //     Container(
-    //       //       color: Colors.red,
-    //       //       child: const Text("あいう", style: TextStyle(fontSize: 32.0)),
-    //       //     ),
-    //       //   ],
-    //       // ),
-    //       Row(
-    //         children: [
-    //           Container(
-    //             color: Colors.green,
-    //             child: Text(
-    //               "ABC",
-    //               style: TextStyle(fontSize: 16.0),
-    //               // strutStyle: StrutStyle(fontSize: 16.0, height: 1.3),
-    //             ),
-    //           ),
-    //           Container(
-    //             color: Colors.red,
-    //             child: Text(
-    //               "あいう",
-    //               style: TextStyle(fontSize: 16.0),
-    //               // strutStyle: StrutStyle(fontSize: 16.0, height: 1.3),
-    //             ),
-    //           ),
-    //         ],
-    //       ),
     // );
   }
 }
