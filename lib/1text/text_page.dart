@@ -6,16 +6,6 @@ import 'package:flutter/material.dart';
 // ================================================================================
 // Text 参数
 
-// TextAlign? textAlign
-// TextDirection? textDirection
-//
-// int? maxLines
-// bool? softWrap
-// TextOverflow? overflow
-
-// Color? selectionColor
-// 选中部分的颜色，不是左右那两个柄
-
 // TextStyle? style
 // StrutStyle? strutStyle
 // TextHeightBehavior? textHeightBehavior
@@ -29,6 +19,16 @@ import 'package:flutter/material.dart';
 // TextHeightBehavior 的作用仅体现在 第一行前 和 最后一行后
 // TextHeightBehavior 的值为 false 时，用字体原来的 ascent，而不是 0，这一定要注意
 
+// TextAlign? textAlign
+// TextDirection? textDirection
+
+// int? maxLines
+// bool? softWrap
+// TextOverflow? overflow
+
+// Color? selectionColor
+// 选中部分的颜色，不是左右那两个柄
+
 // TextWidthBasis? textWidthBasis
 // 前提：父给了约束
 //   .parent 当文字是单行时，和文字一样宽；当文字是多行时，和父的约束那样宽。默认是这
@@ -39,12 +39,9 @@ import 'package:flutter/material.dart';
 // 传 TextScaler.linear(2)，行高会变成 2 倍
 
 // Locale? locale
-//
+
 // String? semanticsLabel
 // String? semanticsIdentifier
-
-// ================================================================================
-// TextStyle 参数
 
 class TextPage extends StatelessWidget {
   const TextPage({super.key});
