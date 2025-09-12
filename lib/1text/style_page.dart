@@ -13,10 +13,10 @@ import 'package:flutter/gestures.dart';
 // ================================================================================
 // TextStyle 参数
 
+// String? fontFamily 自定义字体
 // double? fontSize
 // FontWeight? fontWeight
 // FontStyle? fontStyle 是否斜体
-// String? fontFamily 自定义字体
 // List<String>? fontFamilyFallback ['Noto Sans CJK SC', 'Noto Color Emoji'] 找不到字体时的后备
 // String? package
 
@@ -25,14 +25,14 @@ import 'package:flutter/gestures.dart';
 // Paint? foreground
 // Paint? background
 
-// TextOverflow? overflow [in_text_too]
+// TextOverflow? overflow Text 也有这属性
 
 // double? letterSpacing 像素值，负数会重叠
 // double? wordSpacing 像素值，负数会重叠
 
 // double? height
-// TextLeadingDistribution? leadingDistribution,
-// TextBaseline? textBaseline 不清楚作用？
+// TextLeadingDistribution? leadingDistribution 感觉没必要改这值，用默认就好
+// TextBaseline? textBaseline 目前我试了没啥作用
 
 // TextDecoration? decoration 上中下划线
 // Color? decorationColor
@@ -52,13 +52,42 @@ import 'package:flutter/gestures.dart';
 // 字重/斜体/宽度，等等
 // 精细化控制，前面的斜体，只能开关，这里能控制斜多少
 
+// ================================================================================
+
+// 类似拼写错误那个红色波浪下划线
+// decoration: TextDecoration.underline,
+// decorationColor: Colors.red,
+// decorationStyle: TextDecorationStyle.wavy,
+
+// ================================================================================
+
+// 镂空填充字怎么做
+// Stack(
+//   children: [
+//     Text( // 这部分只画边框。。。这里还能是渐变的，用到再研究？
+//       'Greetings, planet!',
+//       style: TextStyle(
+//         fontSize: 40,
+//         foreground: Paint()
+//           ..style = PaintingStyle.stroke
+//           ..strokeWidth = 3
+//           ..color = Colors.blue[700]!,
+//       ),
+//     ),
+//     Text( // 这部分是实心的
+//       'Greetings, planet!',
+//       style: TextStyle(fontSize: 40, color: Colors.red),
+//     ),
+//   ],
+// ),
+
 class StyleWidget extends StatelessWidget {
   const StyleWidget({super.key, required this.name});
   final String name;
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-    final textStyle = DefaultTextStyle.of(context).style;
+    // final textTheme = Theme.of(context).textTheme;
+    // final textStyle = DefaultTextStyle.of(context).style;
     return Text(name);
   }
 }
@@ -78,75 +107,75 @@ class StylePage extends StatelessWidget {
       appBar: AppBar(title: Text('Style')),
       body: Column(
         children: [
-          // // 里面得到的是 bodyMedium 样式
-          // StyleWidget(name: '1aaa'),
+          // 里面得到的是 bodyMedium 样式
+          StyleWidget(name: '1aaa'),
 
-          // // 里面得到的样式只有字号
-          // DefaultTextStyle(
-          //   style: TextStyle(fontSize: 31),
-          //   child: StyleWidget(name: '2bbb'),
-          // ),
+          // 里面得到的样式只有字号
+          DefaultTextStyle(
+            style: TextStyle(fontSize: 31),
+            child: StyleWidget(name: '2bbb'),
+          ),
 
-          // // 里面得到的是 bodyLarge 样式
-          // DefaultTextStyle(
-          //   style: Theme.of(context).textTheme.bodyLarge!,
-          //   child: StyleWidget(name: '3ccc'),
-          // ),
+          // 里面得到的是 bodyLarge 样式
+          DefaultTextStyle(
+            style: Theme.of(context).textTheme.bodyLarge!,
+            child: StyleWidget(name: '3ccc'),
+          ),
 
-          // // 里面得到的是 fallback 样式，也就是双黄线那种
-          // // 可见 DefaultTextStyle.of 获取的一定是它上面的另一个 DefaultTextStyle 提供的样式，而不是周围环境的样式
-          // DefaultTextStyle(
-          //   style: DefaultTextStyle.of(context).style,
-          //   child: StyleWidget(name: '4ddd'),
-          // ),
+          // 里面得到的是 fallback 样式，也就是双黄线那种
+          // 可见 DefaultTextStyle.of 获取的一定是它上面的另一个 DefaultTextStyle 提供的样式，而不是周围环境的样式
+          DefaultTextStyle(
+            style: DefaultTextStyle.of(context).style,
+            child: StyleWidget(name: '4ddd'),
+          ),
 
-          // // 里面得到的是 bodyMedium 样式
-          // // 可见 DefaultTextStyle.merge 会获取周围环境的样式
-          // DefaultTextStyle.merge(child: StyleWidget(name: '5eee')),
+          // 里面得到的是 bodyMedium 样式
+          // 可见 DefaultTextStyle.merge 会获取周围环境的样式
+          DefaultTextStyle.merge(child: StyleWidget(name: '5eee')),
 
-          // // 里面得到的是 bodyMedium 样式，但修改了部分属性
-          // DefaultTextStyle.merge(
-          //   style: TextStyle(color: Colors.red),
-          //   child: StyleWidget(name: '6fff'),
-          // ),
+          // 里面得到的是 bodyMedium 样式，但修改了部分属性
+          DefaultTextStyle.merge(
+            style: TextStyle(color: Colors.red),
+            child: StyleWidget(name: '6fff'),
+          ),
 
           // ================================================================================
 
-          // // RichText 不继承周围环境的样式，Text.rich 会继承
-          // // RichText 顶层无 style，Text.rich 可以设置个 base style
-          // // 个人感觉用 Text.rich 好一点，它会使用环境的基础样式，我只需要修改部分样式即可
-          // Text.rich(
-          //   // 这里有一堆其它参数，参数类似 Text
-          //   // style: TextStyle(), 里面的样式会和这里的合并
-          //   TextSpan(
-          //     // 这四个参数都是可选的
-          //     text: 'abc',
-          //     // style: TextStyle(),
-          //     // recognizer: TapGestureRecognizer()..onTap = () => print('tapped'),
-          //     // children: [],
-          //   ),
-          // ),
-          // RichText(
-          //   // 这里有一堆其它参数，参数类似 Text，但无 TextStyle
-          //   text: TextSpan(
-          //     // 这四个参数都是可选的
-          //     // text: 'abc',
-          //     // style: TextStyle(),
-          //     // recognizer: TapGestureRecognizer()..onTap = () => print('tapped'),
-          //     children: [
-          //       TextSpan(
-          //         text: 'abc',
-          //         style: TextStyle(color: Colors.red),
-          //         recognizer: TapGestureRecognizer()..onTap = () => print('tapped1'),
-          //       ),
-          //       TextSpan(
-          //         text: '123',
-          //         style: TextStyle(color: Colors.blue),
-          //         recognizer: TapGestureRecognizer()..onTap = () => print('tapped2'),
-          //       ),
-          //     ],
-          //   ),
-          // ),
+          // RichText 不继承周围环境的样式，Text.rich 会继承
+          // RichText 顶层无 style，Text.rich 可以设置个 base style
+          // 个人感觉用 Text.rich 好一点，它会使用环境的基础样式，我只需要修改部分样式即可
+          Text.rich(
+            // 这里有一堆其它参数，参数类似 Text
+            // style: TextStyle(), 里面的样式会和这里的合并
+            TextSpan(
+              // 这四个参数都是可选的
+              text: 'abc',
+              // style: TextStyle(),
+              // recognizer: TapGestureRecognizer()..onTap = () => print('tapped'),
+              // children: [],
+            ),
+          ),
+          RichText(
+            // 这里有一堆其它参数，参数类似 Text，但无 TextStyle
+            text: TextSpan(
+              // 这四个参数都是可选的
+              // text: 'abc',
+              // style: TextStyle(),
+              // recognizer: TapGestureRecognizer()..onTap = () => print('tapped'),
+              children: [
+                TextSpan(
+                  text: 'abc',
+                  style: TextStyle(color: Colors.red),
+                  recognizer: TapGestureRecognizer()..onTap = () => print('tapped1'),
+                ),
+                TextSpan(
+                  text: '123',
+                  style: TextStyle(color: Colors.blue),
+                  recognizer: TapGestureRecognizer()..onTap = () => print('tapped2'),
+                ),
+              ],
+            ),
+          ),
 
           // ================================================================================
 
@@ -175,133 +204,41 @@ class StylePage extends StatelessWidget {
           // TextHeightBehavior.leadingDistribution.proportional 按 ascent/descent 的比例分
           // TextHeightBehavior.leadingDistribution.even 平均分
           // 实测中，上下都是均分的，也许是字体的原因吧
-          Text(
-            'jKf',
-            style: TextStyle(height: 1, backgroundColor: Colors.red),
-            textHeightBehavior: TextHeightBehavior(leadingDistribution: TextLeadingDistribution.proportional),
-          ),
-          Text(
-            'jKf',
-            style: TextStyle(height: 2, backgroundColor: Colors.green),
-            textHeightBehavior: TextHeightBehavior(leadingDistribution: TextLeadingDistribution.proportional),
-          ),
-          Text(
-            'jKf',
-            style: TextStyle(height: 4, backgroundColor: Colors.blue),
-            textHeightBehavior: TextHeightBehavior(leadingDistribution: TextLeadingDistribution.proportional),
-          ),
+          // Text(
+          //   'jKf',
+          //   style: TextStyle(height: 1, backgroundColor: Colors.red),
+          //   textHeightBehavior: TextHeightBehavior(leadingDistribution: TextLeadingDistribution.proportional),
+          // ),
+          // Text(
+          //   'jKf',
+          //   style: TextStyle(height: 2, backgroundColor: Colors.green),
+          //   textHeightBehavior: TextHeightBehavior(leadingDistribution: TextLeadingDistribution.proportional),
+          // ),
+          // Text(
+          //   'jKf',
+          //   style: TextStyle(height: 4, backgroundColor: Colors.blue),
+          //   textHeightBehavior: TextHeightBehavior(leadingDistribution: TextLeadingDistribution.proportional),
+          // ),
 
           // ================================================================================
-          Container(
-            width: 200,
-            color: Colors.yellow,
-            child: Column(
-              children: [
-                // Text(
-                //   'Setting maxLines to 1 is not equivalent to disabling soft wrapping.',
-                //   // overflow: TextOverflow.clip,
-                //   // style: TextStyle(height: 4),
-                //   style: TextStyle(height: 4, backgroundColor: Colors.red),
-                //   textHeightBehavior: TextHeightBehavior(
-                //     applyHeightToFirstAscent: false,
-                //     applyHeightToLastDescent: true,
-                //   ),
-                // ),
-                // Text(
-                //   'jKf1',
-                //   // overflow: TextOverflow.clip,
-                //   // style: TextStyle(height: 4),
-                //   style: TextStyle(height: 4, backgroundColor: Colors.red),
-                //   textHeightBehavior: TextHeightBehavior(
-                //     applyHeightToFirstAscent: true,
-                //     applyHeightToLastDescent: true,
-                //   ),
-                // ),
-                // Text(
-                //   'jKf2',
-                //   // overflow: TextOverflow.clip,
-                //   // style: TextStyle(height: 4),
-                //   style: TextStyle(height: 4, backgroundColor: Colors.green),
-                //   textHeightBehavior: TextHeightBehavior(
-                //     applyHeightToFirstAscent: true,
-                //     applyHeightToLastDescent: false,
-                //   ),
-                // ),
-                // Text(
-                //   'jKf3',
-                //   // overflow: TextOverflow.clip,
-                //   // style: TextStyle(height: 4),
-                //   style: TextStyle(height: 4, backgroundColor: Colors.blue),
-                //   textHeightBehavior: TextHeightBehavior(
-                //     applyHeightToFirstAscent: false,
-                //     applyHeightToLastDescent: true,
-                //   ),
-                // ),
-                Text('jKf1'), // 高度 20
-                Text('jKf2', style: TextStyle(height: 1)), // 高度 14 * 2 = 28，但文字没变大，上下空间变大了
-                Text(
-                  'jKf4',
-                  // overflow: TextOverflow.clip,
-                  // style: TextStyle(height: 4),
-                  style: TextStyle(height: 1, backgroundColor: Colors.purple),
-                  textHeightBehavior: TextHeightBehavior(
-                    applyHeightToFirstAscent: false,
-                    applyHeightToLastDescent: false,
-                  ),
-                ),
-              ],
-            ),
-          ),
+          // 不知道为何，基线这功能设置了没啥效果
+          // Text(
+          //   'jKf',
+          //   style: TextStyle(height: 1, backgroundColor: Colors.red, textBaseline: TextBaseline.ideographic),
+          //   textHeightBehavior: TextHeightBehavior(leadingDistribution: TextLeadingDistribution.proportional),
+          // ),
+          // Text(
+          //   'jKf',
+          //   style: TextStyle(height: 2, backgroundColor: Colors.green, textBaseline: TextBaseline.ideographic),
+          //   textHeightBehavior: TextHeightBehavior(leadingDistribution: TextLeadingDistribution.proportional),
+          // ),
+          // Text(
+          //   'jKf',
+          //   style: TextStyle(height: 4, backgroundColor: Colors.blue, textBaseline: TextBaseline.ideographic),
+          //   textHeightBehavior: TextHeightBehavior(leadingDistribution: TextLeadingDistribution.proportional),
+          // ),
         ],
       ),
     );
-
-    // return Scaffold(
-    //   appBar: AppBar(title: Text('StrutStyle Example')),
-    //   body: Center(
-    //     child: Text(
-    //       'This text uses StrutStyle to control line height and spacing.',
-    //       style: TextStyle(fontSize: 20),
-    //       strutStyle: StrutStyle(
-    //         fontSize: 20, // Should match the TextStyle's fontSize for consistency
-    //         height: 1.5, // 1.5 times the font size
-    //         leading: 0, // Half of the font size as leading
-    //       ),
-    //     ),
-    //   ),
-    // );
-
-    //       // Row(
-    //       //   children: <Widget>[
-    //       //     Container(
-    //       //       color: Colors.green,
-    //       //       child: const Text("ABC", style: TextStyle(fontSize: 32.0)),
-    //       //     ),
-    //       //     Container(
-    //       //       color: Colors.red,
-    //       //       child: const Text("あいう", style: TextStyle(fontSize: 32.0)),
-    //       //     ),
-    //       //   ],
-    //       // ),
-    //       Row(
-    //         children: [
-    //           Container(
-    //             color: Colors.green,
-    //             child: Text(
-    //               "ABC",
-    //               style: TextStyle(fontSize: 16.0),
-    //               // strutStyle: StrutStyle(fontSize: 16.0, height: 1.3),
-    //             ),
-    //           ),
-    //           Container(
-    //             color: Colors.red,
-    //             child: Text(
-    //               "あいう",
-    //               style: TextStyle(fontSize: 16.0),
-    //               // strutStyle: StrutStyle(fontSize: 16.0, height: 1.3),
-    //             ),
-    //           ),
-    //         ],
-    //       ),
   }
 }
