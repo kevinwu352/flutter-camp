@@ -6,9 +6,6 @@ import 'package:flutter/material.dart';
 // ================================================================================
 // Text 参数
 
-// TextStyle? style
-// StrutStyle? strutStyle
-//
 // TextAlign? textAlign
 // TextDirection? textDirection
 //
@@ -19,8 +16,18 @@ import 'package:flutter/material.dart';
 // Color? selectionColor
 // 选中部分的颜色，不是左右那两个柄
 
+// TextStyle? style
+// StrutStyle? strutStyle
 // TextHeightBehavior? textHeightBehavior
-// 设置 height 后要不要显示上下的 leading，只管第一最后，多行的中间一直是显示的
+//
+// 当 TextStyle.height 为空时，行高是字体定义的；当 TextStyle.height = n 时，行高是 fontSize * n
+// 且 null 时的行高不一定等于 1 时的行高
+//
+// TextStyle.height 改变后，字体并不会变大，只是上下空间变多了，如何分配上下空间？
+//   TextHeightBehavior.applyHeightToFirstAscent 和 TextHeightBehavior.applyHeightToLastDescent
+// 多行文字时，不管 TextHeightBehavior 设置的是什么，两行之间的空间是 上一行的 descent + 下一行的 ascent
+// TextHeightBehavior 的作用仅体现在 第一行前 和 最后一行后
+// TextHeightBehavior 的值为 false 时，用字体原来的 ascent，而不是 0，这一定要注意
 
 // TextWidthBasis? textWidthBasis
 // 前提：父给了约束

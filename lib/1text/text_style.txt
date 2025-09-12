@@ -7,6 +7,9 @@
 // )
 // 传一个 TextStyle，然后 Text 会把它和周围的 DefaultTextStyle 合并，形成新的 style 并使用
 
+
+
+
 // color / backgroundColor 是 foreground / background 的短形式，不能同时设置，会崩
 // Text("Some text...",
 //   style: TextStyle(backgroundColor: Colors.blue), 短形式
@@ -47,47 +50,45 @@
 //   ],
 // ),
 
-// double? fontSize,
-// FontWeight? fontWeight,
-// FontStyle? fontStyle, 斜体
-// String? fontFamily, 自定义字体
-// List<String>? fontFamilyFallback, ['Noto Sans CJK SC', 'Noto Color Emoji'] 找不到字体时的后备
-// String? package,
-// 不同系统字体不同，如果想要样式统一，有必要提供自定义字体
+// double? fontSize
+// FontWeight? fontWeight
+// FontStyle? fontStyle 是否斜体
+// String? fontFamily 自定义字体
+// List<String>? fontFamilyFallback ['Noto Sans CJK SC', 'Noto Color Emoji'] 找不到字体时的后备
+// String? package
 
-// Color? color,
-// Color? backgroundColor,
-// Paint? foreground,
-// Paint? background,
+// Color? color
+// Color? backgroundColor
+// Paint? foreground
+// Paint? background
 
-// TextOverflow? overflow
+// TextOverflow? overflow [in_text_too]
 
-// double? letterSpacing,
-// double? wordSpacing,
-// double? height,
+// double? letterSpacing 像素值，负数会重叠
+// double? wordSpacing 像素值，负数会重叠
+
+// double? height
 // TextLeadingDistribution? leadingDistribution,
-// TextBaseline? textBaseline, 不清楚作用？
+// TextBaseline? textBaseline 不清楚作用？
 
-// TextDecoration? decoration, 上中下划线
-// Color? decorationColor,
-// TextDecorationStyle? decorationStyle,
-// double? decorationThickness,
+// TextDecoration? decoration 上中下划线
+// Color? decorationColor
+// TextDecorationStyle? decorationStyle
+// double? decorationThickness
+//
+// List<Shadow>? shadows
 
-// List<Shadow>? shadows,
+// String? debugLabel
+//
+// Locale? locale
+//
+// List<FontFeature>? fontFeatures
+// 上标/下标/小一点的大写字母，等等
+// 这也只是开关字体的某个特性
+// List<FontVariation>? fontVariations
+// 字重/斜体/宽度，等等
+// 精细化控制，前面的斜体，只能开关，这里能控制斜多少
 
-//String? debugLabel,
-
-// Locale? locale, 不清楚作用？
-
-// List<FontFeature>? fontFeatures, 不清楚作用？
-// List<FontVariation>? fontVariations, 不清楚作用？
 
 
 
-
-
-// 没想通这和直接覆盖有何不同？
-// DefaultTextStyle.merge(
-//   style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-//   child: const Center(child: Text('Flutter')),
-// )
