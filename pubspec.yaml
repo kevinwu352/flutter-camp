@@ -40,5 +40,12 @@ flutter:
   fonts:
     - family: Bitcount Single
       fonts:
+        - asset: assets/fonts/BitcountSingle-Thin.ttf
+        - asset: assets/fonts/BitcountSingle-ExtraLight.ttf
+        - asset: assets/fonts/BitcountSingle-Light.ttf
         - asset: assets/fonts/BitcountSingle-Regular.ttf
         - asset: assets/fonts/BitcountSingle-Medium.ttf
+        - asset: assets/fonts/BitcountSingle-SemiBold.ttf
+        - asset: assets/fonts/BitcountSingle-Bold.ttf
+        - asset: assets/fonts/BitcountSingle-ExtraBold.ttf
+        - asset: assets/fonts/BitcountSingle-Black.ttf
