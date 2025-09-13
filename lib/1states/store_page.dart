@@ -1,9 +1,9 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
 import 'package:hive/hive.dart';
+import 'hive_ext.dart';
 
 // ================================================================================
 
@@ -84,42 +84,10 @@ class Bee {
   Bee({required this.name, required this.role});
   final String name;
   final int role;
-  factory Bee.fromJson(Map<String, dynamic> json) => Bee(name: json['name'] as String, role: json['role'] as int);
+  Bee.fromJson(Map<String, dynamic> json) : name = json['name'] as String, role = json['role'] as int;
   Map<String, dynamic> toJson() => {'name': name, 'role': role};
   @override
   String toString() => '$name $role';
-}
-
-extension BoxExt<E> on Box<E> {
-  bool? getBool(String key) {
-    final value = get(key);
-    return value is bool ? value : null;
-  }
-
-  int? getInt(String key) {
-    final value = get(key);
-    return value is int ? value : null;
-  }
-
-  double? getDouble(String key) {
-    final value = get(key);
-    return value is double ? value : null;
-  }
-
-  String? getString(String key) {
-    final value = get(key);
-    return value is String ? value : null;
-  }
-
-  List<dynamic>? getList(String key) {
-    final value = get(key);
-    return value is List ? value : null;
-  }
-
-  Map<String, dynamic>? getMap(String key) {
-    final value = get(key);
-    return value is Map ? value.map((k, v) => MapEntry(k.toString(), v)) : null;
-  }
 }
 
 class StorePage extends StatelessWidget {
@@ -135,32 +103,32 @@ class StorePage extends StatelessWidget {
 
           final dir = await getApplicationDocumentsDirectory();
           Hive.init(join(dir.path, 'hive'));
-
           final box = await Hive.openBox('defaults');
 
-          // await box.put('bool_key', true);
-          // await box.put('int_key', 102);
-          // await box.put('double_key', 1.23456789);
-          // await box.put('string_key', 'xixihaha');
-          // final list = [1, 'a'];
-          // await box.put('list_key', list);
-          // final map = {'a': 1, 'b': 'x'};
-          // await box.put('map_key', map);
+          await box.put('bool_key', true);
+          await box.put('int_key', 102);
+          await box.put('double_key', 1.23456789);
+          await box.put('string_key', 'xixihaha');
+          await box.put('list_key', [1, 'a']);
+          await box.put('map_key', {'a': 1, 'b': 'x'});
 
-          // final key = 'map_key';
-          // print(box.getBool(key));
-          // print(box.getInt(key));
-          // print(box.getDouble(key));
-          // print(box.getString(key));
-          // print(box.getList(key));
-          // print(box.getMap(key));
+          final key = 'bool_key';
+          print(box.getBool(key));
+          print(box.getInt(key));
+          print(box.getDouble(key));
+          print(box.getString(key));
+          print(box.getList(key));
+          print(box.getMap(key));
 
-          // final bee = Bee(name: 'kim', role: 10);
-          // await box.put('bee_key', bee.toJson());
+          final bee = Bee(name: 'kim', role: 10);
+          await box.put('bee_key', bee.toJson());
 
-          // final map = box.getMap('bee_key');
-          // final bee = map is Map<String, dynamic> ? Bee.fromJson(map) : null;
-          // print(bee);
+          final map = box.getMap('bee_key');
+          final bee1 = map is Map<String, dynamic> ? Bee.fromJson(map) : null;
+          print(bee1);
+
+          final bee2 = box.getObject('bee_key', Bee.fromJson);
+          print(bee2);
 
           print("end");
         },

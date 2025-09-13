@@ -176,7 +176,8 @@ a as int // 有可能会崩，如果不确定，就先用 is 测试一下，相�
   Object 可以父类指向子类对象
   dynamic 是运行时报错，Object 是编译时报错
 
-int assume(dynamic object) { // 运行时传非字符串会崩
+以下函数参数是 dynamic，你能传 int?/int/String?/String，编译能通过。但运行传非字符串会崩
+int assume(dynamic object) {
   String string = object;
   return string.length;
 }

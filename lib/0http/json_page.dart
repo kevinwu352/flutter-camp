@@ -12,6 +12,11 @@ import 'dart:convert';
 // model => list
 //   reviews.map((review) => review.toJson()).toList()
 
+// Bee.fromJson(Map<String, dynamic> json) : name = json['name'] as String, role = json['role'] as int;
+// Map<String, dynamic> toJson() => {'name': name, 'role': role};
+// 也能写成工厂构造函数
+// factory Bee.fromJson(Map<String, dynamic> json) => Bee(name: json['name'] as String, role: json['role'] as int);
+
 class User {
   final String name;
   final int age;
