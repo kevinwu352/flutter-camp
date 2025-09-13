@@ -126,3 +126,24 @@ import 'package:transmogrify/parser.dart'; // 自定义包
 transmogrify/
   lib/transmogrify.dart
   test/parser/
+
+library 做法
+// core.dart
+  library;
+
+  import 'dart:math'; // 其它文件不用再导入，能直接用
+
+  part 'lib1.dart';
+  part 'lib2.dart';
+
+  int getVal() {
+    return 12;
+  }
+
+// lib1.dart
+  part of 'core.dart';
+
+  int makeInt() {
+    return 201;
+  }
+这三个文件内的私有方法能互相调用，但外面不可见
