@@ -15,7 +15,8 @@ toSet
 forEach
 
 followedBy                                <= Stream 没有
-拼接另外一个流
+  拼接另外一个流
+  返回的是视图，受原数组影响，切记
   var planets = ['Earth', 'Jupiter'];
   var updated = planets.followedBy(['Mars', 'Venus']);
   print(updated);
@@ -64,20 +65,28 @@ join
 筛选流中元素
 
 skip / skipWhile 数太大会造成空流，不会崩
-take / takeWhile
+take / takeWhile 
+  skip 和 take 返回的是视图，受原数组影响，切记
 
 where 就是 filter
+  where 只筛选不改变返回类型，whereType/nonNulls 返回新类型
+  但返回的是视图，受原数组影响，切记
 
 nonNulls                                  <= Stream 没有
-将 Iterable<int?> 转化成 Iterable<int>
+  where 只筛选不改变返回类型，whereType/nonNulls 返回新类型
+  将 Iterable<int?> 转化成 Iterable<int>
+  但返回的是视图，受原数组影响，切记
 
 <= Stream 里面有 distinct / handleError / timeout，这里没有
 
 
 转换流中元素
 
-expand 相当于 flatMap
+expand
+  相当于 flatMap
+  返回 lazy iterator，类似于视图吧
 map
+  返回 lazy iterator，类似于视图吧
 
 cast 将流转换成新流
 比如流的类型是 List<Object>，但里面全是字符串，则可以如下转换

@@ -36,9 +36,14 @@ containsValue 用 == 比较
 
 cast
   元素的真实类型如果不对，会崩
+  它只返回原字典的一个视图，原来的修改了，自己展现出来的东西也会变，下面的 map 就不会，切记
+  final Map<String, num> map = {'aa': 1, 'bb': 2};
+  final aa = map.cast<String, int>();
+  print(aa); // 2 个元素
+  map['cc'] = 3;
+  print(aa); // 3 个元素
 map(MapEntry<K2, V2> convert(K1, V1))
-  键和值类型都能变
-
+  键和值类型都能变，切记这是返回新的字典
 
 
 final val1 = dict['aa'] = 100;

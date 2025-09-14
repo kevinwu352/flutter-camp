@@ -289,3 +289,16 @@ final names = {}; // 这会被当成空字典，类型是 Map<dynamic, dynamic>
 
 if 用法
 const set = {if (list is List<int>) ...list};
+
+
+一个很怪的行为
+  var list1 = [1, 2, 3, null];
+  var list2 = [1, 2, 3];
+  List<int?> list3 = [1, 2, 3];
+  print(list1 is List<int>); // 真 <int?> 不是 <int>
+  print(list2 is List<int>); // 真 <int> 是 <int>
+  print(list3 is List<int>); // 假 <int?> 不是 <int>
+  print(list1 is List<int?>); // 真 <int?> 是 <int?>
+  print(list2 is List<int?>); // 真 <int> 是 <int?>  <= 这个很怪
+  print(list3 is List<int?>); // 假 <int?> 是 <int?>
+  // 所以 <int> 既是 <int> 也是 <int?>

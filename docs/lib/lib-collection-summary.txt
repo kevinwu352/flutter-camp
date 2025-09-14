@@ -1,0 +1,52 @@
+Map
+  remove
+  removeWhere
+
+  update
+  updateAll
+
+  map(MapEntry<K2, V2> convert(K1, V1))
+    键和值类型都能变
+  cast
+    元素的真实类型如果不对，会崩
+
+
+
+List
+  bool remove(Object? value)
+    只移除找到的第一个，如果移除成功返回 true
+  removeAt(2)
+    越界会崩，返回被移除的元素
+  removeLast
+    空流会崩，返回被移除的元素
+  removeWhere
+    移除所有符合条件的
+  retainWhere((it) => it.length == 3)
+    保留所有符合条件的
+
+  whereType
+    where 只筛选不改变返回类型，whereType/nonNulls 返回新类型
+以下的来自 Iterable
+  where 就是 filter
+    where 只筛选不改变返回类型，whereType/nonNulls 返回新类型
+    但返回的是视图，受原数组影响，切记
+  nonNulls                                  <= Stream 没有
+    where 只筛选不改变返回类型，whereType/nonNulls 返回新类型
+    将 Iterable<int?> 转化成 Iterable<int>
+    但返回的是视图，受原数组影响，切记
+  skip / skipWhile 数太大会造成空流，不会崩
+  take / takeWhile
+
+  expand
+  map
+  cast
+
+
+
+总结：
+  remove 这类方法是修改原集合本身，我主要考虑的是返回另一个集合的函数，也就是 filter / map
+
+  List 排除类的方法，skip / take 是排除前后的，where 是排除随意位置的
+  Map 缺排除类的方法，因为它没顺序，所以，它缺 where
+
+  List / Map 都缺 compactMap
