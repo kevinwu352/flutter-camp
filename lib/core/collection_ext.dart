@@ -9,24 +9,6 @@ extension MapExt<K, V> on Map<K, V> {
     }
   }
 
-  Map<String, V> keyed() {
-    if (this is Map<String, V>) {
-      return cast<String, V>();
-    } else {
-      return Map.fromEntries(
-        entries.map((e) => MapEntry(e.key is String ? e.key : null, e.value)).where((e) => e.key != null),
-      ).cast<String, V>();
-    }
-  }
-
-  Map<String, V> toKeyed() {
-    if (this is Map<String, V>) {
-      return cast<String, V>();
-    } else {
-      return map((k, v) => MapEntry(k is String ? k : k.toString(), v));
-    }
-  }
-
   Map<K, V> where(bool Function(K k, V v) test) => Map.fromEntries(entries.where((e) => test(e.key, e.value)));
 
   Map<K, T> whereType<T>() => Map.fromEntries(entries.where((e) => e.value is T)).cast<K, T>();

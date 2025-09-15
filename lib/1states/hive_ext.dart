@@ -22,9 +22,16 @@ extension HiveBoxExt<E> on Box<E> {
   double? getDouble(String? key) => getValue(key).asOr<double>();
   String? getString(String? key) => getValue(key).asOr<String>();
 
-  List<Object?>? getList(String? key) => getValue(key).asOr<List<Object?>>();
+  Map<String, Object?>? getMap(String? key) => getValue(key).asOr<Map>()?.map((k, v) => MapEntry(k.toString(), v));
 
-  Map<String, Object?>? getMap(String? key) => getValue(key).asOr<Map>()?.keyed().whereType<Object?>();
+  // ================================================================================
+
+  List<Object?>? getList(String? key) => getValue(key).asOr<List>();
+
+  List<Map<String, Object?>?>? getMapList(String? key) => getList(key)
+      ?.where((e) => e == null || e is Map)
+      .map((e) => e is Map ? e.map((k, v) => MapEntry(k.toString(), v)) : null)
+      .toList();
 
   // ================================================================================
 

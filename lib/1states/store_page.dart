@@ -132,11 +132,6 @@ class StorePage extends StatelessWidget {
           // await box.put('mx', mx);
           // await box.put('my', my);
 
-          // final mi1 = box.get('mi');
-          // final mn1 = box.get('mn');
-          // final mx1 = box.get('mx');
-          // final my1 = box.get('my');
-
           // final mi11 = box.getMap('mi');
           // print(mi11);
           // final mn11 = box.getMap('mn');
@@ -145,6 +140,11 @@ class StorePage extends StatelessWidget {
           // print(mx11);
           // final my11 = box.getMap('my');
           // print(my11);
+
+          // final mi1 = box.get('mi');
+          // final mn1 = box.get('mn');
+          // final mx1 = box.get('mx');
+          // final my1 = box.get('my');
           // print('----------');
           // print(mi1 is Map);
           // print(mi1 is Map<String, int>);
@@ -185,11 +185,6 @@ class StorePage extends StatelessWidget {
           // await box.put('lx', lx);
           // await box.put('ly', ly);
 
-          // final li1 = box.get('li');
-          // final ln1 = box.get('ln');
-          // final lx1 = box.get('lx');
-          // final ly1 = box.get('ly');
-
           // final li11 = box.getList('li')?.whereType<int>();
           // print(li11);
           // final ln11 = box.getList('ln')?.whereType<num>();
@@ -198,6 +193,11 @@ class StorePage extends StatelessWidget {
           // print(lx11);
           // final ly11 = box.getList('ly');
           // print(ly11);
+
+          // final li1 = box.get('li');
+          // final ln1 = box.get('ln');
+          // final lx1 = box.get('lx');
+          // final ly1 = box.get('ly');
           // print('----------');
           // print(li1 is List);
           // print(li1 is List<int>);
@@ -227,21 +227,15 @@ class StorePage extends StatelessWidget {
 
           // final list = [
           //   {'a': 1, 'b': true, 'c': null},
+          //   null,
           //   {'a': 1, 'b': true, 'c': null},
           // ];
           // await box.put('list_obj_key', list);
 
-          // final list1 = box.get('list_obj_key');
-          // print(list1);
-
-          // 取一个 [ <String, Object?> ] 数组出来，它的类型是 [ Object? ]
-          final list = box.getList('list_obj_key');
-          print(list);
-          // 用 whereType 转会失败
-          final list1 = list?.whereType<Map<String, Object?>>().toList();
+          final list1 = box.get('list_obj_key');
           print(list1);
-          // 要用 compactMap
-          final list2 = list?.compactMap((e) => e is Map ? e.keyed() : null).toList();
+
+          final list2 = box.getMapList('list_obj_key');
           print(list2);
 
           // ========================================
