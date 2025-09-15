@@ -22,11 +22,11 @@ extension HiveBoxExt<E> on Box<E> {
   double? getDouble(String? key) => getValue(key).asOr<double>();
   String? getString(String? key) => getValue(key).asOr<String>();
 
-  Map<String, Object?>? getMap(String? key) => getValue(key).asOr<Map>()?.map((k, v) => MapEntry(k.toString(), v));
+  List<Object?>? getList(String? key) => getValue(key).asOr<List>();
 
   // ================================================================================
 
-  List<Object?>? getList(String? key) => getValue(key).asOr<List>();
+  Map<String, Object?>? getMap(String? key) => getValue(key).asOr<Map>()?.map((k, v) => MapEntry(k.toString(), v));
 
   List<Map<String, Object?>?>? getMapList(String? key) => getList(key)
       ?.where((e) => e == null || e is Map)
@@ -35,18 +35,12 @@ extension HiveBoxExt<E> on Box<E> {
 
   // ================================================================================
 
-  // List<dynamic>? getList(String? key) {
-  //   final value = key is String ? get(key) : null;
-  //   return value is List ? value : null;
-  // }
+  T? getObject<T>(String? key, T Function(Map<String, dynamic>) init) {
+    final map = getMap(key);
+    return map != null ? init(map) : null;
+  }
 
-  // Map<String, dynamic>? getMap(String? key) {
-  //   final value = key is String ? get(key) : null;
-  //   return value is Map ? value.map((k, v) => MapEntry(k.toString(), v)) : null;
-  // }
-
-  // T? getObject<T>(String? key, T Function(Map<String, dynamic>) init) {
-  //   final map = getMap(key);
-  //   return map is Map<String, dynamic> ? init(map) : null;
-  // }
+  List<T?>? getObjectList<T>(String? key, T Function(Map<String, dynamic>) init) {
+    return getMapList(key)?.map((e) => e != null ? init(e) : null).toList();
+  }
 }
