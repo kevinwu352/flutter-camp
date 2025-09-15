@@ -1,6 +1,7 @@
-library;
+export 'collection_ext.dart';
+export 'object_ext.dart';
 
-part 'collection_ext.dart';
-part 'object_ext.dart';
+export 'result.dart';
+export 'command.dart';
 
-part 'decode.dart';
+export 'decode.dart';
