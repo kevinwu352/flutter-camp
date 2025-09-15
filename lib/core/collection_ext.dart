@@ -1,3 +1,5 @@
+part of 'core.dart';
+
 extension MapExt<K, V> on Map<K, V> {
   void setValue(K k, V? v) {
     if (v is V) {

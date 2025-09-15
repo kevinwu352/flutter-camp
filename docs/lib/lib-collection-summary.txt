@@ -30,6 +30,7 @@ List
   where 就是 filter
     where 只筛选不改变返回类型，whereType/nonNulls 返回新类型
     但返回的是视图，受原数组影响，切记
+    whereType<int?> 会保留 null，且返回类型是 Iterable<int?>
   nonNulls                                  <= Stream 没有
     where 只筛选不改变返回类型，whereType/nonNulls 返回新类型
     将 Iterable<int?> 转化成 Iterable<int>

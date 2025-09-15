@@ -1,7 +1,6 @@
 import 'package:hive/hive.dart';
 
-import 'collection_ext.dart';
-import 'object_ext.dart';
+import '/core/core.dart';
 
 extension HiveBoxExt<E> on Box<E> {
   Future<void> setValue(String? key, E? value) async {

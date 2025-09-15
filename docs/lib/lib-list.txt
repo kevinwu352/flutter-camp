@@ -49,6 +49,7 @@ list.sublist(1, 3)
 
 whereType
   where 只筛选不改变返回类型，whereType/nonNulls 返回新类型
+  whereType<int?> 会保留 null，且返回类型是 Iterable<int?>
   不给类型就是全部元素
   只是返回视图，受原数组影响，切记
   final list1 = [1, 2, 'aa', true];
