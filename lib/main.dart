@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'l10n/localizations.dart';
+import '/core/core.dart';
 import 'test_page.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   // debugPaintSizeEnabled = true;
+  await pathinit();
+
   runApp(const MyApp());
 }
 
