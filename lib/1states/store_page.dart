@@ -4,6 +4,8 @@ import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
 import 'package:hive/hive.dart';
 
+import '/core/core.dart';
+
 import 'hive_ext.dart';
 
 // ================================================================================
@@ -86,6 +88,33 @@ import 'hive_ext.dart';
 // 1)final bee = beemap is Map<String, dynamic> ? Bee.fromJson(beemap) : null; // 这里不能用 is Map，要用 is Map<String, dynamic>
 // 2)final bee = beeobj is Map ? Bee.fromJson(beeobj.map((k, v) => MapEntry(k.toString(), v))) : null; // 一步到位的解析方式
 // print(bee);
+
+// ================================================================================
+// JSON 解析的类型转换问题
+//
+// final str = '{"a":1,"b":"x"}';
+// 此处 obj 类型还是 dynamic，asOr<int> 也不行
+// final obj1 = jsonDecode(str).asOr<Map>();
+//
+// str 可能是 'null'，所以最好用 Object? 来接收解析结果
+//
+// Object? obj2 = jsonDecode(str);
+// 此处 obj 类型是 Map<dynamic, dynamic>
+// final obj21 = obj2?.asOr<Map>();
+// 此处 obj 类型是 Map<String, dynamic>
+// final obj22 = obj2?.asOr<Map>()?.map((k, v) => MapEntry(k.toString(), v));
+// 此处 obj 类型是 Map<String, Object?>。用这种吧
+// Map<String, Object?>? obj23 = obj2?.asOr<Map>()?.map((k, v) => MapEntry(k.toString(), v));
+//
+// 最好的解析方式，如下：
+//
+// Object? obj = jsonDecode(str);
+//
+// Map<String, Object?>? map = obj?.asOr<Map>()?.map((k, v) => MapEntry(k.toString(), v));
+// print(map);
+//
+// List<Object?>? list = obj?.asOr<List>();
+// print(list);
 
 class Bee {
   Bee({required this.name, required this.role});
@@ -255,11 +284,11 @@ class StorePage extends StatelessWidget {
           // final list = [Bee(name: 'kim', role: 10).toJson(), null, Bee(name: 'kim', role: 11).toJson(), 'asdf'];
           // await box.setValue('bee_list_key', list);
 
-          final list1 = box.get('bee_list_key');
-          print(list1);
+          // final list1 = box.get('bee_list_key');
+          // print(list1);
 
-          final list2 = box.getObjectList('bee_list_key', Bee.fromJson);
-          print(list2);
+          // final list2 = box.getObjectList('bee_list_key', Bee.fromJson);
+          // print(list2);
 
           print("end");
         },

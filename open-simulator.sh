@@ -1,4 +1,4 @@
 #!/bin/zsh
 
 # xcrun simctl list
-open -a Simulator --args -CurrentDeviceUDID B064EFFA-5833-423F-8DB0-E1083EA4B76C
+open -a Simulator --args -CurrentDeviceUDID 57FCAB9B-5D7C-4796-AED1-AF4040A0A482
