@@ -8,8 +8,6 @@ import 'package:flutter_camp/router/route_detail_page.dart';
 //   "/list": (_) => RouteListPage(),
 //   "/detail": (_) => RouteDetailPage(),
 // },
-// 定义的时候有 /，push 的时候也要加 /。定义的时候不加，使用的时候可以不加
-// 最好是加？还是不加呢？
 
 class RouteListPage extends StatelessWidget {
   const RouteListPage({super.key});
