@@ -179,6 +179,8 @@ class Weather {
 }
 可空变量有默认值 null。可空的类实例成员变量也有默认值
 
+late int theval = foo(); 如果第一次访问它是直接给它设置值，foo() 不会被调用
+
 
 !> 不能定义新运算符(swift 可以)，但能重载
 class Vector {

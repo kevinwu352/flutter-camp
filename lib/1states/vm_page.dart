@@ -78,3 +78,54 @@ class VmPage extends StatelessWidget {
     );
   }
 }
+
+// class CounterViewModel with ChangeNotifier {
+//   int value = 0;
+//   void increase() {
+//     value += 1;
+//     notifyListeners();
+//   }
+// }
+//
+// class Counter1Page extends StatelessWidget {
+//   const Counter1Page({super.key, required this.vm});
+//   final CounterViewModel vm;
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(title: Text('Counter')),
+//       floatingActionButton: FloatingActionButton(
+//         onPressed: () => vm.increase(),
+//         child: Icon(Icons.run_circle_outlined),
+//       ),
+//       body: ListenableBuilder(
+//         listenable: vm,
+//         builder: (context, child) => Center(child: Text('[1] value: ${vm.value}')),
+//       ),
+//     );
+//   }
+// }
+//
+// class Counter2Page extends StatefulWidget {
+//   const Counter2Page({super.key, required this.vm});
+//   final CounterViewModel vm;
+//   @override
+//   State<Counter2Page> createState() => _Counter2PageState();
+// }
+//
+// class _Counter2PageState extends State<Counter2Page> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(title: Text('Counter')),
+//       floatingActionButton: FloatingActionButton(
+//         onPressed: () => widget.vm.increase(),
+//         child: Icon(Icons.run_circle_outlined),
+//       ),
+//       body: ListenableBuilder(
+//         listenable: widget.vm,
+//         builder: (context, child) => Center(child: Text('[2] value: ${widget.vm.value}')),
+//       ),
+//     );
+//   }
+// }
