@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
-class TabbarPage extends StatelessWidget {
-  const TabbarPage({super.key});
+// 位于导航条下面
+class Tabbar1Page extends StatelessWidget {
+  const Tabbar1Page({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,11 +22,7 @@ class TabbarPage extends StatelessWidget {
           ),
         ),
         body: TabBarView(
-          children: [
-            Icon(Icons.directions_car),
-            Icon(Icons.directions_transit),
-            Icon(Icons.directions_bike),
-          ],
+          children: [Icon(Icons.directions_car), Icon(Icons.directions_transit), Icon(Icons.directions_bike)],
         ),
       ),
     );

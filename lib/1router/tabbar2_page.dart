@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 
-class TabScreen extends StatefulWidget {
-  const TabScreen({super.key});
+// 位于页面底部
+class Tabbar2Page extends StatefulWidget {
+  const Tabbar2Page({super.key});
 
   @override
-  State<TabScreen> createState() => _TabScreenState();
+  State<Tabbar2Page> createState() => _Tabbar2PageState();
 }
 
-class _TabScreenState extends State<TabScreen> {
+class _Tabbar2PageState extends State<Tabbar2Page> {
   int index = 0;
   @override
   Widget build(BuildContext context) {
