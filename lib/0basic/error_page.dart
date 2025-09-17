@@ -55,19 +55,63 @@ class HttpExcep implements Exception {
 
 void pack1(bool value1, bool value2) {
   try {
-    // throw 'abc';
-    // throw Exception('asdf');
+    throw HttpExcep.statusError();
     networkWork(value1);
     statusWork(value2);
-  } on NetworkExc {
-    print('pack1: 111');
-    rethrow;
-  } on Exception catch (e) {
+  } on HttpExcep catch (e) {
     print('pack1: 222 $e');
     rethrow;
   } catch (e) {
     print('pack1: $e');
-    rethrow;
+    throw HttpExcep.networkError();
+    // rethrow;
+  }
+}
+
+// 等异步函数里面的异常，必须要 await，否则捕捉不到
+Future<int> networkJob(bool value) async {
+  print('110');
+  await Future.delayed(Duration(seconds: 4));
+  if (value) {
+    print('network ok');
+  } else {
+    throw HttpExcep.networkError();
+  }
+  print('111');
+  return 101;
+}
+
+Future<int> statusJob(bool value) async {
+  print('220');
+  await Future.delayed(Duration(seconds: 4));
+  if (value) {
+    print('status ok');
+  } else {
+    throw HttpExcep.statusError();
+  }
+  print('221');
+  return 102;
+}
+
+void pack2(bool value1, bool value2) {
+  try {
+    networkJob(value1);
+    statusJob(value2);
+
+    // await networkJob(value1);
+    // await statusJob(value2);
+
+    // final val1 = await networkJob(value1);
+    // print(val1);
+    // final val2 = await statusJob(value2);
+    // print(val2);
+  } on HttpExcep catch (e) {
+    print('pack2: 222 $e');
+    // rethrow;
+  } catch (e) {
+    print('pack2: $e');
+    // throw HttpExcep.networkError();
+    // rethrow;
   }
 }
 
@@ -84,7 +128,7 @@ class ErrorPage extends StatelessWidget {
 
           try {
             print('    111');
-            pack1(false, false);
+            pack2(true, false);
             print('    222');
           } catch (e) {
             print('got $e');
