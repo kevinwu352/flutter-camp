@@ -141,18 +141,16 @@ double calculateArea(Shape shape) => switch (shape) { // 这里提醒有未覆�
 
 详细研究研究 异常和错误 的捕捉情况？
 try {
-} on OutOfLlamasException {
+} on FormatException {
+  // 只要写了 on，就能接收此类型的异常，但如果没有 catch(e)，就得不到异常对象
 } on Exception catch (e) {
   // 任何其它的 Exception（上面已经处理了一种异常了）
+  // 如果 throw 'abc'，不会走到这里
 } catch (e) {
-  // 不指定类型，处理所有的
+  // 不指定类型，处理剩下所有的类型
+  rethrow; // 这三种情况都能通过 rethrow 继续向外抛出异常
 }
 on 用于指定异常类型，catch 当你想抓住这个异常对象，catch 有两个参数第二个是 StackTrace
-
-catch (e) {
-  print('misbehave() partially handled ${e.runtimeType}.');
-  rethrow;
-}
 
 try {
   var num = getnum();
