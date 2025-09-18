@@ -47,7 +47,7 @@ class HttpExcep implements Exception {
   const HttpExcep.statusError() : info = 'Status Error';
   const HttpExcep.decodeError() : info = 'Decode Error';
   const HttpExcep.operationFailed() : info = 'Operation Failed';
-  const HttpExcep._(this.info);
+  // const HttpExcep._(this.info);
   final String info;
   @override
   String toString() => info;
@@ -55,7 +55,7 @@ class HttpExcep implements Exception {
 
 void pack1(bool value1, bool value2) {
   try {
-    throw HttpExcep.statusError();
+    // throw HttpExcep.statusError();
     networkWork(value1);
     statusWork(value2);
   } on HttpExcep catch (e) {

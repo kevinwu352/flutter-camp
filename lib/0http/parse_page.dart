@@ -88,15 +88,15 @@ class ParsePage extends StatelessWidget {
           // final res16 = parse(str16, Book.fromJson);
           // print(res16.data is Book);
 
-          final str21 = '{"code":200,"message":"done","data":[]}';
-          final str22 = '{"code":200,"message":"done","data":[null, null]}';
-          final str23 = '{"code":200,"message":"done","data":[true, null, false]}';
-          final str24 = '{"code":200,"message":"done","data":[10,null,11]}';
-          final str25 = '{"code":200,"message":"done","data":[1.23,null,2.23]}';
-          final str26 = '{"code":200,"message":"done","data":[1,null,2.23]}';
-          final str27 = '{"code":200,"message":"done","data":["god",null,"yep"]}';
-          final str28 =
-              '{"code":200,"message":"done","data":[{"name":"Little Rock","author":"Kim"},null,{"name":"Nowhere","author":"Eric"}]}';
+          // final str21 = '{"code":200,"message":"done","data":[]}';
+          // final str22 = '{"code":200,"message":"done","data":[null, null]}';
+          // final str23 = '{"code":200,"message":"done","data":[true, null, false]}';
+          // final str24 = '{"code":200,"message":"done","data":[10,null,11]}';
+          // final str25 = '{"code":200,"message":"done","data":[1.23,null,2.23]}';
+          // final str26 = '{"code":200,"message":"done","data":[1,null,2.23]}';
+          // final str27 = '{"code":200,"message":"done","data":["god",null,"yep"]}';
+          // final str28 =
+          //     '{"code":200,"message":"done","data":[{"name":"Little Rock","author":"Kim"},null,{"name":"Nowhere","author":"Eric"}]}';
 
           // final res21 = parse(str21);
           // print(res21.getList<bool?>() is List<bool?>);

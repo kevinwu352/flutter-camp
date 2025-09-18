@@ -69,6 +69,14 @@ final str = await rootBundle.loadString("assets/jsons/user.json");
 不加 my_icon.png 好像会崩，一定要它吗？
 Image.asset("assets/images/num.png")
 
+AssetImage / NetworkImage 继承了 ImageProvider<Object>
+  // 这俩等价
+  Image(image: AssetImage("assets/images/num.png")),
+  Image.asset("assets/images/num.png"),
+  // 这俩等价
+  Image(image: NetworkImage("https://avatars2.githubusercontent.com/u/20411648?s=460&v=4"), width: 100.0),
+  Image.network("https://avatars2.githubusercontent.com/u/20411648?s=460&v=4", width: 100.0),
+
 
 
 

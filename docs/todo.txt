@@ -4,10 +4,6 @@ widget 生命周期，createState() / initState()
   Implementations of dispose typically end by calling super.dispose
 
 
-ImageProvider<Object> / AssetImage / Image.asset()
-
-
-
 禁止横屏
 
 
