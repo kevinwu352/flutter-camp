@@ -66,3 +66,23 @@ list.remove(obj);
 print(list); // 还是 2 个
 //
 结论：从数组中删除是用 == 来判断的，默认的 == 是 identical 逻辑。如果两个对象 == 为假，但 hashCode 相等，也删不了
+
+
+
+
+// Theme.of(context) 的实现方法
+abstract class ThemeManager {
+  static ThemeManager of(BuildContext context) {
+    final brightness = Theme.of(context).brightness;
+    return brightness == Brightness.light ? LightModeTheme() : DarkModeTheme();
+  }
+  Color get primary1;
+}
+class LightModeTheme extends ThemeManager {
+  @override
+  Color primary1 = AppColors.primary1;
+}
+class DarkModeTheme extends ThemeManager {
+  @override
+  Color primary1 = AppColors.secondary1;
+}
