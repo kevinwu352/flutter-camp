@@ -65,7 +65,7 @@ class IconButtonPage extends StatelessWidget {
     final node = FocusNode();
 
     return Scaffold(
-      appBar: AppBar(title: Text('Icon')),
+      appBar: AppBar(title: Text('Icon Button')),
       backgroundColor: Colors.teal,
       floatingActionButton: FloatingActionButton(
         onPressed: () {
