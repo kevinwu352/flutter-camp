@@ -6,11 +6,5 @@
 
 
 
-highlightColor: Colors.green,
-
-
-
-
-
 Image 有 width height 参数
 Image.network for a shorthand of an Image widget backed by NetworkImage.

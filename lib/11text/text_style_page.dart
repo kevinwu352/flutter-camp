@@ -81,8 +81,8 @@ import 'package:flutter/gestures.dart';
 //   ],
 // ),
 
-class StyleWidget extends StatelessWidget {
-  const StyleWidget({super.key, required this.name});
+class _StyleWidget extends StatelessWidget {
+  const _StyleWidget({required this.name});
   final String name;
   @override
   Widget build(BuildContext context) {
@@ -92,8 +92,8 @@ class StyleWidget extends StatelessWidget {
   }
 }
 
-class StylePage extends StatelessWidget {
-  const StylePage({super.key});
+class TextStylePage extends StatelessWidget {
+  const TextStylePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -108,35 +108,35 @@ class StylePage extends StatelessWidget {
       body: Column(
         children: [
           // 里面得到的是 bodyMedium 样式
-          StyleWidget(name: '1aaa'),
+          _StyleWidget(name: '1aaa'),
 
           // 里面得到的样式只有字号
           DefaultTextStyle(
             style: TextStyle(fontSize: 31),
-            child: StyleWidget(name: '2bbb'),
+            child: _StyleWidget(name: '2bbb'),
           ),
 
           // 里面得到的是 bodyLarge 样式
           DefaultTextStyle(
             style: Theme.of(context).textTheme.bodyLarge!,
-            child: StyleWidget(name: '3ccc'),
+            child: _StyleWidget(name: '3ccc'),
           ),
 
           // 里面得到的是 fallback 样式，也就是双黄线那种
           // 可见 DefaultTextStyle.of 获取的一定是它上面的另一个 DefaultTextStyle 提供的样式，而不是周围环境的样式
           DefaultTextStyle(
             style: DefaultTextStyle.of(context).style,
-            child: StyleWidget(name: '4ddd'),
+            child: _StyleWidget(name: '4ddd'),
           ),
 
           // 里面得到的是 bodyMedium 样式
           // 可见 DefaultTextStyle.merge 会获取周围环境的样式
-          DefaultTextStyle.merge(child: StyleWidget(name: '5eee')),
+          DefaultTextStyle.merge(child: _StyleWidget(name: '5eee')),
 
           // 里面得到的是 bodyMedium 样式，但修改了部分属性
           DefaultTextStyle.merge(
             style: TextStyle(color: Colors.red),
-            child: StyleWidget(name: '6fff'),
+            child: _StyleWidget(name: '6fff'),
           ),
 
           // ================================================================================

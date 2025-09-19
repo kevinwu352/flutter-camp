@@ -55,8 +55,8 @@ import 'package:flutter/material.dart';
 
 // ButtonStyle? style
 
-class IconPage extends StatelessWidget {
-  const IconPage({super.key});
+class IconButtonPage extends StatelessWidget {
+  const IconButtonPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +66,7 @@ class IconPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(title: Text('Icon')),
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.teal,
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           node.requestFocus();
