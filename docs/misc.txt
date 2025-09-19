@@ -86,3 +86,12 @@ class DarkModeTheme extends ThemeManager {
   @override
   Color primary1 = AppColors.secondary1;
 }
+
+
+
+EdgeInsetsGeometry 抽象基类
+  EdgeInsets
+  EdgeInsetsDirectional start/end 之类的，根据系统 left to right / right to left 来决定
+AlignmentGeometry 抽象基类
+  Alignment
+  AlignmentDirectional
