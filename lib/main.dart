@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'l10n/localizations.dart';
+import '/l10n/localizations.dart';
 import '/core/core.dart';
 import 'test_page.dart';
 
