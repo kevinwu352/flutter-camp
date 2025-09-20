@@ -19,9 +19,7 @@ class AppBarExample1 extends StatelessWidget {
             icon: const Icon(Icons.add_alert),
             tooltip: 'Show Snackbar',
             onPressed: () {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('This is a snackbar')),
-              );
+              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('This is a snackbar')));
             },
           ),
           IconButton(
@@ -34,12 +32,7 @@ class AppBarExample1 extends StatelessWidget {
                   builder: (BuildContext context) {
                     return Scaffold(
                       appBar: AppBar(title: const Text('Next page')),
-                      body: const Center(
-                        child: Text(
-                          'This is the next page',
-                          style: TextStyle(fontSize: 24),
-                        ),
-                      ),
+                      body: const Center(child: Text('This is the next page', style: TextStyle(fontSize: 24))),
                     );
                   },
                 ),
@@ -48,9 +41,7 @@ class AppBarExample1 extends StatelessWidget {
           ),
         ],
       ),
-      body: const Center(
-        child: Text('This is the home page', style: TextStyle(fontSize: 24)),
-      ),
+      body: const Center(child: Text('This is the home page', style: TextStyle(fontSize: 24))),
     );
   }
 }
@@ -141,8 +132,7 @@ class _AppBarExample2State extends State<AppBarExample2> {
         title: const Text('AppBar Demo'),
         toolbarOpacity: 0.5,
         toolbarHeight: 100,
-        scrolledUnderElevation:
-            scrolledUnderElevation, // 内容滚动到 AppBar 下面以后，AppBar 改变颜色
+        scrolledUnderElevation: scrolledUnderElevation, // 内容滚动到 AppBar 下面以后，AppBar 改变颜色
         shadowColor: shadowColor ? Theme.of(context).colorScheme.shadow : null,
       ),
       body: GridView.builder(
@@ -189,9 +179,7 @@ class _AppBarExample2State extends State<AppBarExample2> {
                     shadowColor = !shadowColor;
                   });
                 },
-                icon: Icon(
-                  shadowColor ? Icons.visibility_off : Icons.visibility,
-                ),
+                icon: Icon(shadowColor ? Icons.visibility_off : Icons.visibility),
                 label: const Text('shadow color'),
               ),
               const SizedBox(width: 5),
@@ -208,9 +196,7 @@ class _AppBarExample2State extends State<AppBarExample2> {
                     });
                   }
                 },
-                child: Text(
-                  'scrolledUnderElevation: ${scrolledUnderElevation ?? 'default'}',
-                ),
+                child: Text('scrolledUnderElevation: ${scrolledUnderElevation ?? 'default'}'),
               ),
             ],
           ),

@@ -22,11 +22,22 @@ import 'package:flutter/material.dart';
 // Size? maximumSize
 // AlignmentGeometry? alignment
 
-// ================================================================================
+// 这个控件的海拔，假设屏幕是地面，这个值是离屏幕的海拔
+// 阴影在右下，下多一点。值越小则阴影越 实 明显，值越大阴影越 散 虚
+// double? elevation
+// Color? shadowColor 阴影颜色
+// Color? surfaceTintColor M3 引入了一种新的方式来突显海拔，在背景前面蒙一层淡淡的颜色。AppBar 那边，如果设置纯绿色，会有一点淡淡的绿色在背景上
+// 单独设置海拔无阴影（下面 Material 单独设置海拔就有阴影），加上背景色也不行。海拔和阴影颜色必须同时设置，且显示出来的阴影是胶囊形状的
+// 另外 surfaceTintColor 真的在按钮背景的上面蒙了一层淡淡的颜色，海拔和它必须同时设置
+//
+//   Material(
+//     elevation: 20.0,
+//     // shadowColor: Colors.red,
+//     surfaceTintColor: Colors.red,
+//     child: Container(width: 100, height: 100, color: Colors.blue, child: Center(child: Text('Elevated'))),
+//   )
 
-// double? elevation 这仨在一起才有效果，后面再研究
-// Color? shadowColor
-// Color? surfaceTintColor
+// ================================================================================
 
 // BorderSide? side
 // OutlinedBorder? shape
@@ -62,14 +73,26 @@ class TextButtonPage extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+          // Material(
+          //   elevation: 20.0,
+          //   // shadowColor: Colors.red,
+          //   surfaceTintColor: Colors.red,
+          //   child: Container(
+          //     width: 100,
+          //     height: 100,
+          //     color: Colors.blue,
+          //     child: Center(child: Text('Elevated')),
+          //   ),
+          // ),
           TextButton(
             onPressed: () {},
             style: TextButton.styleFrom(
               foregroundColor: Colors.red,
+              // backgroundColor: Colors.amber,
               textStyle: TextStyle(color: Colors.purple, fontSize: 24),
-              // elevation: 5,
+              elevation: 10,
               // shadowColor: Colors.blue,
-              // surfaceTintColor: Colors.green,
+              surfaceTintColor: Colors.green,
               // shape: OutlinedBorder
             ),
             child: Text('data'),
