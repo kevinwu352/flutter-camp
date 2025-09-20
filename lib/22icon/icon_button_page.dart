@@ -37,7 +37,7 @@ import 'package:flutter/material.dart';
 // Color? splashColor
 // double? splashRadius
 
-// 定义水平或垂直方向的空间
+// 定义控件在水平或垂直方向的空间
 // IconButton 本来是 standard，点击后看到圆形的背景区域，如果是 compact，则变成胶囊了，说明按钮变矮了
 // 很多控件都有这属性，不同的控件效果不同。ThemeData 能全局修改此属性
 // VisualDensity? visualDensity

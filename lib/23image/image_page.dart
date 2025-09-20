@@ -1,5 +1,25 @@
 import 'package:flutter/material.dart';
 
+// .../my_icon.png       (mdpi baseline)
+// .../1.5x/my_icon.png  (hdpi)
+// .../2.0x/my_icon.png  (xhdpi)
+// .../3.0x/my_icon.png  (xxhdpi)
+// .../4.0x/my_icon.png  (xxxhdpi)
+// 真的加载了 3.0x 目录下的图片
+// 且这些子目录不用在 pubspec.yaml 中分别列出来，这是例外，其它资源的子目录都要列出来
+// 不加 my_icon.png 好像会崩，一定要它吗？
+// Image.asset("assets/images/num.png")
+//
+// AssetImage / NetworkImage 继承了 ImageProvider<Object>
+//   // 这俩等价
+//   Image(image: AssetImage("assets/images/num.png")),
+//   Image.asset("assets/images/num.png"),
+//   // 这俩等价
+//   Image(image: NetworkImage("https://avatars2.githubusercontent.com/u/20411648?s=460&v=4"), width: 100.0),
+//   Image.network("https://avatars2.githubusercontent.com/u/20411648?s=460&v=4", width: 100.0),
+
+// ================================================================================
+
 // String name
 
 // 宽高大于图片时，图片是居中的，fit 应该是 none，此时可以设置 alignment 把图片放到右下角
