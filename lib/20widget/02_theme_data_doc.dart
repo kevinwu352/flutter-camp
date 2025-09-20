@@ -56,12 +56,12 @@
 // IconThemeData? primaryIconTheme
 
 // ButtonThemeData? buttonTheme
-// IconButtonThemeData? iconButtonTheme
 // TextButtonThemeData? textButtonTheme
-// FilledButtonThemeData? filledButtonTheme
+// IconButtonThemeData? iconButtonTheme
 // ElevatedButtonThemeData? elevatedButtonTheme
-// FloatingActionButtonThemeData? floatingActionButtonTheme
+// FilledButtonThemeData? filledButtonTheme
 // OutlinedButtonThemeData? outlinedButtonTheme
+// FloatingActionButtonThemeData? floatingActionButtonTheme
 // ToggleButtonsThemeData? toggleButtonsTheme
 // SegmentedButtonThemeData? segmentedButtonTheme
 
