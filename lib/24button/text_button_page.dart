@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+// statesController 咋用？文档里有个例子
+
+// ================================================================================
+
 // TextStyle? textStyle 里面颜色不起作用，但字号有用
 
 // Color? foregroundColor
@@ -64,12 +68,7 @@ class TextButtonPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text('Text Button')),
       backgroundColor: Colors.white,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // ...
-        },
-        child: Icon(Icons.run_circle),
-      ),
+      floatingActionButton: FloatingActionButton(onPressed: () {}, child: Icon(Icons.run_circle)),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -84,30 +83,53 @@ class TextButtonPage extends StatelessWidget {
           //     child: Center(child: Text('Elevated')),
           //   ),
           // ),
-          TextButton(
+          // TextButton(
+          //   onPressed: () {},
+          //   style: TextButton.styleFrom(
+          //     foregroundColor: Colors.red,
+          //     // backgroundColor: Colors.amber,
+          //     textStyle: TextStyle(color: Colors.purple, fontSize: 24),
+          //     elevation: 10,
+          //     // shadowColor: Colors.blue,
+          //     surfaceTintColor: Colors.green,
+          //     // shape: OutlinedBorder
+          //   ),
+          //   child: Text('data'),
+          // ),
+
+          // TextButton.icon(
+          //   onPressed: null,
+          //   style: TextButton.styleFrom(
+          //     iconColor: Colors.teal,
+          //     disabledIconColor: Colors.amber,
+          //     iconSize: 50,
+          //     iconAlignment: IconAlignment.end,
+          //   ),
+          //   icon: const Icon(Icons.access_alarm),
+          //   label: const Text('Alarm'),
+          // ),
+          ElevatedButton(
+            // style: ButtonStyle(
+            //   // 按下时调用闭包，states 包含 .pressed，如果返回值则用，如果返回 null 则用原来的默认值
+            //   // backgroundColor: WidgetStateProperty.resolveWith(
+            //   //   (states) => states.contains(WidgetState.pressed) ? Colors.green : null,
+            //   // ),
+            //   backgroundColor: WidgetStateProperty.resolveAs(value, states),
+            // ),
+            child: const Text('Fly me to the moon'),
             onPressed: () {},
-            style: TextButton.styleFrom(
-              foregroundColor: Colors.red,
-              // backgroundColor: Colors.amber,
-              textStyle: TextStyle(color: Colors.purple, fontSize: 24),
-              elevation: 10,
-              // shadowColor: Colors.blue,
-              surfaceTintColor: Colors.green,
-              // shape: OutlinedBorder
-            ),
-            child: Text('data'),
           ),
 
-          TextButton.icon(
-            onPressed: null,
-            style: TextButton.styleFrom(
-              iconColor: Colors.teal,
-              disabledIconColor: Colors.amber,
-              iconSize: 50,
-              iconAlignment: IconAlignment.end,
-            ),
-            icon: const Icon(Icons.access_alarm),
-            label: const Text('Alarm'),
+          ElevatedButton(
+            style: const ButtonStyle(backgroundColor: WidgetStatePropertyAll<Color>(Colors.green)),
+            child: const Text('Let me play among the stars 1'),
+            onPressed: () {},
+          ),
+
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
+            child: const Text('Let me play among the stars 2'),
+            onPressed: () {},
           ),
 
           // ================================================================================
