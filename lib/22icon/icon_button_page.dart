@@ -24,6 +24,8 @@ import 'package:flutter/material.dart';
 // BoxConstraints? constraints
 // AlignmentGeometry? alignment 当 constraints: BoxConstraints(minWidth: 100, minHeight: 100) 时，按钮内部有空间了，此属性会起作用
 
+// ButtonStyle? style
+
 // ================================================================================
 
 // 长按时，弹出来一行字，弹出来的时候，好像还有一个响声
@@ -50,10 +52,6 @@ import 'package:flutter/material.dart';
 // ValueChanged<bool>? onHover
 // Color? hoverColor
 // MouseCursor? mouseCursor 鼠标样式，系统的在 SystemMouseCursors 里面
-
-// ==========
-
-// ButtonStyle? style
 
 class IconButtonPage extends StatelessWidget {
   const IconButtonPage({super.key});

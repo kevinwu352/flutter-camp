@@ -1,4 +1,5 @@
 // ButtonStyle 相关
+// 不同类型按钮的 styleFrom 参数差不多
 
 // WidgetStateProperty<Color> 意味着这个属性的值会跟着控件的状态变化
 // WidgetStatePropertyAll 是简化 .all 的类
@@ -35,4 +36,3 @@
 //     onPressed: () {},
 //   )
 //     style: ElevatedButton.styleFrom(backgroundColor: Colors.green), 用这个效果一样
-
