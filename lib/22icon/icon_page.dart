@@ -1,5 +1,12 @@
 import 'package:flutter/material.dart';
 
+// 适配平台的图标
+//   Icon(Icons.arrow_back)
+//   Icon(Icons.adaptive.arrow_back)
+// 但好像数量不多，arrow* flip* more* share*
+
+// ================================================================================
+
 // IconData? icon
 // double? size 默认 24
 // Color? color 默认颜色根据主题变化，深色主题下是白的

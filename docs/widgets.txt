@@ -26,10 +26,7 @@ SizedBox.shrink()
 
 文档说：推荐把 Scaffold 的子用 SafeArea 包起来
 
-适配平台的图标
-Icon(Icons.arrow_back)
-Icon(Icons.adaptive.arrow_back)
-但好像数量不多，arrow* flip* more* share*
+
 
 Material 3 要用新组件
 BottomNavigationBar to NavigationBar
@@ -121,15 +118,7 @@ ScaffoldMessenger.of(context).showSnackBar(
   ),
 );
 
-Divider(
-  color
-  thickness
-  endIndent
-)
-Container( 垂直方向的分隔线
-  height: 50
-  child: VerticalDivider()
-)
+
 
 Dismissible 左右滑显示列表单行下面的选项
 
