@@ -56,8 +56,8 @@
 // IconThemeData? primaryIconTheme
 
 // ButtonThemeData? buttonTheme
-// TextButtonThemeData? textButtonTheme
 // IconButtonThemeData? iconButtonTheme
+// TextButtonThemeData? textButtonTheme
 // ElevatedButtonThemeData? elevatedButtonTheme
 // FilledButtonThemeData? filledButtonTheme
 // OutlinedButtonThemeData? outlinedButtonTheme
