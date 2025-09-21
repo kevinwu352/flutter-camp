@@ -95,3 +95,6 @@ EdgeInsetsGeometry 抽象基类
 AlignmentGeometry 抽象基类
   Alignment
   AlignmentDirectional
+BorderRadiusGeometry 抽象基类
+  BorderRadius
+  BorderRadiusDirectional

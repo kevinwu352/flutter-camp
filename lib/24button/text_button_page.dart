@@ -40,6 +40,16 @@ class TextButtonPage extends StatelessWidget {
             child: Text('data'),
           ),
 
+          TextButton(
+            onPressed: () {},
+            style: TextButton.styleFrom(
+              // shape: CircleBorder(),
+              side: BorderSide(color: Colors.red, width: 4),
+              shape: CircleBorder(side: BorderSide(color: Colors.green, width: 1)),
+            ),
+            child: Text('abc'),
+          ),
+
           TextButton.icon(
             onPressed: null,
             style: TextButton.styleFrom(

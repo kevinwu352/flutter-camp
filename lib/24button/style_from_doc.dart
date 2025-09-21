@@ -35,8 +35,8 @@
 //     child: Container(width: 100, height: 100, color: Colors.blue, child: Center(child: Text('Elevated'))),
 //   )
 
-// ================================================================================
-
+// 定义边框，可以搞成一个圆形边框按钮
+//   shape 里面也有 side 参数，但外面的优先级更高
 // OutlinedBorder? shape
 // BorderSide? side
 
