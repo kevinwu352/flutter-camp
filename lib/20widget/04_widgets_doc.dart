@@ -25,3 +25,9 @@
 //   checkColor 勾勾的颜色，当然只有选中时候才有勾勾
 //   fillColor 填充复选框内部空白的颜色，如果设置，选中时候的 activeColor 就看不到了
 //   overlayColor 点击时波纹的颜色
+// Radio 圆形的单选框，要与 RadioGroup 配合起来用
+//   toggleable 再次点击则取消选中
+//   activeColor 选中时候 圆边和中心点的颜色，肯定不包括空白，要不然就成一坨了
+//   fillColor 圆边和中心点的颜色，不包括空白区域
+//   backgroundColor 空白区域的颜色
+//   overlayColor 点击时波纹的颜色

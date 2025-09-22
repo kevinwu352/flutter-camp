@@ -65,6 +65,7 @@
 // SegmentedButtonThemeData? segmentedButtonTheme ???
 
 // CheckboxThemeData? checkboxTheme
+// RadioThemeData? radioTheme
 
 // TooltipThemeData? tooltipTheme
 // ChipThemeData? chipTheme
@@ -90,7 +91,6 @@
 // TabBarThemeData? tabBarTheme
 // SearchBarThemeData? searchBarTheme
 
-// RadioThemeData? radioTheme
 // SliderThemeData? sliderTheme
 // SwitchThemeData? switchTheme
 // BadgeThemeData? badgeTheme
