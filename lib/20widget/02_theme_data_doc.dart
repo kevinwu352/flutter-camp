@@ -54,19 +54,25 @@
 // IconThemeData? iconTheme
 // IconThemeData? primaryIconTheme
 
-// ButtonThemeData? buttonTheme
-// IconButtonThemeData? iconButtonTheme
-// TextButtonThemeData? textButtonTheme
-// ElevatedButtonThemeData? elevatedButtonTheme
-// FilledButtonThemeData? filledButtonTheme
-// OutlinedButtonThemeData? outlinedButtonTheme
-// FloatingActionButtonThemeData? floatingActionButtonTheme
-// ToggleButtonsThemeData? toggleButtonsTheme
-// SegmentedButtonThemeData? segmentedButtonTheme
+// ButtonThemeData? buttonTheme 文档说要废弃了，用下面这些具体的
+// IconButtonThemeData? iconButtonTheme 唯一参数 ButtonStyle
+// TextButtonThemeData? textButtonTheme 唯一参数 ButtonStyle
+// ElevatedButtonThemeData? elevatedButtonTheme 唯一参数 ButtonStyle
+// FilledButtonThemeData? filledButtonTheme 唯一参数 ButtonStyle
+// OutlinedButtonThemeData? outlinedButtonTheme 唯一参数 ButtonStyle
+// FloatingActionButtonThemeData? floatingActionButtonTheme ???
+// ToggleButtonsThemeData? toggleButtonsTheme ???
+// SegmentedButtonThemeData? segmentedButtonTheme ???
 
-// ListTileThemeData? listTileTheme
+// CheckboxThemeData? checkboxTheme
+
+// TooltipThemeData? tooltipTheme
+// ChipThemeData? chipTheme
+
+// --------------------------------------------------------------------------------
 
 // ScrollbarThemeData? scrollbarTheme
+// ListTileThemeData? listTileTheme
 
 // Object? appBarTheme
 // BottomAppBarThemeData? bottomAppBarTheme
@@ -80,31 +86,32 @@
 // MenuBarThemeData? menuBarTheme
 // MenuButtonThemeData? menuButtonTheme
 
-// ActionIconThemeData? actionIconTheme
+// SnackBarThemeData? snackBarTheme
+// TabBarThemeData? tabBarTheme
+// SearchBarThemeData? searchBarTheme
+
+// RadioThemeData? radioTheme
+// SliderThemeData? sliderTheme
+// SwitchThemeData? switchTheme
 // BadgeThemeData? badgeTheme
+// DropdownMenuThemeData? dropdownMenuTheme
+// PopupMenuThemeData? popupMenuTheme
+
+// DatePickerThemeData? datePickerTheme
+// TimePickerThemeData? timePickerTheme
+// TextSelectionThemeData? textSelectionTheme
+
+// ActionIconThemeData? actionIconTheme
 // MaterialBannerThemeData? bannerTheme
 // BottomSheetThemeData? bottomSheetTheme
 // CarouselViewThemeData? carouselViewTheme
-// CheckboxThemeData? checkboxTheme
-// ChipThemeData? chipTheme
 // DataTableThemeData? dataTableTheme
 // DialogThemeData? dialogTheme
 // DrawerThemeData? drawerTheme
-// DropdownMenuThemeData? dropdownMenuTheme
 // ExpansionTileThemeData? expansionTileTheme
-// PopupMenuThemeData? popupMenuTheme
 // ProgressIndicatorThemeData? progressIndicatorTheme
-// RadioThemeData? radioTheme
-// SearchBarThemeData? searchBarTheme
 // SearchViewThemeData? searchViewTheme
-// SliderThemeData? sliderTheme
-// SnackBarThemeData? snackBarTheme
-// SwitchThemeData? switchTheme
-// TabBarThemeData? tabBarTheme
-// TextSelectionThemeData? textSelectionTheme
-// DatePickerThemeData? datePickerTheme
-// TimePickerThemeData? timePickerTheme
-// TooltipThemeData? tooltipTheme
+
 // PageTransitionsTheme? pageTransitionsTheme
 // NoDefaultCupertinoThemeData? cupertinoOverrideTheme
 // Object? inputDecorationTheme
