@@ -1,8 +1,7 @@
-// MaterialTapTargetSize? materialTapTargetSize 决定控件的 hit-test 区域
-
 // bool? useMaterial3
 // bool? useSystemColors 没懂？
 // VisualDensity? visualDensity 定义控件在水平或垂直方向的空间
+// MaterialTapTargetSize? materialTapTargetSize 决定控件的 hit-test 区域
 
 // String? fontFamily 还真的把全局字体改了
 // List<String>? fontFamilyFallback
@@ -16,7 +15,7 @@
 // TextTheme? textTheme 里面是一堆 TextStyle，titleLarge / bodyMedium
 // TextTheme? primaryTextTheme
 
-// ================================================================================
+// --------------------------------------------------------------------------------
 
 // Color? primaryColor
 // Color? primaryColorDark
@@ -42,7 +41,7 @@
 
 // Color? unselectedWidgetColor
 
-// ================================================================================
+// --------------------------------------------------------------------------------
 
 // Color? cardColor
 // CardThemeData? cardTheme
@@ -50,7 +49,7 @@
 // Color? dividerColor
 // DividerThemeData? dividerTheme
 
-// ================================================================================
+// --------------------------------------------------------------------------------
 
 // IconThemeData? iconTheme
 // IconThemeData? primaryIconTheme
@@ -110,7 +109,7 @@
 // NoDefaultCupertinoThemeData? cupertinoOverrideTheme
 // Object? inputDecorationTheme
 
-// ================================================================================
+// --------------------------------------------------------------------------------
 
 // Iterable<Adaptation<Object>>? adaptations 主题的 adaptations，没懂？
 // Iterable<ThemeExtension>? extensions 主题的扩展，干嘛的？
