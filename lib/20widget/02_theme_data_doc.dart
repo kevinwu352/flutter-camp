@@ -64,8 +64,11 @@
 // ToggleButtonsThemeData? toggleButtonsTheme ???
 // SegmentedButtonThemeData? segmentedButtonTheme ???
 
+// ListTileThemeData? listTileTheme
+
 // CheckboxThemeData? checkboxTheme
 // RadioThemeData? radioTheme
+// SwitchThemeData? switchTheme
 
 // TooltipThemeData? tooltipTheme
 // ChipThemeData? chipTheme
@@ -73,7 +76,6 @@
 // --------------------------------------------------------------------------------
 
 // ScrollbarThemeData? scrollbarTheme
-// ListTileThemeData? listTileTheme
 
 // Object? appBarTheme
 // BottomAppBarThemeData? bottomAppBarTheme
@@ -92,7 +94,6 @@
 // SearchBarThemeData? searchBarTheme
 
 // SliderThemeData? sliderTheme
-// SwitchThemeData? switchTheme
 // BadgeThemeData? badgeTheme
 // DropdownMenuThemeData? dropdownMenuTheme
 // PopupMenuThemeData? popupMenuTheme

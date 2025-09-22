@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
 
+// CheckboxListTile / RadioListTile / SwitchListTile
+
+// ================================================================================
+
 // Widget? leading
 // Widget? title 自己确保 title 只有一行
 // Widget? subtitle 自己确保 subtitle 只有一行，isThreeLine 为真则另说
 // Widget? trailing
-//
+
+// TextStyle? titleTextStyle
+// TextStyle? subtitleTextStyle
+// TextStyle? leadingAndTrailingTextStyle
+
 // bool? isThreeLine 是不是 2 行由 sustitle 决定，是不是 3 行由 subtitle 的行数决定
-// bool? dense 高度会变矮一点，title 和 subtitle 间距是 0，上下边距 8，只是 label 高度变了
+// bool? dense 高度会变矮一点，title 和 subtitle 间距是 0，只是 label 高度变了
 
 // bool enabled = true 会影响样式，元素会变灰，以下俩回调也失效
 // GestureTapCallback? onTap
@@ -19,24 +27,24 @@ import 'package:flutter/material.dart';
 // Color? iconColor 前后图标的颜色
 // Color? textColor 前中后文字的颜色
 
-// ShapeBorder? shape 边框 Border.all()
+// double? minTileHeight 最小高度，默认 一行56 二行72 三行88，如果 dense，则 48 64 76
+// EdgeInsetsGeometry? contentPadding 额外的 padding，而不是修改默认的。默认左右 20 上下 0
+// double? horizontalTitleGap 文字左右距前后，默认 16。前边距离严格等于此值，但后边为何最小 8？
+// double? minVerticalPadding 中间文字上边和下边的最小边距
+// double? minLeadingWidth 不是前边的宽度，而是给前边留多宽，前边不一定会把宽度用光
 
-// --------------------------------------------------------------------------------
-
-// ListTileStyle? style
-
-// TextStyle? titleTextStyle
-// TextStyle? subtitleTextStyle
-// TextStyle? leadingAndTrailingTextStyle
-
-// EdgeInsetsGeometry? contentPadding
-// double? horizontalTitleGap
-// double? minVerticalPadding
-// double? minLeadingWidth
-// double? minTileHeight
+// 前后两块如何与中间对齐
+//   top/center/bottom 假设中间文字比较高，那么前边的图标就 上对齐/居中/下对齐
+//   threeLine 如果 isThreeLine 则 top，否则 center
+//   titleHeight
+//     h>72 前距上 = 后距上 = 16
+//     h=72 前距上 = 16 后居中
+//     h<72 前后都居中
 // ListTileTitleAlignment? titleAlignment
 
-// MaterialStatesController? statesController
+// ShapeBorder? shape 边框 Border.all()
+
+// ListTileStyle? style 决定 title 的字体，两个类型 list 和 drawer，没感觉有什么不一样
 
 // --------------------------------------------------------------------------------
 
@@ -47,6 +55,8 @@ import 'package:flutter/material.dart';
 // Color? focusColor
 // Color? hoverColor
 // Color? splashColor
+
+// MaterialStatesController? statesController
 
 // VisualDensity? visualDensity
 
@@ -84,18 +94,30 @@ class ListTilePage extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.settings),
             title: Text('It is the'),
-            subtitle: Text('It is the responsi'),
+            // subtitle: Text('It is the responsi'),
+            // subtitle: Text('True if this widget will be selected as the initial focus when no other node in'),
             trailing: Icon(Icons.run_circle),
 
-            // enabled: false,
-            tileColor: Colors.amber,
-            selectedTileColor: Colors.green,
-            selectedColor: Colors.brown,
-            iconColor: Colors.teal,
-            textColor: Colors.purple,
-            selected: false,
+            // dense: true,
+            titleAlignment: ListTileTitleAlignment.center,
+            // isThreeLine: true,
 
-            shape: Border.all(color: Colors.green, width: 1),
+            // enabled: false,
+            // tileColor: Colors.amber,
+            // selectedTileColor: Colors.green,
+            // selectedColor: Colors.brown,
+            // iconColor: Colors.teal,
+            // textColor: Colors.purple,
+            // selected: false,
+
+            // shape: Border.all(color: Colors.green, width: 1),
+
+            // contentPadding: EdgeInsets.all(40),
+            // horizontalTitleGap: 0,
+            // minVerticalPadding: 15,
+            // minLeadingWidth: 50,
+            // titleTextStyle: TextStyle(color: Colors.green),
+            // style: ListTileStyle.drawer,
           ),
 
           ListTile(title: Text('ListTile with red background'), tileColor: Colors.red),
