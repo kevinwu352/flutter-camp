@@ -70,6 +70,7 @@
 // RadioThemeData? radioTheme
 // SwitchThemeData? switchTheme
 // SliderThemeData? sliderTheme
+// ProgressIndicatorThemeData? progressIndicatorTheme
 
 // BadgeThemeData? badgeTheme
 // TooltipThemeData? tooltipTheme
@@ -99,6 +100,8 @@
 // MenuThemeData? menuTheme
 // MenuBarThemeData? menuBarTheme
 // MenuButtonThemeData? menuButtonTheme
+// DropdownMenuThemeData? dropdownMenuTheme
+// PopupMenuThemeData? popupMenuTheme
 
 // SnackBarThemeData? snackBarTheme
 // TabBarThemeData? tabBarTheme
@@ -108,10 +111,6 @@
 // -----
 
 // ExpansionTileThemeData? expansionTileTheme
-// ProgressIndicatorThemeData? progressIndicatorTheme
-
-// DropdownMenuThemeData? dropdownMenuTheme
-// PopupMenuThemeData? popupMenuTheme
 
 // ActionIconThemeData? actionIconTheme
 // MaterialBannerThemeData? bannerTheme
