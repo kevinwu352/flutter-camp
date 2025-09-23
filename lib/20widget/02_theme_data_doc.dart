@@ -77,6 +77,7 @@
 
 // TimePickerThemeData? timePickerTheme
 // DatePickerThemeData? datePickerTheme 影响 DatePickerDialog
+// DialogThemeData? dialogTheme
 
 // --------------------------------------------------------------------------------
 
@@ -101,20 +102,19 @@
 // SnackBarThemeData? snackBarTheme
 // TabBarThemeData? tabBarTheme
 // SearchBarThemeData? searchBarTheme
+// SearchViewThemeData? searchViewTheme
 
 // -----
 
-// DialogThemeData? dialogTheme
+// BottomSheetThemeData? bottomSheetTheme
 // ExpansionTileThemeData? expansionTileTheme
 // ProgressIndicatorThemeData? progressIndicatorTheme
-// SearchViewThemeData? searchViewTheme
 
 // DropdownMenuThemeData? dropdownMenuTheme
 // PopupMenuThemeData? popupMenuTheme
 
 // ActionIconThemeData? actionIconTheme
 // MaterialBannerThemeData? bannerTheme
-// BottomSheetThemeData? bottomSheetTheme
 // CarouselViewThemeData? carouselViewTheme
 // DataTableThemeData? dataTableTheme
 
