@@ -69,9 +69,18 @@
 // CheckboxThemeData? checkboxTheme
 // RadioThemeData? radioTheme
 // SwitchThemeData? switchTheme
+// SliderThemeData? sliderTheme
 
+// BadgeThemeData? badgeTheme
 // TooltipThemeData? tooltipTheme
 // ChipThemeData? chipTheme
+
+// TimePickerThemeData? timePickerTheme
+// DatePickerThemeData? datePickerTheme 影响 DatePickerDialog
+
+// --------------------------------------------------------------------------------
+
+// TextSelectionThemeData? textSelectionTheme 相关的类太多了，好复杂
 
 // --------------------------------------------------------------------------------
 
@@ -93,25 +102,23 @@
 // TabBarThemeData? tabBarTheme
 // SearchBarThemeData? searchBarTheme
 
-// SliderThemeData? sliderTheme
-// BadgeThemeData? badgeTheme
+// -----
+
+// DialogThemeData? dialogTheme
+// ExpansionTileThemeData? expansionTileTheme
+// ProgressIndicatorThemeData? progressIndicatorTheme
+// SearchViewThemeData? searchViewTheme
+
 // DropdownMenuThemeData? dropdownMenuTheme
 // PopupMenuThemeData? popupMenuTheme
-
-// DatePickerThemeData? datePickerTheme
-// TimePickerThemeData? timePickerTheme
-// TextSelectionThemeData? textSelectionTheme
 
 // ActionIconThemeData? actionIconTheme
 // MaterialBannerThemeData? bannerTheme
 // BottomSheetThemeData? bottomSheetTheme
 // CarouselViewThemeData? carouselViewTheme
 // DataTableThemeData? dataTableTheme
-// DialogThemeData? dialogTheme
+
 // DrawerThemeData? drawerTheme
-// ExpansionTileThemeData? expansionTileTheme
-// ProgressIndicatorThemeData? progressIndicatorTheme
-// SearchViewThemeData? searchViewTheme
 
 // PageTransitionsTheme? pageTransitionsTheme
 // NoDefaultCupertinoThemeData? cupertinoOverrideTheme

@@ -33,3 +33,28 @@
 //   fillColor 圆边和中心点的颜色，不包括空白区域
 //   backgroundColor 空白区域的颜色
 //   overlayColor 点击时波纹的颜色
+
+// 不管 badge 多大都不会撑大按钮，但如果 badge 太大会被按钮边界切掉
+// IconButton(
+//   icon: const Badge(
+//     // alignment: Alignment.bottomLeft,
+//     // offset: Offset(-10, 0), 有个默认值的，往右上移出去了
+//
+//     backgroundColor: Colors.green,
+//     // textColor: Colors.red,
+//     label: Text('10'), // 为空时显示一个小红点
+//     // isLabelVisible: true, 控制 label 是否显示
+//
+//     // largeSize: 30, 有 label 时的高度
+//     // smallSize: 6, 无 label 时的直径
+//     // padding: EdgeInsets.all(20),
+//     child: Icon(Icons.receipt),
+//   ),
+//   onPressed: () {},
+// )
+
+// 选择时间
+// showTimePicker
+// 选择日期或日期区间，内部使用 DatePickerDialog
+// showDatePicker
+// showDateRangePicker
