@@ -78,6 +78,7 @@
 // TimePickerThemeData? timePickerTheme
 // DatePickerThemeData? datePickerTheme 影响 DatePickerDialog
 // DialogThemeData? dialogTheme
+// BottomSheetThemeData? bottomSheetTheme
 
 // --------------------------------------------------------------------------------
 
@@ -106,7 +107,6 @@
 
 // -----
 
-// BottomSheetThemeData? bottomSheetTheme
 // ExpansionTileThemeData? expansionTileTheme
 // ProgressIndicatorThemeData? progressIndicatorTheme
 
