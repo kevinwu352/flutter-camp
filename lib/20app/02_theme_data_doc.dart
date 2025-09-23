@@ -53,6 +53,7 @@
 
 // IconThemeData? iconTheme
 // IconThemeData? primaryIconTheme
+// ActionIconThemeData? actionIconTheme 修改 导航返回图标 关闭图标 左右抽屉图标
 
 // ButtonThemeData? buttonTheme 文档说要废弃了，用下面这些具体的
 // IconButtonThemeData? iconButtonTheme 唯一参数 ButtonStyle
@@ -82,9 +83,23 @@
 // DialogThemeData? dialogTheme
 // BottomSheetThemeData? bottomSheetTheme
 
+// PageTransitionsTheme? pageTransitionsTheme 定义不同平台使用的页面过渡样式，参数是字典，键是平台，值是预设的过渡样式
+
 // --------------------------------------------------------------------------------
 
 // TextSelectionThemeData? textSelectionTheme 相关的类太多了，好复杂
+
+// CarouselViewThemeData? carouselViewTheme 比较花哨，用到再研究吧
+
+// DataTableThemeData? dataTableTheme 像 excel 的表格，用到再研究吧
+
+// 位于导航条下面，有 图标 文字 按钮，单个按钮就排成一行
+// 非模态，能忽略它，也能点按钮消失它
+// 我感觉没啥特别的，没有非它不可
+// 可以这样展示 ScaffoldMessenger.of(context).showMaterialBanner()
+// MaterialBannerThemeData? bannerTheme
+
+// NoDefaultCupertinoThemeData? cupertinoOverrideTheme 未传的参数无默认值，CupertinoThemeData 则有默认值，干嘛用的？
 
 // --------------------------------------------------------------------------------
 
@@ -99,6 +114,8 @@
 // NavigationRailThemeData? navigationRailTheme
 // DrawerThemeData? drawerTheme
 
+// TabBarThemeData? tabBarTheme
+
 // MenuThemeData? menuTheme
 // MenuBarThemeData? menuBarTheme
 // MenuButtonThemeData? menuButtonTheme
@@ -106,19 +123,9 @@
 // PopupMenuThemeData? popupMenuTheme
 
 // SnackBarThemeData? snackBarTheme
-// TabBarThemeData? tabBarTheme
 // SearchBarThemeData? searchBarTheme
 // SearchViewThemeData? searchViewTheme
 
-// -----
-
-// PageTransitionsTheme? pageTransitionsTheme
-// ActionIconThemeData? actionIconTheme
-// MaterialBannerThemeData? bannerTheme
-// CarouselViewThemeData? carouselViewTheme
-// DataTableThemeData? dataTableTheme
-
-// NoDefaultCupertinoThemeData? cupertinoOverrideTheme
 // Object? inputDecorationTheme
 
 // --------------------------------------------------------------------------------

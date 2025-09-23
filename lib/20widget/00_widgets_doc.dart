@@ -15,6 +15,10 @@
 
 // Tooltip 参数 message，给子提供提示
 
+// CarouselView 比较花哨，用到再研究吧
+
+// DataTable/DataColumn/DataRow 像 excel 的表格，用到再研究吧
+
 // Wrap 能自动换行的 Row/Column，Chip 放里面比较好
 // Chip 三个元素的小组件，文字/图标/删除
 //   ActionChip 添加 onPress，删除 delete 相关的，相当于两个元素的组件
