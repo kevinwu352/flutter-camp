@@ -65,6 +65,7 @@
 // SegmentedButtonThemeData? segmentedButtonTheme ???
 
 // ListTileThemeData? listTileTheme
+// ExpansionTileThemeData? expansionTileTheme
 
 // CheckboxThemeData? checkboxTheme
 // RadioThemeData? radioTheme
@@ -96,6 +97,7 @@
 // NavigationBarThemeData? navigationBarTheme
 // NavigationDrawerThemeData? navigationDrawerTheme
 // NavigationRailThemeData? navigationRailTheme
+// DrawerThemeData? drawerTheme
 
 // MenuThemeData? menuTheme
 // MenuBarThemeData? menuBarTheme
@@ -110,16 +112,12 @@
 
 // -----
 
-// ExpansionTileThemeData? expansionTileTheme
-
+// PageTransitionsTheme? pageTransitionsTheme
 // ActionIconThemeData? actionIconTheme
 // MaterialBannerThemeData? bannerTheme
 // CarouselViewThemeData? carouselViewTheme
 // DataTableThemeData? dataTableTheme
 
-// DrawerThemeData? drawerTheme
-
-// PageTransitionsTheme? pageTransitionsTheme
 // NoDefaultCupertinoThemeData? cupertinoOverrideTheme
 // Object? inputDecorationTheme
 

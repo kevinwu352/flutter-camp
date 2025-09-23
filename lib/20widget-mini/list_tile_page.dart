@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 // CheckboxListTile / RadioListTile / SwitchListTile
 
+// ExpansionTile 能打开/关闭细节内容的 ListTile
+
 // ================================================================================
 
 // Widget? leading
