@@ -6,9 +6,13 @@
 // XXXThemeData 指定样式的具体内容
 //   DividerThemeData({Color? color, double? space, double? thickness, double? indent, double? endIndent, BorderRadiusGeometry? radius})
 
+// Clip 类型 none不切，hardEdge最快但不保真，antiAlias慢一点少用，antiAliasWithSaveLayer最慢不要用
+
 // ================================================================================
 
 // Card 圆角带阴影那种卡片
+
+// CircleAvatar 圆形头像，能显示图片或字母
 
 // Divider / VerticalDivider
 //   color / thickness / endIndent

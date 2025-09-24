@@ -61,9 +61,7 @@
 // ElevatedButtonThemeData? elevatedButtonTheme 唯一参数 ButtonStyle
 // FilledButtonThemeData? filledButtonTheme 唯一参数 ButtonStyle
 // OutlinedButtonThemeData? outlinedButtonTheme 唯一参数 ButtonStyle
-// FloatingActionButtonThemeData? floatingActionButtonTheme ???
-// ToggleButtonsThemeData? toggleButtonsTheme ???
-// SegmentedButtonThemeData? segmentedButtonTheme ???
+// FloatingActionButtonThemeData? floatingActionButtonTheme
 
 // ListTileThemeData? listTileTheme
 // ExpansionTileThemeData? expansionTileTheme
@@ -73,6 +71,9 @@
 // SwitchThemeData? switchTheme
 // SliderThemeData? sliderTheme
 // ProgressIndicatorThemeData? progressIndicatorTheme
+// SegmentedButtonThemeData? segmentedButtonTheme
+// ToggleButtonsThemeData? toggleButtonsTheme 文档说是 2 时代的，现在用 segmented
+
 // DropdownMenuThemeData? dropdownMenuTheme
 // PopupMenuThemeData? popupMenuTheme
 

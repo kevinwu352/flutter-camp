@@ -19,11 +19,15 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      locale: Locale("en"),
-      title: "Flutter Camp",
+      locale: Locale('en'),
+      title: 'Flutter Camp',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.red, brightness: Brightness.light),
       ),
+      darkTheme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue, brightness: Brightness.dark),
+      ),
+      themeMode: ThemeMode.light,
       home: TestPage(),
     );
     // return MaterialApp.router(routerConfig: router);
