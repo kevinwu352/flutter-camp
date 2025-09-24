@@ -88,17 +88,20 @@
 
 // --------------------------------------------------------------------------------
 
-// TextSelectionThemeData? textSelectionTheme 相关的类太多了，好复杂
-
 // CarouselViewThemeData? carouselViewTheme 比较花哨，用到再研究吧
 
 // DataTableThemeData? dataTableTheme 像 excel 的表格，用到再研究吧
+
+// SearchBarThemeData? searchBarTheme 与 SearchAnchor 配合使用
+// SearchViewThemeData? searchViewTheme 没有 SearchView 这个类，SearchAnchor 带的那个 suggest 就是 search view
 
 // 位于导航条下面，有 图标 文字 按钮，单个按钮就排成一行
 // 非模态，能忽略它，也能点按钮消失它
 // 我感觉没啥特别的，没有非它不可
 // 可以这样展示 ScaffoldMessenger.of(context).showMaterialBanner()
 // MaterialBannerThemeData? bannerTheme
+
+// TextSelectionThemeData? textSelectionTheme 相关的类太多了，好复杂
 
 // NoDefaultCupertinoThemeData? cupertinoOverrideTheme 未传的参数无默认值，CupertinoThemeData 则有默认值，干嘛用的？
 
@@ -122,9 +125,6 @@
 // MenuButtonThemeData? menuButtonTheme
 // DropdownMenuThemeData? dropdownMenuTheme
 // PopupMenuThemeData? popupMenuTheme
-
-// SearchBarThemeData? searchBarTheme
-// SearchViewThemeData? searchViewTheme
 
 // Object? inputDecorationTheme
 
