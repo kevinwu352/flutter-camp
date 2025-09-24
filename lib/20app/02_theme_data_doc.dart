@@ -73,6 +73,8 @@
 // SwitchThemeData? switchTheme
 // SliderThemeData? sliderTheme
 // ProgressIndicatorThemeData? progressIndicatorTheme
+// DropdownMenuThemeData? dropdownMenuTheme
+// PopupMenuThemeData? popupMenuTheme
 
 // BadgeThemeData? badgeTheme
 // TooltipThemeData? tooltipTheme
@@ -85,6 +87,8 @@
 // BottomSheetThemeData? bottomSheetTheme
 
 // PageTransitionsTheme? pageTransitionsTheme 定义不同平台使用的页面过渡样式，参数是字典，键是平台，值是预设的过渡样式
+
+// Object? inputDecorationTheme 影响 InputDecorator / TextField / TextFormField，但 DropdownMenu 里面的输入框不受此影响
 
 // --------------------------------------------------------------------------------
 
@@ -124,11 +128,6 @@
 // DrawerThemeData? drawerTheme
 
 // TabBarThemeData? tabBarTheme
-
-// DropdownMenuThemeData? dropdownMenuTheme
-// PopupMenuThemeData? popupMenuTheme
-
-// Object? inputDecorationTheme
 
 // --------------------------------------------------------------------------------
 

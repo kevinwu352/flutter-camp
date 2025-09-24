@@ -1,5 +1,4 @@
 import 'dart:collection';
-
 import 'package:flutter/material.dart';
 
 // T? initialSelection 初始值
@@ -11,9 +10,13 @@ import 'package:flutter/material.dart';
 // bool enabled = true
 // bool enableFilter = false 根据输入的内容，下边可选择的项会变化
 // bool enableSearch = true 输入的时候会有个灰条条放到最适合的那一项上，回车就选中它
+// FilterCallback<T>? filterCallback 自己计算，并返回相应的列表
+// SearchCallback<T>? searchCallback 自己计算，并返回相应的列表
 
 // double? width
+// EdgeInsetsGeometry? expandedInsets 为空则根据菜单项的宽度来，不为空则根据父的宽度来，.zero 则等于父的宽度
 // double? menuHeight 弹出来的下拉那部分的高度，默认是显示所有项
+// Offset? alignmentOffset 下拉部分的偏移量
 
 // Widget? leadingIcon
 // Widget? trailingIcon
@@ -26,43 +29,36 @@ import 'package:flutter/material.dart';
 // String? errorText 显示在输入框正下方的错误文字，输入框边框和里面的文字颜色也会变
 
 // TextInputType? keyboardType 数字键盘/邮件键盘/...
+// TextInputAction? textInputAction 回车键的类型
 // TextStyle? textStyle
 // TextAlign textAlign = TextAlign.start 输入的文字靠哪，但 label 的位置不受此影响
 
+// MenuStyle? menuStyle 定义一堆外观
+// Object? inputDecorationTheme 超多外观属性，传 InputDecorationThemeData
+
 // --------------------------------------------------------------------------------
 
-// TextEditingController? controller
+// DropdownMenuCloseBehavior closeBehavior = DropdownMenuCloseBehavior.all 选中某项时，要不要关闭下拉
 
 // FocusNode? focusNode
 // bool? requestFocusOnTap 如果为真，点击的时候获取焦点并弹出键盘。手机上默认是 false，电脑上默认是 true
 
-// --------------------------------------------------------------------------------
-
-// Object? inputDecorationTheme
-// MenuStyle? menuStyle
-
-// EdgeInsetsGeometry? expandedInsets
-// FilterCallback<T>? filterCallback
-// SearchCallback<T>? searchCallback
-// Offset? alignmentOffset
-
 // List<TextInputFormatter>? inputFormatters
-// DropdownMenuCloseBehavior closeBehavior = DropdownMenuCloseBehavior.all
+//   LengthLimitingTextInputFormatter(4) 能选择 Orange，输入框也会显示全。但是如果自己输入只能输 4 位
+//   FilteringTextInputFormatter.allow(RegExp(r'[0-9]')) 能选择 Orange，输入框也会显示全。但是如果自己输入只能输数字
 
-// TextInputAction? textInputAction
+// TextEditingController? controller
 
-class DropdownmenuPage extends StatefulWidget {
-  const DropdownmenuPage({super.key});
+class DropmenuPage extends StatefulWidget {
+  const DropmenuPage({super.key});
 
   @override
-  State<DropdownmenuPage> createState() => _DropdownmenuPageState();
+  State<DropmenuPage> createState() => _DropmenuPageState();
 }
 
-class _DropdownmenuPageState extends State<DropdownmenuPage> {
+class _DropmenuPageState extends State<DropmenuPage> {
   final TextEditingController colorController = TextEditingController();
-  final TextEditingController iconController = TextEditingController();
   ColorLabel? selectedColor;
-  IconLabel? selectedIcon;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -83,9 +79,25 @@ class _DropdownmenuPageState extends State<DropdownmenuPage> {
             // selectedTrailingIcon: Icon(Icons.plus_one),
             // showTrailingIcon: true,
             label: const Text('Color'),
-            enabled: false,
-            enableSearch: true,
-            enableFilter: true,
+            // expandedInsets: EdgeInsets.zero,
+            textInputAction: TextInputAction.search,
+
+            closeBehavior: DropdownMenuCloseBehavior.all,
+
+            alignmentOffset: Offset(0, 20),
+
+            textStyle: TextStyle(fontSize: 10),
+
+            // inputDecorationTheme: const InputDecorationTheme(
+            //   filled: true,
+            //   // contentPadding: EdgeInsets.symmetric(vertical: 5.0),
+            // ),
+
+            // inputFormatters: [
+            //   // LengthLimitingTextInputFormatter(4),
+            //   FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+            // ],
+
             // textAlign: TextAlign.end,
             // width: 100,
             // maxLines: 2,
@@ -108,7 +120,6 @@ class _DropdownmenuPageState extends State<DropdownmenuPage> {
 
 typedef ColorEntry = DropdownMenuEntry<ColorLabel>;
 
-// DropdownMenuEntry labels and values for the first dropdown menu.
 enum ColorLabel {
   blue('Blue', Colors.blue),
   pink('Pink', Colors.pink),
@@ -129,23 +140,5 @@ enum ColorLabel {
         style: MenuItemButton.styleFrom(foregroundColor: color.color),
       ),
     ),
-  );
-}
-
-typedef IconEntry = DropdownMenuEntry<IconLabel>;
-
-// DropdownMenuEntry labels and values for the second dropdown menu.
-enum IconLabel {
-  smile('Smile', Icons.sentiment_satisfied_outlined),
-  cloud('Cloud', Icons.cloud_outlined),
-  brush('Brush', Icons.brush_outlined),
-  heart('Heart', Icons.favorite);
-
-  const IconLabel(this.label, this.icon);
-  final String label;
-  final IconData icon;
-
-  static final List<IconEntry> entries = UnmodifiableListView<IconEntry>(
-    values.map<IconEntry>((IconLabel icon) => IconEntry(value: icon, label: icon.label, leadingIcon: Icon(icon.icon))),
   );
 }
