@@ -1,4 +1,3 @@
-// 用 SnackBar 时如果刚好 push 了，它就看不到了。用 ScaffoldMessenger，这东西在页面转换后也能看到
 // GlobalKey<ScaffoldMessengerState>? scaffoldMessengerKey
 
 // Widget? home

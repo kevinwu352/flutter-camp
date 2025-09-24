@@ -6,14 +6,14 @@ class TestPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Test")),
+      appBar: AppBar(title: Text('Test')),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           // ...
         },
         child: Icon(Icons.run_circle_outlined),
       ),
-      body: Text("body"),
+      body: Text('body'),
     );
   }
 }

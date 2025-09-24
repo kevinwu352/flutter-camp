@@ -77,6 +77,7 @@
 // BadgeThemeData? badgeTheme
 // TooltipThemeData? tooltipTheme
 // ChipThemeData? chipTheme
+// SnackBarThemeData? snackBarTheme
 
 // TimePickerThemeData? timePickerTheme
 // DatePickerThemeData? datePickerTheme 影响 DatePickerDialog
@@ -122,7 +123,6 @@
 // DropdownMenuThemeData? dropdownMenuTheme
 // PopupMenuThemeData? popupMenuTheme
 
-// SnackBarThemeData? snackBarTheme
 // SearchBarThemeData? searchBarTheme
 // SearchViewThemeData? searchViewTheme
 

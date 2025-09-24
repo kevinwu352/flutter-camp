@@ -108,15 +108,6 @@ class HeroWidget extends Stateless {
   }
 }
 
-条幅样式的 HUD
-ScaffoldMessenger.of(context).showSnackBar(
-  SnackBar(
-    content: Text("title"),
-    duration: Duration(seconds: 5),
-    behavior: SnackBarBehavior.floating,
-  ),
-);
-
 
 
 Dismissible 左右滑显示列表单行下面的选项
