@@ -101,6 +101,11 @@
 // 可以这样展示 ScaffoldMessenger.of(context).showMaterialBanner()
 // MaterialBannerThemeData? bannerTheme
 
+// 电脑上那种层级菜单，还有 MenuAnchor
+// MenuBarThemeData? menuBarTheme 定义 MenuBar 的样式，子菜单的样式用下俩
+// MenuThemeData? menuTheme
+// MenuButtonThemeData? menuButtonTheme
+
 // TextSelectionThemeData? textSelectionTheme 相关的类太多了，好复杂
 
 // NoDefaultCupertinoThemeData? cupertinoOverrideTheme 未传的参数无默认值，CupertinoThemeData 则有默认值，干嘛用的？
@@ -120,9 +125,6 @@
 
 // TabBarThemeData? tabBarTheme
 
-// MenuThemeData? menuTheme
-// MenuBarThemeData? menuBarTheme
-// MenuButtonThemeData? menuButtonTheme
 // DropdownMenuThemeData? dropdownMenuTheme
 // PopupMenuThemeData? popupMenuTheme
 
