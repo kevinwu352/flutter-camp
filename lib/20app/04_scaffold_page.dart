@@ -49,9 +49,15 @@ import 'package:flutter/material.dart';
 
 // String? restorationId
 
-class ScaffoldPage extends StatelessWidget {
+class ScaffoldPage extends StatefulWidget {
   const ScaffoldPage({super.key});
 
+  @override
+  State<ScaffoldPage> createState() => _ScaffoldPageState();
+}
+
+class _ScaffoldPageState extends State<ScaffoldPage> {
+  int screenIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -90,9 +96,37 @@ class ScaffoldPage extends StatelessWidget {
       onDrawerChanged: (isOpened) {
         print("open: $isOpened");
       },
-      drawerScrimColor: Colors.red,
-      drawerBarrierDismissible: false,
+      // drawerScrimColor: Colors.red,
+      drawerBarrierDismissible: true,
       drawerEdgeDragWidth: 50,
+
+      endDrawer: NavigationDrawer(
+        onDestinationSelected: (value) => setState(() {
+          screenIndex = value;
+        }),
+        selectedIndex: screenIndex,
+
+        indicatorColor: Colors.green,
+        indicatorShape: RoundedRectangleBorder(
+          // side: BorderSide(color: Colors.red),
+          borderRadius: BorderRadius.circular(4),
+        ), //Border.all(color: Colors.red),
+
+        backgroundColor: Colors.grey,
+        header: Text('header'), // 这俩的位置不随着内容滚动
+        footer: Text('footer'),
+        children: [
+          Container(padding: EdgeInsets.fromLTRB(28, 16, 16, 10), child: Text('section')),
+          ...destinations.map((destination) {
+            return NavigationDrawerDestination(
+              label: Text(destination.label),
+              icon: destination.icon,
+              selectedIcon: destination.selectedIcon,
+            );
+          }),
+          Padding(padding: EdgeInsets.fromLTRB(28, 16, 28, 10), child: Divider()),
+        ],
+      ),
 
       // resizeToAvoidBottomInset: true,
       // bottomSheetScrimBuilder: (_, _) {
@@ -101,3 +135,56 @@ class ScaffoldPage extends StatelessWidget {
     );
   }
 }
+
+class ExampleDestination {
+  const ExampleDestination(this.label, this.icon, this.selectedIcon);
+
+  final String label;
+  final Widget icon;
+  final Widget selectedIcon;
+}
+
+const List<ExampleDestination> destinations = <ExampleDestination>[
+  ExampleDestination('Messages', Icon(Icons.widgets_outlined), Icon(Icons.widgets)),
+  ExampleDestination('Profile', Icon(Icons.format_paint_outlined), Icon(Icons.format_paint)),
+  ExampleDestination('Settings', Icon(Icons.settings_outlined), Icon(Icons.settings)),
+];
+
+// ================================================================================
+
+// NavigationRail 的用法
+
+// Row(
+//   children: <Widget>[
+//     Padding(
+//       padding: const EdgeInsets.symmetric(horizontal: 5),
+//       child: NavigationRail(
+//         minWidth: 50,
+//         destinations: destinations.map((ExampleDestination destination) {
+//           return NavigationRailDestination(
+//             label: Text(destination.label),
+//             icon: destination.icon,
+//             selectedIcon: destination.selectedIcon,
+//           );
+//         }).toList(),
+//         selectedIndex: screenIndex,
+//         useIndicator: true,
+//         onDestinationSelected: (int index) {
+//           setState(() {
+//             screenIndex = index;
+//           });
+//         },
+//       ),
+//     ),
+//     const VerticalDivider(thickness: 1, width: 1),
+//     Expanded(
+//       child: Column(
+//         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//         children: <Widget>[
+//           Text('Page Index = $screenIndex'),
+//           ElevatedButton(onPressed: openDrawer, child: const Text('Open Drawer')),
+//         ],
+//       ),
+//     ),
+//   ],
+// )

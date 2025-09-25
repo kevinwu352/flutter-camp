@@ -87,14 +87,21 @@
 // DialogThemeData? dialogTheme
 // BottomSheetThemeData? bottomSheetTheme
 
+// PageTransitionsTheme? pageTransitionsTheme 定义不同平台使用的页面过渡样式，参数是字典，键是平台，值是预设的过渡样式
+
+// Object? inputDecorationTheme 影响 InputDecorator / TextField / TextFormField，但 DropdownMenu 里面的输入框不受此影响
+
+// --------------------------------------------------------------------------------
+
 // Object? appBarTheme
 // BottomAppBarThemeData? bottomAppBarTheme 一般 Scaffold.bottomNavigationBar = BottomAppBar
 // NavigationBarThemeData? navigationBarTheme 底部的 TabBar，新版本的 BottomNavigationBar，用这个
 // BottomNavigationBarThemeData? bottomNavigationBarTheme 底部的 TabBar，一般 Scaffold.bottomNavigationBar = BottomNavigationBar
 
-// PageTransitionsTheme? pageTransitionsTheme 定义不同平台使用的页面过渡样式，参数是字典，键是平台，值是预设的过渡样式
+// DrawerThemeData? drawerTheme
+// NavigationDrawerThemeData? navigationDrawerTheme 文档说这是 Drawer 的新版
 
-// Object? inputDecorationTheme 影响 InputDecorator / TextField / TextFormField，但 DropdownMenu 里面的输入框不受此影响
+// NavigationRailThemeData? navigationRailTheme 屏幕太宽时，用 TabBar 会很稀疏，该用这个，它是靠屏幕左边的类似的菜单
 
 // --------------------------------------------------------------------------------
 
@@ -121,10 +128,6 @@
 // NoDefaultCupertinoThemeData? cupertinoOverrideTheme 未传的参数无默认值，CupertinoThemeData 则有默认值，干嘛用的？
 
 // --------------------------------------------------------------------------------
-
-// DrawerThemeData? drawerTheme
-// NavigationDrawerThemeData? navigationDrawerTheme
-// NavigationRailThemeData? navigationRailTheme
 
 // TabBarThemeData? tabBarTheme
 
