@@ -121,12 +121,12 @@
 
 // Object? appBarTheme
 // BottomAppBarThemeData? bottomAppBarTheme
+// NavigationBarThemeData? navigationBarTheme
 // BottomNavigationBarThemeData? bottomNavigationBarTheme
 
-// NavigationBarThemeData? navigationBarTheme
+// DrawerThemeData? drawerTheme
 // NavigationDrawerThemeData? navigationDrawerTheme
 // NavigationRailThemeData? navigationRailTheme
-// DrawerThemeData? drawerTheme
 
 // TabBarThemeData? tabBarTheme
 

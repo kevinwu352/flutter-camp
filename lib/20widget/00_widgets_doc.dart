@@ -13,6 +13,17 @@
 // Card 圆角带阴影那种卡片
 
 // CircleAvatar 圆形头像，能显示图片或字母
+//   Stack(
+//     // 注意这个参数：How to align the non-positioned and partially-positioned children in the stack.
+//     alignment: Alignment(0.6, 0.6),
+//     children: [
+//       CircleAvatar(backgroundImage: AssetImage("assets/images/jessica.jpg"), radius: 100),
+//       Container(
+//         decoration: BoxDecoration(color: Colors.black45),
+//         child: Text('Jessica', style: TextStyle(fontSize: 20, color: Colors.white)),
+//       ),
+//     ],
+//   )
 
 // Divider / VerticalDivider
 //   color / thickness / endIndent
