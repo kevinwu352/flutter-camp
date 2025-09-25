@@ -27,14 +27,14 @@ import 'package:flutter/material.dart';
 
 // bool maintainBottomViewPadding = false 没懂
 
-class Tabbar2Page extends StatefulWidget {
-  const Tabbar2Page({super.key});
+class NavbarPage extends StatefulWidget {
+  const NavbarPage({super.key});
 
   @override
-  State<Tabbar2Page> createState() => _Tabbar2PageState();
+  State<NavbarPage> createState() => _NavbarPageState();
 }
 
-class _Tabbar2PageState extends State<Tabbar2Page> {
+class _NavbarPageState extends State<NavbarPage> {
   int index = 0;
   @override
   Widget build(BuildContext context) {
