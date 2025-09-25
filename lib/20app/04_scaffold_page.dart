@@ -100,6 +100,8 @@ class _ScaffoldPageState extends State<ScaffoldPage> {
       drawerBarrierDismissible: true,
       drawerEdgeDragWidth: 50,
 
+      // Scaffold.of(context).openDrawer();
+      // Navigator.pop(context);
       endDrawer: NavigationDrawer(
         onDestinationSelected: (value) => setState(() {
           screenIndex = value;

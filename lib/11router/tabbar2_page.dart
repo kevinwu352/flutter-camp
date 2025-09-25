@@ -1,6 +1,32 @@
 import 'package:flutter/material.dart';
 
-// 位于页面底部
+// NavigationBar 位于页面底部，就是 iOS 的 TabBar
+
+// int selectedIndex = 0
+// required List<Widget> destinations
+// ValueChanged<int>? onDestinationSelected
+
+// Duration? animationDuration 选中时的动画时间
+
+// double? height
+
+// Color? backgroundColor
+
+// double? elevation
+// Color? shadowColor
+// Color? surfaceTintColor
+
+// Color? indicatorColor 选中时那个泡泡的颜色，还能是透明
+// ShapeBorder? indicatorShape
+
+// NavigationDestinationLabelBehavior? labelBehavior 决定何时显示图标下面的文字
+// MaterialStateProperty<TextStyle?>? labelTextStyle
+// EdgeInsetsGeometry? labelPadding
+
+// MaterialStateProperty<Color?>? overlayColor 点击时候的波纹颜色
+
+// bool maintainBottomViewPadding = false 没懂
+
 class Tabbar2Page extends StatefulWidget {
   const Tabbar2Page({super.key});
 
@@ -14,6 +40,15 @@ class _Tabbar2PageState extends State<Tabbar2Page> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: NavigationBar(
+        // animationDuration: Duration(seconds: 5),
+        // backgroundColor: Colors.green,
+        // indicatorColor: Colors.transparent,
+        // labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
+        // indicatorShape: RoundedRectangleBorder(
+        //   side: BorderSide(color: Colors.red),
+        //   borderRadius: BorderRadius.all(Radius.circular(10)),
+        // ),
+        // overlayColor: WidgetStatePropertyAll(Colors.purple),
         onDestinationSelected: (value) => setState(() => index = value),
         selectedIndex: index,
         destinations: [

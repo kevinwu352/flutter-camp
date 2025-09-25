@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-// 位于导航条下面
+// TabBar 位于导航条下面
+
 class Tabbar1Page extends StatelessWidget {
   const Tabbar1Page({super.key});
 

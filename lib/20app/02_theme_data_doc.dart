@@ -94,9 +94,11 @@
 // --------------------------------------------------------------------------------
 
 // Object? appBarTheme
+// TabBarThemeData? tabBarTheme 位于 AppBar 下面
+
 // BottomAppBarThemeData? bottomAppBarTheme 一般 Scaffold.bottomNavigationBar = BottomAppBar
-// NavigationBarThemeData? navigationBarTheme 底部的 TabBar，新版本的 BottomNavigationBar，用这个
 // BottomNavigationBarThemeData? bottomNavigationBarTheme 底部的 TabBar，一般 Scaffold.bottomNavigationBar = BottomNavigationBar
+// NavigationBarThemeData? navigationBarTheme 底部的 TabBar，新版本的 BottomNavigationBar，用这个
 
 // DrawerThemeData? drawerTheme
 // NavigationDrawerThemeData? navigationDrawerTheme 文档说这是 Drawer 的新版
@@ -128,8 +130,6 @@
 // NoDefaultCupertinoThemeData? cupertinoOverrideTheme 未传的参数无默认值，CupertinoThemeData 则有默认值，干嘛用的？
 
 // --------------------------------------------------------------------------------
-
-// TabBarThemeData? tabBarTheme
 
 // ScrollbarThemeData? scrollbarTheme
 
