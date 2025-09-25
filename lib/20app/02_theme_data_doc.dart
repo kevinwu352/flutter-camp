@@ -87,6 +87,11 @@
 // DialogThemeData? dialogTheme
 // BottomSheetThemeData? bottomSheetTheme
 
+// Object? appBarTheme
+// BottomAppBarThemeData? bottomAppBarTheme 一般 Scaffold.bottomNavigationBar = BottomAppBar
+// NavigationBarThemeData? navigationBarTheme 底部的 TabBar，新版本的 BottomNavigationBar，用这个
+// BottomNavigationBarThemeData? bottomNavigationBarTheme 底部的 TabBar，一般 Scaffold.bottomNavigationBar = BottomNavigationBar
+
 // PageTransitionsTheme? pageTransitionsTheme 定义不同平台使用的页面过渡样式，参数是字典，键是平台，值是预设的过渡样式
 
 // Object? inputDecorationTheme 影响 InputDecorator / TextField / TextFormField，但 DropdownMenu 里面的输入框不受此影响
@@ -117,18 +122,13 @@
 
 // --------------------------------------------------------------------------------
 
-// ScrollbarThemeData? scrollbarTheme
-
-// Object? appBarTheme
-// BottomAppBarThemeData? bottomAppBarTheme
-// NavigationBarThemeData? navigationBarTheme
-// BottomNavigationBarThemeData? bottomNavigationBarTheme
-
 // DrawerThemeData? drawerTheme
 // NavigationDrawerThemeData? navigationDrawerTheme
 // NavigationRailThemeData? navigationRailTheme
 
 // TabBarThemeData? tabBarTheme
+
+// ScrollbarThemeData? scrollbarTheme
 
 // --------------------------------------------------------------------------------
 
