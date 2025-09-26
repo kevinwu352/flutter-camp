@@ -10,6 +10,17 @@
 
 // ================================================================================
 
+// 加载 bundle 的文件。DefaultAssetBundle 能修改它子节点的默认 bundle
+// 推荐用这种方式，单元测试的时候能替换
+//   final str = await DefaultAssetBundle.of(context,).loadString("assets/jsons/user.json");
+// 如果在 widget 外面，没有 context，用下面这种方式
+//   import 'package:flutter/services.dart' show rootBundle;
+//   final str = await rootBundle.loadString("assets/jsons/user.json");
+
+// ================================================================================
+
+// Placeholder 默认占满父空间，如果父是无限的则用 fallback size
+
 // Card 圆角带阴影那种卡片
 
 // CircleAvatar 圆形头像，能显示图片或字母
