@@ -88,3 +88,27 @@
 // 选择日期或日期区间，内部使用 DatePickerDialog
 // showDatePicker
 // showDateRangePicker
+
+// IgnorePointer 忽略事件，事件被传递到背后的视图了
+// AbsorbPointer 接收事件，并且自己把事件吃掉了
+//   Container(
+//     width: 200,
+//     height: 200,
+//     color: Colors.blue,
+//     child: Stack(
+//       children: [
+//         Listener(
+//           onPointerDown: (event) => print("red down"),
+//           child: Container(color: Colors.red),
+//         ),
+//         Listener(
+//           onPointerDown: (event) => print("green down"),
+//           // child: IgnorePointer(child: Container(color: Colors.green, width: 100, height: 100)),
+//           child: AbsorbPointer(child: Container(color: Colors.green, width: 100, height: 100)),
+//         ),
+//       ],
+//     ),
+//   )
+
+// Dismissible 左右滑显示列表某行下面的选项
+// InteractiveViewer 查看大图片，也能放其它控件，反正就是大的

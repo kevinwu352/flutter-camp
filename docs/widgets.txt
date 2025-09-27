@@ -28,9 +28,6 @@ SizedBox.shrink()
 
 
 
-Material 3 要用新组件
-BottomNavigationBar to NavigationBar
-Drawer to NavigationDrawer
 
 支持的字体类型
 OpenType font collections: .ttc
@@ -79,8 +76,6 @@ BackdropFilter(
 用 Stack，然后把它盖在其它控件上面
 
 
-DropdownButton 右边有个三角的横线输入框，下拉选择
-  DropdownMenuItem
 
 ClipRRect 用于把子内容切圆角
 ClipRRect(
@@ -99,37 +94,13 @@ class HeroWidget extends Stateless {
 
 
 
-Dismissible 左右滑显示列表单行下面的选项
 
 
-IgnorePointer 忽略事件，事件被传递到背后的视图了
-AbsorbPointer 接收事件，并且自己把事件吃掉了
-Container(
-  width: 200,
-  height: 200,
-  color: Colors.blue,
-  child: Stack(
-    children: [
-      Listener(
-        onPointerDown: (event) {
-          print("red down");
-        },
-        child: Container(color: Colors.red),
-      ),
-      Listener(
-        onPointerDown: (event) {
-          print("green down");
-        },
-        child: IgnorePointer(
-          child: Container(color: Colors.green, width: 100, height: 100),
-        ),
-      ),
-    ],
-  ),
-),
 
 
-InteractiveViewer 查看大图片
+
+
+
 
 Draggable / LongPressDraggable
 

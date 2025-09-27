@@ -9,6 +9,10 @@ import 'package:flutter/material.dart';
 
 // KeyboardListener 看文档和例子，应该是监听物理键盘事件的
 
+// 如下用法会抛出异常，双击输入框
+// TextField(readOnly: true, controller: controller)
+// Currently, the system context menu can only be shown for an active text input connection
+
 // ================================================================================
 
 // bool? enabled
@@ -147,10 +151,7 @@ class _TextfieldPageState extends State<TextfieldPage> {
   @override
   void initState() {
     super.initState();
-    controller = TextEditingController(
-      text:
-          'When needing to access scrolling information from a context that is within the scrolling widget itself, use Scrollable.of to access the ScrollableState and the ScrollableState.position. This would be the same ScrollPosition attached to a ScrollController. When needing to access scrolling information from a context that is within the scrolling widget itself, use Scrollable.of to access the ScrollableState and the ScrollableState.position. This would be the same ScrollPosition attached to a ScrollController. When needing to access scrolling information from a context that is within the scrolling widget itself, use Scrollable.of to access the ScrollableState and the ScrollableState.position. This would be the same ScrollPosition attached to a ScrollController. When needing to access scrolling information from a context that is within the scrolling widget itself, use Scrollable.of to access the ScrollableState and the ScrollableState.position. This would be the same ScrollPosition attached to a ScrollController. When needing to access scrolling information from a context that is within the scrolling widget itself, use Scrollable.of to access the ScrollableState and the ScrollableState.position. This would be the same ScrollPosition attached to a ScrollController. When needing to access scrolling information from a context that is within the scrolling widget itself, use Scrollable.of to access the ScrollableState and the ScrollableState.position. This would be the same ScrollPosition attached to a ScrollController.',
-    );
+    controller = TextEditingController(text: 'When needing');
   }
 
   @override
@@ -330,6 +331,7 @@ class _TextfieldPageState extends State<TextfieldPage> {
           ),
           SizedBox(height: 20),
           TextField(decoration: InputDecoration.collapsed(hintText: 'asdf', filled: true)),
+          TextField(readOnly: true, controller: controller),
         ],
       ),
     );
