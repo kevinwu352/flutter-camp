@@ -1,6 +1,10 @@
 import 'dart:collection';
 import 'package:flutter/material.dart';
 
+// 旧版是 DropdownButton
+
+// ================================================================================
+
 // T? initialSelection 初始值
 // ValueChanged<T?>? onSelected
 // int? maxLines = 1 被选中的值最多显示几行
