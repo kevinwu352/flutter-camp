@@ -3,8 +3,17 @@ import 'package:flutter/material.dart';
 // 继承关系
 // ShapeBorder -> BoxBorder, InputBorder, OutlinedBorder
 //   BoxBorder -> Border
-//   OutlinedBorder -> CircleBorder, RoundedRectangleBorder, ... 子类是一堆形状开头的
-//   InputBorder -> UnderlineInputBorder, OutlineInputBorder
+//   OutlinedBorder
+//     CircleBorder 第二个参数决定圆形为了适配父的尺寸的变形程度，1 是完全变形，会变成一个椭圆
+//     RoundedRectangleBorder
+//     BeveledRectangleBorder 的角是直线不是圆角，RoundedRectangleBorder 是两点用弧线连接，它是用直线
+//     ContinuousRectangleBorder 比 RoundedRectangleBorder 要大一点点，没看出有什么特别的
+//     LinearBorder 能分别决定显示四个边线，但不能决定各自的样式，上面的 Border 四条边的样式能分别指定
+//     StadiumBorder 胶囊形状，这单词是体育馆，体育馆也像胶囊，是吧？
+//     StarBorder 几角星或几边形，参数非常丰富，具体看文档
+//   InputBorder
+//     OutlineInputBorder 圆角边框
+//     UnderlineInputBorder 只有下边框
 // Container.decoration = BoxDecoration.border 这里是 BoxBorder
 //
 // 区别是什么？
@@ -53,12 +62,30 @@ class BorderPage extends StatelessWidget {
           //   decoration: BoxDecoration(border: CircleBorder()),
           //   child: const Text('RGB', textAlign: TextAlign.center),
           // ),
-          OutlinedButton(
+          TextButton(
             onPressed: () {},
-            style: OutlinedButton.styleFrom(
-              shape: CircleBorder(side: BorderSide(color: Colors.red, width: 4)),
+            style: TextButton.styleFrom(
+              // shape: CircleBorder(side: BorderSide(color: Colors.red, width: 2), eccentricity: 0.6),
+              // shape: RoundedRectangleBorder(
+              //   side: BorderSide(color: Colors.red, width: 2),
+              //   borderRadius: BorderRadius.circular(8),
+              // ),
+              // shape: LinearBorder(
+              //   side: BorderSide(color: Colors.red, width: 4),
+              //   bottom: LinearBorderEdge(),
+              // ),
+              // shape: StadiumBorder(side: BorderSide(color: Colors.red, width: 4)),
+              shape: StarBorder(side: BorderSide(color: Colors.red, width: 2), points: 6),
+              // shape: StarBorder.polygon(side: BorderSide(color: Colors.red, width: 2), sides: 6),
             ),
             child: Text('abc'),
+          ),
+
+          TextField(
+            decoration: InputDecoration(
+              // border: OutlineInputBorder(borderSide: BorderSide(color: Colors.red, width: 4)),
+              border: UnderlineInputBorder(),
+            ),
           ),
         ],
       ),
