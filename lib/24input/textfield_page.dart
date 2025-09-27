@@ -5,6 +5,10 @@ import 'package:flutter/material.dart';
 // 关闭键盘
 // FocusManager.instance.primaryFocus?.unfocus();
 
+// Autocomplete 用户输入时下边展示推荐条目的控件
+
+// KeyboardListener 看文档和例子，应该是监听物理键盘事件的
+
 // ================================================================================
 
 // bool? enabled
