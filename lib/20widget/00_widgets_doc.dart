@@ -112,3 +112,10 @@
 
 // Dismissible 左右滑显示列表某行下面的选项
 // InteractiveViewer 查看大图片，也能放其它控件，反正就是大的
+
+// 一般用 GestureDetector，它的尺寸：有子随子 无子随父
+// RawGestureDetector 用于创建自己的手势识别器，底层类
+// Listener 也是底层类，有 down/move/cancel/up 之类的事件
+
+// Draggable<Color>，定义被移动的数据类型，正常情况显示，拖动中原始位置显示，拖动中鼠标下面显示。LongPressDraggable
+// 接收方是 DragTarget，也有 child 定义自己的外观
