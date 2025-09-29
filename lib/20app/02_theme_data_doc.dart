@@ -81,6 +81,7 @@
 // TooltipThemeData? tooltipTheme
 // ChipThemeData? chipTheme
 // SnackBarThemeData? snackBarTheme
+// ScrollbarThemeData? scrollbarTheme 滚动条，一般没必要改这东西吧
 
 // TimePickerThemeData? timePickerTheme
 // DatePickerThemeData? datePickerTheme 影响 DatePickerDialog
@@ -128,10 +129,6 @@
 // TextSelectionThemeData? textSelectionTheme 相关的类太多了，好复杂
 
 // NoDefaultCupertinoThemeData? cupertinoOverrideTheme 未传的参数无默认值，CupertinoThemeData 则有默认值，干嘛用的？
-
-// --------------------------------------------------------------------------------
-
-// ScrollbarThemeData? scrollbarTheme
 
 // --------------------------------------------------------------------------------
 
