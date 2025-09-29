@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-// Scrollable 为滑动控件实现操作，包括手势识别，一般不会直接使用此类
-// Viewport 显示内容，可视区域
-// Sliver 被显示的元素
+// Scrollable 主要通过对手势的处理来实现滑动效果
+// Viewport 提供的是一个 视窗 的作用，也就是列表所在的可视区域大小
+// Sliver 主要是用于在 Viewport 里面布局和渲染内容
 
 // 三者占用的空间是重合的
 // Sliver 父组件为 Viewport，Viewport 的父组件为 Scrollable
@@ -22,6 +22,8 @@ import 'package:flutter/material.dart';
 //   reverse 用于做聊天那种窗口，创建后直接显示最后一行
 //   keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag 拖动时关闭键盘
 
+// SingleChildScrollView 是单个子元素，它并未使用 RenderSliver，而是在 performLayout 时直接调整子的 offset 来达到滑动效果
+
 // ================================================================================
 
 // ListView(children: [])
@@ -33,11 +35,26 @@ import 'package:flutter/material.dart';
 // ListView 中的列表行都是 RenderBox，并不是 Sliver
 // 一个 ListView 中只有一个 Sliver，默认是 SliverList，按需加载的逻辑是 Sliver 中实现的
 
+// itemExtent / prototypeItem 预先决定行高，性能好，只能设其一
+// itemExtentBuilder 根据 index 返回相应的行高，行高不相同的时候用
+// cacheExtent 预渲染区域高度，在可见区域 前 后
+
+// shrinkWrap 决定 ListView 的尺寸，是填充满父，还是压缩到和子一样大
+// 主要用来 ListView 嵌套用的，里面的紧凑压缩自己。另外，Column 包含 ListView 会崩，此参数可解决崩溃
+// 以前版本中，如果为真，会加载所有的子，用来计算总高度，这会导致懒加载失效，从而导致性能问题
+// 不过刚才实验了一下，并没有全部加载，itemCount 设很大，itemBuilder 里面打印日志
+
+// addAutomaticKeepAlives
+// addRepaintBoundaries
+
+// findChildIndexCallback 文档说，重排顺序的时候，用 key 来查询新的 index，有啥用？
+
+// semanticChildCount 有多少个子元素，应该是给 Accessibility 用的，数量是能推断出来的，ListView 直接就是子的数量，但如果是 ListView.separated 创建的会折半
+// addSemanticIndexes 为真时，把每个子元素用 IndexedSemantics 包起来
+
 // ================================================================================
 
-// ListView
 // GridView
-// SingleChildScrollView
 // CustomScrollView 使用 sliver 创建自定义 ScrollView
 // PageView 每个页面尺寸相同，能左右换页也能上下，像是那种上面有个 tabbar 切换不同分类的场景
 
@@ -82,9 +99,24 @@ class _ScrollPageState extends State<ScrollPage> {
 
       // body: ListView(children: List.generate(50, (i) => ChildItem(index: i)).toList()),
       // body: ListView.builder(itemExtent: 40, itemBuilder: (context, index) => Text('dt $index')),
+      // body: Column(
+      //   children: [
+      //     ListView.builder(
+      //       shrinkWrap: true,
+      //       itemCount: 100,
+      //       // prototypeItem: ListTile(title: Text("1")),
+      //       itemBuilder: (context, index) {
+      //         return ListTile(title: Text('data $index'));
+      //       },
+      //     ),
+      //   ],
+      // ),
       body: ListView.builder(
-        prototypeItem: ListTile(title: Text("1")),
+        shrinkWrap: true,
+        itemCount: 100,
+        // prototypeItem: ListTile(title: Text("1")),
         itemBuilder: (context, index) {
+          print('build $index');
           return ListTile(title: Text('data $index'));
         },
       ),
