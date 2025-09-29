@@ -54,15 +54,27 @@ import 'package:flutter/material.dart';
 
 // ================================================================================
 
-// GridView
-// CustomScrollView 使用 sliver 创建自定义 ScrollView
-// PageView 每个页面尺寸相同，能左右换页也能上下，像是那种上面有个 tabbar 切换不同分类的场景
+// ScrollController.keepScrollOffset 当值为 false 时，到底何时才会回滚到初始位置？
+
+// 一个 ScrollController 可以给多个滚动视图用，它的 positions 数组保存了相应的 ScrollPosition
+// ScrollController 的 animateTo/jumpTo 方法是调用 ScrollPosition 的同名方法来实现的
+
+// ScrollController.attach/detach 到底是个什么样的操作，贴上了有何作用？没看懂
+
+// 书上说：滚动控件先调用 controller.createScrollPosition 创建 position，然后再调用 attach 把 position 注册到 controller 中，然后 animateTo/jumpTo 才起作用。滚动控件销毁时调用 detach
 
 // 两种方式接收滚动事件
 //   1) ScrollController
-//   controller.addListener(...)
+//     controller.addListener(...)
 //   2) NotificationListener，它的回调里面返回 true 时，滚动通知不会沿着链条向上传递，相当于吞掉了通知
-//   NotificationListener(onNotification: (notification) { return true; }, child: ...)
+//     NotificationListener(onNotification: (notification) { return true; }, child: ...)
+// 区别是：一个要关联后才能接收，一个是只要位于上层树中就能接收。另外收到通知后，从里面获得的信息也不一样
+
+// ================================================================================
+
+// GridView
+// CustomScrollView 使用 sliver 创建自定义 ScrollView
+// PageView 每个页面尺寸相同，能左右换页也能上下，像是那种上面有个 tabbar 切换不同分类的场景
 
 class ScrollPage extends StatefulWidget {
   const ScrollPage({super.key});
@@ -72,8 +84,6 @@ class ScrollPage extends StatefulWidget {
 }
 
 class _ScrollPageState extends State<ScrollPage> {
-  final sc = ScrollController();
-
   //   @override
   //   void initState() {
   //     sc.addListener(handleScroll);
@@ -90,35 +100,41 @@ class _ScrollPageState extends State<ScrollPage> {
   //     print('scrolled ${sc.position}');
   //   }
 
+  final controller = ScrollController(keepScrollOffset: false, initialScrollOffset: 0);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Scroll')),
-      backgroundColor: Colors.teal,
-      floatingActionButton: FloatingActionButton(onPressed: () {}, child: Icon(Icons.run_circle)),
 
-      // body: ListView(children: List.generate(50, (i) => ChildItem(index: i)).toList()),
-      // body: ListView.builder(itemExtent: 40, itemBuilder: (context, index) => Text('dt $index')),
-      // body: Column(
-      //   children: [
-      //     ListView.builder(
-      //       shrinkWrap: true,
-      //       itemCount: 100,
-      //       // prototypeItem: ListTile(title: Text("1")),
-      //       itemBuilder: (context, index) {
-      //         return ListTile(title: Text('data $index'));
-      //       },
-      //     ),
-      //   ],
-      // ),
-      body: ListView.builder(
-        shrinkWrap: true,
-        itemCount: 100,
-        // prototypeItem: ListTile(title: Text("1")),
-        itemBuilder: (context, index) {
-          print('build $index');
-          return ListTile(title: Text('data $index'));
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // setState(() {});
+          // Navigator.of(context).push(MaterialPageRoute(builder: (context) => SubPage()));
+          final list = controller.positions;
+          print(list);
         },
+        child: Icon(Icons.run_circle),
+      ),
+
+      body: Column(
+        children: [
+          Expanded(
+            child: ListView.builder(
+              controller: controller,
+              itemCount: 30,
+              itemBuilder: (context, index) => ListTile(title: Text('data $index')),
+            ),
+          ),
+          Divider(),
+          Expanded(
+            child: ListView.builder(
+              controller: controller,
+              itemCount: 30,
+              itemBuilder: (context, index) => ListTile(title: Text('data $index')),
+            ),
+          ),
+        ],
       ),
 
       // body: SingleChildScrollView(
@@ -143,14 +159,26 @@ class _ScrollPageState extends State<ScrollPage> {
   }
 }
 
-class ChildItem extends StatelessWidget {
-  ChildItem({super.key, required this.index}) {
-    print('create $index');
-  }
-  final int index;
+// class ChildItem extends StatelessWidget {
+//   ChildItem({super.key, required this.index}) {
+//     print('create $index');
+//   }
+//   final int index;
+//   @override
+//   Widget build(BuildContext context) {
+//     print('build $index');
+//     return Padding(padding: EdgeInsets.all(20), child: Text('data $index'));
+//   }
+// }
+
+class SubPage extends StatelessWidget {
+  const SubPage({super.key});
+
   @override
   Widget build(BuildContext context) {
-    print('build $index');
-    return Padding(padding: EdgeInsets.all(20), child: Text('data $index'));
+    return Scaffold(
+      appBar: AppBar(title: Text('Book')),
+      body: Text('--'),
+    );
   }
 }
