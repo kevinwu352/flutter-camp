@@ -60,7 +60,7 @@ class _ListPageState extends State<ListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Scroll')),
+      appBar: AppBar(title: Text('List')),
 
       floatingActionButton: FloatingActionButton(
         onPressed: () {
