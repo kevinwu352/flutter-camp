@@ -70,3 +70,7 @@
 //   keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag 拖动时关闭键盘
 
 // SingleChildScrollView 是单个子元素，它并未使用 RenderSliver，而是在 performLayout 时直接调整子的 offset 来达到滑动效果
+
+// ================================================================================
+
+// CustomScrollView 组件提供公共的 Scrollable 和 Viewport，然后它的 slivers 参数接受一个 Sliver 数组
