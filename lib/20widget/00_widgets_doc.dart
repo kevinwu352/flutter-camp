@@ -119,3 +119,5 @@
 
 // Draggable<Color>，定义被移动的数据类型，正常情况显示，拖动中原始位置显示，拖动中鼠标下面显示。LongPressDraggable
 // 接收方是 DragTarget，也有 child 定义自己的外观
+
+// NotificationListener<T> 接收节点树下层传递过来的通知，子节点/孙子/重孙，只接收 T 类型，能决定是否让通知继续沿树向上

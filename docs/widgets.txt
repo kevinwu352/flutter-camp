@@ -102,7 +102,7 @@ class HeroWidget extends Stateless {
 
 
 
-DraggableScrollableSheet 底部显示的 sheet，先显示一部分，拖动能显示更多部分，内部能滚动，拖完才能滚动
+
 
 
 

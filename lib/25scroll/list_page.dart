@@ -6,8 +6,6 @@ import 'package:flutter/material.dart';
 
 // ListView.builder 不传数量则是无限列表
 
-// AnimatedList 是带有添加动画和删除动画的列表
-
 // ListView 中的列表行都是 RenderBox，并不是 Sliver
 // 一个 ListView 中只有一个 Sliver，默认是 SliverList，按需加载的逻辑是 Sliver 中实现的
 
@@ -27,6 +25,14 @@ import 'package:flutter/material.dart';
 
 // semanticChildCount 有多少个子元素，应该是给 Accessibility 用的，数量是能推断出来的，ListView 直接就是子的数量，但如果是 ListView.separated 创建的会折半
 // addSemanticIndexes 为真时，把每个子元素用 IndexedSemantics 包起来
+
+// ================================================================================
+
+// AnimatedList 是带有添加动画和删除动画的列表
+
+// ReorderableListView 能够拖动给列表行重新排序
+
+// RefreshIndicator 有空再研究
 
 class ListPage extends StatefulWidget {
   const ListPage({super.key});

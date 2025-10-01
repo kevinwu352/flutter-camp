@@ -33,6 +33,9 @@ import 'package:flutter/material.dart';
 // SliverFillRemaining
 //   填充 Viewport 的剩余空间，通常是最后一个元素。通过实验我发现如果 Viewport 空间被占完了，它只占用它自身该有的空间
 
+// SliverOpacity
+// DecoratedSliver 增加装饰，通常用 BoxDecoration
+
 // ================================================================================
 
 // 文档说 NestedScrollView 最常见的用法是，顶部用 SliverAppBar 和 TabBar，下面用 TabBarView
