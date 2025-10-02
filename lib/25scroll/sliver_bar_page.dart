@@ -1,5 +1,18 @@
 import 'package:flutter/material.dart';
 
+// Widget? flexibleSpace 通常传 FlexibleSpaceBar
+
+// double? collapsedHeight
+// double? expandedHeight
+
+// bool floating = false
+// bool pinned = false
+// bool snap = false
+
+// bool stretch = false 滑到最大尺寸以后，继续拉 ScrollView 要不要放大 AppBar
+// double stretchTriggerOffset = 100.0 拖动多少才会触发下面的回调
+// AsyncCallback? onStretchTrigger
+
 class SliverBarPage extends StatelessWidget {
   const SliverBarPage({super.key});
 
@@ -22,11 +35,7 @@ class SliverBarPage extends StatelessWidget {
             flexibleSpace: Placeholder(),
             expandedHeight: 200,
           ),
-          SliverList.builder(
-            itemBuilder: (context, index) =>
-                ListTile(title: Text('Item #$index')),
-            itemCount: 50,
-          ),
+          SliverList.builder(itemBuilder: (context, index) => ListTile(title: Text('Item #$index')), itemCount: 50),
         ],
       ),
     );
