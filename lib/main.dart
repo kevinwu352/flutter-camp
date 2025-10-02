@@ -33,3 +33,17 @@ class MyApp extends StatelessWidget {
     // return MaterialApp.router(routerConfig: router);
   }
 }
+
+class RootPage extends StatelessWidget {
+  const RootPage({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Root')),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => TestPage())),
+        child: Icon(Icons.run_circle),
+      ),
+    );
+  }
+}
