@@ -5,7 +5,10 @@ import 'package:flutter/material.dart';
 
 // required Widget child
 // bool? canPop 能否返回上个页面
-// PopInvokedWithResultCallback<Object?>? onPopInvokedWithResult 如果有未保存信息，返回时提示用户要不要保存之类的
+// PopInvokedWithResultCallback<Object?>? onPopInvokedWithResult
+//   如果有未保存信息，返回时提示用户要不要保存之类的，见下面的例子
+//   先用 canPop 阻击返回，用户点返回的时候回调到这里并且 didPop=false，然后在这里判断要不要返回，如果要，则从里面调用返回操作
+//   如果 canPop=true，也会回调到这里，但 didPop=true，这里也阻击不了了，只相当于一个事后通知
 // VoidCallback? onChanged
 // AutovalidateMode? autovalidateMode
 
@@ -18,6 +21,20 @@ class FormPage extends StatefulWidget {
 
 class _FormPageState extends State<FormPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  Future<bool?> showAlert() {
+    return showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('Are you sure?'),
+        actions: [
+          TextButton(onPressed: () => Navigator.pop(context, true), child: Text('Ok')),
+          TextButton(onPressed: () => Navigator.pop(context, false), child: Text('Cancel')),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,6 +44,18 @@ class _FormPageState extends State<FormPage> {
       body: Form(
         key: _formKey,
         canPop: false,
+        onPopInvokedWithResult: (didPop, result) async {
+          print('called: $didPop $result');
+          if (didPop) {
+            return;
+          }
+          final res = await showAlert();
+          print(res);
+          if (res == true && context.mounted) {
+            Navigator.of(context).pop();
+            // SystemNavigator.pop();
+          }
+        },
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[

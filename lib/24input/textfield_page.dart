@@ -15,6 +15,27 @@ import 'package:flutter/material.dart';
 
 // ================================================================================
 
+// 回车时自动跳到下一个输入框
+// 根上用 FocusScope 控件
+//   FocusScope(
+//     node: node, // FocusScopeNode node = FocusScopeNode();
+//     child: ..., // 输入框列表
+//   )
+// 输入框添加回车处理逻辑
+//   TextField(
+//     onEditingComplete: () {
+//       if (node.focusedChild == node.children.last) {
+//         print('submit');
+//       } else {
+//         node.nextFocus();
+//       }
+//     },
+//   )
+// 中间如果有按钮，可能会就不能跳到下一个输入框了，解决方法如下
+//   TextButton(focusNode: FocusNode(skipTraversal: true))
+
+// ================================================================================
+
 // bool? enabled
 // bool? ignorePointers 是否忽略点击事件
 // bool readOnly = false 不能修改内容，但能被选中，选中后边框颜色变了
