@@ -89,33 +89,8 @@
 // showDatePicker
 // showDateRangePicker
 
-// IgnorePointer 忽略事件，事件被传递到背后的视图了
-// AbsorbPointer 接收事件，并且自己把事件吃掉了
-//   Container(
-//     width: 200,
-//     height: 200,
-//     color: Colors.blue,
-//     child: Stack(
-//       children: [
-//         Listener(
-//           onPointerDown: (event) => print("red down"),
-//           child: Container(color: Colors.red),
-//         ),
-//         Listener(
-//           onPointerDown: (event) => print("green down"),
-//           // child: IgnorePointer(child: Container(color: Colors.green, width: 100, height: 100)),
-//           child: AbsorbPointer(child: Container(color: Colors.green, width: 100, height: 100)),
-//         ),
-//       ],
-//     ),
-//   )
-
 // Dismissible 左右滑显示列表某行下面的选项
 // InteractiveViewer 查看大图片，也能放其它控件，反正就是大的
-
-// 一般用 GestureDetector，它的尺寸：有子随子 无子随父
-// RawGestureDetector 用于创建自己的手势识别器，底层类
-// Listener 也是底层类，有 down/move/cancel/up 之类的事件
 
 // Draggable<Color>，定义被移动的数据类型，正常情况显示，拖动中原始位置显示，拖动中鼠标下面显示。LongPressDraggable
 // 接收方是 DragTarget，也有 child 定义自己的外观
