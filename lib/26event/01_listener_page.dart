@@ -1,0 +1,105 @@
+import 'package:flutter/material.dart';
+
+// 它俩都是吞掉子的事件
+//
+// AbsorbPointer 书上说它的 hitTestSelf 返回 true
+//   prevents its children from receiving pointer events but is itself visible to hit testing
+// IgnorePointer 书上说它的 hitTestSelf 返回 false
+//   prevents its children from receiving pointer events but is itself invisible to hit testing
+
+class ListenerPage extends StatelessWidget {
+  const ListenerPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Listener')),
+      floatingActionButton: FloatingActionButton(onPressed: () {}, child: Icon(Icons.run_circle)),
+
+      // 例子一，连续嵌套两个 Listener，内外都能收到点击事件
+      // body: Listener(
+      //   child: Listener(
+      //     child: Container(color: Colors.red, width: 200, height: 200),
+      //     onPointerDown: (event) => print("in"),
+      //   ),
+      //   onPointerDown: (event) => print("out"),
+      // ),
+
+      // 例子二，在多个 Listener 中间添加不同的 Pointer，看看事件如何传递
+      // AbsorbPointer => out top most
+      // IgnorePointer =>
+      // 因为 Listener 用的是 deferToChild，所以外层多个 Listener 的行为完全由内部的 Pointer 决定，是个完整的链
+      // body: Listener(
+      //   onPointerDown: (event) => print('most'),
+      //   child: Listener(
+      //     onPointerDown: (event) => print('top'),
+      //     child: Listener(
+      //       onPointerDown: (event) => print("out"),
+      //       // IgnorePointer 忽略事件，它的子肯定收不到事件，它外面包的三层也收不到事件
+      //       //   外面三层收不到是因为，Listener 用的是 deferToChild，完全由子决定
+      //       // AbsorbPointer 接收事件，它的子肯定收不到事件，它外面包的三层能收到事件
+      //       child: AbsorbPointer(
+      //         child: Listener(
+      //           child: Container(color: Colors.red, width: 200.0, height: 200.0),
+      //           onPointerDown: (event) => print("in"),
+      //         ),
+      //       ),
+      //       // ----------
+      //     ),
+      //   ),
+      // ),
+
+      // 例子三，在多个 Listener 中间添加 widget/Pointer
+      // AbsorbPointer => out top
+      // IgnorePointer => top
+      //   例子二，多个 Listener 是连续的，完全由子决定，也就是完全由内层的 Pointer 决定
+      //   但这里插入了 Container，Container 不是由子决定的，所以，断了由子决定这条链，只有 out 这个 Listener 由 Pointer 决定
+      // body: Listener(
+      //   // 由子决定，它的子是 Container
+      //   onPointerDown: (event) => print('top'),
+      //   child: Container(
+      //     width: 400,
+      //     height: 400,
+      //     color: Colors.teal,
+      //     child: Listener(
+      //       // 由子决定，它的子是 Pointer
+      //       onPointerDown: (event) => print("out"),
+      //       // ----------
+      //       child: IgnorePointer(
+      //         child: Listener(
+      //           child: Container(color: Colors.red, width: 200.0, height: 200.0),
+      //           onPointerDown: (event) => print("in"),
+      //         ),
+      //       ),
+      //       // ----------
+      //     ),
+      //   ),
+      // ),
+
+      // 例子四，同级有重叠时事件的传递
+      body: Listener(
+        onPointerDown: (event) => print('out'),
+        child: Container(
+          width: 400,
+          height: 400,
+          color: Colors.blue,
+          child: Stack(
+            children: [
+              Listener(
+                onPointerDown: (event) => print("red down"),
+                child: Container(color: Colors.red),
+              ),
+              Listener(
+                onPointerDown: (event) => print("green down"),
+                // IgnorePointer 它的子肯定收不到事件。它自己和它的子不响应事件，虽然点击到它身上，但就像它不存在一起，事件是它背后的红色同级处理的
+                child: IgnorePointer(child: Container(color: Colors.green, width: 200, height: 200)),
+                // AbsorbPointer，它的子肯定收不到事件。它就是一个正常的控件，只是子收不到事件。又因为它在前面，所以，它背后的红色同级收不到事件
+                // child: AbsorbPointer(child: Container(color: Colors.green, width: 200, height: 200)),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

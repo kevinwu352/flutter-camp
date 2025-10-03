@@ -47,3 +47,5 @@
 // }
 //
 // bool hitTestSelf(Offset position) => behavior == HitTestBehavior.opaque;
+//
+// 重点：opaque 和 translucent 时，当前控件都会通过测试，但 hitTest() 的返回值不同，opaque 返回 true，translucent 则返回子是否通过
