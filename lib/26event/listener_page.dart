@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 
+// AbsorbPointer 书上说它的 hitTestSelf 返回 true
+//   prevents its children from receiving pointer events but is itself visible to hit testing
+// IgnorePointer 书上说它的 hitTestSelf 返回 false
+//   prevents its children from receiving pointer events but is itself invisible to hit testing
+
 class ListenerPage extends StatelessWidget {
   const ListenerPage({super.key});
 
