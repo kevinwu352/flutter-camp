@@ -33,7 +33,7 @@
 // HitTestBehavior
 //   deferToChild 组件是否通过命中测试取决于子组件是否通过，它的 hitTestSelf 返回 false
 //   opaque       组件必然会通过命中测试，因为它的 hitTestSelf 始终返回 true
-//   translucent  组件必然会通过命中测试，因为它的 hitTest 用 || 测试了它，但其 hitTestSelf 返回 true/false
+//   translucent  组件必然会通过命中测试，因为它的 hitTest 用 || 测试了它，它的 hitTestSelf 返回 false，它的 hitTest 返回子的
 //
 // bool hitTest(BoxHitTestResult result, {required Offset position}) {
 //   bool hitTarget = false;
@@ -49,3 +49,4 @@
 // bool hitTestSelf(Offset position) => behavior == HitTestBehavior.opaque;
 //
 // 重点：opaque 和 translucent 时，当前控件都会通过测试，但 hitTest() 的返回值不同，opaque 返回 true，translucent 则返回子是否通过
+// 具体看 listener_page 例子五六
