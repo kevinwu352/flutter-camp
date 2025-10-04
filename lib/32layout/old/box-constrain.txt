@@ -1,0 +1,25 @@
+
+约束分类
+最大有限则是有约束，最大无限则是无约束
+
+最大最小相等
+  都正常：紧约束
+  都是 0：即是紧也是松
+  都无限：紧无限，这个轴是 expanding 的
+最大最小不等
+  0-无所谓：松约束
+  正常值-正常值：???
+  正常值-无限：???
+
+BoxConstraints.tight(Size size)
+  最大最小都是size
+BoxConstraints.loose(Size size)
+  最小是0，最大是size
+
+BoxConstraints.expand({double? width, double? height})
+  参数有值是紧约束，参数无值是inf-inf的紧
+
+BoxConstraints.tightFor({double? width, double? height})
+  参数有值则是紧，否则是0-inf的松
+BoxConstraints.tightForFinite({double width = double.infinity, double height = double.infinity})
+  参数有限则是紧，否则是0-inf的松
