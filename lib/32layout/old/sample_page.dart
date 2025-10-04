@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-// 顶层就撑满屏幕，加上 Center 则放松约束
+// Container 在顶层就撑满屏幕，加上 Center 则放松约束
 // Center-Container，有约束就用约束，无限则满屏，无子也满屏
 // Center-Container，有子随子，但如果 Container 有宽高向下传递的是紧约束 (7)
 
@@ -24,7 +24,7 @@ class SamplePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // 1)
+    // 1) 屏幕强制它占满
     // return Container(color: Colors.red);
     // 2) 虽然自己要求 100*100 的尺寸，但屏幕强制它占满
     // return Container(width: 100, height: 100, color: Colors.red);
@@ -37,12 +37,15 @@ class SamplePage extends StatelessWidget {
     // );
     //*5) Center 占满屏幕，子想要无限或有限，都不能超过父。它尽量大
     // 例 3 是有限，这里是无限，例 6 是不给子
-    // return Center(child: Container(width: double.infinity, height: double.infinity, color: Colors.red));
-    // 6) Center 占满屏幕，Container 无子无尺寸，它决定占尽量大
+    // return Center(
+    //   child: Container(width: double.infinity, height: double.infinity, color: Colors.red),
+    // );
+    //*6) Center 占满屏幕，Container 无子无尺寸，它决定占尽量大
     // return Center(child: Container(color: Colors.red));
     //*7) Center 占满屏幕，红色有子，跟随子的尺寸
     // ***重点关注***
-    // 红色加上宽高，只见变大的绿色。因为：无100*100时绿色收到 0-402 0-807 松约束，有100*100时收到 100 100 紧约束
+    // 不加宽高，看见小绿块；加上宽高，看见大绿块
+    // 因为：无宽高时绿块收到 0-402 0-807 松约束，有宽高时绿块收到 100 100 紧约束
     // return Center(
     //   child: Container(
     //     color: Colors.red,
@@ -51,7 +54,7 @@ class SamplePage extends StatelessWidget {
     //     child: Container(color: Colors.green, width: 30, height: 30),
     //   ),
     // );
-    // 8)
+    // 8) 看见回形
     // return Center(
     //   child: Container(
     //     padding: EdgeInsets.all(30),
@@ -62,28 +65,26 @@ class SamplePage extends StatelessWidget {
 
     //*9) 红色占满全屏。ConstrainedBox 只会给子施加比它从父得到的约束更多的约束
     // ***重点关注***
-    // 我的理解：ConstrainedBox 收到紧约束，它自己那个松的附加约束就传不下去，只能往下传紧，Container 收到的是紧约束 402 807
+    // 我的理解：
+    //   ConstrainedBox 收到紧约束，它自己那个松的附加约束就传不下去，只能往下传紧，所以，Container 收到的是紧约束 402 807
+    //   但如果传 BoxConstraints.tight(Size(50, 50)) 也传不下去，难道 50 50 不比 402 807 更紧？
     // return ConstrainedBox(
-    //   constraints: const BoxConstraints(
-    //     minWidth: 70,
-    //     minHeight: 70,
-    //     maxWidth: 150,
-    //     maxHeight: 150,
-    //   ),
+    //   constraints: BoxConstraints(minWidth: 70, minHeight: 70, maxWidth: 150, maxHeight: 150),
+    //   // constraints: BoxConstraints.tight(Size(50, 50)),
     //   child: Container(color: Colors.red, width: 10, height: 10),
     // );
     // 10) 尺寸是 70*70
     // 我的理解：ConstrainedBox 收到的是松约束，它附加的约束比这松约束紧一点，所以传下去了
     // return Center(
     //   child: ConstrainedBox(
-    //     constraints: const BoxConstraints(minWidth: 70, minHeight: 70, maxWidth: 150, maxHeight: 150),
+    //     constraints: BoxConstraints(minWidth: 70, minHeight: 70, maxWidth: 150, maxHeight: 150),
     //     child: Container(color: Colors.red, width: 10, height: 10),
     //   ),
     // );
     // 11) 尺寸是 150*150
     // return Center(
     //   child: ConstrainedBox(
-    //     constraints: const BoxConstraints(minWidth: 70, minHeight: 70, maxWidth: 150, maxHeight: 150),
+    //     constraints: BoxConstraints(minWidth: 70, minHeight: 70, maxWidth: 150, maxHeight: 150),
     //     child: Container(color: Colors.red, width: 1000, height: 1000),
     //   ),
     // );
@@ -91,7 +92,7 @@ class SamplePage extends StatelessWidget {
     // Container 收到的是 70-150，而自己要的尺寸刚好在这区间内
     // return Center(
     //   child: ConstrainedBox(
-    //     constraints: const BoxConstraints(minWidth: 70, minHeight: 70, maxWidth: 150, maxHeight: 150),
+    //     constraints: BoxConstraints(minWidth: 70, minHeight: 70, maxWidth: 150, maxHeight: 150),
     //     child: Container(color: Colors.red, width: 100, height: 100),
     //   ),
     // );
@@ -161,11 +162,11 @@ class SamplePage extends StatelessWidget {
     //   children: [
     //     Container(
     //       color: Colors.red,
-    //       child: const Text('Hello!', style: TextStyle(fontSize: 20)),
+    //       child: Text('Hello!', style: TextStyle(fontSize: 20)),
     //     ),
     //     Container(
     //       color: Colors.green,
-    //       child: const Text('Goodbye!', style: TextStyle(fontSize: 20)),
+    //       child: Text('Goodbye!', style: TextStyle(fontSize: 20)),
     //     ),
     //   ],
     // );
@@ -178,7 +179,7 @@ class SamplePage extends StatelessWidget {
     //     Expanded(
     //       child: Container(
     //         color: Colors.red,
-    //         child: const Text(
+    //         child: Text(
     //           'This is a very long text that won\'t fit the line.',
     //           style: TextStyle(fontSize: 20),
     //         ),
@@ -186,7 +187,7 @@ class SamplePage extends StatelessWidget {
     //     ),
     //     Container(
     //       color: Colors.green,
-    //       child: const Text('Goodbye!', style: TextStyle(fontSize: 20)),
+    //       child: Text('Goodbye!', style: TextStyle(fontSize: 20)),
     //     ),
     //   ],
     // );
@@ -196,7 +197,7 @@ class SamplePage extends StatelessWidget {
     //     Expanded(
     //       child: Container(
     //         color: Colors.red,
-    //         child: const Text(
+    //         child: Text(
     //           'This is a very long text that won\'t fit the line.',
     //           style: TextStyle(fontSize: 20),
     //         ),
@@ -205,7 +206,7 @@ class SamplePage extends StatelessWidget {
     //     Expanded(
     //       child: Container(
     //         color: Colors.green,
-    //         child: const Text('Goodbye!', style: TextStyle(fontSize: 20)),
+    //         child: Text('Goodbye!', style: TextStyle(fontSize: 20)),
     //       ),
     //     ),
     //   ],
@@ -217,7 +218,7 @@ class SamplePage extends StatelessWidget {
     //     Flexible(
     //       child: Container(
     //         color: Colors.red,
-    //         child: const Text(
+    //         child: Text(
     //           'This is a very long text that won\'t fit the line.',
     //           style: TextStyle(fontSize: 20),
     //         ),
@@ -226,7 +227,7 @@ class SamplePage extends StatelessWidget {
     //     Flexible(
     //       child: Container(
     //         color: Colors.green,
-    //         child: const Text('Goodbye!', style: TextStyle(fontSize: 20)),
+    //         child: Text('Goodbye!', style: TextStyle(fontSize: 20)),
     //       ),
     //     ),
     //   ],
@@ -238,7 +239,7 @@ class SamplePage extends StatelessWidget {
     // return Scaffold(
     //   body: Container(
     //     color: Colors.blue,
-    //     child: const Column(children: [Text('Hello!'), Text('Goodbye!')]),
+    //     child: Column(children: [Text('Hello!'), Text('Goodbye!')]),
     //   ),
     // );
     //*29)
@@ -248,11 +249,11 @@ class SamplePage extends StatelessWidget {
     //   body: SizedBox.expand(
     //     child: Container(
     //       color: Colors.blue,
-    //       child: const Column(children: [Text('Hello!'), Text('Goodbye!')]),
+    //       child: Column(children: [Text('Hello!'), Text('Goodbye!')]),
     //     ),
     //   ),
     // );
 
-    return Text("data");
+    return Text("--");
   }
 }
