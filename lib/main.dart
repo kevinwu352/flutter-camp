@@ -44,6 +44,7 @@ class RootPage extends StatelessWidget {
         onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => TestPage())),
         child: Icon(Icons.run_circle),
       ),
+      body: Text('--'),
     );
   }
 }
