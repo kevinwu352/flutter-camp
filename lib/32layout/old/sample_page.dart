@@ -111,6 +111,7 @@ class SamplePage extends StatelessWidget {
     // UnconstrainedBox
     //   alignment 当子尺寸小的时候定位用
     //   constrainedAxis 这个轴的尺寸固定为父给的尺寸。子想要高 50，不加此参数时，子收到的是无限，加上此参数后，子收到的是紧约束 874
+    //   clipBehavior 子又不能像 OverflowBox 一样超出边界，你切个屁啊？
     // 传递给子的是无限约束，相当于告诉子，你自由发挥，想多大就多大
     // 但 UnconstrainedBox 自己肯定是个有限框，所以，它拿到子自由决定的期望尺寸，然后在自己的框内布局
     //   如果子要的尺寸小，没问题，并且用 alignment 来布局
@@ -125,7 +126,7 @@ class SamplePage extends StatelessWidget {
     // );
     // 14) 显示溢出警告
     // return UnconstrainedBox(child: Container(color: Colors.red, width: 1000, height: 50));
-    //*16) 会崩。父提供无限约束，子真的想要无限，不答应
+    // 16) 会崩。父提供无限约束，子真的想要无限，不答应
     // return UnconstrainedBox(
     //   child: Container(color: Colors.red, width: double.infinity, height: 100),
     // );
@@ -172,15 +173,36 @@ class SamplePage extends StatelessWidget {
     //   ),
     // );
 
-    //*18) Text 收到无限约束，让它能随意大小，但最后 FittedBox 缩放它。变大变小
-    // return FittedBox(child: Text('god is a girl god is a girl god is a girl'));
-    // 19) Text 收到无限约束，文字少不拉大，文字多会缩小。只会变小
+    // ================================================================================
+    // FittedBox
+    //   fit 和图片那边的 fit 功能一模一样
+    //   alignment
+    //   clipBehavior
+    // 传递给子的是无限约束，让子自由发挥。但如果子真的要无限，则崩溃，比如 container.width = double.infinity
+    // 默认是完全包含子控件，并保持比例地拉伸子控件，拉大压小
+    // 不管是拉大还是压小，眼睛看到的文字是变大变小了，但鼠标点上去看到的尺寸还是原来的
+    //
+    // 长文字直接放 Center 会换行，放 FittedBox 会压小
+    // ================================================================================
+    //*18) FittedBox 收到紧约束，文字收到无限约束
+    // 文字少就将文字拉大
+    // 文字多就将文字压小
+    // return FittedBox(
+    //   child: Text('this is some very very very large text that is too big'),
+    //   // child: Text('asdf'),
+    // );
+    // 19) FittedBox 收到松约束，文字收到无限约束
+    // 文字少不会拉大，因为 Center 不会强行拉大它的子 FittedBox
+    // 文字多就会压小，因为 Center 的子不能超过上限
     // return Center(child: FittedBox(child: Text('123')));
     // 20) 文字太长会缩小
-    //*21) 长文字直接放 Center 会换行，放 FittedBox 会缩小
+    // ...
+    //
+    //*21) 长文字直接放 Center 会换行，放 FittedBox 会压小
     // return Center(
-    //   child: Text('This is some very very very large text that is too big to fit a regular screen in a single line.'),
+    //   child: Text('this is some very very very large text that is too big to fit a regular screen in a single line'),
     // );
+    //
     //*22) 会崩。它只会缩放 非无限 的控件
     // return FittedBox(
     //   child: Container(height: 20, width: double.infinity, color: Colors.red),
