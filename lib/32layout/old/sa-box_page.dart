@@ -12,8 +12,8 @@ import 'package:flutter/material.dart';
 // Container(margin: EdgeInsets.all(10), child: Text('abc'), color: Colors.red),
 // Container(margin: EdgeInsets.all(10), child: Text('abc'), color: Colors.green),
 
-class BoxPage extends StatelessWidget {
-  const BoxPage({super.key});
+class BoxxxxPage extends StatelessWidget {
+  const BoxxxxPage({super.key});
 
   @override
   Widget build(BuildContext context) {
