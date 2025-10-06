@@ -17,27 +17,6 @@ class BoxxxxPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // return Center(
-    //   child: ConstrainedBox(
-    //     constraints: const BoxConstraints(
-    //       maxWidth: 200,
-    //     ), // 让文字换行，如果文字只有 150 宽，并不会拉宽到 200
-    //     child: Text("god is a girl"),
-    //   ),
-    // );
-    // return Center(
-    //   child: ConstrainedBox(
-    //     constraints: const BoxConstraints(minHeight: 100), // 增加按钮高度
-    //     child: Container(color: Colors.green, child: Text("god is a girl")),
-    //   ),
-    // );
-    // return Center(
-    //   child: ConstrainedBox(
-    //     constraints: BoxConstraints.expand(), // 占满全屏
-    //     child: Card(child: Text('Hello World!')),
-    //   ),
-    // );
-
     // SizedBox 固定尺寸，如果传无限则占满可用空间expand，无子时用来撑开间距
     // return Center(
     //   // 固定尺寸

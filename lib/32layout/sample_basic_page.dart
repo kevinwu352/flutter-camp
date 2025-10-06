@@ -7,41 +7,37 @@ class SampleBasicPage extends StatelessWidget {
   Widget build(BuildContext context) {
     // ================================================================================
     // Center 能将收到的紧约束变成松约束，再传给子
-    //
     // Align 是 Center 的父类
-    //
+    // Container 的宽高会向下传递紧约束
     // ================================================================================
-    // 1) 屏幕强制它占满
+    // 1) 占满全屏
     // return Container(color: Colors.red);
-    // 2) 虽然自己要求 100*100 的尺寸，但屏幕强制它占满
+    // 2) 占满全屏，虽然自己想要 100*100
     // return Container(width: 100, height: 100, color: Colors.red);
 
-    // 4) Align 是 Center 的父类，子类也能自由决定自己的尺寸
+    // 4) Align 占满全屏，它的子能自由定位
     // return Align(
     //   alignment: Alignment.centerRight,
     //   child: Container(width: 100, height: 100, color: Colors.red),
     // );
 
-    // 3) Center 占满屏幕，它要求子尺寸不超过屏幕即可
-    // 子想要有限
+    // 3) Center 占满全屏，子想要有限或无限尺寸都行，但最终都会被限制在屏幕内
     // return Center(child: Container(width: 100, height: 100, color: Colors.red));
     // 5)
-    // 子想要无限，占满了允许的空间
     // return Center(
     //   child: Container(width: double.infinity, height: double.infinity, color: Colors.red),
     // );
 
-    // 6)
-    // Container 无子无尺寸时，父给有限就尽量大，父给无限就尽量小
+    // 6) Container 占满全屏，因为无子随父
     // return Center(child: Container(color: Colors.red));
-    //*7) Center 占满屏幕，红色有子，跟随子的尺寸
-    // 不加宽高，看见小绿块；加上宽高，看见大绿块
-    // 因为：无宽高时绿块收到 0-402 0-807 松约束，有宽高时绿块收到 100 100 紧约束
+    //*7) Center 占满全屏，红色有子，跟随子的尺寸
+    // 不加宽高，看见小绿块，绿块收到 0-402 0-807 松约束
+    // 加上宽高，看见大绿块，绿块收到 100 100 紧约束
     // return Center(
     //   child: Container(
     //     color: Colors.red,
-    //     // width: 100,
-    //     // height: 100,
+    //     width: 100,
+    //     height: 100,
     //     child: Container(color: Colors.green, width: 30, height: 30),
     //   ),
     // );

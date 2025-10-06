@@ -121,3 +121,14 @@ Widget 和 Element 是一一对应的，但并不和 RenderObject 一一对应�
 didChangeDependencies
 子 widget 很少会重写此方法，因为在依赖改变后 Flutter 框架也都会调用build()方法重新构建组件树。
 如果需要在依赖改变后执行一些昂贵的操作，比如网络请求，最好的方式是在 didChangeDependencies 中，避免在 build 中做昂贵操作
+
+
+撑大 Scaffold 的方式
+      // body: ConstrainedBox(
+      //   constraints: BoxConstraints.expand(),
+      //   child: Stack(
+      //     children: [
+      //       // ...
+      //     ],
+      //   ),
+      // ),

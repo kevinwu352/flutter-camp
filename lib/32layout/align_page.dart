@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-// Align
 // 无子时
 //   收到紧约束，最终尺寸当然是紧了
 //   收到 松100-200，最终尺寸 200
