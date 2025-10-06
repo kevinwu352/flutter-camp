@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 
-class ConstraintPage extends StatelessWidget {
-  const ConstraintPage({super.key});
+class CenterPage extends StatelessWidget {
+  const CenterPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Constraint')),
+      appBar: AppBar(title: Text('Center')),
+      backgroundColor: Colors.teal,
       floatingActionButton: FloatingActionButton(onPressed: () {}, child: Icon(Icons.run_circle)),
-      body: Container(constraints: BoxConstraints.expand(), child: Text('data')),
+      body: Text('--'),
     );
   }
 }
