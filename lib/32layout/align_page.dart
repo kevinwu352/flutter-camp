@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 // 有子时
 //   收到紧约束，最终尺寸当然是紧了，但子收到的是 0-200
 //   收到 松100-200，最终尺寸 200，但子收到的是 0-200
-//   收到无限约束，子也会收到无限约束，最终尺寸和子一样大，有没有溢出警告看用的是哪种盒子 UnconstrainedBox/OverflowBox
+//   收到无限约束，子也会收到无限约束，最终尺寸和子一样大，有没有溢出警告主要是看自己外面用的是哪种盒子 UnconstrainedBox/OverflowBox
 //
 // 自己不会有溢出警告
 // 如果自己收到有限约束，子也会收到有限约束，子会严格遵守那个约束，只要遵守了就不会超出边界，也就不会溢出了
@@ -57,20 +57,15 @@ class AlignPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text('Basic')),
       floatingActionButton: FloatingActionButton(onPressed: () {}, child: Icon(Icons.run_circle)),
-
-      // body: Container(
-      //   color: Colors.teal,
-      //   // width: 400,
-      //   // height: 400,
-      //   constraints: BoxConstraints(minWidth: 100, minHeight: 100, maxWidth: 300, maxHeight: 300),
-      //   child: Align(alignment: Alignment.center, child: FlutterLogo(size: 5000)),
-      // ),
-
-      // body: UnconstrainedBox(
-      //   child: Align(alignment: Alignment.center, child: FlutterLogo(size: 5000)),
-      //   // child: Text('data'),
-      // ),
       body: OverflowBox(
+        // minWidth: 300,
+        // maxWidth: 300,
+        // minHeight: 300,
+        // maxHeight: 300,
+        // minWidth: 100,
+        // maxWidth: 200,
+        // minHeight: 100,
+        // maxHeight: 200,
         minWidth: 0,
         maxWidth: double.infinity,
         minHeight: 0,

@@ -6,14 +6,6 @@ class CenterPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Center
-    // 如果有 factor 参数，子尺寸 * factor。但如果是根还是会被拉满屏幕
-    // return Center(widthFactor: 2, child: Text("abc"));
-    // return Center(child: Center(widthFactor: 2, child: Text("abc"))); // 第二个 Center 不是根，所以 factor 起作用了
-    // 如果无 factor 参数
-    //   如果有限定，尺寸是尽量大
-    // return Center(child: Text("abc")); // 屏幕就是它的限定吧？
-    //   如果无限定，和它的子一样大
-    // 目前不知如何写例子？
 
     // Container
     // 简单总结：有子随子，有对准时将约束放松；无子随父，父无限时尺寸是 0
