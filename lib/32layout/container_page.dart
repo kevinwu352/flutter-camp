@@ -36,31 +36,29 @@ class ContainerPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // 无子
-    //   收到紧约束
-    //   收到有限约束，尺寸尽量大   <= 无子随父，是指尽量撑到父那么大，说父也不对，应该是撑到父给的最大约束那么大，尽量大
-    //   收到无限约束，尺寸尽量小
-    // 有子，子很小
-    //   收到紧约束
-    //   收到有限约束，尺寸尽量小   <= 有子随子，这里是因为子很小，所以用了约束的下限，尽量小
-    //   收到无限约束，尺寸随子
-    // 有子，子很大
-    //   收到紧约束
-    //   收到有限约束，尺寸尽量大   <= 有子随子，这里是因为子很大，所以用了约束的上限，尽量大
-    //   收到无限约束，尺寸随子
+    // 收到 紧300
+    //   无子，尺寸随紧
+    //   有子，尺寸随紧，子收到 紧300
+    // 收到 松100-200
+    //   无子，尺寸尽量大 200               <= 无子随父，即随父给的约束的上限
+    //   有子，尺寸随子，子收到 松100-200   <= 有子随子，子小则是 100，子大则是 200，子在区间内则等于子
+    // 收到 无限0-inf
+    //   无子，尺寸尽量小 0
+    //   有子，尺寸随子，子可能非常大，子收到 0-inf
     return OverflowBox(
-      minWidth: 300,
-      maxWidth: 300,
-      minHeight: 300,
-      maxHeight: 300,
+      // minWidth: 300,
+      // maxWidth: 300,
+      // minHeight: 300,
+      // maxHeight: 300,
       // minWidth: 100,
       // maxWidth: 200,
       // minHeight: 100,
       // maxHeight: 200,
-      // minWidth: 0,
-      // maxWidth: double.infinity,
-      // minHeight: 0,
-      // maxHeight: double.infinity,
+      minWidth: 0,
+      maxWidth: double.infinity,
+      minHeight: 0,
+      maxHeight: double.infinity,
+      // child: Container(color: Colors.teal),
       child: Container(color: Colors.teal, child: FlutterLogo(size: 5000)),
     );
   }

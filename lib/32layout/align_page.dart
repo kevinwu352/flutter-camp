@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 
-// 无子时
-//   收到紧约束，最终尺寸当然是紧了
-//   收到 松100-200，最终尺寸 200
-//   收到无限约束，最终尺寸尽量小，因为无子，所以是 0
-// 有子时
-//   收到紧约束，最终尺寸当然是紧了，但子收到的是 0-200
-//   收到 松100-200，最终尺寸 200，但子收到的是 0-200
-//   收到无限约束，子也会收到无限约束，最终尺寸和子一样大，有没有溢出警告主要是看自己外面用的是哪种盒子 UnconstrainedBox/OverflowBox
+// 收到 紧300
+//   无子，尺寸随紧
+//   有子，尺寸随紧，但子收到 松0-300
+// 收到 松100-200
+//   无子，尺寸尽量大 200
+//   有子，尺寸尽量大 200，但子收到 松0-200
+// 收到 无限0-inf
+//   无子，尺寸尽量小 0
+//   有子，尺寸随子，子可能非常大，子收到 0-inf
 //
 // 自己不会有溢出警告
-// 如果自己收到有限约束，子也会收到有限约束，子会严格遵守那个约束，只要遵守了就不会超出边界，也就不会溢出了
-// 如果自己收到无限约束，子也会收到无限约束，自己的尺寸会和子一样大，这时关键看自己外面的盒子会不会溢出，反正自己是不会溢出的
+// 如果自己收到有限约束，子也会收到有限约束，子会严格遵守这个约束，只要遵守了就不会超出边界，也就不会溢出了
+// 如果自己收到无限约束，子也会收到无限约束，自己的尺寸会和子一样大，这时关键看自己外面的盒子是什么，反正自己是不会溢出的
 //
 // 总结：占用约束允许的最大空间，并在空间内将子定位到某处
 
@@ -53,24 +54,21 @@ class AlignPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Basic')),
-      floatingActionButton: FloatingActionButton(onPressed: () {}, child: Icon(Icons.run_circle)),
-      body: OverflowBox(
-        // minWidth: 300,
-        // maxWidth: 300,
-        // minHeight: 300,
-        // maxHeight: 300,
-        // minWidth: 100,
-        // maxWidth: 200,
-        // minHeight: 100,
-        // maxHeight: 200,
-        minWidth: 0,
-        maxWidth: double.infinity,
-        minHeight: 0,
-        maxHeight: double.infinity,
-        child: Align(alignment: Alignment.center, child: FlutterLogo(size: 5000)),
-      ),
+    return OverflowBox(
+      minWidth: 300,
+      maxWidth: 300,
+      minHeight: 300,
+      maxHeight: 300,
+      // minWidth: 100,
+      // maxWidth: 200,
+      // minHeight: 100,
+      // maxHeight: 200,
+      // minWidth: 0,
+      // maxWidth: double.infinity,
+      // minHeight: 0,
+      // maxHeight: double.infinity,
+      // child: Align(alignment: Alignment.center),
+      child: Align(alignment: Alignment.center, child: FlutterLogo(size: 5000)),
     );
   }
 }
