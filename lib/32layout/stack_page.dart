@@ -33,46 +33,55 @@ class StackPage extends StatelessWidget {
       appBar: AppBar(title: Text('Stack')),
       floatingActionButton: FloatingActionButton(onPressed: () {}, child: Icon(Icons.run_circle)),
 
-      body: SizedBox.expand(
-        child: Stack(
-          alignment: Alignment.center,
-          fit: StackFit.expand,
-          children: [
-            // Container(
-            //   color: Colors.red,
-            //   child: Text("Hello world", style: TextStyle(color: Colors.white)),
-            // ),
-            // Positioned(left: 18.0, child: Text("I am Jack")),
-            // Positioned(top: 18.0, child: Text("Your friend")),
-            // ----------
-            Positioned(left: 18.0, child: Text("I am Jack")),
-            Container(
-              color: Colors.red,
-              child: Text("Hello world", style: TextStyle(color: Colors.white)),
-            ),
-            Positioned(top: 18.0, child: Text("Your friend")),
-          ],
-        ),
-      ),
-
-      // body: OverflowBox(
-      //   // minWidth: 300,
-      //   // maxWidth: 300,
-      //   // minHeight: 300,
-      //   // maxHeight: 300,
-      //   // minWidth: 100,
-      //   // maxWidth: 200,
-      //   // minHeight: 100,
-      //   // maxHeight: 200,
-      //   minWidth: 0,
-      //   maxWidth: double.infinity,
-      //   minHeight: 0,
-      //   maxHeight: double.infinity,
+      // body: SizedBox.expand(
       //   child: Stack(
+      //     alignment: Alignment.center,
       //     fit: StackFit.expand,
-      //     children: [Container(color: Colors.teal, child: Text('data'))],
+      //     children: [
+      //       // Container(
+      //       //   color: Colors.red,
+      //       //   child: Text("Hello world", style: TextStyle(color: Colors.white)),
+      //       // ),
+      //       // Positioned(left: 18.0, child: Text("I am Jack")),
+      //       // Positioned(top: 18.0, child: Text("Your friend")),
+      //       // ----------
+      //       Positioned(left: 18.0, child: Text("I am Jack")),
+      //       Container(
+      //         color: Colors.red,
+      //         child: Text("Hello world", style: TextStyle(color: Colors.white)),
+      //       ),
+      //       Positioned(top: 18.0, child: Text("Your friend")),
+      //     ],
       //   ),
       // ),
+
+      // 收到 紧300
+      //   无子，尺寸随紧
+      //   有子，尺寸随紧，但子收到 松0-300，因为 fit=.loose
+      // 收到 松100-200
+      //   无子，尺寸尽量大 200
+      //   有子，尺寸尽量大 200，但子收到 松0-200，因为 fit=.loose
+      // 收到 无限0-inf
+      //   无子，尺寸尽量小 0
+      //   有子，尺寸随子，子可能非常大，子收到 0-inf
+      body: OverflowBox(
+        // minWidth: 300,
+        // maxWidth: 300,
+        // minHeight: 300,
+        // maxHeight: 300,
+        // minWidth: 100,
+        // maxWidth: 200,
+        // minHeight: 100,
+        // maxHeight: 200,
+        minWidth: 0,
+        maxWidth: double.infinity,
+        minHeight: 0,
+        maxHeight: double.infinity,
+        child: Stack(
+          // fit: StackFit.expand,
+          children: [Container(color: Colors.teal, width: 2000, height: 2000)],
+        ),
+      ),
     );
   }
 }
