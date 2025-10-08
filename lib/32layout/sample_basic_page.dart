@@ -156,6 +156,83 @@ class SampleBasicPage extends StatelessWidget {
     //   ),
     // );
 
+    // ********************************************************************************
+
+    // ================================================================================
+    // Column/Row
+    // 宽随子 高随父，设置 mainAxisSize = .min 后 高随子
+    //
+    // CrossAxisAlignment.stretch 传递给子 402-402 0-inf，其它情况传递给子 0-402 0-inf
+    //
+    // MainAxisAlignment.spaceBetween 前后无空白
+    // MainAxisAlignment.spaceAround 前后的空白是中间空白的一半
+    // MainAxisAlignment.spaceEvenly 前后中间空白一致
+    //
+    // Spacer(flex: x) 控件用于精细化控件布局，它占用 Column/Row 的剩余空间，还能按比例分配剩余空间
+    //
+    // VerticalDirection verticalDirection = .down / .up 堆延伸的方向
+    //
+    // double spacing = 0.0
+    //
+    // 收到 紧300
+    //   无子，尺寸随紧
+    //   有子，尺寸随紧，但子收到 松 0-300 0-inf
+    // 收到 松100-200
+    //   无子，宽尽量小 100，高尽量大 200
+    //   有子，宽尽量小 100，高尽量大 200，子收到 松 0-200 0-inf
+    // 收到 无限0-inf
+    //   无子，尺寸尽量小 0
+    //   有子，尺寸随子，子可能非常大，子收到 0-inf 0-inf
+    // ================================================================================
+    // return Scaffold(
+    //   body: OverflowBox(
+    //     // minWidth: 300,
+    //     // maxWidth: 300,
+    //     // minHeight: 300,
+    //     // maxHeight: 300,
+    //     // minWidth: 100,
+    //     // maxWidth: 200,
+    //     // minHeight: 100,
+    //     // maxHeight: 200,
+    //     minWidth: 0,
+    //     maxWidth: double.infinity,
+    //     minHeight: 0,
+    //     maxHeight: double.infinity,
+    //     child: Column(
+    //       // mainAxisSize: MainAxisSize.min,
+    //       children: [
+    //         Text('aaa', style: TextStyle(fontSize: 14)),
+    //         Text('bbb', style: TextStyle(fontSize: 24)),
+    //         Text('ccc', style: TextStyle(fontSize: 14)),
+    //         // Text('displays its children'),
+    //       ],
+    //     ),
+    //   ),
+    // );
+    // --------------------------------------------------------------------------------
+    // 一个包含 Expanded/Flexible 的 Column 加到 Column/ListView 会崩
+    // 一个 ListView 加到 Column 会崩
+    // 解决办法：把内部的东西用 Expanded/Flexible/SizedBox 包起来
+    // return Scaffold(
+    //   // body: Column(
+    //   //   children: [
+    //   //     Column(children: [Text("11")]), // 正常
+    //   //     // Column(children: [Expanded(child: Text("22"))]), // 要崩。内外层不同则不会崩，外 Column 内 Row / 外 Row 内 Column
+    //   //   ],
+    //   // ),
+    //   // body: Column(
+    //   //   children: [
+    //   //     ListView(children: [Text("aa"), Text("bb")]), // 要崩。外层换成 Row 也会崩
+    //   //   ],
+    //   // ),
+    //   // body: ListView(
+    //   //   children: [
+    //   //     Column(children: [Text("aa"), Text("bb")]), // 正常
+    //   //     // Column(children: [Expanded(child: Text("11"))]), // 要崩。换成 Row 不会崩
+    //   //   ],
+    //   // ),
+    // );
+
     return Text("--");
   }
 }
