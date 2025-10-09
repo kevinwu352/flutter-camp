@@ -45,13 +45,6 @@
 
 // DataTable/DataColumn/DataRow 像 excel 的表格，用到再研究吧
 
-// Wrap 能自动换行的 Row/Column，Chip 放里面比较好
-// Chip 三个元素的小组件，文字/图标/删除
-//   ActionChip 添加 onPress，删除 delete 相关的，相当于两个元素的组件
-//   ChoiceChip 增加选中状态，删除 delete 相关的
-//   FilterChip 选中时，变宽，前面显示一个勾勾，背景色也变。除了有 delete，没看出和 ChoiceChip 有什么区别
-//   InputChip 也有选中状态和删除按钮，允许设置 isEnabled，没看出和 FilterChip 有什么区别
-
 // Checkbox 方形的复选框，可以有三种状态。还能开启错误模式 isError，整体朱红色。要改变边框颜色 side: BorderSide(color: Colors.red)
 //   activeColor 选中时候的颜色，非勾勾区域
 //   checkColor 勾勾的颜色，当然只有选中时候才有勾勾
