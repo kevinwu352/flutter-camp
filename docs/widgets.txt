@@ -48,13 +48,6 @@ abstract interface class Comparable<T> {
 ================================================================================
 
 
-CarouselView
-Flow 能做很炫那种，弹出一堆按钮的按钮
-
-
-LayoutBuilder 可以根据父传过来的尺寸决定显示两列还是一列
-
-
 FractionalTranslation 按照子的百分比进行偏移
 
 

@@ -34,6 +34,8 @@ import 'package:flutter/material.dart';
 
 // RefreshIndicator 有空再研究
 
+// ListBody 将子元素沿主轴依次排列，而次轴拉到最大。文档说很少直接用，用 ListView/Column 就行了
+
 class ListPage extends StatefulWidget {
   const ListPage({super.key});
 
