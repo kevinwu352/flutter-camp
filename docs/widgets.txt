@@ -115,3 +115,10 @@ didChangeDependencies
       //     ],
       //   ),
       // ),
+
+
+只在 debug 版本打印日志的技巧
+assert(() {
+  print('${tag ?? key ?? child}: $constraints');
+  return true;
+}());

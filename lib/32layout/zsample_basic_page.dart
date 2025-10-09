@@ -162,6 +162,10 @@ class SampleBasicPage extends StatelessWidget {
     // Column/Row
     // 宽随子 高随父，设置 mainAxisSize = .min 后 高随子
     //
+    // Column 内嵌套 Column
+    //   外层的 Column 高度随父，很高
+    //   内层的 Column 高度随子，设成 max 也不行，只有用 Expanded 包起来能撑高
+    //
     // CrossAxisAlignment.stretch 传递给子 402-402 0-inf，其它情况传递给子 0-402 0-inf
     //
     // MainAxisAlignment.spaceBetween 前后无空白
