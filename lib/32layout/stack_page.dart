@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 
+// IndexedStack 有多个子视图，但任何时刻只显示 一个/零个 子视图，像电视机一样
+// 尺寸和最大的子相同，如果 index=null 就不显示任何东西
+
+// ================================================================================
+
 // left/right/width 三者只能设其二
 // top/bottom/height 三者只能设其二
 // 如果这六个参数都为空，那么这个 Positioned 是未定位的

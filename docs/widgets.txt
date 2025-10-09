@@ -55,16 +55,6 @@ Flow 能做很炫那种，弹出一堆按钮的按钮
 LayoutBuilder 可以根据父传过来的尺寸决定显示两列还是一列
 
 
-IndexedStack 同一时间只显示一个控件的 Stack
-Stack 前后重叠
-Positioned 只能用于 Stack 中
-
-
-
-
-RotatedBox 旋转后，layout 也旋转了
-Transform.rotate 旋转后，占的位置还是原来的。比如一个宽盒子竖起来，占位还是很宽的
-
 FractionalTranslation 按照子的百分比进行偏移
 
 
