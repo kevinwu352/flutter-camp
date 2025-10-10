@@ -1,8 +1,28 @@
 import 'package:flutter/material.dart';
 
+// Decoration
 // BoxDecoration, ShapeDecoration, FlutterLogoDecoration, UnderlineTabIndicator
 
+// Container 的 decoration 参数是 Decoration
+// BoxDecoration 的 border 是 BoxBorder
+// ShapeDecoration 必传 shape 是 ShapeBorder，这是 BoxBorder 的父类
+
+// DecoratedBox 的参数是 Decoration，并不是 BoxDecoration
+// 感觉它是只带装饰功能的 Container，文档里说对边框的处理上它俩有点区别
+
 // ================================================================================
+// ShapeDecoration
+// 文档说，它的作用是把 ShapeBorder 给画出来，然后可选地添加填充颜色/渐变/阴影之类的
+// 我认为，ShapeBorder 虽然是 border，但 border 定了，它不就定义了一个 shape 吗？
+//
+// required ShapeBorder shape
+// Color? color
+// DecorationImage? image
+// Gradient? gradient
+// List<BoxShadow>? shadows
+
+// ================================================================================
+// BoxDecoration
 
 // Color? color 填充色
 // DecorationImage? image
@@ -11,9 +31,9 @@ import 'package:flutter/material.dart';
 // BorderRadiusGeometry? borderRadius
 //   Radius.circular   表示这个角的 x y 相同，这个角是圆形的 1/4
 //   Radius.elliptical 表示这个角的 x y 不同，这个角是椭圆的 1/4
-
 // BoxShape shape = BoxShape.rectangle
 // 默认是矩形，能变成圆形 BoxShape.circle
+// 变成圆形后，填充的背景色只填圆形区域
 
 // 阴影能显示到自己盒子外面
 //   BlurStyle.normal 内外都有毛绒绒的阴影，内部阴影充满了，但和 solid 的实心颜色明显不同

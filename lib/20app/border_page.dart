@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 // 继承关系
 // ShapeBorder -> BoxBorder, InputBorder, OutlinedBorder
+//
 //   BoxBorder -> Border
 //   OutlinedBorder
 //     CircleBorder 第二个参数决定圆形为了适配父的尺寸的变形程度，1 是完全变形，会变成一个椭圆
@@ -17,7 +18,15 @@ import 'package:flutter/material.dart';
 // Container.decoration = BoxDecoration.border 这里是 BoxBorder
 //
 // 区别是什么？
-// AI 说 BoxBorder 给 BoxDecoration 用的，分别定义四条边的样式，OutlinedBorder 用于给一个 Shape 定义边框
+// BoxBorder 能分别定义四条边的样式
+//   无法单独做出圆角，这俩配合可以做出圆角 BoxDecoration(border: borderRadius:)
+// OutlinedBorder 有各种形状的子类，子类一般接受一个边样式和圆角样式
+//   可以单独做出圆角
+//   ButtonStyle 里面的 shape 是 OutlinedBorder
+// InputBorder 专门给 InputDecoration 用的，用来修饰输入框
+//   只接受一个边样式，圆角能分别指定
+
+// ================================================================================
 
 // Border, 有四条边 BorderSide，宽度传 0 会画出 1 个物理像素的线
 // strokeAlign 定义边框位置，默认在内
@@ -26,6 +35,14 @@ import 'package:flutter/material.dart';
 //   骑在边线上
 // 这个异常：A Border can only draw strokeAlign different than BorderSide.strokeAlignInside on borders with uniform colors.
 // 如果 align 不是 inside，不能只给一条边加边框，四条边框都要有，且宽度颜色要相同
+
+// ================================================================================
+
+// BorderRadius 能分别定义四个角的样式，每个样式都是一个 Radius
+
+// ================================================================================
+
+// Radius 定义单个角的样式，圆形/椭圆
 
 class BorderPage extends StatelessWidget {
   const BorderPage({super.key});
@@ -86,6 +103,26 @@ class BorderPage extends StatelessWidget {
               // border: OutlineInputBorder(borderSide: BorderSide(color: Colors.red, width: 4)),
               border: UnderlineInputBorder(),
             ),
+          ),
+
+          SizedBox(height: 20),
+
+          Container(
+            // decoration: BoxDecoration(
+            //   color: Colors.teal,
+            //   // border: Border.all(color: Colors.red),
+            //   // shape: BoxShape.circle,
+            //   // borderRadius: BorderRadius.only(topRight: Radius.circular(20)),
+            // ),
+            decoration: ShapeDecoration(
+              shape: RoundedRectangleBorder(
+                side: BorderSide(color: Colors.green, width: 2),
+                borderRadius: BorderRadius.only(bottomRight: Radius.circular(20)),
+              ),
+              // shape: Border.all(color: Colors.purple, width: 2),
+            ),
+            width: 160,
+            height: 120,
           ),
         ],
       ),
