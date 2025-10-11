@@ -17,6 +17,8 @@ import 'package:flutter/material.dart';
 //   // 这俩等价
 //   Image(image: NetworkImage("https://avatars2.githubusercontent.com/u/20411648?s=460&v=4"), width: 100.0),
 //   Image.network("https://avatars2.githubusercontent.com/u/20411648?s=460&v=4", width: 100.0),
+//
+// 网上说，Image.network 只提供内存缓存，最好还是用 cached_network_image
 
 // ================================================================================
 
