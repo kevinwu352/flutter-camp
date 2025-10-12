@@ -1,4 +1,4 @@
-import 'dart:math';
+// import 'dart:math';
 import 'package:flutter/material.dart';
 
 class AnimPage extends StatefulWidget {
@@ -7,17 +7,10 @@ class AnimPage extends StatefulWidget {
   State<AnimPage> createState() => _AnimPageState();
 }
 
-class _AnimPageState extends State<AnimPage>
-    with SingleTickerProviderStateMixin {
-  late final _controller = AnimationController(
-    vsync: this,
-    duration: Duration(seconds: 2),
-  );
+class _AnimPageState extends State<AnimPage> with SingleTickerProviderStateMixin {
+  late final _controller = AnimationController(vsync: this, duration: Duration(seconds: 2));
   // late Animation<Offset> _values;
-  late final _animation = Tween<double>(
-    begin: 50.0,
-    end: 200.0,
-  ).animate(_controller);
+  late final _animation = Tween<double>(begin: 50.0, end: 200.0).animate(_controller);
 
   // late final animation = Tween(begin: 20.0, end: 300.0).animate(_controller)
   //   ..addListener(() {
@@ -66,11 +59,7 @@ class _AnimPageState extends State<AnimPage>
         child: AnimatedBuilder(
           animation: _animation,
           builder: (context, child) {
-            return Container(
-              width: _animation.value,
-              height: _animation.value,
-              color: Colors.blue,
-            );
+            return Container(width: _animation.value, height: _animation.value, color: Colors.blue);
           },
         ),
         // child: Image.asset(
