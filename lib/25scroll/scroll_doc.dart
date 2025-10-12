@@ -70,6 +70,31 @@
 //   keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag 拖动时关闭键盘
 
 // SingleChildScrollView 是单个子元素，它并未使用 RenderSliver，而是在 performLayout 时直接调整子的 offset 来达到滑动效果
+// 收到 紧300
+//   无子，尺寸随紧
+//   有子，尺寸随紧，但子收到 紧300 松0-inf
+// 收到 松100-200
+//   无子，尺寸尽量小 100
+//   有子，尺寸尽量小 100，但子收到 松100-200 松0-inf
+// 收到 无限0-inf
+//   无子，尺寸尽量小 0
+//   有子，尺寸随子，子可能非常大，子收到 0-inf
+// return OverflowBox(
+//   // minWidth: 300,
+//   // maxWidth: 300,
+//   // minHeight: 300,
+//   // maxHeight: 300,
+//   minWidth: 100,
+//   maxWidth: 200,
+//   minHeight: 100,
+//   maxHeight: 200,
+//   // minWidth: 0,
+//   // maxWidth: double.infinity,
+//   // minHeight: 0,
+//   // maxHeight: double.infinity,
+//   // child: SingleChildScrollView(),
+//   child: SingleChildScrollView(child: Text('a', style: TextStyle(fontSize: 200))),
+// );
 
 // ================================================================================
 
