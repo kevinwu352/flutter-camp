@@ -37,15 +37,19 @@ class SafePage extends StatelessWidget {
 
     // ================================================================================
 
-    // 不可滚动页面，内容一定不能超过屏幕
-    return Scaffold(
-      appBar: AppBar(title: Text('Safe')),
-      body: SizedBox.expand(
-        child: SafeArea(
-          child: Column(crossAxisAlignment: CrossAxisAlignment.end, children: [Text('aaa'), Spacer(), Text('bbb')]),
-        ),
-      ),
-    );
+    // 不可滚动页面，内容肯定能在一屏内显示完
+    // 因为内容肯定比较少，所以一般不用担心内容入侵到安全区
+    // 可以用 Align / Center / Stack / SizedBox.expand，包含一个 Column
+    // 非常灵活
+    // return Scaffold(
+    //   appBar: AppBar(title: Text('Safe')),
+    //   body: SizedBox.expand(
+    //     // child: SafeArea(
+    //     //   child: Column(crossAxisAlignment: CrossAxisAlignment.end, children: [Text('aaa'), Spacer(), Text('bbb')]),
+    //     // ),
+    //     child: Column(children: [Text('aaa'), Text('bbb')]),
+    //   ),
+    // );
 
     // 可以滚动页面，列表
     // return Scaffold(
@@ -76,40 +80,36 @@ class SafePage extends StatelessWidget {
     // ================================================================================
 
     // 可以滚动页面，单子，有底部
-    // return Scaffold(
-    //   appBar: AppBar(title: Text('Safe')),
-    //   // body: SizedBox.expand(
-    //   //   child: SingleChildScrollView(
-    //   //     child: SafeArea(
-    //   //       child: Column(
-    //   //         crossAxisAlignment: CrossAxisAlignment.end,
-    //   //         children: [
-    //   //           Text('aaa'),
-    //   //           ...List.generate(
-    //   //             40,
-    //   //             (i) => Text('data $i', style: TextStyle(backgroundColor: ColorsExt.rand(), fontSize: 20)),
-    //   //           ),
-    //   //           Text('bbb'),
-    //   //         ],
-    //   //       ),
-    //   //     ),
-    //   //   ),
-    //   // ),
-    //   body: SizedBox.expand(
-    //     child: Column(
-    //       children: [
-    //         Expanded(
-    //           child: SingleChildScrollView(
-    //             child: Column(
-    //               crossAxisAlignment: CrossAxisAlignment.end,
-    //               children: [...List.generate(40, (i) => Text('data $i', style: TextStyle(fontSize: 20)))],
-    //             ),
-    //           ),
-    //         ),
-    //         SafeArea(child: Column(children: [Text('adfasdfas')])),
-    //       ],
-    //     ),
-    //   ),
-    // );
+    // SingleChildScrollView 如果不用 Expanded 包起来，会非常高或非常矮
+    // SingleChildScrollView 如果不用 SizedBox.expanded 包起来，宽度不能跟随屏幕
+    // Expanded 只管高，它占用 Column 剩余的高度，它内部的 SCSV 高度撑大了但宽度随子，所以用 SizedBox.expand 把 SCSV 的宽度也撑大
+    return Scaffold(
+      appBar: AppBar(title: Text('Safe')),
+      body: SizedBox.expand(
+        child: Column(
+          children: [
+            Expanded(
+              child: SizedBox.expand(
+                child: SingleChildScrollView(
+                  child: Column(children: [Text('111'), ...List.generate(50, (i) => Text('data $i')), Text('222')]),
+                ),
+              ),
+            ),
+            Container(
+              color: Colors.teal,
+              width: double.infinity,
+              child: SafeArea(child: Column(children: [Text('footer 1')])),
+            ),
+            // SafeArea(
+            //   child: Container(
+            //     color: Colors.teal,
+            //     width: double.infinity,
+            //     child: Column(children: [Text('footer 2')]),
+            //   ),
+            // ),
+          ],
+        ),
+      ),
+    );
   }
 }
