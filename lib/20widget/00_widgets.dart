@@ -6,26 +6,41 @@
 // XXXThemeData 指定样式的具体内容
 //   DividerThemeData({Color? color, double? space, double? thickness, double? indent, double? endIndent, BorderRadiusGeometry? radius})
 
-// Clip 类型 none不切，hardEdge最快但不保真，antiAlias慢一点少用，antiAliasWithSaveLayer最慢不要用
+// 一般规律
+// EdgeInsetsGeometry 抽象基类
+//   EdgeInsets
+//   EdgeInsetsDirectional start/end 之类的，根据系统 left to right / right to left 来决定
+// AlignmentGeometry 抽象基类
+//   Alignment
+//   AlignmentDirectional
+// BorderRadiusGeometry 抽象基类
+//   BorderRadius
+//   BorderRadiusDirectional
 
 // ================================================================================
 
-// 加载 bundle 的文件。DefaultAssetBundle 能修改它子节点的默认 bundle
-// 推荐用这种方式，单元测试的时候能替换
-//   final str = await DefaultAssetBundle.of(context,).loadString("assets/jsons/user.json");
-// 如果在 widget 外面，没有 context，用下面这种方式
-//   import 'package:flutter/services.dart' show rootBundle;
-//   final str = await rootBundle.loadString("assets/jsons/user.json");
+// 一种撑大 Scaffold.body 的方式
+// ConstrainedBox(
+//   constraints: BoxConstraints.expand(),
+//   child:
+// )
+
+// 生成固定数量的视图
+// List.generate(10, (i) => Text(''))
 
 // ================================================================================
 
 // Placeholder 默认占满父空间，如果父是无限的则用 fallback size
 
+// Divider / VerticalDivider
+//   color / thickness / endIndent
+
+// Tooltip 参数 message，给子提供提示
+
 // Card 圆角带阴影那种卡片
 
 // CircleAvatar 圆形头像，能显示图片或字母
 //   Stack(
-//     // 注意这个参数：How to align the non-positioned and partially-positioned children in the stack.
 //     alignment: Alignment(0.6, 0.6),
 //     children: [
 //       CircleAvatar(backgroundImage: AssetImage("assets/images/jessica.jpg"), radius: 100),
@@ -35,11 +50,6 @@
 //       ),
 //     ],
 //   )
-
-// Divider / VerticalDivider
-//   color / thickness / endIndent
-
-// Tooltip 参数 message，给子提供提示
 
 // CarouselView 比较花哨，用到再研究吧
 // Flow 比较花哨，能做弹出一堆按钮的按钮。接收一个 delegate，它里面控制子元素的显示，能加个 animation，让这个控制过程是有动画的
@@ -65,7 +75,7 @@
 //   backgroundColor 空白区域的颜色
 //   overlayColor 点击时波纹的颜色
 
-// 不管 badge 多大都不会撑大按钮，但如果 badge 太大会被按钮边界切掉
+// 不管 badge 多大都不会撑大按钮，但太大的 badge 会被按钮边界切掉
 // IconButton(
 //   icon: const Badge(
 //     // alignment: Alignment.bottomLeft,
@@ -85,10 +95,10 @@
 // )
 
 // 选择时间
-// showTimePicker
+//   showTimePicker
 // 选择日期或日期区间，内部使用 DatePickerDialog
-// showDatePicker
-// showDateRangePicker
+//   showDatePicker
+//   showDateRangePicker
 
 // Dismissible 左右滑显示列表某行下面的选项
 // InteractiveViewer 查看大图片，也能放其它控件，反正就是大的
@@ -97,3 +107,9 @@
 // 接收方是 DragTarget，也有 child 定义自己的外观
 
 // NotificationListener<T> 接收节点树下层传递过来的通知，子节点/孙子/重孙，只接收 T 类型，能决定是否让通知继续沿树向上
+
+// 把子元素切成圆角
+// ClipRRect(
+//   borderRadius: BorderRadius.circular(20),
+//   child: Image.asset(...)
+// )

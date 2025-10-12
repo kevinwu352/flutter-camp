@@ -174,12 +174,17 @@ cast 和 as 区别
 
 
 
+// ==========
+
+根据 Widget 树生成一个 Element 树，Element 树中的节点都继承自 Element 类。
+根据 Element 树生成 Render 树（渲染树），渲染树中的节点都继承自 RenderObject 类。
+根据渲染树生成 Layer 树，然后上屏显示，Layer 树中的节点都继承自 Layer 类。
+
+Widget 和 Element 是一一对应的，但并不和 RenderObject 一一对应。比如 StatelessWidget 和 StatefulWidget 都没有对应的 RenderObject
 
 
+有状态和无状态控件是用于组合控件用的，那些基础控件相当于积木块，而这些积木块有些不是有状态和无状态的子类，而是继承于 RenderObject，所以，可以用 RenderObject 来自定义控件
 
-
-
-
-
-
-
+didChangeDependencies
+子 widget 很少会重写此方法，因为在依赖改变后 Flutter 框架也都会调用build()方法重新构建组件树。
+如果需要在依赖改变后执行一些昂贵的操作，比如网络请求，最好的方式是在 didChangeDependencies 中，避免在 build 中做昂贵操作
