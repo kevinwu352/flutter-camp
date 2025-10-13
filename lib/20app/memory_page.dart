@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 //     尽量使用 stateless 视图
 //     使用 key，重排/添加/删除时，精确匹配自己对应的 Element，避免重绘，否则会使用位置来匹配
 //     避免使用 MediaQuery.of(context).size，用 MediaQuery.sizeOf(context)
+//     把导致重建的状态移到叶子，这样频繁重建的只是那小部分
 //   避免过多动画，要用就用内置的动画库，如 AnimationController/Tween，它们已经优化过
 //     动画中的计算尽可能简单，避免在每一帧进行复杂操作
 //   懒加载和按需加载，ListView.builder / late / 加载分页
