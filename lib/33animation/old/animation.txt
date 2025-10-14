@@ -1,43 +1,9 @@
 
-// iOS Animation
-// animation.timingFunction = curve
-// animation.duration
-// animation.repeatCount
-// animation.autoreverse
-// animation.fromValue?
-// animation.toValue?
-
-// repeat 会开始动画
-// bool reverse 如果是 true，动画会自动回滚
-// int? count 不传则一直动。回滚也算一次
-// Duration? period 优先级高于 controller 的 duration
-// double? min max 优先级高于 controller 的 lowerBound/upperBound
 
 
 
 
-Animatable<T>
-  Tween
-  CurveTween    If you want to apply a Curve to a Tween, consider using CurveTween.
-  TweenSequence
 
-Animation<double>
-  AnimationController
-  CurvedAnimation
-
-Animation<double>.drive
-  Chains a Tween (or CurveTween) to this Animation.
-
-Tween 的用法
-
-// 给一个普通 tween 加上 curve
-final tween = Tween(begin: Offset(0.0, 1.0), end: Offset.zero).chain(CurveTween(curve: Curves.ease));
-return SlideTransition(position: animation.drive(tween), child: child);
-
-另一种方法
-final tween = Tween(begin: Offset(0.0, 1.0), end: Offset.zero);
-final curve = CurvedAnimation(parent: animation, curve: curve);
-return SlideTransition(position: tween.animate(curve), child: child);
 
 
 

@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 
-class AnimationPage extends StatefulWidget {
-  const AnimationPage({super.key});
+class ExpAnimPage extends StatefulWidget {
+  const ExpAnimPage({super.key});
 
   @override
-  State<AnimationPage> createState() => _AnimationPageState();
+  State<ExpAnimPage> createState() => _ExpAnimPageState();
 }
 
-class _AnimationPageState extends State<AnimationPage> with SingleTickerProviderStateMixin {
+class _ExpAnimPageState extends State<ExpAnimPage> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
 
-    // animation.addListener(() => print('c, ${controller.value}'));
+    // animation.addListener(() => print('c, ${animation.value}'));
     // animation.addStatusListener((status) => print('c, $status'));
-    // anim.addListener(() => print('a, ${animation.value}'));
+    // anim.addListener(() => print('a, ${anim.value}'));
     // anim.addStatusListener((status) => print('a, $status'));
 
     // 用法一，动画 -> 区间
@@ -34,21 +34,25 @@ class _AnimationPageState extends State<AnimationPage> with SingleTickerProvider
     anim = tween.animate(curvedAnimation);
   }
 
+  // 定义 时间/曲线
   late AnimationController animation = AnimationController(duration: Duration(seconds: 2), vsync: this);
+  // 定义 区间
   late Tween<Offset> tween = Tween(begin: Offset.zero, end: Offset(2, 0));
 
+  // 最终界面上用的动画
   late Animation<Offset> anim;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Animation')),
+      appBar: AppBar(title: Text('Explicit Animation')),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           animation.forward();
         },
         child: Icon(Icons.run_circle),
       ),
+      // SlideTransition 收到松约束，尺寸 50，但 Inspector 里面看到它的边框是黄色的，为何？
       body: SlideTransition(position: anim, child: FlutterLogo(size: 50.0)),
     );
   }

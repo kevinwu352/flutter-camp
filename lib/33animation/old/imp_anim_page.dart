@@ -22,6 +22,7 @@ class _ImpAnimPageState extends State<ImpAnimPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Animated Container')),
+
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -31,20 +32,14 @@ class _ImpAnimPageState extends State<ImpAnimPage> {
               height: size,
               curve: Curves.easeIn,
               padding: const EdgeInsets.all(20.0),
-              decoration: BoxDecoration(
-                color: color,
-                borderRadius: BorderRadius.circular(raidus),
-              ),
+              decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(raidus)),
               duration: Duration(seconds: 1),
               child: FlutterLogo(),
             ),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _animate,
-        child: Icon(Icons.refresh),
-      ),
+      floatingActionButton: FloatingActionButton(onPressed: _animate, child: Icon(Icons.refresh)),
     );
   }
 }
