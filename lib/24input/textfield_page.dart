@@ -55,7 +55,7 @@ import 'package:flutter/material.dart';
 // VoidCallback? onEditingComplete 这个参数有个默认值，一般用 submitted 足够了
 // ValueChanged<String>? onSubmitted 一般用于把焦点给下一个输入框
 
-// bool onTapAlwaysCalled = false 设成 false 时双击三击多击只会调一次，但单击每次都会调用
+// bool onTapAlwaysCalled = false 设成 false 时，双击三击多击只会调 onTap 一次，单击每次都会调用 onTap
 // GestureTapCallback? onTap
 // TapRegionCallback? onTapOutside 获取焦点后，点击外面。必须得先有焦点
 // TapRegionUpCallback? onTapUpOutside 获取焦点后，点击外面并抬起了。必须得先有焦点

@@ -34,6 +34,12 @@ class _ExpAnimPageState extends State<ExpAnimPage> with SingleTickerProviderStat
     anim = tween.animate(curvedAnimation);
   }
 
+  @override
+  void dispose() {
+    animation.dispose();
+    super.dispose();
+  }
+
   // 定义 时间/曲线
   late AnimationController animation = AnimationController(duration: Duration(seconds: 2), vsync: this);
   // 定义 区间
