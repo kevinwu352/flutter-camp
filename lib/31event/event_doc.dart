@@ -33,9 +33,9 @@
 //   因为一般兄弟间不会重叠，如果有重叠，那也是列表后面的兄弟盖住列表前面的兄弟，所以从后往前遍历。如果从前往后，出来的效果是点到某控件，结果它背后的控件响应了
 
 // HitTestBehavior
-//   deferToChild 组件是否通过命中测试取决于子组件是否通过，它的 hitTestSelf 返回 false
-//   opaque       组件必然会通过命中测试，因为它的 hitTestSelf 始终返回 true
-//   translucent  组件必然会通过命中测试，因为它的 hitTest 用 || 测试了它，它的 hitTestSelf 返回 false，它的 hitTest 返回子的
+//   deferToChild 此组件是否通过命中测试取决于子组件是否通过，它的 hitTestSelf 返回 false
+//   opaque       此组件必然会通过命中测试，因为它的 hitTestSelf 始终返回 true
+//   translucent  此组件必然会通过命中测试，因为它的 hitTest 用 || 测试了它，它的 hitTestSelf 返回 false，它的 hitTest 返回子的
 //
 // bool hitTest(BoxHitTestResult result, {required Offset position}) {
 //   bool hitTarget = false;

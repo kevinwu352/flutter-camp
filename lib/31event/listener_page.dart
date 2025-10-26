@@ -18,11 +18,11 @@ class ListenerPage extends StatelessWidget {
 
       // 例子一，连续嵌套两个 Listener，内外都能收到点击事件
       // body: Listener(
-      //   child: Listener(
-      //     child: Container(color: Colors.red, width: 200, height: 200),
-      //     onPointerDown: (event) => print("in"),
-      //   ),
       //   onPointerDown: (event) => print("out"),
+      //   child: Listener(
+      //     onPointerDown: (event) => print("in"),
+      //     child: Container(color: Colors.red, width: 200, height: 200),
+      //   ),
       // ),
 
       // 例子二，在多个 Listener 中间添加不同的 Pointer，看看事件如何传递
@@ -32,15 +32,20 @@ class ListenerPage extends StatelessWidget {
       // body: Listener(
       //   onPointerDown: (event) => print('most'),
       //   child: Listener(
+      //     // 当下面是 IgnorePointer 时，本来整条链都不会响应事件
+      //     // 如果这里 behavior 设置成 opaque，输出 top most
+      //     // 如果这里 behavior 设置成 translucent，输出 top
+      //     behavior: HitTestBehavior.translucent,
       //     onPointerDown: (event) => print('top'),
       //     child: Listener(
       //       onPointerDown: (event) => print("out"),
       //       // IgnorePointer 忽略事件，它的子肯定收不到事件，它外面包的三层也收不到事件
       //       //   外面三层收不到是因为，Listener 用的是 deferToChild，完全由子决定
       //       // AbsorbPointer 接收事件，它的子肯定收不到事件，它外面包的三层能收到事件
-      //       child: AbsorbPointer(
+      //       child: IgnorePointer(
       //         child: Listener(
-      //           child: Container(color: Colors.red, width: 200.0, height: 200.0),
+      //           // child: Container(color: Colors.red, width: 200.0, height: 200.0),
+      //           child: IconButton(onPressed: () => print('in'), icon: Icon(Icons.run_circle)),
       //           onPointerDown: (event) => print("in"),
       //         ),
       //       ),
