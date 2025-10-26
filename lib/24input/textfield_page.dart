@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 // 关闭键盘
 // FocusManager.instance.primaryFocus?.unfocus();
+// onTapOutside / onTapUpOutside 都能用于隐藏键盘，但网上的例子用的是前者
 
 // Autocomplete 用户输入时下边展示推荐条目的控件
 

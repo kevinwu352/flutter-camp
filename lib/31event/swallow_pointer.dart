@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/material.dart';
 
 class SwallowPointer extends SingleChildRenderObjectWidget {
   const SwallowPointer({super.key, this.swallowing = true, super.child});

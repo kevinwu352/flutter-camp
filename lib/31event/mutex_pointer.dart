@@ -1,15 +1,33 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/material.dart';
+
+// MutexPointer(pattern: 'RenderEditable', child: ...)
 
 class MutexPointer extends SingleChildRenderObjectWidget {
-  const MutexPointer({super.key, super.child});
+  const MutexPointer({super.key, this.pattern, super.child});
+
+  final String? pattern;
 
   @override
-  RenderMutexPointer createRenderObject(BuildContext context) => RenderMutexPointer();
+  RenderMutexPointer createRenderObject(BuildContext context) => RenderMutexPointer(pattern: pattern);
+
+  @override
+  void updateRenderObject(BuildContext context, RenderMutexPointer renderObject) {
+    renderObject.pattern = pattern;
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty<String>('pattern', pattern));
+  }
 }
 
 class RenderMutexPointer extends RenderProxyBox {
-  RenderMutexPointer({RenderBox? child}) : super(child);
+  RenderMutexPointer({RenderBox? child, this.pattern}) : super(child);
+
+  String? pattern;
 
   @override
   bool hitTest(BoxHitTestResult result, {required Offset position}) {
@@ -22,6 +40,27 @@ class RenderMutexPointer extends RenderProxyBox {
     // 父元素监听按下事件，里面关闭键盘
     //   第一种情况，我点击输入框，子元素要响应事件，吞掉此事件，不会关闭键盘
     //   第二种情况，我点击空白处，子元素不响应事件，传递此事件，就会关闭键盘
-    return !super.hitTest(result, position: position);
+    final children = super.hitTest(result, position: position);
+    if (children) {
+      final pat = pattern;
+      if (pat != null && pat.isNotEmpty) {
+        final contains = result.path.any((element) => element.target.toString().contains(pat));
+        if (kDebugMode) debugPrint('mutex-pointer-3, children:true, contains:$contains');
+        return !contains;
+      } else {
+        if (kDebugMode) debugPrint('mutex-pointer-2, children:true');
+        return !false;
+      }
+    } else {
+      if (kDebugMode) debugPrint('mutex-pointer-1, children:false');
+      return true;
+    }
+    // return !super.hitTest(result, position: position);
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty<String>('pattern', pattern));
   }
 }
