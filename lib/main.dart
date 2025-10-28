@@ -1,13 +1,23 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import '/l10n/localizations.dart';
 import '/core/core.dart';
 import 'test_page.dart';
+
+import '/hash/md5.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // 开启布局边框
   // debugPaintSizeEnabled = true;
   await pathinit();
+
+  final input = 'jkhaisdfihisfd';
+  var bytes = utf8.encode(input);
+  var digest = md5.convert(bytes);
+  final str = digest.toString();
+  print(str);
 
   runApp(const MyApp());
 }
