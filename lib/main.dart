@@ -1,11 +1,7 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import '/l10n/localizations.dart';
 import '/core/core.dart';
 import 'test_page.dart';
-
-import '/hash/md5.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,10 +10,12 @@ void main() async {
   await pathinit();
 
   final input = 'jkhaisdfihisfd';
-  var bytes = utf8.encode(input);
-  var digest = md5.convert(bytes);
-  final str = digest.toString();
-  print(str);
+  // var bytes = utf8.encode(input);
+  // var digest = md5.convert(bytes);
+  // final str = digest.toString();
+  print(''.md5);
+  print(input.md5);
+  print(''.md5);
 
   runApp(const MyApp());
 }
