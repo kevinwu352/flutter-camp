@@ -2,30 +2,30 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 /// A bitmask that limits an integer to 32 bits.
-const _mask32 = 0xFFFFFFFF;
+const mask32 = 0xFFFFFFFF;
 
 /// The number of bits in a byte.
-const _bitsPerByte = 8;
+const bitsPerByte = 8;
 
 /// The number of bytes in a 32-bit word.
-const _bytesPerWord = 4;
+const bytesPerWord = 4;
 
 /// Adds [x] and [y] with 32-bit overflow semantics.
-int _add32(int x, int y) => (x + y) & _mask32;
+int add32(int x, int y) => (x + y) & mask32;
 
 /// Bitwise rotates [val] to the left by [shift], obeying 32-bit overflow
 /// semantics.
-int _rotl32(int val, int shift) {
+int rotl32(int val, int shift) {
   var modShift = shift & 31;
-  return ((val << modShift) & _mask32) | ((val & _mask32) >> (32 - modShift));
+  return ((val << modShift) & mask32) | ((val & mask32) >> (32 - modShift));
 }
 
 /// A message digest as computed by a `Hash` or `HMAC` function.
-class _Digest {
+class Digest {
   /// The message digest as an array of bytes.
   final List<int> bytes;
 
-  _Digest(this.bytes);
+  Digest(this.bytes);
 
   /// Returns whether this is equal to another digest.
   ///
@@ -33,7 +33,7 @@ class _Digest {
   /// information via timing.
   @override
   bool operator ==(Object other) {
-    if (other is _Digest) {
+    if (other is Digest) {
       final a = bytes;
       final b = other.bytes;
       final n = a.length;
@@ -69,19 +69,19 @@ String _hexEncode(List<int> bytes) {
 }
 
 /// A sink used to get a digest value out of `Hash.startChunkedConversion`.
-class _DigestSink implements Sink<_Digest> {
+class DigestSink implements Sink<Digest> {
   /// The value added to the sink.
   ///
   /// A value must have been added using [add] before reading the `value`.
-  _Digest get value => _value!;
+  Digest get value => _value!;
 
-  _Digest? _value;
+  Digest? _value;
 
   /// Adds [value] to the sink.
   ///
   /// Unlike most sinks, this may only be called once.
   @override
-  void add(_Digest value) {
+  void add(Digest value) {
     if (_value != null) throw StateError('add may only be called once.');
     _value = value;
   }
@@ -97,18 +97,18 @@ class _DigestSink implements Sink<_Digest> {
 /// Every hash is a converter that takes a list of ints and returns a single
 /// digest. When used in chunked mode, it will only ever add one digest to the
 /// inner [Sink].
-abstract class _Hash extends Converter<List<int>, _Digest> {
+abstract class Hash extends Converter<List<int>, Digest> {
   /// The internal block size of the hash in bytes.
   ///
   /// This is exposed for use by the `Hmac` class,
   /// which needs to know the block size for the [Hash] it uses.
   int get blockSize;
 
-  const _Hash();
+  const Hash();
 
   @override
-  _Digest convert(List<int> input) {
-    var innerSink = _DigestSink();
+  Digest convert(List<int> input) {
+    var innerSink = DigestSink();
     var outerSink = startChunkedConversion(innerSink);
     outerSink.add(input);
     outerSink.close();
@@ -116,15 +116,15 @@ abstract class _Hash extends Converter<List<int>, _Digest> {
   }
 
   @override
-  ByteConversionSink startChunkedConversion(Sink<_Digest> sink);
+  ByteConversionSink startChunkedConversion(Sink<Digest> sink);
 }
 
 /// A base class for [Sink] implementations for hash algorithms.
 ///
 /// Subclasses should override [updateHash] and [digest].
-abstract class _HashSink implements Sink<List<int>> {
+abstract class HashSink implements Sink<List<int>> {
   /// The inner sink that this should forward to.
-  final Sink<_Digest> _sink;
+  final Sink<Digest> _sink;
 
   /// Whether the hash function operates on big-endian words.
   final Endian _endian;
@@ -178,11 +178,11 @@ abstract class _HashSink implements Sink<List<int>> {
   ///
   /// [chunkSizeInWords] represents the size of the input chunks processed by
   /// the algorithm, in terms of 32-bit words.
-  _HashSink(this._sink, int chunkSizeInWords, {Endian endian = Endian.big, int signatureBytes = 8})
+  HashSink(this._sink, int chunkSizeInWords, {Endian endian = Endian.big, int signatureBytes = 8})
     : _endian = endian,
       assert(signatureBytes >= 8),
       _signatureBytes = signatureBytes,
-      _chunk = Uint8List(chunkSizeInWords * _bytesPerWord),
+      _chunk = Uint8List(chunkSizeInWords * bytesPerWord),
       _chunkNextIndex = 0,
       _chunk32 = Uint32List(chunkSizeInWords);
 
@@ -222,7 +222,7 @@ abstract class _HashSink implements Sink<List<int>> {
       // Now do endian conversion to words.
       var j = 0;
       do {
-        _chunk32[j] = _byteDataView!.getUint32(j * _bytesPerWord, _endian);
+        _chunk32[j] = _byteDataView!.getUint32(j * bytesPerWord, _endian);
         j++;
       } while (j < _chunk32.length);
 
@@ -238,7 +238,7 @@ abstract class _HashSink implements Sink<List<int>> {
 
     _finalizeAndProcessData();
     assert(_chunkNextIndex == 0);
-    _sink.add(_Digest(_byteDigest()));
+    _sink.add(Digest(_byteDigest()));
     _sink.close();
   }
 
@@ -250,7 +250,7 @@ abstract class _HashSink implements Sink<List<int>> {
     final byteDigest = Uint8List(cachedDigest.lengthInBytes);
     final byteData = byteDigest.buffer.asByteData();
     for (var i = 0; i < cachedDigest.length; i++) {
-      byteData.setUint32(i * _bytesPerWord, cachedDigest[i]);
+      byteData.setUint32(i * bytesPerWord, cachedDigest[i]);
     }
     return byteDigest;
   }
@@ -275,7 +275,7 @@ abstract class _HashSink implements Sink<List<int>> {
 
     // The rest is already 0-bytes.
 
-    var lengthInBits = _lengthInBytes * _bitsPerByte;
+    var lengthInBits = _lengthInBytes * bitsPerByte;
 
     // Add the full length of the input data as a 64-bit value at the end of the
     // hash. Note: we're only writing out 64 bits, so skip ahead 8 if the
@@ -287,13 +287,13 @@ abstract class _HashSink implements Sink<List<int>> {
     // here, but that method isn't supported on dart2js so we implement it
     // manually instead.
     var highBits = lengthInBits ~/ 0x100000000; // >> 32
-    var lowBits = lengthInBits & _mask32;
+    var lowBits = lengthInBits & mask32;
     if (_endian == Endian.big) {
       byteData.setUint32(offset, highBits, _endian);
-      byteData.setUint32(offset + _bytesPerWord, lowBits, _endian);
+      byteData.setUint32(offset + bytesPerWord, lowBits, _endian);
     } else {
       byteData.setUint32(offset, lowBits, _endian);
-      byteData.setUint32(offset + _bytesPerWord, highBits, _endian);
+      byteData.setUint32(offset + bytesPerWord, highBits, _endian);
     }
 
     _addData(padding);
@@ -332,11 +332,11 @@ const _shiftAmounts = [
 ///
 /// This is separate so that it can extend [HashSink] without leaking additional
 /// public members.
-class _MD5Sink extends _HashSink {
+class _MD5Sink extends HashSink {
   @override
   final digest = Uint32List(4);
 
-  _MD5Sink(Sink<_Digest> sink) : super(sink, 16, endian: Endian.little) {
+  _MD5Sink(Sink<Digest> sink) : super(sink, 16, endian: Endian.little) {
     digest[0] = 0x67452301;
     digest[1] = 0xefcdab89;
     digest[2] = 0x98badcfe;
@@ -365,13 +365,13 @@ class _MD5Sink extends _HashSink {
       d = c;
       c = b;
 
-      b = _add32(b, _rotl32(_add32(_add32(a, e), _add32(_noise[i], chunk[f])), _shiftAmounts[i]));
+      b = add32(b, rotl32(add32(add32(a, e), add32(_noise[i], chunk[f])), _shiftAmounts[i]));
 
       a = temp;
     }
 
     for (var i = 0; i < 16; i++) {
-      e = (b & c) | ((~b & _mask32) & d);
+      e = (b & c) | ((~b & mask32) & d);
       // Doing `i % 16` would get rid of a "GenericCheckBound" call in the VM,
       // but is slightly slower anyway.
       // See also https://github.com/dart-lang/sdk/issues/60753.
@@ -380,7 +380,7 @@ class _MD5Sink extends _HashSink {
     }
 
     for (var i = 16; i < 32; i++) {
-      e = (d & b) | ((~d & _mask32) & c);
+      e = (d & b) | ((~d & mask32) & c);
       f = ((5 * i) + 1) % 16;
       round(i);
     }
@@ -392,15 +392,15 @@ class _MD5Sink extends _HashSink {
     }
 
     for (var i = 48; i < 64; i++) {
-      e = c ^ (b | (~d & _mask32));
+      e = c ^ (b | (~d & mask32));
       f = (7 * i) % 16;
       round(i);
     }
 
-    digest[0] = _add32(a, digest[0]);
-    digest[1] = _add32(b, digest[1]);
-    digest[2] = _add32(c, digest[2]);
-    digest[3] = _add32(d, digest[3]);
+    digest[0] = add32(a, digest[0]);
+    digest[1] = add32(b, digest[1]);
+    digest[2] = add32(c, digest[2]);
+    digest[3] = add32(d, digest[3]);
   }
 }
 
@@ -412,14 +412,14 @@ class _MD5Sink extends _HashSink {
 /// for backwards compatibility.
 ///
 /// Use the [md5] object to perform MD5 hashing.
-class _MD5 extends _Hash {
+class _MD5 extends Hash {
   @override
-  final int blockSize = 16 * _bytesPerWord;
+  final int blockSize = 16 * bytesPerWord;
 
   const _MD5._();
 
   @override
-  ByteConversionSink startChunkedConversion(Sink<_Digest> sink) => ByteConversionSink.from(_MD5Sink(sink));
+  ByteConversionSink startChunkedConversion(Sink<Digest> sink) => ByteConversionSink.from(_MD5Sink(sink));
 }
 
 /// An implementation of the [MD5][rfc] hash function.
@@ -428,7 +428,7 @@ class _MD5 extends _Hash {
 ///
 /// **Warning**: MD5 has known collisions and should only be used when required
 /// for backwards compatibility.
-const _Hash _md5 = _MD5._();
+const Hash _md5 = _MD5._();
 
 extension StringMd5Ext on String {
   String get md5 => _md5.convert(utf8.encode(this)).toString();
