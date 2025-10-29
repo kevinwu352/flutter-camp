@@ -1,0 +1,37 @@
+
+查看当前 channel
+flutter channel
+切换 channel
+flutter channel beta
+
+
+查看当前版本
+flutter --version
+更新到最新版本
+flutter upgrade
+
+感觉它的功能是：
+  如果有 lock 文件，从 lock 文件恢复上次同步的版本，不会更新
+  如果无 lock 文件，生成 lock 文件，并用最新的版本
+flutter pub get
+
+更新到最新的兼容版本 latest compatible version，比 get 要强一点点
+  不会修改 pubspec.yaml 文件里的版本号
+  就算有 lock 文件，也会更新版本
+  写死的版本 1.1.1 更新不了，^1.1.1 则可以
+  只会更新小版本 0.1.0 => 0.9.9，不会变到 1.0.0
+flutter pub upgrade
+更新到最新的可能版本 latest possible version
+  会修改 pubspec.yaml 文件里的版本号
+  就算有 lock 文件，也会更新版本
+flutter pub upgrade --major-versions
+查看过期的包
+flutter pub outdated
+
+
+----------
+
+先写 http: 0.13.5，点击同步，lock 里的版本是 0.13.5
+  1) 改成 http: ^0.13.5，点击同步，lock 里的版本 不变
+  2) 改成 http: ^0.13.5，删除 lock 文件，点击同步，lock 里的版本 会变
+  3) 改成 http: 0.13.6，点击同步，lock 里的版本 会变
