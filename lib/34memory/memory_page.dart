@@ -45,6 +45,20 @@ import 'package:flutter/material.dart';
 // 内存清理之后会出现零散的内存碎片，进行清除和整理的时，会使引擎所有线程都停止处理 - 'stop the world'。整理就是把有用的内存往前移，消除碎片，对象的地址会变，所以还要更新地址
 // 从标记到清除和整理，GC 是一个耗时的执行过程，引擎自身做了一些优化，开发者无法操纵这些过程
 
+// ================================================================================
+
+// 要不要 dispose？
+//
+// FocusNode / FocusScopeNode 文档明确说必须
+// ChangeNotifier / ScrollController 文档没明确说
+// TextEditingController / AnimationController 文档明确说要
+// StreamController / StreamSubscription
+// PageController / TabController
+//
+// static field / global variable / unmanaged cache
+//
+// Any `addListener` function must have `removeListener`
+
 class Child {
   Child() {
     print('init child');
@@ -96,7 +110,7 @@ class _MemoryPageState extends State<MemoryPage> with SingleTickerProviderStateM
     // });
 
     // 这也会导致页面和状态无法释放，它会抛出异常
-    // 难道有文档说，在异步操作完成后，要检查 mounted
+    // 难怪有文档说，在异步操作完成后，要检查 mounted
     // This widget has been unmounted, so the State no longer has a context (and should be considered defunct).
     // Consider canceling any active work during "dispose" or using the "mounted" getter to determine if the State is still active.
     // Timer(Duration(seconds: 20), () {

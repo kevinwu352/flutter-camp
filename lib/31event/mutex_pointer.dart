@@ -40,21 +40,51 @@ class RenderMutexPointer extends RenderProxyBox {
     // 父元素监听按下事件，里面关闭键盘
     //   第一种情况，我点击输入框，子元素要响应事件，吞掉此事件，不会关闭键盘
     //   第二种情况，我点击空白处，子元素不响应事件，传递此事件，就会关闭键盘
-    final children = super.hitTest(result, position: position);
-    if (children) {
-      final pat = pattern;
-      if (pat != null && pat.isNotEmpty) {
-        final contains = result.path.any((element) => element.target.toString().contains(pat));
-        if (kDebugMode) debugPrint('mutex-pointer-3, children:true, contains:$contains');
-        return !contains;
+
+    // if (_size!.contains(position)) {
+    //   if (hitTestChildren(result, position: position) || hitTestSelf(position)) {
+    //     result.add(BoxHitTestEntry(this, position));
+    //     return true;
+    //   }
+    // }
+    // return false;
+
+    if (size.contains(position)) {
+      final children = super.hitTest(result, position: position);
+      if (children) {
+        final pat = pattern;
+        if (pat != null && pat.isNotEmpty) {
+          final contains = result.path.any((element) => element.target.toString().contains(pat));
+          if (kDebugMode) debugPrint('mutex-pointer-3, children:true, contains:$contains');
+          return !contains;
+        } else {
+          if (kDebugMode) debugPrint('mutex-pointer-2, children:true, father no');
+          return false;
+        }
       } else {
-        if (kDebugMode) debugPrint('mutex-pointer-2, children:true');
-        return !false;
+        if (kDebugMode) debugPrint('mutex-pointer-1, children:false, father yes');
+        return true;
       }
     } else {
-      if (kDebugMode) debugPrint('mutex-pointer-1, children:false');
-      return true;
+      if (kDebugMode) debugPrint('mutex-pointer-0, not click on me');
+      return false;
     }
+
+    // final children = super.hitTest(result, position: position);
+    // if (children) {
+    //   final pat = pattern;
+    //   if (pat != null && pat.isNotEmpty) {
+    //     final contains = result.path.any((element) => element.target.toString().contains(pat));
+    //     if (kDebugMode) debugPrint('mutex-pointer-3, children:true, contains:$contains');
+    //     return !contains;
+    //   } else {
+    //     if (kDebugMode) debugPrint('mutex-pointer-2, children:true, father no');
+    //     return false; // 当时怎么加了个 !，忘了，用的时候再来看看
+    //   }
+    // } else {
+    //   if (kDebugMode) debugPrint('mutex-pointer-1, children:false, father yes');
+    //   return true;
+    // }
     // return !super.hitTest(result, position: position);
   }
 
