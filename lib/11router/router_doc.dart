@@ -10,6 +10,7 @@
 // pop
 // push / pushNamed
 // go / goNamed                             会替换掉原来的整个栈，有 push 动画
+//   实测：当 go 的目标是根时，只是 pop 回去，动画也是 pop，那个路由并不是新建的；其它情况都比较正常
 // replace / replaceNamed                   替换栈顶这个页面，无动画
 // pushReplacement / pushReplacementNamed   替换栈顶这个页面，有 push 动画
 // 调用时，路径末尾的 / 不影响
