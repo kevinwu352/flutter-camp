@@ -106,7 +106,27 @@
 // Draggable<Color>，定义被移动的数据类型，正常情况显示，拖动中原始位置显示，拖动中鼠标下面显示。LongPressDraggable
 // 接收方是 DragTarget，也有 child 定义自己的外观
 
-// NotificationListener<T> 接收节点树下层传递过来的通知，子节点/孙子/重孙，只接收 T 类型，能决定是否让通知继续沿树向上
+// NotificationListener<T> 接收节点树下层传递过来的通知，子节点/孙子/重孙，只接收 T 类型，返回 true 能吞掉此消息
+// 前一个 Route 收不到通知，只能当前页面接收子树发出来的通知
+// 用 NotificationListener 包装 MaterialApp 时，能收到其它页面发出的通知，证明路由切换发生在它内部
+// 包装 home: 不行，证明 home: 下是一个路由，跳转到其它路由以后，就是不同的树了
+// 通知类
+// class MyNotification extends Notification {
+//   final String message;
+//   MyNotification(this.message);
+// }
+// 发送通知
+// context.dispatchNotification(MyNotification('hehe'));
+// MyNotification('haha').dispatch(context);
+// 接收通知
+// NotificationListener(
+//   onNotification: (notification) {
+//     return false; // 通知继续往上传递
+//   },
+//   child: Builder( // 本来 context 是 build 方法的，它上面没有 listener，这个 Builder.context 上面有 listener
+//     builder: (context) { },
+//   ),
+// )
 
 // 把子元素切成圆角
 // ClipRRect(

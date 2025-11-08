@@ -9,14 +9,6 @@ void main() async {
   // debugPaintSizeEnabled = true;
   await pathinit();
 
-  final input = 'jkhaisdfihisfd';
-  // var bytes = utf8.encode(input);
-  // var digest = md5.convert(bytes);
-  // final str = digest.toString();
-  print(''.md5);
-  print(input.md5);
-  print(''.md5);
-
   runApp(const MyApp());
 }
 
