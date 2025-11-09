@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 
 // IconData? icon
 // double? size 默认 24
+// 图标里面实体部分的颜色
 // Color? color 默认颜色根据主题变化，深色主题下是白的
 
 // List<Shadow>? shadows

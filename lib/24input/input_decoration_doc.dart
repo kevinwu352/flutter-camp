@@ -65,12 +65,13 @@
 
 // --------------------------------------------------------------------------------
 
+// 整体的约束，而不仅仅是内部框框的
+// 修改输入框高度后，光标的位置不对，要把 padding 也改改
+// BoxConstraints? constraints
+//
 // 内部框区域的 padding，同时 helper/counter 也会受到水平 padding 的影响
 // 和 isDense/isCollapsed 这些也有某种关联
 // EdgeInsetsGeometry? contentPadding
-
-// 整体的约束，而不仅仅是内部框框的
-// BoxConstraints? constraints
 
 // bool? isCollapsed 内部那个真正的框框变得很矮，用 InputDecoration.collapsed 来创建
 // bool? isDense 稍微减少了一点高度，文档说，是不是位于 dense form 内

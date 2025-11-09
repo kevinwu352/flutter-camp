@@ -3,6 +3,25 @@ import 'package:flutter/material.dart';
 
 // 旧版是 DropdownButton
 
+// 不会像 TextField 一样撑满宽度，用以下任意一种
+// 貌似用这种时，弹出的下拉窗口会超出屏幕
+// width: double.infinity,
+// 所以，当时选择了用这种方式
+// expandedInsets: EdgeInsets.zero,
+//
+// 默认高度 56
+// 修改高度用以下方法
+// inputDecorationTheme: InputDecorationThemeData(
+//   修改高度后，左边的文字会垂直居中，但右边的图标不会居中，要把 isCollapsed 设为 true
+//   constraints: BoxConstraints(maxHeight: 40),
+//
+//   就算 EdgeInsets.symmetric(horizontal: 20)，右边的图标也不会往内部移动
+//   contentPadding: EdgeInsets.zero,
+//
+//   padding 和 collapsed 都能让左侧文字垂直居中，但此能让右侧图标垂直居中
+//   isCollapsed: true,
+// )
+
 // ================================================================================
 
 // T? initialSelection 初始值

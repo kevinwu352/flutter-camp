@@ -2,6 +2,13 @@ import 'package:flutter/material.dart';
 
 // 样式继承，优先顺序是 自身属性 > IconButtonTheme > IconTheme
 
+// 修改尺寸要设置 ButtonStyle 的三个属性
+//   tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+//   minimumSize: Size.zero,
+//   padding: EdgeInsets.all(3),
+// 假设图标 14，padding 3，本来按钮应该是 14+3*2=20。如果设置 maximumSize=18，会压缩图标，18-3*2=12
+// 设置 fixedSize=24 也是压缩图标 24-10*2=4，不会拉大
+
 // ================================================================================
 
 // Widget icon 默认是方形的，如果不是，可能会渲染不正确
@@ -40,7 +47,9 @@ import 'package:flutter/material.dart';
 // double? splashRadius
 
 // 定义控件在水平或垂直方向的空间
-// IconButton 本来是 standard，点击后看到圆形的背景区域，如果是 compact，则变成胶囊了，说明按钮变矮了
+// IconButton 本来是 standard，点击后看到圆形的背景区域
+// 如果是 compact，则变成胶囊了，说明按钮变矮了，尺寸也从 48*48 变成 40*40 了
+// ButtonStyle 里有这属性，且优先级比这里高
 // 很多控件都有这属性，不同的控件效果不同。ThemeData 能全局修改此属性
 // VisualDensity? visualDensity
 

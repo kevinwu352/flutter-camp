@@ -14,6 +14,10 @@ import 'package:flutter/material.dart';
 // TextField(readOnly: true, controller: controller)
 // Currently, the system context menu can only be shown for an active text input connection
 
+// 修改高度用 InputDecoration? decoration
+//   constraints: BoxConstraints(maxHeight: 36),
+//   contentPadding: EdgeInsets.symmetric(horizontal: 8),
+
 // ================================================================================
 
 // 回车时自动跳到下一个输入框
