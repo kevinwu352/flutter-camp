@@ -42,7 +42,8 @@ class _ProgressPageState extends State<ProgressPage> with TickerProviderStateMix
       appBar: AppBar(title: Text('Progress')),
       body: Column(
         children: [
-          // 默认尺寸 36*36
+          // 默认尺寸 36*36，默认 padding 是 .zero，给 constraints 传个长方形出来的是一个椭圆的圈圈
+          // .adaptive() 默认是 iOS=20*20 Android=36*36，iOS 上修改 padding/constraints 没啥作用？
           CircularProgressIndicator(
             value: controller.value,
 
@@ -59,6 +60,7 @@ class _ProgressPageState extends State<ProgressPage> with TickerProviderStateMix
             // trackGap: 4, // 文档说，进度和背景之间的一段空白，没实验出来
           ),
 
+          // 默认高度 4，通过 minHeight 来修改，内容是严格贴边的，内部没有空间
           LinearProgressIndicator(
             value: 0.3,
             minHeight: 20,

@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 
 // RangeSlider
 
+// 默认高度 48，修改上下14左右24的 padding
+// 实测，设为 .zero 后，严格贴边的
+
 // ================================================================================
 
 // required double value

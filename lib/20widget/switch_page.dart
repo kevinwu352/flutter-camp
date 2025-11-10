@@ -1,5 +1,13 @@
 import 'package:flutter/material.dart';
 
+// 默认尺寸 60*48
+//   .shrinkWrap 后 60*40
+//   左右有 4 的 padding，删除后宽度变成 52
+// 实测，左右是没空间了，但上下其实还有空间
+// 如果用 SizedBox/Container 强行设置尺寸，尺寸的确变小了，但内部画的框框不会变小，也不会被切
+
+// ================================================================================
+
 // required bool value
 // required ValueChanged<bool>? onChanged
 

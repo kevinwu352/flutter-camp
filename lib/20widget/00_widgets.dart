@@ -64,11 +64,14 @@
 // DataTable/DataColumn/DataRow 像 excel 的表格，用到再研究吧
 
 // Checkbox 方形的复选框，可以有三种状态。还能开启错误模式 isError，整体朱红色。要改变边框颜色 side: BorderSide(color: Colors.red)
+// 默认尺寸 48*48，设置 VisualDensity 后尺寸分别是 48 44 40，设置 .shrinkWrap 后 40 36 32，中间的框没变只是 padding 变了
+// 另一个方法是 Transform.scale，不过这是整体缩放
 //   activeColor 选中时候的颜色，非勾勾区域
 //   checkColor 勾勾的颜色，当然只有选中时候才有勾勾
 //   fillColor 填充复选框内部空白的颜色，如果设置，选中时候的 activeColor 就看不到了
 //   overlayColor 点击时波纹的颜色
 // Radio 圆形的单选框，要与 RadioGroup 配合起来用
+// 默认尺寸 48*48，修改方法和 Checkbox 一模一样
 //   toggleable 再次点击则取消选中
 //   activeColor 选中时候 圆边和中心点的颜色，肯定不包括空白，要不然就成一坨了
 //   fillColor 圆边和中心点的颜色，不包括空白区域

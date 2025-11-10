@@ -10,6 +10,14 @@ import 'package:flutter/material.dart';
 // 尺寸尽量小
 // 收到 松100-200 时，传给子的是 0-200 0-inf
 
+// Chip 的尺寸，用如下四个手段
+// 最终宽度是 文字宽度+2，2应该是左右边框
+// 最终高度是 30，不管 fontSize 如何变，估计这就是极限了
+// labelPadding: EdgeInsets.zero,
+// padding: EdgeInsets.zero,
+// visualDensity: VisualDensity.compact,
+// materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+
 // ================================================================================
 
 // Axis direction = Axis.horizontal
