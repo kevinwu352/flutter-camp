@@ -74,7 +74,18 @@
 // final obj = Obj(name: 'kim', age: 18);
 // list.remove(obj);
 // print(list); // 还是 2 个
-// 结论：从数组中删除是用 == 来判断的，默认的 == 是 identical 逻辑。如果两个对象 == 为假，但 hashCode 相等，也删不了
+// 结论：从数组中删除是用 == 来判断的，默认的 == 是 identical 逻辑
+// 如果两个对象 == 为假，但 hashCode 相等，也删不了
+//
+// 1)把构造器定义为 const 的，且 list = [const Obj( 和 obj = const Obj(，会删成功，数组里面和 obj 都必须是 const
+// 2)添加自定义的 == 实现，判断 name/age 的值，也能删成功
+//
+// bool/int/double/string 值相同时，是 identical 的，字面量和变量都是，不用加 const
+// list/map/set 文字量并非 identical，除非用 const 创建
+//   identical([1], [1])              false
+//   identical(const [1], const [1])  true
+//   list a1 = [1,2,3];
+//   list a2 = [1,2,3]; 用文字量创建的两个变量也不是 identical
 
 // ================================================================================
 

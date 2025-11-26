@@ -15,9 +15,6 @@ import 'package:flutter/material.dart';
 // TextStyle? subtitleTextStyle
 // TextStyle? leadingAndTrailingTextStyle
 
-// bool? isThreeLine 是不是 2 行由 sustitle 决定，是不是 3 行由 subtitle 的行数决定
-// bool? dense 高度会变矮一点，title 和 subtitle 间距是 0，只是 label 高度变了
-
 // bool enabled = true 会影响样式，元素会变灰，以下俩回调也失效
 // GestureTapCallback? onTap
 // GestureLongPressCallback? onLongPress
@@ -29,10 +26,14 @@ import 'package:flutter/material.dart';
 // Color? iconColor 前后图标的颜色
 // Color? textColor 前中后文字的颜色
 
+// bool? isThreeLine 是不是 2 行由 sustitle 决定，是不是 3 行由 subtitle 的行数决定
+// bool? dense 高度会变矮一点，但 title 和 subtitle 间距本来就是 0，改变的只是 label 高度
+// VisualDensity? visualDensity
+
 // double? minTileHeight 最小高度，默认 一行56 二行72 三行88，如果 dense，则 48 64 76
 // EdgeInsetsGeometry? contentPadding 额外的 padding，而不是修改默认的。默认左右 20 上下 0
-// double? horizontalTitleGap 文字左右距前后，默认 16。前边距离严格等于此值，但后边为何最小 8？
 // double? minVerticalPadding 中间文字上边和下边的最小边距
+// double? horizontalTitleGap 文字左右距前后，默认 16。前边距离严格等于此值，但后边为何最小 8？
 // double? minLeadingWidth 不是前边的宽度，而是给前边留多宽，前边不一定会把宽度用光
 
 // 前后两块如何与中间对齐
@@ -59,8 +60,6 @@ import 'package:flutter/material.dart';
 // Color? splashColor
 
 // MaterialStatesController? statesController
-
-// VisualDensity? visualDensity
 
 // bool? enableFeedback
 
@@ -122,7 +121,17 @@ class ListTilePage extends StatelessWidget {
             // style: ListTileStyle.drawer,
           ),
 
-          ListTile(title: Text('ListTile with red background'), tileColor: Colors.red),
+          ListTile(
+            title: Text('ListTile with red background'),
+            tileColor: Colors.red,
+            // 自定义行高时
+            // 先把最小值设成一个比较小的值，再把垂直 padding 设成 0，这样的行高刚好紧贴内容
+            // dense 会让 label 高度变矮，contentPadding 的值垂直方向本来就是 0
+            minTileHeight: 0,
+            minVerticalPadding: 0,
+            // dense: true,
+            // contentPadding: EdgeInsets.zero,
+          ),
         ],
       ),
     );
