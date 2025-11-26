@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
-import '/core/core.dart';
-import 'hive_ext.dart';
+// import 'package:hive/hive.dart';
+// import '/core/core.dart';
+// import 'hive_ext.dart';
 
 // ================================================================================
 
@@ -132,15 +132,14 @@ class StorePage extends StatelessWidget {
         onPressed: () async {
           print("begin");
 
-          Hive.init(pathmk('hive'));
-          final box = await Hive.openBox<Object>('defaults');
-
-          await box.setValue('asdf', 'god');
-          final val1 = box.getValue('asdf');
-          print(val1);
-          await box.setValue('asdf', null);
-          final val2 = box.getValue('asdf');
-          print(val2);
+          // Hive.init(pathmk('hive'));
+          // final box = await Hive.openBox<Object>('defaults');
+          // await box.setValue('asdf', 'god');
+          // final val1 = box.getValue('asdf');
+          // print(val1);
+          // await box.setValue('asdf', null);
+          // final val2 = box.getValue('asdf');
+          // print(val2);
 
           // ========================================
 

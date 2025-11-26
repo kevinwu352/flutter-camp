@@ -7,7 +7,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // 开启布局边框
   // debugPaintSizeEnabled = true;
-  await pathinit();
+  await pathInit();
 
   runApp(const MyApp());
 }
