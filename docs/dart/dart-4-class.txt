@@ -19,7 +19,8 @@ class Point {
   子类重写 method 时，不能把参数类型收紧，可以扩大到 Object
 
 
-  // 匿名构造器只能有一个
+  // 匿名构造器只能有一个，如果我们只实现了命名的，那么默认的匿名就不存在了
+  // 如果只有 Ok._(this.value) 下划线构造器，也会隐藏匿名的，下划线构造器在本文件内能被调用
   // 当成员有初始值时，可以在函数体内赋值
   // 构造器可以包含前面提到的：命名参数{} 和 可选位置参数[]
   Point(double a, double b) { ... }
@@ -231,3 +232,8 @@ base      内部可继承实现，外部只能继承。子类要标记为 base /
 interface 内部可继承实现，外部只能实现。最佳用法是当纯接口 abstract interface
 final     内部可继承实现，外部不行。final 包含了 base 的效果，所以子类要标记为 base / final / sealed
 sealed    内部可继承实现，外部不能继承实现混入，不能创建实例
+
+sealed class 报错说抽象类无法创建，为什么？
+实验证明：sealed 类，不管有没有匿名构造器，不管是不是 const，都无法创建新实例
+  final aaa = Result();
+  final bbb = Result<int>(); // 都报错
