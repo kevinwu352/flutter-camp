@@ -29,8 +29,8 @@ final GlobalKey<_ColorBoxState> navigatorKey = GlobalKey<_ColorBoxState>();
 //   navigatorKey: navigatorKey,
 // )
 
-class KeyPage extends StatelessWidget {
-  const KeyPage({super.key});
+class Key1Page extends StatelessWidget {
+  const Key1Page({super.key});
   @override
   Widget build(BuildContext context) {
     return Column(
