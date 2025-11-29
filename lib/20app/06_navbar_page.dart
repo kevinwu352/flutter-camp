@@ -8,19 +8,20 @@ import 'package:flutter/material.dart';
 
 // Duration? animationDuration 选中时的动画时间
 
-// double? height
+// double? height 默认 80，加上安全区就是 114
 
-// Color? backgroundColor
+// Color? backgroundColor 整个条的背景色
 
 // double? elevation
 // Color? shadowColor
 // Color? surfaceTintColor
 
-// Color? indicatorColor 选中时那个泡泡的颜色，还能是透明
+// Color? indicatorColor 选中时那个泡泡的颜色，还能是透明。ColorScheme.secondary 也能设置这颜色
 // ShapeBorder? indicatorShape
 
 // NavigationDestinationLabelBehavior? labelBehavior 决定何时显示图标下面的文字
-// MaterialStateProperty<TextStyle?>? labelTextStyle
+// MaterialStateProperty<TextStyle?>? labelTextStyle 选中后的状态叫 WidgetState.selected
+//   WidgetStateTextStyle.resolveWith((states) => TextStyle(color: states.contains(WidgetState.selected) ? Colors.amber : Colors.black))
 // EdgeInsetsGeometry? labelPadding
 
 // MaterialStateProperty<Color?>? overlayColor 点击时候的波纹颜色

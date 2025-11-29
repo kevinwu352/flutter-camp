@@ -40,19 +40,19 @@ class _Key2PageState extends State<Key2Page> {
           //
           // 有 key，红色11绿色22，Widget 和 State 都交换了
           // 新的 Widget 通过 key 准确地找到了旧 Widget 对应的 Element
-          // children: order
-          //     ? [_ColorView(key: ValueKey(11), color: Colors.red), _ColorView(key: ValueKey(22), color: Colors.green)]
-          //     : [_ColorView(key: ValueKey(22), color: Colors.green), _ColorView(key: ValueKey(11), color: Colors.red)],
+          children: order
+              ? [_ColorView(key: ValueKey(11), color: Colors.red), _ColorView(key: ValueKey(22), color: Colors.green)]
+              : [_ColorView(key: ValueKey(22), color: Colors.green), _ColorView(key: ValueKey(11), color: Colors.red)],
           //
           // 本来有三个颜色框，数字不同 4/1/2，点击按钮以后，红色消失
           // 绿色找 Element 时，找到红色遗留下来的，它的数字是 4
           // 蓝色找 Element 时，找到绿色遗留下来的，它的数字是 1
           // 最终蓝色原来的 Element 被丢掉了
-          children: [
-            if (!order) _ColorView(color: Colors.red),
-            _ColorView(color: Colors.green),
-            _ColorView(color: Colors.blue),
-          ],
+          // children: [
+          //   if (!order) _ColorView(color: Colors.red),
+          //   _ColorView(color: Colors.green),
+          //   _ColorView(color: Colors.blue),
+          // ],
         ),
       ),
     );

@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 
 final RouteObserver<ModalRoute<void>> kRouteOb = RouteObserver<ModalRoute<void>>();
 // void main() {
-//   runApp(MaterialApp(home: HomePage(), navigatorObservers: [kRouteOb]));
+//   runApp(MaterialApp(home: ObserverPage(), navigatorObservers: [kRouteOb]));
 // }
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class ObserverPage extends StatefulWidget {
+  const ObserverPage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<ObserverPage> createState() => _ObserverPageState();
 }
 
-class _HomePageState extends State<HomePage> with RouteAware {
+class _ObserverPageState extends State<ObserverPage> with RouteAware {
   // 如果把订阅放到 initState 里会崩
   @override
   void didChangeDependencies() {
