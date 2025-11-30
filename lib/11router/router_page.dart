@@ -10,9 +10,7 @@ void dumpnav({required GlobalKey<NavigatorState> key, required String prefix}) {
   final context = key.currentContext;
   if (context is BuildContext) {
     print("$prefix:");
-    GoRouter.of(
-      context,
-    ).routerDelegate.currentConfiguration.matches.forEach(print);
+    GoRouter.of(context).routerDelegate.currentConfiguration.matches.forEach(print);
   }
 }
 
@@ -41,10 +39,7 @@ class LoginScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text("login"),
-          ElevatedButton(
-            onPressed: () => context.push("/settings"),
-            child: Text("push settings"),
-          ),
+          ElevatedButton(onPressed: () => context.push("/settings"), child: Text("push settings")),
           ElevatedButton(
             onPressed: () {
               context.go("/favorite");
@@ -70,10 +65,7 @@ class SettingsScreen extends StatelessWidget {
         onPressed: () => dumpall(),
         child: Icon(Icons.run_circle_outlined),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [Text("settings")],
-      ),
+      body: Column(mainAxisAlignment: MainAxisAlignment.center, children: [Text("settings")]),
     );
   }
 }
@@ -82,7 +74,6 @@ class SettingsScreen extends StatelessWidget {
 
 class MainScreen extends StatelessWidget {
   const MainScreen({super.key, required this.shell});
-
   final StatefulNavigationShell shell;
 
   @override
@@ -91,6 +82,10 @@ class MainScreen extends StatelessWidget {
       bottomNavigationBar: NavigationBar(
         onDestinationSelected: (value) => shell.goBranch(value),
         selectedIndex: shell.currentIndex,
+        indicatorColor: Colors.amber,
+        labelTextStyle: WidgetStateTextStyle.resolveWith(
+          (states) => TextStyle(color: states.contains(WidgetState.selected) ? Colors.amber : Colors.black),
+        ),
         destinations: [
           NavigationDestination(icon: Icon(Icons.home), label: 'Home'),
           NavigationDestination(icon: Icon(Icons.favorite), label: 'Favorite'),
@@ -117,24 +112,15 @@ class HomeScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text("home"),
-          ElevatedButton(
-            onPressed: () => context.push("/detail"),
-            child: Text("push detail"),
-          ),
-          ElevatedButton(
-            onPressed: () => context.push("/home/sub"),
-            child: Text("push sub"),
-          ),
+          ElevatedButton(onPressed: () => context.push("/detail"), child: Text("push detail")),
+          ElevatedButton(onPressed: () => context.push("/home/sub"), child: Text("push sub")),
           ElevatedButton(
             onPressed: () {
               context.push("/settings");
             },
             child: Text("push settings"),
           ),
-          ElevatedButton(
-            onPressed: () => context.go("/profile"),
-            child: Text("go profile"),
-          ),
+          ElevatedButton(onPressed: () => context.go("/profile"), child: Text("go profile")),
         ],
       ),
     );
@@ -152,10 +138,7 @@ class SubScreen extends StatelessWidget {
         onPressed: () => dumpall(),
         child: Icon(Icons.run_circle_outlined),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [Text("sub")],
-      ),
+      body: Column(mainAxisAlignment: MainAxisAlignment.center, children: [Text("sub")]),
     );
   }
 }
@@ -171,10 +154,7 @@ class DetailScreen extends StatelessWidget {
         onPressed: () => dumpall(),
         child: Icon(Icons.run_circle_outlined),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [Text("detail")],
-      ),
+      body: Column(mainAxisAlignment: MainAxisAlignment.center, children: [Text("detail")]),
     );
   }
 }
@@ -190,10 +170,7 @@ class FavoriteScreen extends StatelessWidget {
         onPressed: () => dumpall(),
         child: Icon(Icons.run_circle_outlined),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [Text("favorite")],
-      ),
+      body: Column(mainAxisAlignment: MainAxisAlignment.center, children: [Text("favorite")]),
     );
   }
 }
@@ -213,24 +190,15 @@ class ProfileScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text("profile"),
-          ElevatedButton(
-            onPressed: () => context.push("/detail"),
-            child: Text("push detail"),
-          ),
-          ElevatedButton(
-            onPressed: () => context.push("/home/sub"),
-            child: Text("push sub"),
-          ),
+          ElevatedButton(onPressed: () => context.push("/detail"), child: Text("push detail")),
+          ElevatedButton(onPressed: () => context.push("/home/sub"), child: Text("push sub")),
           ElevatedButton(
             onPressed: () {
               context.push("/settings");
             },
             child: Text("push settings"),
           ),
-          ElevatedButton(
-            onPressed: () => context.go("/login"),
-            child: Text("logout"),
-          ),
+          ElevatedButton(onPressed: () => context.go("/login"), child: Text("logout")),
         ],
       ),
     );
@@ -239,6 +207,7 @@ class ProfileScreen extends StatelessWidget {
 
 // ================================================================================
 
+// GoRouter router(bool showOnboard, bool showLogin) => GoRouter(
 final GoRouter router = GoRouter(
   initialLocation: "/login",
   navigatorKey: root_key,
@@ -254,33 +223,18 @@ final GoRouter router = GoRouter(
             GoRoute(
               path: "/home",
               builder: (context, state) => HomeScreen(),
-              routes: [
-                GoRoute(path: "sub", builder: (context, state) => SubScreen()),
-              ],
+              routes: [GoRoute(path: "sub", builder: (context, state) => SubScreen())],
             ),
-            GoRoute(
-              path: "/detail",
-              builder: (context, state) => DetailScreen(),
-            ),
+            GoRoute(path: "/detail", builder: (context, state) => DetailScreen()),
           ],
         ),
         StatefulShellBranch(
           navigatorKey: favorite_key,
-          routes: [
-            GoRoute(
-              path: "/favorite",
-              builder: (context, state) => FavoriteScreen(),
-            ),
-          ],
+          routes: [GoRoute(path: "/favorite", builder: (context, state) => FavoriteScreen())],
         ),
         StatefulShellBranch(
           navigatorKey: profile_key,
-          routes: [
-            GoRoute(
-              path: "/profile",
-              builder: (context, state) => ProfileScreen(),
-            ),
-          ],
+          routes: [GoRoute(path: "/profile", builder: (context, state) => ProfileScreen())],
         ),
       ],
     ),
