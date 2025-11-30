@@ -26,7 +26,7 @@ import 'package:flutter/material.dart';
 // ================================================================================
 
 // 文档说 NestedScrollView 最常见的用法是，顶部用 SliverAppBar 和 TabBar，下面用 TabBarView
-// 但它的动机初衷那段没看明白，他到底为了解决一个什么样的问题呢？
+// 但它的动机初衷那段没看明白，他到底为了解决一个什么样的问题呢？看 nestscroll1/nestscroll2
 
 // 使用 NestedScrollView 时，向上滑，把 header 完全推出屏幕，然后用手稍微向下拉一点点，这样 header 就完全弹回来了
 // 这样会盖住前面几行，NestedScrollView 文档的第一个例子就是解决方案，头部用 SliverOverlapAbsorber 包起来，子增加一个 SliverOverlapInjector
@@ -118,7 +118,7 @@ class SliverPage extends StatelessWidget {
   //     child: NestedScrollView(
   //       headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
   //         // 返回一个 Sliver 数组给外部可滚动组件
-  //         return <Widget>[
+  //         return [
   //           SliverAppBar(
   //             title: const Text('嵌套ListView'),
   //             pinned: true, // 固定在顶部
