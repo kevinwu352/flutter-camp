@@ -17,6 +17,9 @@ import 'package:flutter/material.dart';
 // 主要用来 ListView 嵌套用的，里面的紧凑压缩自己。另外，Column 包含 ListView 会崩，此参数可解决崩溃
 // 以前版本中，如果为真，会加载所有的子，用来计算总高度，这会导致懒加载失效，从而导致性能问题
 // 不过刚才实验了一下，并没有全部加载，itemCount 设很大，itemBuilder 里面打印日志
+//
+// 实测：Column 包含 ListView/GridView 时，shrinkWrap 避免无限约束异常，让 ListView/GridView 紧贴自己内容
+// 但 ListView/GridView 能滑动，加上 physics: NeverScrollableScrollPhysics()
 
 // addAutomaticKeepAlives
 // addRepaintBoundaries

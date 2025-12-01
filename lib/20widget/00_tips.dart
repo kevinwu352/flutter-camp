@@ -30,6 +30,15 @@
 //     import 'package:flutter/services.dart' show rootBundle;
 //     final str = await rootBundle.loadString("assets/jsons/user.json");
 
+// 针对不同平台调用不同函数
+// import 'dart:io' show Platform;
+// if (Platform.isIOS) {
+//   doSomethingforIOS();
+// }
+// if (Platform.isAndroid) {
+//   doSomethingforAndroid();
+// }
+
 // ================================================================================
 
 // typedef IntList = List<int>;

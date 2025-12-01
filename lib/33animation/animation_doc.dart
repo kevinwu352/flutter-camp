@@ -49,7 +49,7 @@
 // Duration? duration
 // Duration? reverseDuration
 //
-// double lowerBound = 0.0
+// double lowerBound = 0.0 上下限能超过 1，但下限不能大于上限
 // double upperBound = 1.0 传 2 能把 Tween 放大两倍
 //
 // AnimationBehavior animationBehavior = AnimationBehavior.normal 是 Accessibility 相关的
