@@ -112,7 +112,11 @@ class TextStylePage extends StatelessWidget {
 
           // 里面得到的样式只有字号
           DefaultTextStyle(
-            style: TextStyle(fontSize: 31),
+            style: TextStyle(
+              //
+              // color: Colors.purple,
+              fontSize: 32,
+            ),
             child: _StyleWidget(name: '2bbb'),
           ),
 

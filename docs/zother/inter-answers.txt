@@ -101,6 +101,21 @@ WidgetsBindingObserver 是一个用于监听应用生命周期和系统事件的
 在应用的生命周期内监控性能指标，例如启动时间、帧率等
 WidgetsBinding.instance.addObserver(this);
 
+BindingBase 这些是 mixin
+  GestureBinding
+  PaintingBinding
+  RendererBinding
+  SchedulerBinding
+  SemanticsBinding
+  ServicesBinding
+  WidgetsBinding
+WidgetsFlutterBinding 这是类，实现了上面 7 个 mixin
+RenderingFlutterBinding 这是类，实现了上面前 6 个 mixin。看文档的意思：少用这东西，用上面的
+TestDefaultBinaryMessengerBinding 这是 mixin
+TestWidgetsFlutterBinding 这是抽象类
+
+
+
 
 第一次构建 Flutter 应用程序时，通常会比平时花费更长的时间，因为 Flutter 会构建特定于设备的 IPA 或 APK 文件。在这个过程中，使用 Xcode 和 Gradle 来构建文件，这通常需要很长时间。
 
@@ -181,9 +196,24 @@ cast 和 as 区别
 根据渲染树生成 Layer 树，然后上屏显示，Layer 树中的节点都继承自 Layer 类。
 
 Widget 和 Element 是一一对应的，但并不和 RenderObject 一一对应。比如 StatelessWidget 和 StatefulWidget 都没有对应的 RenderObject
+Widget 是用来描述对应的 Element 的描述或配置 <= 这是真的，仔细理解
 
+  Element的主要工作都处于渲染流水线的构建（build）阶段 <= 这俩句是我看的最新的文章得出的
+  RenderObject负责具体布局，绘制这些事情。也就是渲染流水线的布局（layout）和 绘制（paint）阶段。
 
+有状态和无状态控件 没有生成RenderObject的方法。所以它俩只是个中间层
 有状态和无状态控件是用于组合控件用的，那些基础控件相当于积木块，而这些积木块有些不是有状态和无状态的子类，而是继承于 RenderObject，所以，可以用 RenderObject 来自定义控件
+
+Widget 有 createElement 方法
+  StatelessWidget
+  StatefulWidget
+  RenderObjectWidget
+
+RenderObjectWidget有三个比较重要的子类：它有 createRenderObject 方法
+  LeafRenderObjectWidget这个Widget配置的节点处于树的最底层，它是没有孩子的。对应LeafRenderObjectElement。
+  SingleChildRenderObjectWidget，只含有一个孩子。对应SingleChildRenderObjectElement。
+  MultiChildRenderObjectWidget，有多个孩子。对应MultiChildRenderObjectElement。
+如果我有一个XXXRenderObjectWidget，它的createElement()通常会返回一个XXXRenderObjectElement
 
 didChangeDependencies
 子 widget 很少会重写此方法，因为在依赖改变后 Flutter 框架也都会调用build()方法重新构建组件树。

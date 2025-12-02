@@ -39,6 +39,18 @@
 //   doSomethingforAndroid();
 // }
 
+// 在页面渲染完成后，获取某个控件的尺寸
+// 注册的回调只会执行一次，以后用 setState 刷新页面并产生新帧，不会再次调用这个回调
+// WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+//   getMetrics();
+// });
+// getMetrics() {
+//   RenderBox logoBox = textKey.currentContext!.findRenderObject() as RenderBox;
+//   size = logoBox.size;
+//   offset = logoBox.localToGlobal(Offset.zero);
+//   setState(() {});
+// }
+
 // ================================================================================
 
 // typedef IntList = List<int>;
