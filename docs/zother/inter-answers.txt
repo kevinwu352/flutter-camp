@@ -1,93 +1,82 @@
-Flutter 渲染机制
-Flutter 异步机制
 
-Flutter 编译产物
-Flutter 编译流程
-Flutter 启动过程
-Flutter Plugin注册记载过程
-Flutter 图片加载过程
+runApp 分三步
+  ensureInitialized 确保 binding 完成
+  attach => scheduleAttachRootWidget(app) 把传进去的控件 attach 到 root，包装到一个 View 内
+  warmUp => scheduleWarmUpFrame() 尽快渲染一帧，而不是等系统 vsync 信号请求 engine，engine 再请求上层框架
 
-离屏渲染？
-flutter的图片加载过程，自定义ImageCache作用？
-单个控件本身就特别复杂，渲染耗时本身就超过16ms，应该怎么去优化？如果附带了动画的话，有什么需要注意点和优化的部分？
+渲染流水线：由 vsync 驱动，而 vsync 信号由系统提供
+  vsync
+  Animate 动画会随 vsync 信号而动，所以第一步先让动画 tick 到下一帧
+  Build 调用 build()
+  Layout 调用 RenderObject.performLayout()
+  Paint 调用 RenderObject.paint()
+  最终生成一个 Scene 送往底层，由 GPU 绘制到屏幕上
+触发流水线的 vsync 信号是来自引擎，渲染完成以后的场景也是送入引擎来显示
 
-渲染到上屏过程？
-skia和openGL，什么时候会选择skia，什么时候会选择直接用openGL，openGL的顶点和片段着色器？
-光栅化、光栅缓存？
-GIF、Lottie或者其他特效拉满之类的动画的优化方案？
+Flutter 上层框架用 dart 实现，下层引擎用 C++ 实现
+Binding 连接 底层引擎 和 上层框架
+BindingBase 抽象类，但它有构造器
+  GestureBinding 处理 hittest 手势竞技场
+  SchedulerBinding onBeginFrame/onDrawFrame/post-frame-callback/non-rendering-task
+  ServicesBinding 处理 platform message
+  PaintingBinding 图片缓存回收逻辑
+  SemanticsBinding
+  RendererBinding 连接 render trees 和 引擎
+  WidgetsBinding 连接 widgets layer 和 引擎
+上面 7 个是 mixin，它们给 ui.PlatformDispatcher.instance 添加事件回调，处理操作系统产生的事件
+WidgetsFlutterBinding 类，继承 BindingBase，并混入上面 7 个 mixin
+  ensureInitialized 创建类的实例，那些 XXXBinding.instance 拿到的都是这个实例
+  BindingBase 构造器会调用 initInstances，这些 mixin 也有这方法，它们被调用的顺序是混入时的顺序
+RenderingFlutterBinding 是类，实现了上面前 6 个 mixin。看文档的意思：少用这个，用 WidgetsFlutterBinding
+TestDefaultBinaryMessengerBinding 是 mixin
+TestWidgetsFlutterBinding 是抽象类
 
+WidgetsBindingObserver 是接口，相当于 UITableViewDelegate，有 App 生命周期/屏幕变化/设备旋转/主题变化 函数
+WidgetsBinding.instance.addObserver(this)
 
 
 ========================================
 
-StatefulWidget 生命周期，createState() 以后：
-  mounted == true 
-  initState() 
-  didChangeDependencies() 
-  build()  
-  didUpdateWidget() 
-  setState() 
-  deactivate() 
-  dispose() 
-  mounted == false
+解释 一切皆为小部件 的概念：
+一切都是小部件，包括应用程序本身、布局和样式，通过 组合/嵌套 创建复杂的用户界面
+
+三颗树：
+  Widget 树是 Element 树的配置，用来生成 Element 树，由程序员管理
+  Element 树对应流水线的 build 阶段，用于连接 控件树和渲染树，将 Widget 变化同步到 Render
+  Render 树对应流水线的 layout 和 paint 阶段
+
+State 持有对应的 Widget 和 Element(context)
+
+Widget
+  StatelessWidget
+  StatefulWidget
+  RenderObjectWidget
+Widget 有 createElement 方法，Widget/Element 树的节点一一对应
+RenderObjectWidget 有 createRenderObject 方法，所以 StatelessWidget/StatefulWidget 在渲染树上不会有对应的
+
+RenderObjectWidget 有三个比较重要的子类：
+  LeafRenderObjectWidget
+  SingleChildRenderObjectWidget
+  MultiChildRenderObjectWidget
+如果有一个 XXXRenderObjectWidget，它的 createElement() 通常会返回一个 XXXRenderObjectElement
+
+Layout 过程主要是确定每个组件的布局信息（大小和位置），布局过程如下：
+  父节点向子节点传递约束，限制子节点的最大和最小宽高
+  子节点根据约束确定自己的大小
+  父节点根据自身布局规则，确定每个子节点在父节点空间中的位置，用偏移 offset 表示
+  递归整个过程，确定每个节点的大小和位置
+可以看到，组件的大小由自身决定，组件的位置由父组件决定
 
 
-hot reload 保持当前状态。用户输入、动画等
-hot restart 清除当前状态并重启应用。修改全局状态、依赖项、初始化方法或其他需要重置的逻辑时
-热重载允许开发人员立即看到对代码的更改，而不会丢失应用的状态。它通过立即反映代码更改来加速开发过程。
-热重启则重新构建整个应用，包括其状态。在对应用程序的依赖项或初始化代码进行更改时很有用。
+========================================
 
 
-InheritedWidget 用于在 Widget 树中向下传递数据。它允许子 Widget 访问其祖先 Widget 中提供的数据。避免逐层传递。数据变化时依赖此数据的视图会重建。
+位置可选参数在方括号 [] 内定义，可以按定义顺序传递给函数
+命名可选参数在花括号 {} 内定义，可以通过指定名称的方式以任意顺序传递给函数
 
 
-Keys 在构建和更新 Widget 时起到重要作用，尤其是在涉及到状态管理、列表和动画时。
-GlobalKey / ValueKey / ObjectKey / UniqueKey
-使用 GlobalKey 时，可以在 Widget 重建时保留其状态。
-GlobalKey 允许你从不同的地方访问同一个 Widget 的状态。
-使用 GlobalKey，你可以在 Widget 的外部调用其状态方法，比如在表单中验证字段。
-
-
-Tween 用于定义动画起始值和结束值，它帮助你在动画的不同状态之间插值（interpolate）
-AnimationController 是一个特殊的 Animation，它可以控制动画的播放。它负责管理动画的生命周期，包括启动、停止、反转等
-
-
-SizedBox：
-  当你只需要指定一个小部件的大小时，使用 SizedBox 更为简洁和高效。
-  适合用于创建空白空间或简单的尺寸控制。
-Container：
-  当你需要更复杂的样式或布局时（边距/背景色/边框），使用 Container 更为合适。
-  适合用于构建自定义的 UI 元素。
-Container 小部件的 color 和 decoration 属性不能同时使用
-
-
-Visibility：控制小部件的显示和隐藏，同时保留其在布局中的空间。
-Opacity：控制小部件的透明度，适用于渐变效果和视觉提示。
-Offstage：将小部件完全移出可见区域，不占用任何布局空间，适合优化性能和条件渲染。
-
-
-TextEditingController 读取、修改和清空文本内容
-
-
-ListView 的 reverse 属性可以让列表的滚动方向反转，即从底部开始向顶部滚动，比如聊天应用
-
-
-InheritedWidget：适合简单的状态管理，使用较为底层，需要手动实现状态和通知。
-  可能导致不必要的重建
-Provider：基于 InheritedWidget，提供更高级和易用的 API，适合中大型应用中的状态管理。
-  自动处理依赖关系的重建
-
-
-单实例（Singleton）：
-  在整个应用生命周期内保持唯一，适用于全局状态和资源共享。
-  个人理解：能用类名找到此实例
-作用域实例（Scoped Instance）：
-  仅在特定上下文或生命周期内有效，适用于局部状态和资源管理。
-  个人理解：要用 context 才能找到，如 Provider.of<Counter>(context)
-
-
-vsync 是一个用于动画的概念，垂直同步。它通常涉及到动画的帧更新，以确保动画的流畅性和性能。vsync 的主要作用是在动画中控制帧的绘制频率，以减少不必要的绘制和提高性能。
-vsync 基本上是跟踪屏幕的，因此当屏幕未显示时 Flutter 不会渲染动画
+能在动态类型（dynamic）上调用扩展的方法吗？
+不能，在 Dart 中，扩展方法是静态解析的，因此不能在动态类型上调用
 
 
 mixins 允许你将共享的功能分散到多个类中，而不是在单一类的层次结构中
@@ -95,126 +84,76 @@ mixins 允许你将共享的功能分散到多个类中，而不是在单一类�
 类只能直接继承自一个父类，但可以使用多个 mixins
 
 
-WidgetsBindingObserver 是一个用于监听应用生命周期和系统事件的接口。通过实现这个接口，你可以在特定事件发生时接收通知，从而执行相应的操作
-当你需要在应用的生命周期状态变化时（如从后台返回到前台）执行某些操作时
-监听屏幕尺寸变化、设备旋转、系统主题变化等事件
-在应用的生命周期内监控性能指标，例如启动时间、帧率等
-WidgetsBinding.instance.addObserver(this);
+Dart 在单线程中是以消息循环机制来运行的，包含两个任务队列 微任务队列 事件队列，main() 执行完后，消息循环机制便启动了
 
-BindingBase 这些是 mixin
-  GestureBinding
-  PaintingBinding
-  RendererBinding
-  SchedulerBinding
-  SemanticsBinding
-  ServicesBinding
-  WidgetsBinding
-WidgetsFlutterBinding 这是类，实现了上面 7 个 mixin
-RenderingFlutterBinding 这是类，实现了上面前 6 个 mixin。看文档的意思：少用这东西，用上面的
-TestDefaultBinaryMessengerBinding 这是 mixin
-TestWidgetsFlutterBinding 这是抽象类
+既然 Dart 不存在多线程，那如何进行多任务并行？
+Dart 当中提供了一个类似于新线程，但是不共享内存的独立运行的 worker - isolate
+一个 Isolate 对象其实就是一个 isolate 执行环境的引用，一般来说我们都是通过当前的 isolate 去控制其它 isolate 完成彼此之间的交互
+可以使用 Isolate.spawn 返回一个新的实例，两个 isolate 之间使用 SendPort 相互发送消息，而 isolate 中也存在了一个与之对应的 ReceivePort 接受消息用来处理
+但是我们需要注意的是，ReceivePort 和 SendPort 在每个 isolate 都有一对，只有同一个 isolate 中的 ReceivePort 才能接受到当前类的 SendPort 发送的消息并且处理
+
+可以通过 Platform Channel 让 Dart 代码和原生代码通信：
+  BasicMessageChannel：用于传递字符串和半结构化的信息
+  MethodChannel：用于传递方法调用（method invocation）
+  EventChanne l：用于数据流（event streams）的通信
 
 
-
-
-第一次构建 Flutter 应用程序时，通常会比平时花费更长的时间，因为 Flutter 会构建特定于设备的 IPA 或 APK 文件。在这个过程中，使用 Xcode 和 Gradle 来构建文件，这通常需要很长时间。
-
-
-Future 有三种状态：未完成（Pending）、已完成（Completed）和失败（Error）
-Stream 也有三种状态：未开始（Not started）、已完成（Done）和失败（Error）
-
-
-runApp() 函数来启动 Flutter 应用，启动应用并将指定的 Widget 作为应用的根 Widget
-
+Future 有三种状态：
+  未完成（Pending）
+  已完成（Completed）
+  失败（Error）
+Stream 有三种状态：
+  未开始（Not started）
+  已完成（Done）
+  失败（Error）
 
 
 ========================================
 
-Dart 在单线程中是以消息循环机制来运行的，包含两个任务队列 微任务队列 事件队列。 入口函数 main() 执行完后，消息循环机制便启动了。首先会按照先进先出的顺序逐个执行微任务队列中的任务，当所有微任务队列执行完后便开始执行事件队列中的任务，事件任务执行完毕后再去执行微任务，如此循环往复，生生不息。
 
-既然 Dart 不存在多线程，那如何进行多任务并行？
-Dart 当中提供了一个类似于新线程，但是不共享内存的独立运行的 worker - isolate。
-一个Isolate对象其实就是一个isolate执行环境的引用，一般来说我们都是通过当前的isolate去控制其他的isolate完成彼此之间的交互，而当我们想要创建一个新的Isolate可以使用Isolate.spawn方法获取返回的一个新的isolate对象，两个isolate之间使用SendPort相互发送消息，而isolate中也存在了一个与之对应的ReceivePort接受消息用来处理，但是我们需要注意的是，ReceivePort和SendPort在每个isolate都有一对，只有同一个isolate中的ReceivePort才能接受到当前类的SendPort发送的消息并且处理。
+hot reload 保持当前状态。用户输入、动画等
+hot restart 清除当前状态并重启应用。修改全局状态、依赖项、初始化方法或其他需要重置的逻辑时
+热重载允许开发人员立即看到对代码的更改，而不会丢失应用的状态。它通过立即反映代码更改来加速开发过程
+热重启则重新构建整个应用，包括其状态。在对应用程序的依赖项或初始化代码进行更改时很有用
+
+Debug 下是 JIT 模式
+Release 下是 AOT 模式
 
 
-Debug 下是 JIT 模式，Release 下是 AOT 模式
+InheritedWidget 用于在 Widget 树中向下传递数据
+它允许子 Widget 访问其祖先 Widget 中提供的数据，避免逐层传递，数据变化时依赖此数据的视图会重建
+InheritedWidget：适合简单的状态管理，使用较为底层，需要手动实现状态和通知
+  可能导致不必要的重建
+Provider：基于 InheritedWidget，提供更高级和易用的 API，适合中大型应用中的状态管理
+  自动处理依赖关系的重建
 
-可以通过 Platform Channel 让 Dart 代码和原生代码通信的：
-  BasicMessageChannel：用于传递字符串和半结构化的信息。
-  MethodChannel：用于传递方法调用（method invocation）。
-  EventChanne l：用于数据流（event streams）的通信。
 
-解释 一切皆为小部件 的概念
-一切都是小部件，包括应用程序本身。小部件是应用程序的构建块，它们可以组合和嵌套以创建复杂的用户界面。甚至应用程序的布局和样式都是通过组合和配置小部件实现的
+Keys 在构建和更新 Widget 时起到重要作用，尤其是在涉及到状态管理、列表和动画时
+GlobalKey / ValueKey / ObjectKey / UniqueKey
+使用 GlobalKey 时
+  可以在 Widget 重建时保留其状态
+  从不同的地方访问同一个 Widget 的状态
+  在 Widget 的外部调用其状态方法，比如在表单中验证字段
 
-无状态小部件是不可变的，没有任何内部状态。它们仅基于提供给它们的输入来渲染 UI。
-有状态小部件有可变状态，可以随时间变化。它们可以被多次更新和重建，反映其内部状态的变化。
 
-Flutter 渲染是如何工作的，即小部件树是什么？
-使用三树架构进行渲染：小部件树、元素树、渲染树。小部件树表示 UI，元素树连接小部件树和渲染树，而渲染树处理布局和绘制。
-Element 依赖 Widget，Render 依赖 Element
-Element 持有 Widget 和 Render，连接他俩，将 Widget 的变化同步到 Render
+SizedBox：
+  当你只需要指定一个小部件的大小时，使用 SizedBox 更为简洁和高效
+  适合用于创建空白空间或简单的尺寸控制
+Container：
+  当你需要更复杂的样式或布局时（边距/背景色/边框），使用 Container 更为合适
+  适合用于构建自定义的 UI 元素
+Container 小部件的 color 和 decoration 属性不能同时使用
 
-如何在 Flutter 中使用自定义绘制？
-通过扩展 CustomPainter 类并实现 paint() 和 shouldRepaint() 方法来进行自定义绘制。
 
-位置可选参数和命名可选参数有什么区别？
-位置可选参数在方括号 [] 内定义，可以按定义顺序传递给函数。命名可选参数在花括号 {} 内定义，可以通过指定名称的方式以任意顺序传递给函数。
+Offstage：将小部件完全移出可见区域，不占用任何布局空间，适合优化性能和条件渲染
+Visibility：控制小部件的显示和隐藏，同时保留其在布局中的空间（要设置三个属性）
+Opacity：控制小部件的透明度，适用于渐变效果和视觉提示
 
-我们能在动态类型上调用扩展的方法吗？
-不能，在 Dart 中，扩展方法是静态解析的，因此不能在动态类型上调用。
 
-在 Dart 中，通过添加 factory 关键字来创建工厂构造函数。这些构造函数可以返回子类型甚至 null。
+自定义绘制，扩展 CustomPainter 类并实现 paint() 和 shouldRepaint() 方法
 
-通过使用 FocusScope.of(context).unfocus() 以编程方式关闭键盘。
 
-向 Column 中添加 ListView 的方式有哪些？
-  显式设置 ListView 的高度
+向 Column 中添加 ListView 的方式：
+  显式设置 ListView 高度
   在 ListView 上使用 shrinkWrap 属性
-  用 Expanded 封装 ListView 来
-
-自定义 View 流程
-  已有控件继承/组合
-  自定义 widget，用 paint / canvas 绘制
-
-dart 是值传递，强引用
-
-
-
-cast 和 as 区别
-  都抛出异常
-  as 用于单实例；cast 用于集合
-  cast 在那个实例被访问的时候再进行类型检查
-
-
-
-
-// ==========
-
-根据 Widget 树生成一个 Element 树，Element 树中的节点都继承自 Element 类。
-根据 Element 树生成 Render 树（渲染树），渲染树中的节点都继承自 RenderObject 类。
-根据渲染树生成 Layer 树，然后上屏显示，Layer 树中的节点都继承自 Layer 类。
-
-Widget 和 Element 是一一对应的，但并不和 RenderObject 一一对应。比如 StatelessWidget 和 StatefulWidget 都没有对应的 RenderObject
-Widget 是用来描述对应的 Element 的描述或配置 <= 这是真的，仔细理解
-
-  Element的主要工作都处于渲染流水线的构建（build）阶段 <= 这俩句是我看的最新的文章得出的
-  RenderObject负责具体布局，绘制这些事情。也就是渲染流水线的布局（layout）和 绘制（paint）阶段。
-
-有状态和无状态控件 没有生成RenderObject的方法。所以它俩只是个中间层
-有状态和无状态控件是用于组合控件用的，那些基础控件相当于积木块，而这些积木块有些不是有状态和无状态的子类，而是继承于 RenderObject，所以，可以用 RenderObject 来自定义控件
-
-Widget 有 createElement 方法
-  StatelessWidget
-  StatefulWidget
-  RenderObjectWidget
-
-RenderObjectWidget有三个比较重要的子类：它有 createRenderObject 方法
-  LeafRenderObjectWidget这个Widget配置的节点处于树的最底层，它是没有孩子的。对应LeafRenderObjectElement。
-  SingleChildRenderObjectWidget，只含有一个孩子。对应SingleChildRenderObjectElement。
-  MultiChildRenderObjectWidget，有多个孩子。对应MultiChildRenderObjectElement。
-如果我有一个XXXRenderObjectWidget，它的createElement()通常会返回一个XXXRenderObjectElement
-
-didChangeDependencies
-子 widget 很少会重写此方法，因为在依赖改变后 Flutter 框架也都会调用build()方法重新构建组件树。
-如果需要在依赖改变后执行一些昂贵的操作，比如网络请求，最好的方式是在 didChangeDependencies 中，避免在 build 中做昂贵操作
+  用 Expanded 封装 ListView

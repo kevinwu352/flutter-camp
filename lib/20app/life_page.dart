@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 // Widget.canUpdate
 // 一个旧的 Element 能否被新的 Widget 更新
+// element 节点在更新前都会调用其对应 Widget 的 canUpdate 方法
 // 理解：
 // Widget 树和 Element 树节点是一一对应的
 // 某时刻，一个位置上有一个 Widget，与它对应的有一个 Element
@@ -22,8 +23,8 @@ import 'package:flutter/material.dart';
 //     先从树上移除，又重新加入到树，会重新创建状态
 //   State createState()
 
-// State.mounted
-// state 当前是否在树中？
+// State.mounted 表示 _element != null
+// Element.mounted 表示 _widget != null
 
 // ================================================================================
 
