@@ -34,11 +34,27 @@ TestWidgetsFlutterBinding 是抽象类
 WidgetsBindingObserver 是接口，相当于 UITableViewDelegate，有 App 生命周期/屏幕变化/设备旋转/主题变化 函数
 WidgetsBinding.instance.addObserver(this)
 
+build 阶段不要调用 setState，但可以直接在 build 函数内调用
+Widget build(BuildContext context) {
+  setState(() => ++index); 这里不是 build 阶段，return 里面的代码才是
+  return Text('$index');
+}
+安全刷新界面用 SchedulerBinding.instance.addPostFrameCallback
+  idle, transientCallbacks, midFrameMicrotasks, persistentCallbacks, postFrameCallbacks
+也就是在这五个阶段执行完以后，再发起新的刷新任务
+
 
 ========================================
 
 解释 一切皆为小部件 的概念：
 一切都是小部件，包括应用程序本身、布局和样式，通过 组合/嵌套 创建复杂的用户界面
+
+BuildContext 是抽象类，Element 类实现了它
+
+从创建到渲染的大体流程：
+  根据 Widget 生成 Element
+  然后创建相应的 RenderObject 并关联到 Element.renderObject 属性上
+  最后再通过 RenderObject 来完成布局排列和绘制
 
 三颗树：
   Widget 树是 Element 树的配置，用来生成 Element 树，由程序员管理
@@ -83,8 +99,6 @@ mixins 允许你将共享的功能分散到多个类中，而不是在单一类�
 在不修改类的情况下，添加功能或属性，增强了代码的灵活性
 类只能直接继承自一个父类，但可以使用多个 mixins
 
-
-Dart 在单线程中是以消息循环机制来运行的，包含两个任务队列 微任务队列 事件队列，main() 执行完后，消息循环机制便启动了
 
 既然 Dart 不存在多线程，那如何进行多任务并行？
 Dart 当中提供了一个类似于新线程，但是不共享内存的独立运行的 worker - isolate
