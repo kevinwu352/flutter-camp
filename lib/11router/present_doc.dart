@@ -9,6 +9,8 @@ import 'package:flutter/material.dart';
 //
 // context.push('/board');
 
+// 别用这个，用 showModalBottomSheet
+
 class SlideUpPage<T> extends Page<T> {
   const SlideUpPage({super.key, required this.child});
   final Widget child;

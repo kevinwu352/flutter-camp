@@ -23,43 +23,28 @@ class RouteListPage extends StatelessWidget {
           // 后边页面这样返回值给前面
           // Navigator.of(context).pop(101);
 
-          // 3) 后边页面参数有名字时
-          // 动态路由，直接在构造的时候把参数传给它
-          // RouteDetailPage(para: "haha")
-          // 静态路由，咋传？
-          // ...
-
-          // 4) 后边页面参数无名字时
-          // 动态路由
+          // 3) 动态路由
+          // 新页面有参数时，直接在构造的时候把参数传给它
+          // Navigator.of(context).push(MaterialPageRoute(builder: (context) => RouteDetailPage(val: 'god')));
+          // 新页面无参数时，通过 RouteSettings 传递参数
           // Navigator.of(context).push(
           //   MaterialPageRoute(
           //     builder: (context) => const RouteDetailPage(),
           //     settings: RouteSettings(arguments: "yep1"),
           //   ),
           // );
-          // 静态路由
+          // final val = ModalRoute.of(context)?.settings.arguments as String; 页面内部 build 方法内把值取出来用
+
+          // 4) 静态路由
+          // 新页面有参数时
+          // Navigator.of(context).pushNamed('/app', arguments: 'xx11');
+          // '/app': (context) => AppPage(val: ModalRoute.of(context)?.settings.arguments as String)
+          // 新页面无参数时，
           // Navigator.of(context).pushNamed("/detail", arguments: "yep2");
+          // '/boo': (context) => BooPage() 配置路由时，正常操作
+          // final val = ModalRoute.of(context)?.settings.arguments as String; 页面内部 build 方法内把值取出来用
         },
         child: Text("detail"),
-      ),
-    );
-  }
-}
-
-// 4)
-class RouteDetailPage extends StatelessWidget {
-  const RouteDetailPage({super.key});
-  @override
-  Widget build(BuildContext context) {
-    final para = ModalRoute.of(context)?.settings.arguments as String;
-    print(para);
-    return Scaffold(
-      appBar: AppBar(title: Text("Detail")),
-      body: ElevatedButton(
-        onPressed: () {
-          Navigator.pop(context);
-        },
-        child: Text("back: $para"),
       ),
     );
   }
