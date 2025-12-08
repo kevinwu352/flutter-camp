@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+// REVIEW
+
 class DialogStatePage extends StatefulWidget {
   const DialogStatePage({super.key});
 
@@ -99,6 +101,9 @@ class _DialogStatePageState extends State<DialogStatePage> {
                       print('change: $value');
                       // 次佳方案
                       // 此时的 context 是 alert 的，将其标记为脏，不过这会导致整体个 alert 重建
+                      //   showDialog(context: context, builder: (context) {})
+                      // 仔细看这个 context，showDialog 接受的 context 是当前这个 Widget 的
+                      // 但当前这个位置是 builder 函数体内，所以当前的 context 是 builder 那个参数，这个 context 是 alert 的
                       del = value ?? false;
                       (context as Element).markNeedsBuild();
                     },

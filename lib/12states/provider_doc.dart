@@ -1,3 +1,5 @@
+// REVIEW
+
 // 创建并自己管理
 // Provider(
 //   create: (_) => MyModel(),
@@ -35,7 +37,8 @@
 //   body: Text("${counter.value}"),
 //   body: Text("$value"),
 
-// 部分重建
+// 部分重建分成两部分：
+// a)只观察部分值的变化（用 Selector）
 // watch 时，就算取出 value，当 Counter 其它部分改变而调用 notify，也会导致使用 value 的控件重建，用 select
 //   final value = context.select((Counter c) => c.value);
 //   Selector<Foo, Bar>(
@@ -51,7 +54,7 @@
 //       return Text('${data.item1}  ${data.item2}');
 //     },
 //   )
-
+// b)只更新部分 widget（用 Consumer.child）
 // Consumer 的部分重建分两种
 //   1) 父包子，父依赖参数需要频繁重建，但子不用
 //   Consumer<Counter>(

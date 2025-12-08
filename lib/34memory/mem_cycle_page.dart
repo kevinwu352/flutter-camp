@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 //   下次再进页面，创建新的，旧的会被释放
 _CycleObject? _ooo;
 
-// 子元素的成员团包访问了 state 实例，退出页面时也能正常释放
+// 子元素的成员闭包访问了 state 实例，退出页面时也能正常释放
 // 见下面的 _ChildView
 
 class MemCyclePage extends StatefulWidget {

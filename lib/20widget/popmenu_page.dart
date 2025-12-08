@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 // ================================================================================
 
 // Widget? child 菜单弹出前，这个按钮显示的内容
-// Widget? icon child 和 icon 只能设其一
+// Widget? icon 这里的 child 和 icon 只能设其一
 // double? iconSize
 // Color? iconColor
 

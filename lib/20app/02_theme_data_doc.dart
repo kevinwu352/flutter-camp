@@ -97,7 +97,7 @@
 // Object? appBarTheme
 // TabBarThemeData? tabBarTheme 位于 AppBar 下面
 
-// BottomAppBarThemeData? bottomAppBarTheme 一般 Scaffold.bottomNavigationBar = BottomAppBar
+// BottomAppBarThemeData? bottomAppBarTheme 一般 Scaffold.bottomNavigationBar = BottomAppBar 看 scaffold 那边的介绍，说了这个条的用法
 // BottomNavigationBarThemeData? bottomNavigationBarTheme 底部的 TabBar，一般 Scaffold.bottomNavigationBar = BottomNavigationBar
 // NavigationBarThemeData? navigationBarTheme 底部的 TabBar，新版本的 BottomNavigationBar，用这个
 

@@ -1,10 +1,12 @@
+// REVIEW
+
 // iOS Animation
 // animation.timingFunction = curve
 // animation.duration
-// animation.repeatCount
-// animation.autoreverse
 // animation.fromValue?
 // animation.toValue?
+// animation.repeatCount
+// animation.autoreverse
 
 // Flutter 动画的核心原理：
 // Animation<T> 表示一个根据时间变化的值，区间 0-1，这个值表示进度

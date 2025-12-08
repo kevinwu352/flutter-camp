@@ -1,6 +1,8 @@
 // import 'dart:async';
 import 'package:flutter/material.dart';
 
+// REVIEW
+
 // 性能优化/内存优化
 // 先说，性能优化的目标是解决卡顿，卡顿的原理？什么是 1/60 秒？
 // 再说，性能优化的总体原则：空间换时间 时间换空间，在空间和时间之间达到一个平衡

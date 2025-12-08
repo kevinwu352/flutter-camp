@@ -1,3 +1,5 @@
+// REVIEW
+
 // Scrollable 主要通过对手势的处理来实现滑动效果
 // Viewport 提供的是一个 视窗 的作用，也就是列表所在的可视区域大小
 // Sliver 主要是用于在 Viewport 里面布局和渲染内容
@@ -10,7 +12,8 @@
 // Viewport 将当前视口信息和配置信息通过 SliverConstraints 传递给 Sliver
 // Sliver 中对子组件（RenderBox）按需进行构建和布局，然后确认自身的位置、绘制等信息，保存在 geometry 中（一个 SliverGeometry 对象）
 
-// Widget 树中会有一个默认的 PrimaryScrollController，如果可滚动控件没传 controller 且 primary = true（默认），就使用全局的。Scaffold 正是使用此来实现 iOS 上点击状态栏回到顶部
+// Widget 树中会有一个默认的 PrimaryScrollController，如果可滚动控件没传 controller 且 primary = true（默认），就使用全局的
+// Scaffold 正是使用此来实现 iOS 上点击状态栏回到顶部
 
 // Scrollbar 把子包起来就有滚动条了。内容少时，就算可滚动，也不会有滚动条
 
@@ -54,7 +57,8 @@
 
 // ScrollController.attach/detach 到底是个什么样的操作，贴上了有何作用？没看懂
 
-// 书上说：滚动控件先调用 controller.createScrollPosition 创建 position，然后再调用 attach 把 position 注册到 controller 中，然后 animateTo/jumpTo 才起作用。滚动控件销毁时调用 detach
+// 书上说：滚动控件先调用 controller.createScrollPosition 创建 position，然后再调用 attach 把 position 注册到 controller 中
+// 然后 animateTo/jumpTo 才起作用。滚动控件销毁时调用 detach
 
 // 两种方式接收滚动事件
 //   1) ScrollController

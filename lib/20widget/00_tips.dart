@@ -1,3 +1,5 @@
+// REVIEW
+
 // xcrun simctl list
 // open -a Simulator --args -CurrentDeviceUDID B064EFFA-5833-423F-8DB0-E1083EA4B76C
 
@@ -25,7 +27,7 @@
 
 // 加载 bundle 的文件。DefaultAssetBundle 能修改它子节点的默认 bundle
 //   推荐用这种方式，单元测试的时候能替换
-//     final str = await DefaultAssetBundle.of(context,).loadString("assets/jsons/user.json");
+//     final str = await DefaultAssetBundle.of(context).loadString("assets/jsons/user.json");
 //   如果在 widget 外面，没有 context，用下面这种方式
 //     import 'package:flutter/services.dart' show rootBundle;
 //     final str = await rootBundle.loadString("assets/jsons/user.json");
