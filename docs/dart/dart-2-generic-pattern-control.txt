@@ -120,6 +120,9 @@ dict.forEach((key, value) {
 for (var MapEntry(key: k, :value) in dict.entries) { // 沿用 value 的名字
   print('$k occurred $value times');
 }
+用解构
+  for (var (i, v) in list.indexed) { ... }
+  for (var MapEntry(:k, :v) in map.entries) { ... }
 
 switch 应该匹配所有情况，比如枚举。对于类来说，加上 sealed，将来它有新的子类时，编译器会提醒
 sealed class Shape {}
@@ -161,3 +164,4 @@ try {
   print("clean up"); // 不管是否异常，这里都会执行
 }
 finally 在 catch 之后执行，如果没抓住异常，finally 执行完后，继续往外抛
+如果一个 try 语句没有 catch 语句，那么抛出的异常会继续往外层抛

@@ -65,7 +65,8 @@ Iterable<int> naturalsDownFrom(int n) sync* {
   }
 }
 
-外部函数，声明和实现分开，一般是 其它库的 或 其它语言的。可以是 全局函数/成员方法/getter&setter/非重定向构造器/成员变量的 getter&setter
+外部函数，声明和实现分开，一般是 其它库的 或 其它语言的
+可以是 全局函数/成员方法/getter&setter/非重定向构造器/成员变量的 getter&setter
 external void someFunc(int i);
 
 

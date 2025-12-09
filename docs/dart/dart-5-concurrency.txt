@@ -119,3 +119,12 @@ await for (final value in stream) { } // 0 1 2 3... <= 会阻塞后续代码
 stream.listen((value) { print(value); }); <= 不会阻塞后续代码，但 main() 好像要等它结束？
 stream.listen((value) => print(value));
 stream.listen(print);
+
+
+经测试：
+StreamController.stream 每次创建新的，这些流 相等但不是同一对象
+虽然每次创建新的 stream，但是第二次取出来的 stream 不能订阅，会抛出异常
+如果订阅前已经产生了数据，第一次订阅时，能收到之前所有数据，注意这里只能是单订阅
+如果，把流取出来，转化为广播流，能多订阅。第一次订阅能收到之前所有的数据，但第二次订阅就只能收到之后产生的数据
+如果，用 StreamController<int>.broadcast() 直接创建广播流，每次取新 stream 来订阅，第一次订阅不会收到之前产生的数据
+      先取出 stream，现象也是一样的，能多订阅，但只能收到订阅后产生的数据

@@ -113,6 +113,7 @@ class Logger {
   // 命名工厂构造器
   factory Logger.fromJson
 }
+注意：factory 可以是命令的或匿名的
 
 
 
@@ -153,10 +154,10 @@ mixin Play {
 mixin Jump {
   void jump() { print('jump'); }
 }
-class Robbit extends Animal with Play, Jump {
-  Robbit(super.name);
+class Rabbit extends Animal with Play, Jump {
+  Rabbit(super.name);
 }
-如果这四位都实现了同一个方法，查找方法的顺序和定义时候顺序有关。顺序是：Robbit / Jump / Play / Animal
+如果这四位都实现了同一个方法，查找方法的顺序和定义时候顺序有关。顺序是：Rabbit / Jump / Play / Animal
 
 mixin 能定义抽象方法，让其它类必须提供实现
 mixin NameIdentity {
