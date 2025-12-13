@@ -110,3 +110,8 @@
 
 // CurveTween
 // 带曲线的区间，用于和正常区间串联，给正常区间增加曲线
+
+// --------------------------------------------------------------------------------
+
+// SingleTickerProviderStateMixin 单个 AnimationController 时用
+// TickerProviderStateMixin 多个 AnimationController 时用
