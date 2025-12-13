@@ -2,7 +2,11 @@
 runApp 分三步
   ensureInitialized 确保 binding 完成
   attach => scheduleAttachRootWidget(app) 把传进去的控件 attach 到 root，包装到一个 View 内
+    主要实现 根Widget/根Element根RenderObject 的关联过程
   warmUp => scheduleWarmUpFrame() 尽快渲染一帧，而不是等系统 vsync 信号请求 engine，engine 再请求上层框架
+    绘制结束前，会锁定事件分发，避免在这个绘制过程中触发新的重绘
+
+BuildOwner 是 widget framework 的管理类，它跟踪哪些 widget 需要重新构建
 
 渲染流水线：由 vsync 驱动，而 vsync 信号由系统提供
   vsync
@@ -12,6 +16,37 @@ runApp 分三步
   Paint 调用 RenderObject.paint()
   最终生成一个 Scene 送往底层，由 GPU 绘制到屏幕上
 触发流水线的 vsync 信号是来自引擎，渲染完成以后的场景也是送入引擎来显示
+我注：
+  先注册 onBeginFrame/onDrawFrame 事件回调，onBeginFrame 之后马上调用 onDrawFrame
+  我们调用 scheduleFrame 来请求 frame，Flutter 会在合适的时机调用 onBeginFrame/onDrawFrame
+onBeginFrame 的回调 handleBeginFrame 里：
+  先将 SchedulerPhase 改成临时阶段，再执行 transientCallbacks 临时任务
+  这些临时回调和动画相关，调完以后会清空回调列表
+  最后，在 try-catch 的 finally 里，把阶段改为 midFrameMicrotasks
+onDrawFrame 的回调 handleDrawFrame 里：
+  先改阶段 persistentCallbacks，再依次做持久任务，也就是渲染管线
+  再改阶段 postFrameCallbacks，再依次执行任务列表，最后清空任务列表
+  最后，在 try-catch 的 finally 里，把阶段改成 idle
+在 RendererBinding.initInstances 里会 addPersistentFrameCallback，把 drawFrame 注册到持久任务列表里
+貌似持久任务列表里只有 drawFrame 一个任务
+
+渲染管线：当新的 frame 到来时，调用 drawFrame，它做五件事
+  先重新构建 widget 树
+  更新布局，flushLayout，里面 performLayout
+  更新 层合成 信息，flushCompositingBits
+  重绘，flushPaint
+  上屏，compositeFrame，最终得到一棵 Layer 树，renderView.compositeFrame 做这个事
+setState 先用 element.markNeedsBuild 标记 element 为脏，然后将 element 添加到一个脏列表，然后等新的 frame 到来时执行渲染管线
+
+SchedulerPhase 本来只有 idle 和 frame 两种状态，把 frame 细分为四个阶段，所以总共 5 个阶段
+  idle 空间状态，没有 frame 处理，表示页面无变化发生，不需要重绘
+  transientCallbacks 执行临时任务，只执行一次，完成后会移出队列，典型代表是动画
+  midFrameMicrotasks 临时任务产生的微任务
+  persistentCallbacks 执行一些持久任务，比如渲染管线那堆方法
+  postFrameCallbacks 当前 frame 结束之前执行，通常用于清理工作或请求新的 frame
+setState 后，在 ensureVisualUpdate() 里会判断当前调度所处的状态，最终会确保调用 schedumeFrame
+  如果是 idle/postFrameCallbacks 状态则调用 scheduleFrame
+  其他状态则直接返回，它们正是渲染流水线运行的时候
 
 Flutter 上层框架用 dart 实现，下层引擎用 C++ 实现
 Binding 连接 底层引擎 和 上层框架
@@ -59,7 +94,20 @@ BuildContext 是抽象类，Element 类实现了它
 三颗树：
   Widget 树是 Element 树的配置，用来生成 Element 树，由程序员管理
   Element 树对应流水线的 build 阶段，用于连接 控件树和渲染树，将 Widget 变化同步到 Render
-  Render 树对应流水线的 layout 和 paint 阶段
+  Render 树对应流水线的 layout 和 paint 阶段，还有 层合成、上屏
+build 虽然在 Widget 实现，但调用在 Element 里面
+
+RenderObject.parent 指向渲染树中自己的父节点
+RenderObject.parentData 是一个预留变量，保存布局信息，虽然是子节点的属性，但设置和使用都在父节点
+RenderObject 的两个子类 RenderBox/RenderSliver 分别实现 基于 RenderBox 的盒模型布局和基于 Sliver 的按需加载模型
+RenderObject 有一个布局边界节点的概念，如果当前节点布局发生变化后，自身到其布局边界节点路径上的所有的节点都需要 relayout
+  有四种情况可以成为边界节点，原则是：边界节点自身大小变化不会影响父组件
+  a)父尺寸不依赖于自己时，向子传递 parentUsesSize=false
+  b)自己尺寸只依赖于父给的约束，子尺寸不影响自己时，自己的 sizedByParent=true
+  c)自己收到紧约束时，子尺寸不影响自己，类似于 b
+  d)根组件
+布局发生变化时，调用 markNeedsLayout 将自己到边界路径上的所有节点标记为脏
+然后请求新的 frame，新的 frame 会对它们进行重新布局，在 drawFrame 里 pipeline.flushLayout()
 
 State 持有对应的 Widget 和 Element(context)
 
@@ -83,6 +131,10 @@ Layout 过程主要是确定每个组件的布局信息（大小和位置），�
   递归整个过程，确定每个节点的大小和位置
 可以看到，组件的大小由自身决定，组件的位置由父组件决定
 
+RenderObject.performLayout() 主要做这几个事情
+  如果有子组件，先递归对子组件进行布局。child.layout(...)，后面会获取子的 size，向下传递的是约束，和收到的可能不一样
+  根据子尺寸算出自己尺寸，赋值给自己的 size 属性
+  算出子的偏移，保存到 parentData，绘制的时候会用到
 
 ========================================
 
@@ -98,6 +150,7 @@ Layout 过程主要是确定每个组件的布局信息（大小和位置），�
 mixins 允许你将共享的功能分散到多个类中，而不是在单一类的层次结构中
 在不修改类的情况下，添加功能或属性，增强了代码的灵活性
 类只能直接继承自一个父类，但可以使用多个 mixins
+好处：代码复用/突破单继承限制/分离功能方便测试
 
 
 既然 Dart 不存在多线程，那如何进行多任务并行？
@@ -109,17 +162,13 @@ Dart 当中提供了一个类似于新线程，但是不共享内存的独立运
 可以通过 Platform Channel 让 Dart 代码和原生代码通信：
   BasicMessageChannel：用于传递字符串和半结构化的信息
   MethodChannel：用于传递方法调用（method invocation）
-  EventChanne l：用于数据流（event streams）的通信
+  EventChannel：用于数据流（event streams）的通信
 
 
 Future 有三种状态：
-  未完成（Pending）
-  已完成（Completed）
-  失败（Error）
+  Pending/Completed/Error
 Stream 有三种状态：
-  未开始（Not started）
-  已完成（Done）
-  失败（Error）
+  Not started/Done/Error
 
 
 ========================================
@@ -141,13 +190,28 @@ InheritedWidget：适合简单的状态管理，使用较为底层，需要手�
 Provider：基于 InheritedWidget，提供更高级和易用的 API，适合中大型应用中的状态管理
   自动处理依赖关系的重建
 
+(1) Provider 基于 InheritedWidget 和 Listenable，它只能向下传递依赖对象
+    数据更新靠的是 ChangeNotifier 和 ListenableBuilder 相关类
+    它严格依赖于 BuildContext
+    特点是简单，非常简单
+(2) GetX 的状态管理不是基于 InheritedWidget 或 Listenable 来实现的，它用自己的基于 Rx 的方式来实现状态管理和响应式编程
+    它有自己的数据类型 RxInt/RxString
+    除了状态管理，它还有其它功能，路由/国际化/改主题/键值对存储/弹SnackBar
+(3) Riverpod 是 Provider 的作者开发的，不依赖 InheritedWidget 所以不依赖 BuildContext
+    它里面的 Provider 和 Provider 库没有关系
+    状态不是存在 provider 中的，是在 ProviderContainer 中，ProviderScope 会创建 container，这有好处
+    感觉有点繁琐，依赖有几个，六种 provider
+    写 ViewModel 时，状态要打包成一个类，逻辑打包成一个类
+    有个 ref 参数，和 context 类似，相当于引入了另外一棵树
+(4) BLOC
+
 
 Keys 在构建和更新 Widget 时起到重要作用，尤其是在涉及到状态管理、列表和动画时
 GlobalKey / ValueKey / ObjectKey / UniqueKey
 使用 GlobalKey 时
   可以在 Widget 重建时保留其状态
   从不同的地方访问同一个 Widget 的状态
-  在 Widget 的外部调用其状态方法，比如在表单中验证字段
+  在 Widget 的外部调用其状态方法，比如在按钮方法中 formKey.currentState?.validate()，表单是 StatefulWidget，这里访问它的状态
 
 
 SizedBox：
@@ -159,12 +223,15 @@ Container：
 Container 小部件的 color 和 decoration 属性不能同时使用
 
 
-Offstage：将小部件完全移出可见区域，不占用任何布局空间，适合优化性能和条件渲染
 Visibility：控制小部件的显示和隐藏，同时保留其在布局中的空间（要设置三个属性）
+Offstage：将小部件完全移出可见区域，不占用任何布局空间，适合优化性能和条件渲染
 Opacity：控制小部件的透明度，适用于渐变效果和视觉提示
 
 
-自定义绘制，扩展 CustomPainter 类并实现 paint() 和 shouldRepaint() 方法
+resizeToAvoidBottomInset 使用场景：输入框在底部/聊天应用
+
+
+自定义绘制，继承 CustomPainter 类并实现 paint() 和 shouldRepaint() 方法
 
 
 向 Column 中添加 ListView 的方式：

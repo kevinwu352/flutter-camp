@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 // Widget.canUpdate
 // 一个旧的 Element 能否被新的 Widget 更新
-// element 节点在更新前都会调用其对应 Widget 的 canUpdate 方法
+// element 节点在更新前都会调用其对应 Widget 的 canUpdate 方法，这是静态方法，参数是新旧 widget
 // 理解：
 // Widget 树和 Element 树节点是一一对应的
 // 某时刻，一个位置上有一个 Widget，与它对应的有一个 Element

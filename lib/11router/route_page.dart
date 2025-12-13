@@ -39,7 +39,7 @@ class RouteListPage extends StatelessWidget {
           // 新页面有参数时
           // Navigator.of(context).pushNamed('/app', arguments: 'xx11');
           // '/app': (context) => AppPage(val: ModalRoute.of(context)?.settings.arguments as String)
-          // 新页面无参数时，
+          // 新页面无参数时
           // Navigator.of(context).pushNamed("/detail", arguments: "yep2");
           // '/boo': (context) => BooPage() 配置路由时，正常操作
           // final val = ModalRoute.of(context)?.settings.arguments as String; 页面内部 build 方法内把值取出来用
