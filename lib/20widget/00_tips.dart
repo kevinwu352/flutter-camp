@@ -91,6 +91,12 @@
 //   Obj({required this.name, required this.age});
 //   final String name;
 //   final int age;
+//     @override
+//     bool operator ==(Object other) =>
+//         identical(this, other) || other is Res && runtimeType == other.runtimeType && value == other.value;
+//     @override
+//     int get hashCode => value.hashCode;
+//     int get hashCode => Object.hash(name, age); 多个值时，合并生成 hash
 // }
 // 这个普通类，新建实例时虽然参数相同，但是是不同的对象。所以，从数组里删的时候，删不掉
 // final list = [Obj(name: 'kim', age: 18), Obj(name: 'bob', age: 20)];

@@ -1,0 +1,12 @@
+
+在 Xcode - Sign 页面看到的是 3UTFXHJ3XQ
+Apple Development: kevinwu352@gmail.com (3UTFXHJ3XQ)
+
+用 VSCode 运行 Flutter 到真机看到它用的证书是 T7VMH8B7B8，何解？
+Automatically signing iOS for device deployment using specified development team in Xcode project: T7VMH8B7B8
+
+重启 VSCode 后，再运行软件，它选择了正确的证书，哎
+Developer identity "Apple Development: kevinwu352@gmail.com (3UTFXHJ3XQ)" selected for iOS code signing
+
+T7VMH8B7B8 是我另外一台电脑上的证书吗？
+经验证：T7VMH8B7B8 应该是 Flutter 开发组的证书
