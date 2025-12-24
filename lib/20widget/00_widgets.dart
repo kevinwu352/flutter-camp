@@ -138,3 +138,5 @@
 //   borderRadius: BorderRadius.circular(20),
 //   child: Image.asset(...)
 // )
+
+// PopScope 控制导航返回操作，Form.canPop 类似
