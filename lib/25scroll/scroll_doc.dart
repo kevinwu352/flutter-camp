@@ -51,6 +51,12 @@
 // ================================================================================
 
 // ScrollController.keepScrollOffset 当值为 false 时，到底何时才会回滚到初始位置？
+// 答：看文档，应该是类似于页面销毁后，状态恢复用的。比如杀死 App，重启后恢复到原来的位置；还有 tab 切换时
+// 书上说：当一个路由中包含多个可滚动组件时，如果你发现在进行一些跳转或切换操作后，滚动位置不能正确恢复，这时你可以通过显式指定 PageStorageKey 来分别跟踪不同的可滚动组件的位置
+// 书上说：Scrollable 是一个 StatefulWidget，它的状态中也会保存当前滚动位置，所以，只要可滚动组件本身没有被从树上移除
+// 那么其 State 就不会销毁，滚动位置就不会丢失。只有当 Widget 发生结构变化，导致可滚动组件的 State 销毁或重新构建时才会丢失状态
+// 这种情况就需要显式指定 PageStorageKey，通过 PageStorage 来存储滚动位置，一个典型的场景是在使用 TabBarView 时，在切换时，Tab 页中的可滚动组件的 State 就会销毁
+// 这时如果想恢复滚动位置就需要指定 PageStorageKey。ListView(key: PageStorageKey(1)
 
 // 一个 ScrollController 可以给多个滚动视图用，它的 positions 数组保存了相应的 ScrollPosition
 // ScrollController 的 animateTo/jumpTo 方法是调用 ScrollPosition 的同名方法来实现的

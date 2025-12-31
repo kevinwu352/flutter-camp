@@ -12,6 +12,11 @@ import 'package:flutter/material.dart';
 // itemExtent / prototypeItem 预先决定行高，性能好，只能设其一
 // itemExtentBuilder 根据 index 返回相应的行高，行高不相同的时候用
 // cacheExtent 预渲染区域高度，在可见区域 前 后
+//   假设，视图高500，行高100
+//   值为 0，只会加载可见区域的行，0-4，滚出滚入时，销毁和创建
+//   值为 1000 时，加载 0-14，向下滚动时，加载 15，所以，可见区域下面缓存了 10 行
+//   继续滚动，当 10 卡在上边界时，上面的 0-9 是缓存的，不会销毁；当 10 滚出上边界后，0 被销毁，拖回来一点点，可以看到控制台重建了 10
+// 所以，当设置 1000 时，前后都缓存 1000px，而不是前后各 500px
 
 // shrinkWrap 决定 ListView 的尺寸，是填充满父，还是压缩到和子一样大
 // 主要用来 ListView 嵌套用的，里面的紧凑压缩自己。另外，Column 包含 ListView 会崩，此参数可解决崩溃
@@ -38,6 +43,15 @@ import 'package:flutter/material.dart';
 // RefreshIndicator 有空再研究
 
 // ListBody 将子元素沿主轴依次排列，而次轴拉到最大。文档说很少直接用，用 ListView/Column 就行了
+
+// ================================================================================
+
+// 列表优化：
+// 固定行高
+// const 组件
+// 使用 cacheExtent 来缓存前后，避免频繁销毁重建，但这会导致内存增加一点，要设一个合理的值
+// 避免修改 ListView 的尺寸，它变了，它的所有子组件都要变
+// 避免在行内使用重型组件，Webview/PlatformView
 
 class ListPage extends StatefulWidget {
   const ListPage({super.key});
