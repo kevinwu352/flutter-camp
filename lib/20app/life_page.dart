@@ -10,6 +10,10 @@ import 'package:flutter/material.dart';
 // 某时刻，一个位置上有一个 Widget，与它对应的有一个 Element
 // 当页面刷新时，新的 Widget 来了，它要找一个元素与之对应，此位置上的旧 Widget 对应的旧 Element 能不能拿来用呢？
 // 把这俩 Widget 比较一下，runtimeType 和 Widget.key 相同，则用旧 Element，否则丢弃旧 Element，并创建一个新的且加入到树中
+//
+// 从 key3 页面第一个例子能看出来，如果同级兄弟是 AA BB 两个 widget，当他们交换顺序后，也是无法复用的
+// 都得重新创建，状态也会丢失，可以看到 initState 多次调用了，而 didUpdateWidget 没有调用
+// 所以：复用的时候并不是先筛出同类型的，再找第一个，而是先看位置是否相同，再看类型
 
 // StatelessWidget 当某控件只依赖于 构造参数 上下文信息 时
 //   很少重写此方法
