@@ -10,6 +10,7 @@ import 'dart:isolate';
 // Future(() => print('This is a new Future'));
 // Future 内部有些是用 Timer 实现的，比如 .delayed，有些不是，比如 .microtask
 //
+// 微任务则通常来源于Dart内部，并且非常少，因为优先级高，太多的话会卡UI，所以微任务必须得少
 // 微任务优先级高，每个事件处理完都会检查是否有微任务，有就执行所有的微任务，再执行下一个事件
 // 微任务适合 需要尽快完成 但不是马上 的任务
 // 微任务要尽量快，否则会长时间阻塞主线程
@@ -17,9 +18,15 @@ import 'dart:isolate';
 // async、await 本质是 Dart 对异步操作的一个语法糖，可以减少异步调用的嵌套调用
 
 // 每个 isolate 包含一个事件循环以及两个事件队列，事件队列和微任务队列
+// 代码默认运行在 主Isolate 中
 // 和 Thread 不同的是，isolate 拥有独立内存，isolate 由线程和独立内存构成
 // 正是由于 isolate 之间的内存不共享，所以 isolate 之间并不存在资源抢夺的问题，所以也不需要锁
 // isolate 之间的通信 >只能< 通过 port 来进行，文档说，ReceivePort 可以有很多 SendPort
+//
+// spawnUri 接受一个文件作为参数，那文件里要有 main 函数
+
+// Flutter Engine 自己不创建和管理线程，Flutter Engine 线程的创建和管理是 Embeder 负责的
+// Embeder 提供四个 Task Runner，分别是 Platform Task Runner、UI Task Runner Thread、IO Task Runner、GPU Task Runner
 
 // compute() 很简单，它是由 Flutter 提供的，并不在 dart 库中，内部还是用 isolate
 
@@ -211,13 +218,11 @@ void iso_throw(SendPort port) async {
 
     throw Exception('asdf');
 
-    await Future.delayed(Duration(seconds: 1));
-    print('isolate send 20');
-    port.send(20);
-
-    print('isolate end');
-
-    Isolate.exit(port, -1);
+    // await Future.delayed(Duration(seconds: 1));
+    // print('isolate send 20');
+    // port.send(20);
+    // print('isolate end');
+    // Isolate.exit(port, -1);
   } catch (e) {
     print('iso got excep: $e');
   }
@@ -240,7 +245,7 @@ void isolate4() async {
       print('local: inner $localValue');
       print('global: inner $globalValue');
       throw Exception('asdf');
-      print('222');
+      // print('222');
     });
   } catch (e) {
     print('got $e');

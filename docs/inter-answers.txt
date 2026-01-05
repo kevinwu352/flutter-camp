@@ -68,6 +68,7 @@ TestWidgetsFlutterBinding 是抽象类
 
 WidgetsBindingObserver 是接口，相当于 UITableViewDelegate，有 App 生命周期/屏幕变化/设备旋转/主题变化 函数
 WidgetsBinding.instance.addObserver(this)
+didChangeAppLifecycleState: detached/resumed/inactive/hidden/paused
 
 build 阶段不要调用 setState，但可以直接在 build 函数内调用
 Widget build(BuildContext context) {
@@ -169,9 +170,25 @@ Dart 当中提供了一个类似于新线程，但是不共享内存的独立运
 但是我们需要注意的是，ReceivePort 和 SendPort 在每个 isolate 都有一对，只有同一个 isolate 中的 ReceivePort 才能接受到当前类的 SendPort 发送的消息并且处理
 
 可以通过 Platform Channel 让 Dart 代码和原生代码通信：
-  BasicMessageChannel：用于传递字符串和半结构化的信息
-  MethodChannel：用于传递方法调用（method invocation）
-  EventChannel：用于数据流（event streams）的通信
+  MethodChannel：用于传递方法调用。支持数据双向传递，有返回值
+    Flutter 主动调用原生功能，原生返回一个值给 Flutter
+    一次性的，相当于 HTTP 请求，一问一答
+    获取设备信息、调用原生相机 API、调用原生 SDK 功能
+  EventChannel：用于数据流的通信。仅支持数据单向传递，无返回值
+    原生发生某事件，原生主动通知 Flutter
+    事件可能会发生多次，所以是数据流，无法回复
+    地理位置变化、传感器数据、网络状态变化
+  BasicMessageChannel：用于传递字符串和二进制数据。支持数据双向传递，有返回值
+    原生和 Flutter 都能 channel.setMessageHandler 监听对面发来的消息（里面能 reply），都能主动 send 给对面
+    比较灵活，适合需要双向、持续性数据交换
+    传递文本消息、简单的配置数据，或作为自定义协议的基础
+    可以实现 MethodChannel 和 EventChannel 的功能，相当于一个自由度更高的选项吧
+制作插件就是用这三个 channel，有两种方式
+  1 可以直接写在工程里
+  2 可以写成一个 package，这样可以给其它项目用，用的时候 import 那个 package
+package 还能细分一下：它们开发流程一样，只有插件要编写原生功能
+  1 只有 dart 代码的包
+  2 包含 iOS/Android 原生功能的插件
 
 
 Future 有三种状态：

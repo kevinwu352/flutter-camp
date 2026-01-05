@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+// REVIEW
+
 // Key 对象存在的目的主要是：
 // 区分和维持 Widget 的状态，它是元素树里的节点复用的重要标识
 // 能提升 Flutter 性能，因为提高了复用率，减少了刷新的工作量
@@ -92,6 +94,18 @@ class Counter extends StatefulWidget {
 }
 
 class _CounterState extends State<Counter> {
+  @override
+  void initState() {
+    super.initState();
+    print('init state');
+  }
+
+  @override
+  void didUpdateWidget(Counter oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    print('did update');
+  }
+
   int _counter = 0;
 
   void _incrementCounter() {

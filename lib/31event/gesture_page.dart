@@ -44,8 +44,12 @@ class GesturePage extends StatefulWidget {
 
 class _GesturePageState extends State<GesturePage> {
   var info = '--';
-  var _left = 0.0;
-  // var _top = 0.0;
+  double _left = 20.0;
+  double _top = 20.0;
+  // 神奇的偏移量，我也解释不清
+  // 简化写法不用这俩变量，直接用 update 事件里的 delta
+  // double _dx = 0.0;
+  // double _dy = 0.0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -126,72 +130,69 @@ class _GesturePageState extends State<GesturePage> {
       // down 以后，移动一点点，再 up，还是能被识别成 tap
       //
       // 这里的 down/up 没配对，如果严格依赖配对，请用 Listener
-      body: Stack(
-        children: [
-          Positioned(
-            left: _left,
-            child: GestureDetector(
-              child: CircleAvatar(child: Text("A")),
-              onHorizontalDragUpdate: (DragUpdateDetails details) {
-                setState(() {
-                  _left += details.delta.dx;
-                });
-              },
-              onHorizontalDragEnd: (details) => print("drag-end"),
-              onTapDown: (details) => print("down"),
-              onTapUp: (details) => print("up"),
-              onTap: () => print('tap'),
-            ),
-          ),
-        ],
-      ),
-
-      // 例子，实现拖动某控件的操作，没写完，以后再来
-      // body: Column(
+      // body: Stack(
       //   children: [
-      //     SizedBox(height: 50),
-      //     Container(
-      //       color: Colors.teal,
-      //       width: 400,
-      //       height: 400,
-      //       child: Stack(
-      //         children: [
-      //           Positioned(
-      //             left: _left,
-      //             top: _top,
-      //             child: GestureDetector(
-      //               child: CircleAvatar(child: Text('K')),
-      //               onPanDown: (details) {
-      //                 print('down ${details.localPosition}');
-      //                 final RenderBox renderBox = context.findRenderObject() as RenderBox;
-      //                 final pos = renderBox.localToGlobal(details.localPosition);
-      //                 print(pos);
-      //                 setState(() {
-      //                   _left = details.localPosition.dx - 20;
-      //                   _top = details.localPosition.dy - 20;
-      //                 });
-      //               },
-      //               onPanUpdate: (details) {
-      //                 print('update ${details.localPosition}');
-      //                 setState(() {
-      //                   _left = details.localPosition.dx - 20;
-      //                   _top = details.localPosition.dy - 20;
-      //                 });
-      //               },
-      //               onPanEnd: (details) {
-      //                 print('end ${details.localPosition}');
-      //                 // setState(() {
-      //                 //   _left = 0;
-      //                 //   _top = 0;
-      //                 // });
-      //               },
-      //             ),
-      //           ),
-      //         ],
+      //     Positioned(
+      //       left: _left,
+      //       child: GestureDetector(
+      //         child: CircleAvatar(child: Text("A")),
+      //         onHorizontalDragUpdate: (DragUpdateDetails details) {
+      //           setState(() {
+      //             _left += details.delta.dx;
+      //           });
+      //         },
+      //         onHorizontalDragEnd: (details) => print("drag-end"),
+      //         onTapDown: (details) => print("down"),
+      //         onTapUp: (details) => print("up"),
+      //         onTap: () => print('tap'),
       //       ),
       //     ),
       //   ],
       // ),
+
+      // 例子，实现拖动某控件的操作
+      body: Column(
+        children: [
+          SizedBox(height: 50),
+          Container(
+            color: Colors.teal,
+            width: 400,
+            height: 400,
+            child: Stack(
+              children: [
+                Positioned(
+                  left: _left,
+                  top: _top,
+                  child: GestureDetector(
+                    child: Container(width: 40, height: 40, color: Colors.red),
+                    onPanDown: (details) {
+                      // setState(() {
+                      //   _dx = details.localPosition.dx - _left;
+                      //   _dy = details.localPosition.dy - _top;
+                      // });
+                    },
+                    onPanUpdate: (details) {
+                      print(details.delta);
+                      setState(() {
+                        // _left = details.localPosition.dx - _dx;
+                        // _top = details.localPosition.dy - _dy;
+                        _left += details.delta.dx;
+                        _top += details.delta.dy;
+                      });
+                    },
+                    onPanEnd: (details) {
+                      setState(() {
+                        // _left = details.localPosition.dx - _dx;
+                        // _top = details.localPosition.dy - _dy;
+                      });
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

@@ -1,0 +1,29 @@
+
+  下拉上拉刷新 pull_to_refresh_flutter
+  页面结构 SafeArea
+  性能优化 / 内存优化
+  边框阴影圆角 border / decoration
+  const 组件的作用及影响
+  dart 的可选有点假
+  dynamic 和 Object 辨析
+  生命周期 initState / dispose 之前之后？
+  手势竞争
+  dragStartBehavior
+取消 HTTP
+  自定义各种控件的高度
+  bool toggle 网上说无法实现
+  相等性 ==/identical
+  图片按钮
+  CachedNetworkImage 刷新问题
+  如何用 key 避免新建？
+Scroll 有一些状态保存相关的东西
+  addPostFrameCallback
+  Overlay
+  那一堆 Binding
+BuildContext 上的方法
+
+
+弱引用
+书上说 Dart 的异常不会导致程序终止？
+SchedulerBinding vs WidgetsBinding
+去除点击波纹
