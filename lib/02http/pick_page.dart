@@ -1,6 +1,6 @@
-import 'dart:convert';
+// import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:deep_pick/deep_pick.dart';
+// import 'package:deep_pick/deep_pick.dart';
 
 // 注意：这些 as* 方法并不一定是安全的，有些可能会抛出异常
 //   bool/int/double/string/dateTime 内部 try 了
@@ -61,15 +61,15 @@ class PickPage extends StatelessWidget {
     // final str = '{"a":1.1,"b":"2","c":[1,2,"a","b",3,4,"c","d"],"d":{"x":11,"y":"22"}}';
     // final str = '{"a":1.1,"b":2,"c":null}';
     // final str = '{"a":1.1,"b":2.1}';
-    final str = '[1.1,null,2.1,"abc"]';
-    final json = jsonDecode(str);
+    // final str = '[1.1,null,2.1,"abc"]';
+    // final json = jsonDecode(str);
 
-    // 数组里原本的 null 会被抛弃，但转换失败产生的 null 会被保留，要保留原本的 null 传递 whenNull 参数
-    final aa = pick(json).asListOrEmpty((v) => v.asDoubleOrNull(), whenNull: (pick) => pick.value);
-    print(aa);
-    // 取原始数组，类型是 List<Object?>
-    final bb = pick(json).asListOrEmpty((v) => v.value, whenNull: (pick) => pick.value);
-    print(bb);
+    // // 数组里原本的 null 会被抛弃，但转换失败产生的 null 会被保留，要保留原本的 null 传递 whenNull 参数
+    // final aa = pick(json).asListOrEmpty((v) => v.asDoubleOrNull(), whenNull: (pick) => pick.value);
+    // print(aa);
+    // // 取原始数组，类型是 List<Object?>
+    // final bb = pick(json).asListOrEmpty((v) => v.value, whenNull: (pick) => pick.value);
+    // print(bb);
 
     // final bb = json as List<Object?>; // 异常
     // print(bb);

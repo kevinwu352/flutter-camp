@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:bot_toast/bot_toast.dart';
 
-class TestPage extends StatelessWidget {
-  const TestPage({super.key});
+class ToastPage extends StatelessWidget {
+  const ToastPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Test')),
+      appBar: AppBar(title: Text('Toast')),
       body: Center(
         child: TextButton(
           onPressed: () {
             //
+            BotToast.showText(text: 'text');
           },
           child: Text('doit'),
         ),
