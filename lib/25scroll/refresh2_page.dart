@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:easy_refresh/easy_refresh.dart';
+// import 'package:lottie/lottie.dart';
 
 // required Widget? child
 
@@ -94,7 +95,7 @@ class _Refresh2PageState extends State<Refresh2Page> {
     print('do refresh');
     // if (loading) return;
     loading = true;
-    await Future.delayed(Duration(seconds: 1));
+    await Future.delayed(Duration(seconds: 3));
     order = 0;
     final list = List<String>.generate(20, (i) => '$order - $i');
     items = list;
@@ -132,10 +133,11 @@ class _Refresh2PageState extends State<Refresh2Page> {
         // notRefreshHeader: NotRefreshHeader(clamping: true),
         onRefresh: refreshData,
         onLoad: hasMore ? moreData : null,
-        header: CupertinoHeader(
-          backgroundColor: Colors.red,
-          // triggerOffset: 60
-        ),
+        // header: CupertinoHeader(
+        //   backgroundColor: Colors.red,
+        //   // triggerOffset: 60
+        // ),
+        header: RefreshHeader(),
         footer: CupertinoFooter(
           backgroundColor: Colors.green,
           // triggerOffset: 60,
@@ -160,6 +162,92 @@ class _Refresh2PageState extends State<Refresh2Page> {
         //   ],
         // ),
       ),
+    );
+  }
+}
+
+// inactive 默认的
+// drag 拖动时，且未达到启动点
+// armed 拖动时，已达到启动点
+//   如果往回拖会回到 drag，再松手会回到inactive
+//   如果继续拖，不会变成 ready
+// ready 达到启动点，且松手了，马上会变成 processing
+// processing 开始处理
+// processed 任务完成，但整个流程没完，还有结束动画，完成后变成 done
+// done 最后会变成 inactive
+
+class RefreshHeader extends Header {
+  const RefreshHeader({this.key, super.triggerOffset = 60, super.clamping = false});
+  final Key? key;
+  @override
+  Widget build(BuildContext context, IndicatorState state) {
+    print(
+      "mode:${state.mode} result:${state.result} offset:${state.offset} safeOffset:${state.safeOffset} o1:${state.triggerOffset} o2:${state.actualTriggerOffset}",
+    );
+    return _RefreshIndicator(key: key, state: state, height: triggerOffset);
+  }
+}
+
+class _RefreshIndicator extends StatefulWidget {
+  const _RefreshIndicator({super.key, required this.state, required this.height});
+  final IndicatorState state;
+  final double height;
+  @override
+  State<_RefreshIndicator> createState() => __RefreshIndicatorState();
+}
+
+class __RefreshIndicatorState extends State<_RefreshIndicator> with SingleTickerProviderStateMixin {
+  late final animation = AnimationController(duration: Duration(seconds: 1), vsync: this);
+  late final tween = IntTween(begin: 0, end: 16);
+  late final anim = animation.drive(tween);
+
+  @override
+  void dispose() {
+    animation.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    switch (widget.state.mode) {
+      case IndicatorMode.drag:
+      case IndicatorMode.armed:
+        animation.value = widget.state.offset.clamp(0, widget.height) / widget.height;
+        print('value: ${animation.value}');
+      // break;
+      case IndicatorMode.ready:
+      case IndicatorMode.processing:
+      case IndicatorMode.processed:
+        animation.value = 0;
+        animation.repeat();
+      // break;
+      // case IndicatorMode.done:
+      //   animation.value = 0;
+      //   animation.stop();
+      // break;
+      default:
+        // animation.value = 0;
+        // animation.stop();
+        animation.reset();
+      // break;
+    }
+    // print('assets/spinner/seq_${anim.value}.png');
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        SizedBox(height: widget.state.offset, width: double.infinity), // 这个要要，它用来撑开 stack
+        Positioned.fill(child: ColoredBox(color: Colors.red)), // 这个不要，目前只是用来看 header 所占区域的
+        Positioned(
+          bottom: 0,
+          //
+          // child: CircularProgressIndicator.adaptive(),
+          // child: Lottie.asset('assets/anim/dog/anim.json', width: 40, height: 40, controller: animation),
+          child: AnimatedBuilder(
+            animation: anim,
+            builder: (context, child) => Image.asset('assets/spinner/seq_${anim.value}.png', width: 40, height: 40),
+          ),
+        ),
+      ],
     );
   }
 }
