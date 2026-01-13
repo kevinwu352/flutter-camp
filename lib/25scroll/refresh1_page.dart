@@ -25,14 +25,14 @@ import 'package:flutter/material.dart';
 // String? semanticsLabel
 // String? semanticsValue
 
-class RefreshPage extends StatefulWidget {
-  const RefreshPage({super.key});
+class Refresh1Page extends StatefulWidget {
+  const Refresh1Page({super.key});
 
   @override
-  State<RefreshPage> createState() => _RefreshPageState();
+  State<Refresh1Page> createState() => _Refresh1PageState();
 }
 
-class _RefreshPageState extends State<RefreshPage> {
+class _Refresh1PageState extends State<Refresh1Page> {
   @override
   void initState() {
     super.initState();
@@ -86,7 +86,7 @@ class _RefreshPageState extends State<RefreshPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Refresh'), backgroundColor: Colors.grey),
+      appBar: AppBar(title: Text('Refresh 1'), backgroundColor: Colors.grey),
       body: RefreshIndicator.adaptive(
         color: Colors.green,
         backgroundColor: Colors.red,
