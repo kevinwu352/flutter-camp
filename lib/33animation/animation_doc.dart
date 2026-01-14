@@ -48,6 +48,7 @@
 // AnimationController
 
 // double? value 初始值，如果传 0.5，相当于动画已进行一半，剩下的动画只需要 duration/2 的时间
+//   设置 value 会停止当前动画
 // Duration? duration
 // Duration? reverseDuration
 //
@@ -58,13 +59,19 @@
 //
 // required TickerProvider vsync
 
-// 还有一堆方法，后面再研究
-
 // repeat 会开始动画
-// bool reverse 如果是 true，动画会自动回滚
-// int? count 不传则一直动。回滚也算一次
-// Duration? period 优先级高于 controller 的 duration
-// double? min max 优先级高于 controller 的 lowerBound/upperBound
+//   bool reverse 如果是 true，动画会自动回滚
+//   int? count 不传则一直动。回滚也算一次
+//   Duration? period 优先级高于 controller 的 duration
+//   double? min max 优先级高于 controller 的 lowerBound/upperBound
+// forward 和 repeat 一样，都会从当前状态开始做动画
+//   from
+// 这俩随便调用，不用先暂停什么的
+// 如果现在是 repeat，调 forward 会做完这圈，然后停止
+// 如果是 forward，直接调 repeat，会重复动画下去
+//
+// stop() 停在当前进度
+// reset() 内部将 value = 0，因为设置 value 会调用 stop，所以动画也会停止
 
 // --------------------------------------------------------------------------------
 

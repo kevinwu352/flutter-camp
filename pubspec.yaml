@@ -39,6 +39,7 @@ flutter:
     - assets/images/
     - assets/jsons/
     - assets/spinner/
+    - assets/loading/
 
   fonts:
     - family: Bitcount Single
