@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:bot_toast/bot_toast.dart';
+// import 'package:bot_toast/bot_toast.dart';
 import '/l10n/localizations.dart';
 import '/core/core.dart';
 import 'test_page.dart';
@@ -31,8 +31,8 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue, brightness: Brightness.dark),
       ),
       themeMode: ThemeMode.light,
-      builder: BotToastInit(),
-      navigatorObservers: [BotToastNavigatorObserver()],
+      // builder: BotToastInit(),
+      // navigatorObservers: [BotToastNavigatorObserver()],
       home: RootPage(),
     );
     // return MaterialApp.router(routerConfig: router);

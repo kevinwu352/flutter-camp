@@ -6,14 +6,14 @@ class SpriteWidget extends StatefulWidget {
     required this.frameCount,
     required this.frameFormat,
     required this.duration,
-    this.process,
+    this.progress,
     this.width,
     this.height,
   });
   final int frameCount;
-  final String Function(int) frameFormat;
+  final String frameFormat;
   final Duration duration;
-  final double? process;
+  final double? progress;
   final double? width;
   final double? height;
 
@@ -26,25 +26,29 @@ class _SpriteWidgetState extends State<SpriteWidget> with SingleTickerProviderSt
   late final tween = IntTween(begin: 0, end: widget.frameCount - 1);
   late final anim = animation.drive(tween);
 
+  void reload() {
+    final progress = widget.progress;
+    if (progress != null) {
+      if (progress >= 0) {
+        animation.value = progress;
+      } else {
+        animation.repeat();
+      }
+    } else {
+      animation.reset();
+    }
+  }
+
   @override
   void initState() {
     super.initState();
-    if (widget.process != null) {
-      animation.value = widget.process!;
-    } else {
-      animation.repeat();
-    }
+    reload();
   }
 
   @override
   void didUpdateWidget(covariant SpriteWidget oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (widget.process != null) {
-      animation.stop();
-      animation.value = widget.process!;
-    } else {
-      animation.repeat();
-    }
+    reload();
   }
 
   @override
@@ -57,8 +61,12 @@ class _SpriteWidgetState extends State<SpriteWidget> with SingleTickerProviderSt
   Widget build(BuildContext context) {
     return AnimatedBuilder(
       animation: anim,
-      builder: (context, child) =>
-          Image.asset(widget.frameFormat(anim.value), width: widget.width, height: widget.height),
+      builder: (context, child) => Image.asset(
+        widget.frameFormat.replaceFirst('##', anim.value.toString()),
+        width: widget.width,
+        height: widget.height,
+        gaplessPlayback: true,
+      ),
     );
   }
 }

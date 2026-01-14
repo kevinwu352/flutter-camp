@@ -56,6 +56,10 @@ class _Key3PageState extends State<Key3Page> {
             // if (_value.isOdd) Counter(onPressed: _incrementCounter),
             // Text('value: $_value'),
             // if (_value.isEven) Counter(onPressed: _incrementCounter),
+            //
+            // if (_value.isEven) Text('value: $_value'),
+            // Counter(onPressed: _incrementCounter),
+            // if (_value.isOdd) Text('value: $_value'),
 
             // 用 GlobalKey，状态保留了
             // if (_value.isOdd) Counter(onPressed: _incrementCounter, key: _gkey),

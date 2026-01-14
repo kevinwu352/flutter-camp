@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:easy_refresh/easy_refresh.dart';
+import 'package:flutter_camp/20widget/sprite_widget.dart';
 // import 'package:lottie/lottie.dart';
 
 // required Widget? child
@@ -179,24 +180,121 @@ class _Refresh2PageState extends State<Refresh2Page> {
 class RefreshHeader extends Header {
   const RefreshHeader({this.key, super.triggerOffset = 60, super.clamping = false});
   final Key? key;
+
+  double? progress(IndicatorState state) => switch (state.mode) {
+    IndicatorMode.drag || IndicatorMode.armed => state.offset.clamp(0, triggerOffset) / triggerOffset,
+    IndicatorMode.ready || IndicatorMode.processing || IndicatorMode.processed => -1,
+    _ => null,
+  };
+
+  @override
+  Widget build(BuildContext context, IndicatorState state) {
+    // print(
+    //   "mode:${state.mode} result:${state.result} offset:${state.offset} safeOffset:${state.safeOffset} o1:${state.triggerOffset} o2:${state.actualTriggerOffset}",
+    // );
+    // return _RefreshIndicator(key: key, state: state, height: triggerOffset);
+    // return _RefreshIndicator2(state: state, height: triggerOffset);
+    return Stack(
+      key: key,
+      alignment: Alignment.center,
+      children: [
+        SizedBox(height: state.offset, width: double.infinity), // 这个要要，它用来撑开 stack
+        Positioned.fill(child: ColoredBox(color: Colors.yellow)), // 这个不要，目前只是用来看 header 所占区域的
+        Positioned(
+          bottom: 0,
+          // child: CircularProgressIndicator.adaptive(),
+          // child: Lottie.asset('assets/anim/dog/anim.json', width: 40, height: 40, controller: animation),
+          child: SpriteWidget(
+            frameCount: 30,
+            frameFormat: 'assets/loading/spinner_##.png',
+            // frameFormat: 'assets/spinner/seq_##.png',
+            duration: Duration(seconds: 1),
+            progress: progress(state),
+            width: 40,
+            height: 40,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+// class _RefreshIndicator3 extends StatelessWidget {
+//   const _RefreshIndicator3({required this.state, required this.height});
+//   final IndicatorState state;
+//   final double height;
+//
+//   double? get progress => switch (state.mode) {
+//     IndicatorMode.drag || IndicatorMode.armed => state.offset.clamp(0, height) / height,
+//     IndicatorMode.ready || IndicatorMode.processing || IndicatorMode.processed => -1,
+//     _ => null,
+//   };
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     // double? progress;
+//     // switch (state.mode) {
+//     //   case IndicatorMode.drag:
+//     //   case IndicatorMode.armed:
+//     //     progress = state.offset.clamp(0, height) / height;
+//     //   case IndicatorMode.ready:
+//     //   case IndicatorMode.processing:
+//     //   case IndicatorMode.processed:
+//     //     progress = -1;
+//     //   default:
+//     //     progress = null;
+//     // }
+//     // print('progress: $progress');
+//     return Stack(
+//       alignment: Alignment.center,
+//       children: [
+//         SizedBox(height: state.offset, width: double.infinity), // 这个要要，它用来撑开 stack
+//         Positioned.fill(child: ColoredBox(color: Colors.white)), // 这个不要，目前只是用来看 header 所占区域的
+//         Positioned(
+//           bottom: 0,
+//           //
+//           // child: CircularProgressIndicator.adaptive(),
+//           // child: Lottie.asset('assets/anim/dog/anim.json', width: 40, height: 40, controller: animation),
+//           child: SpriteWidget(
+//             frameCount: 17,
+//             // frameFormat: 'assets/loading/spinner_##.png',
+//             frameFormat: 'assets/spinner/seq_##.png',
+//             duration: Duration(seconds: 1),
+//             progress: progress,
+//             width: 40,
+//             height: 40,
+//           ),
+//         ),
+//       ],
+//     );
+//   }
+// }
+
+// ================================================================================
+// 下面的例子是最初的，有点复杂
+
+class RefreshHeader2 extends Header {
+  const RefreshHeader2({this.key, super.triggerOffset = 60, super.clamping = false});
+  final Key? key;
   @override
   Widget build(BuildContext context, IndicatorState state) {
     print(
       "mode:${state.mode} result:${state.result} offset:${state.offset} safeOffset:${state.safeOffset} o1:${state.triggerOffset} o2:${state.actualTriggerOffset}",
     );
-    return _RefreshIndicator(key: key, state: state, height: triggerOffset);
+    // return _RefreshIndicator(key: key, state: state, height: triggerOffset);
+    return _RefreshIndicator2(key: key, state: state, height: triggerOffset);
   }
 }
 
-class _RefreshIndicator extends StatefulWidget {
-  const _RefreshIndicator({super.key, required this.state, required this.height});
+class _RefreshIndicator2 extends StatefulWidget {
+  const _RefreshIndicator2({super.key, required this.state, required this.height});
   final IndicatorState state;
   final double height;
   @override
-  State<_RefreshIndicator> createState() => __RefreshIndicatorState();
+  State<_RefreshIndicator2> createState() => __RefreshIndicator2State();
 }
 
-class __RefreshIndicatorState extends State<_RefreshIndicator> with SingleTickerProviderStateMixin {
+class __RefreshIndicator2State extends State<_RefreshIndicator2> with SingleTickerProviderStateMixin {
   late final animation = AnimationController(duration: Duration(seconds: 1), vsync: this);
   late final tween = IntTween(begin: 0, end: 16);
   late final anim = animation.drive(tween);
