@@ -24,7 +24,6 @@ class SpriteWidget extends StatefulWidget {
 class _SpriteWidgetState extends State<SpriteWidget> with SingleTickerProviderStateMixin {
   late final animation = AnimationController(duration: widget.duration, vsync: this);
   late final tween = IntTween(begin: 0, end: widget.frameCount - 1);
-  late final anim = animation.drive(tween);
 
   void reload() {
     final progress = widget.progress;
@@ -60,9 +59,9 @@ class _SpriteWidgetState extends State<SpriteWidget> with SingleTickerProviderSt
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
-      animation: anim,
+      animation: animation,
       builder: (context, child) => Image.asset(
-        widget.frameFormat.replaceFirst('##', anim.value.toString()),
+        widget.frameFormat.replaceFirst('##', tween.evaluate(animation).toString()),
         width: widget.width,
         height: widget.height,
         gaplessPlayback: true,

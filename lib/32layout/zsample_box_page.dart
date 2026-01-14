@@ -238,7 +238,30 @@ class SampleBoxPage extends StatelessWidget {
     // 如果最大宽是无限，则取最大高，算出宽
     // 然后检查算出的尺寸是否符合约束，如果不符合就重算并把约束考虑进去
     // 如果最终无法找到合适的尺寸，遵守约束而不遵守比例
+    //
+    // 松约束时，按照上面的规则计算尺寸，传递给子的是紧约束
+    // 无限约束会异常，有子无子都异常
+    //
+    // 总的来说，它的尺寸是随父，就算子是小尺寸的 Text/SizedBox 也是随父，且子会被拉大
     // ================================================================================
+    // return Scaffold(
+    //   body: OverflowBox(
+    //     // minWidth: 300,
+    //     // maxWidth: 300,
+    //     // minHeight: 300,
+    //     // maxHeight: 300,
+    //     minWidth: 100,
+    //     maxWidth: 200,
+    //     minHeight: 100,
+    //     maxHeight: 200,
+    //     // minWidth: 0,
+    //     // maxWidth: double.infinity,
+    //     // minHeight: 0,
+    //     // maxHeight: double.infinity,
+    //     // child: AspectRatio(aspectRatio: 0.5, child: SizedBox(width: 50, height: 50)),
+    //     child: AspectRatio(aspectRatio: 0.5, child: Text('a')),
+    //   ),
+    // );
 
     return Text("--");
   }

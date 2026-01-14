@@ -198,7 +198,10 @@ class RefreshHeader extends Header {
       key: key,
       alignment: Alignment.center,
       children: [
-        SizedBox(height: state.offset, width: double.infinity), // 这个要要，它用来撑开 stack
+        // Stack 收到 402 0-inf
+        // SizedBox 收到 0-402 0-inf
+        // 这个要要，它用来撑开 stack，如果没这行，下拉以后 stack 高度是 0
+        SizedBox(height: state.offset, width: double.infinity),
         Positioned.fill(child: ColoredBox(color: Colors.yellow)), // 这个不要，目前只是用来看 header 所占区域的
         Positioned(
           bottom: 0,

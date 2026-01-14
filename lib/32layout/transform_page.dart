@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 
 // REVIEW
 
+// Transform.translate 单位是 pt，0-400
+// FractionalTranslation 单位是子尺寸百分比，0-1
+// AnimatedSlide 单位是子尺寸百分比，0-1
+
 class TransformPage extends StatelessWidget {
   const TransformPage({super.key});
 
