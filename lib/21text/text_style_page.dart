@@ -10,6 +10,8 @@ import 'package:flutter/gestures.dart';
 //   style: TextStyle(background: Paint()..color = Colors.blue), 完整形式
 // )
 
+// DefaultTextStyle 的功能是给 无显式样式的子节点 提供样式
+
 // ================================================================================
 // TextStyle 参数
 
@@ -110,21 +112,34 @@ class TextStylePage extends StatelessWidget {
           // 里面得到的是 bodyMedium 样式
           _StyleWidget(name: '1aaa'),
 
+          // Text 没有明确设置样式，所以受到 DefaultTextStyle.style 的影响
+          DefaultTextStyle(style: TextStyle(fontSize: 32), child: Text('asdf')),
+
+          // ----------------------------------------
+
           // 里面得到的样式只有字号
+          // 本来周围的样式是 bodyMedium，但被下面的 style 属性替换了，而且，是整个替换，而不是把周围样式的字体改掉
           DefaultTextStyle(
             style: TextStyle(
-              //
               // color: Colors.purple,
               fontSize: 32,
             ),
             child: _StyleWidget(name: '2bbb'),
           ),
 
-          // 里面得到的是 bodyLarge 样式
+          // 和上面的 1aaa 尺寸不一样，说明 TextStyle() 空样式和 bodyMedium 不一样
           DefaultTextStyle(
-            style: Theme.of(context).textTheme.bodyLarge!,
+            style: TextStyle(),
+            child: _StyleWidget(name: '1aaa'),
+          ),
+
+          // 里面得到的是 titleLarge 样式
+          DefaultTextStyle(
+            style: Theme.of(context).textTheme.titleLarge!,
             child: _StyleWidget(name: '3ccc'),
           ),
+
+          // ----------------------------------------
 
           // 里面得到的是 fallback 样式，也就是双黄线那种
           // 可见 DefaultTextStyle.of 获取的一定是它上面的另一个 DefaultTextStyle 提供的样式，而不是周围环境的样式
@@ -132,6 +147,8 @@ class TextStylePage extends StatelessWidget {
             style: DefaultTextStyle.of(context).style,
             child: _StyleWidget(name: '4ddd'),
           ),
+
+          // ----------------------------------------
 
           // 里面得到的是 bodyMedium 样式
           // 可见 DefaultTextStyle.merge 会获取周围环境的样式
@@ -183,21 +200,23 @@ class TextStylePage extends StatelessWidget {
 
           // ================================================================================
 
-          // 高度 20
-          // Text('jKfa'),
+          // 高度 20，这三个高度是 inspector 里量的
+          Text('jKfa'),
 
           // 高度 14 * 1 = 14
-          // Text('jKfb', style: TextStyle(height: 1)),
+          // 色块高度是 14，但 j 的下边伸出去了一点点
+          Text('jKfb', style: TextStyle(height: 1)),
 
           // 高度 17，算算怎么来的，有点怪？
           // 原来高 20，fontSize 14，所以上下是 3
           // 文档说：当 textHeightBehavior 都为 false 时，用字体原来的 ascent，而不是 0，这一定要注意
           // 所以 14 + 3 = 17，这 3 应该就是字体的 ascent + descent
-          // Text(
-          //   'jKfc',
-          //   style: TextStyle(height: 1, backgroundColor: Colors.blue),
-          //   textHeightBehavior: TextHeightBehavior(applyHeightToFirstAscent: false, applyHeightToLastDescent: false),
-          // ),
+          // 色块高度是 14，但上下有空白，上5下4，9/3=3，加14，刚好是17
+          Text(
+            'jKfc',
+            style: TextStyle(height: 1, backgroundColor: Colors.blue),
+            textHeightBehavior: TextHeightBehavior(applyHeightToFirstAscent: false, applyHeightToLastDescent: false),
+          ),
           // 经过观察，以 height = 1 为基准，它的高度是 14
           // height = null 时，上下边各增加 3，加起来刚好是 20
           // height = 1，且两个 false 时，上边增加 1，下边增加 2，加起来是 17

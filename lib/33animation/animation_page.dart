@@ -28,9 +28,17 @@ import 'package:flutter/material.dart';
 //   FadeTransition, which is an animated version of Opacity.
 //   PositionedTransition, which is an animated version of Positioned.
 //   SizeTransition, which animates its own size.
+//     Animation<double> sizeFactor 0-1，子的尺寸不变，像是窗帘从左拉到右边，内容随着拉动呈现出来
+//     double? fixedCrossAxisSizeFactor 固定次轴显示比例
+//     Axis axis
+//     double axisAlignment 0.0 没懂
 //   RotationTransition, which animates the rotation of a widget.
+//     turns 1是转一圈，0.25是90度，顺时针
+//     alignment 旋转的轴心，中心/左上/左下/右下/右上 等
 //   ScaleTransition, which animates the scale of a widget.
+//     alignment 缩放的中心点
 //   SlideTransition, which animates the position of a widget relative to its normal position.
+//     单位是子尺寸百分比，0-1，也不挤空间
 //
 //   DecoratedBoxTransition, which is an animated version of DecoratedBox.
 //
