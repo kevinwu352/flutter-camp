@@ -17,6 +17,10 @@ import 'dart:convert';
 // 也能写成工厂构造函数
 // factory Bee.fromJson(Map<String, dynamic> json) => Bee(name: json['name'] as String, role: json['role'] as int);
 
+// jsonDecode 解析出的类型是 dynamic
+// json["code"] 取出来的类型也是 dynamic
+// 把它赋值给 int val = json["code"] 时，不报错，但运行时要崩
+
 class User {
   final String name;
   final int age;
