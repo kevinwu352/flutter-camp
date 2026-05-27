@@ -5,13 +5,15 @@ import '/core/core.dart';
 import 'test_page.dart';
 // import '/11router/router_page.dart';
 
+import 'package:flutter_camp/12states/river_app1.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // 开启布局边框
   // debugPaintSizeEnabled = true;
   await pathInit();
 
-  runApp(const MyApp());
+  runApp(const RiverApp1());
 }
 
 class MyApp extends StatelessWidget {
