@@ -5,7 +5,9 @@ import '/core/core.dart';
 import 'test_page.dart';
 // import '/11router/router_page.dart';
 
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_camp/12states/river_app1.dart';
+import 'package:flutter_camp/12states/river_app2.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -13,7 +15,7 @@ void main() async {
   // debugPaintSizeEnabled = true;
   await pathInit();
 
-  runApp(const RiverApp1());
+  runApp(ProviderScope(child: RiverApp1()));
 }
 
 class MyApp extends StatelessWidget {

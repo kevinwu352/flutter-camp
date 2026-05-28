@@ -92,7 +92,8 @@ arb 文件中，有一堆预设格式，也能用自定义格式
   print(NumberFormat.compact(locale: "zh_TW").format(val)); // 1.2M 120萬 | 120萬 | 1.57
   print(NumberFormat.compactLong().format(val)); // 1.2 million | 1.2 million | 1.57
 
-  // 前缀用什么？优先级递减：symbol(€) > name(JPY) > locale(USD)。有 symbol 用的是单符号，否则是 JPY 这种名字
+  // 前缀用什么？currency() 有几个参数，它们优先级递减：symbol(€) > name(JPY) > locale(USD)
+  // 有 symbol 用的是单符号，否则是 JPY 这种名字
   print(NumberFormat.currency().format(val)); // USD1,200,000.00 | USD1,200,000.57 | USD1.57
   print(NumberFormat.compactCurrency().format(val)); // USD1.2M | USD1.2M | USD1.57
   // 货币的 name 是 CNY / JPY 这种。如果随便给字符串，位数用 locale 的，前面符号是传的那值
