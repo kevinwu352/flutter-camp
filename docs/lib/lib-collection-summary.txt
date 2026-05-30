@@ -48,6 +48,6 @@ List
   remove 这类方法是修改原集合本身，我主要考虑的是返回另一个集合的函数，也就是 filter / map
 
   List 排除类的方法，skip / take 是排除前后的，where 是排除随意位置的
-  Map 缺排除类的方法，因为它没顺序，所以，它缺 where
+  Map 缺排除类的方法，因为它没顺序，不需要 skip / take，所以，它只缺 where
 
   List / Map 都缺 compactMap

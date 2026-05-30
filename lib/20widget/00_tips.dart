@@ -94,6 +94,7 @@
 //     @override
 //     bool operator ==(Object other) =>
 //         identical(this, other) || other is Res && runtimeType == other.runtimeType && value == other.value;
+//     // freezed 那个库的例子里，没有 runtimeType == other.runtimeType 这个判断
 //     @override
 //     int get hashCode => value.hashCode;
 //     int get hashCode => Object.hash(name, age); 多个值时，合并生成 hash

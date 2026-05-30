@@ -4,7 +4,7 @@
 // flutter pub add dev:build_runner
 
 // part 'river_app1.g.dart';
-// dart run build_runner build
+// dart run build_runner build --delete-conflicting-outputs
 // dart run build_runner watch
 
 

@@ -41,7 +41,7 @@ import 'package:flutter/material.dart';
 // build 异常的处理流程，在 performRebuild 方法里
 // 系统调用 build()，用 try-catch 包起来，正常则显示正常内容
 // 出现异常则创建一个 FlutterErrorDetails，一方面用 ErrorWidget 显示，一方面打印到控制台
-//   截取 ErrorWidget 显示：ErrorWidget.builder 是静态方法，把它取出来，给空赋个新的回调，里面返回一个好看的 widget
+//   截取 ErrorWidget 显示：ErrorWidget.builder 是静态方法，把它取出来，给它赋个新的回调，里面返回一个好看的 widget
 //   截取控制台打印操作：FlutterError.onError 是静态方法，把它取出来，给它赋个新的回调，里面调用旧的
 
 // vscode 调试的断点那里，如果勾选 Uncaught Exceptions，那么能捕捉 build 方法内抛出的异常
