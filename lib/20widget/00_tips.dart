@@ -94,6 +94,7 @@
 //     @override
 //     bool operator ==(Object other) =>
 //         identical(this, other) || other is Res && runtimeType == other.runtimeType && value == other.value;
+//     // freezed 那个库的例子里，没有 runtimeType == other.runtimeType 这个判断
 //     @override
 //     int get hashCode => value.hashCode;
 //     int get hashCode => Object.hash(name, age); 多个值时，合并生成 hash
@@ -115,6 +116,7 @@
 //   identical(const [1], const [1])  true
 //   list a1 = [1,2,3];
 //   list a2 = [1,2,3]; 用文字量创建的两个变量也不是 identical
+// 所以 [1] != [1] / a1 != a2，集合的字面量和变量 ==/identical 都是 false，除非加 const
 
 // ================================================================================
 

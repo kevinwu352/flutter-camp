@@ -37,12 +37,12 @@ class _Key3PageState extends State<Key3Page> {
 
   int _value = 0;
 
-  void _incrementCounter() {
-    setState(() {
-      _value++;
-      print('counter: $_value');
-    });
-  }
+  // void _incrementCounter() {
+  //   setState(() {
+  //     _value++;
+  //     print('counter: $_value');
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -79,15 +79,18 @@ class _Key3PageState extends State<Key3Page> {
             // ),
 
             // 用 GlobalKey，但不是同级兄弟了，状态保留了
-            if (_value.isOdd) Counter(onPressed: _incrementCounter, key: _gkey),
-            Text('value: $_value'),
-            Column(
-              children: [if (_value.isEven) Counter(onPressed: _incrementCounter, key: _gkey)],
-            ),
+            // if (_value.isOdd) Counter(onPressed: _incrementCounter, key: _gkey),
+            // Text('value: $_value'),
+            // Column(
+            //   children: [if (_value.isEven) Counter(onPressed: _incrementCounter, key: _gkey)],
+            // ),
 
             // 用 GlobalKey，跨帧，无法保留状态
-            // if (_value.isEven) Counter(onPressed: () {}, key: _gkey),
-            // TextButton(onPressed: () => setState(() => _value++), child: Text('$_value')),
+            // 这里所谓的跨帧，应该是指：
+            // 前面是在同一帧内，在 位置A 隐藏，在 位置A 显示，此时，位于同一帧内，所以，可以把 A 的状态给 B 用，状态也就保留了
+            // 而这里点击按钮，隐藏 A，它的状态也就消失了，过一会再点，又显示出 A，它的状态是新建的，这是不同的帧，跨了很多帧
+            if (_value.isEven) Counter(onPressed: () {}, key: _gkey),
+            TextButton(onPressed: () => setState(() => _value++), child: Text('$_value')),
           ],
         ),
       ),
