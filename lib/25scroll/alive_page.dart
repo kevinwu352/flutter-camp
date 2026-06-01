@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 // 如果列表里不加 AutomaticKeepAlive 组件，则没事，addAutomaticKeepAlives=true 也没事
 // Incorrect use of ParentDataWidget.
 
-// 保留某行，不让系统回收的方式：
+// 保留某行，不让系统回收的两种方式：
 // 1) ListView.addAutomaticKeepAlives=true，行的 state 混入 AutomaticKeepAliveClientMixin
 // 2) 用 KeepAlive 组件包起某行，其它都不用设置
 
@@ -40,6 +40,12 @@ class _KeepAliveItem1 extends StatefulWidget {
 }
 
 class _KeepAliveItem1State extends State<_KeepAliveItem1> with AutomaticKeepAliveClientMixin<_KeepAliveItem1> {
+  @override
+  void initState() {
+    super.initState();
+    print('init ${widget.index}');
+  }
+
   int _counter = 0;
   @override
   bool get wantKeepAlive => widget.index.isEven;
@@ -61,6 +67,12 @@ class _KeepAliveItem2 extends StatefulWidget {
 }
 
 class __KeepAliveItem2State extends State<_KeepAliveItem2> {
+  @override
+  void initState() {
+    super.initState();
+    print('init ${widget.index}');
+  }
+
   int _counter = 0;
   @override
   Widget build(BuildContext context) {
