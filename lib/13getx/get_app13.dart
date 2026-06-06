@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class HTTPMgr {
-  HTTPMgr() {
-    print('http init');
-  }
-}
+// 使用 GetMaterialApp，无路由，原生导航，在 build 里 put，用 GetBuilder，无法释放 HomeViewModel
+// 使用 GetMaterialApp，无路由，Get.to 但原生返回，在 build 里 put，用 GetBuilder，无法释放 HomePage，且数量会越来越多
+// 使用 GetMaterialApp，无路由，Get.to/Get.back，在 build 里 put，用 GetBuilder，无法释放 HomePage，且数量会越来越多
+// 使用 GetMaterialApp，无路由，Get.to/Get.back，用 Bindings 来 put，用 GetBuilder，无法释放 HomePage，且数量会越来越多
 
-class GetApp2 extends StatelessWidget {
-  const GetApp2({super.key});
+// 感觉很乱，要么是 ViewModel，要么是 Page，释放不掉哟
+
+class GetApp13 extends StatelessWidget {
+  const GetApp13({super.key});
   @override
   Widget build(BuildContext context) {
-    Get.put(HTTPMgr());
-    return MaterialApp(home: RootPage());
+    return GetMaterialApp(home: RootPage());
   }
 }
 
@@ -25,8 +25,8 @@ class RootPage extends StatelessWidget {
       body: Center(
         child: TextButton(
           onPressed: () {
-            Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomePage()));
-            // Get.to(HomePage());
+            // Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomePage()));
+            Get.to(HomePage(), binding: BindingsBuilder(() => Get.lazyPut(() => HomeViewModel())));
           },
           child: Text('go'),
         ),
@@ -36,15 +36,12 @@ class RootPage extends StatelessWidget {
 }
 
 class HomeViewModel extends GetxController {
-  HomeViewModel({required this.http}) {
+  HomeViewModel() {
     print('home vm init');
   }
-  final HTTPMgr http;
-
   var name = 'kevin';
   void change() {
     name = 'asdf';
-    print(http);
     update();
   }
 
@@ -55,13 +52,6 @@ class HomePage extends StatelessWidget {
   HomePage({super.key});
 
   // final dep = Get.put(HomeViewModel());
-  // final dep = Get.lazyPut(() => HomeObject());
-
-  // final dep = Get.replace(HomeObject());
-
-  // final vm = Get.create(() => HomeObject());
-
-  late final vm = HomeViewModel(http: Get.find());
 
   @override
   Widget build(BuildContext context) {
@@ -78,11 +68,10 @@ class HomePage extends StatelessWidget {
             // Obx(() => Text('name: ${vm.name}')),
             // GetX<HomeViewModel>(builder: (controller) => Text('name: ${controller.age}')),
             // GetBuilder(init: vm, builder: (controller) => Text('name: ${controller.name}')),
-            // GetBuilder<HomeViewModel>(builder: (controller) => Text('name: ${controller.name}')),
-            GetBuilder(init: vm, builder: (controller) => Text('name: ${controller.name}')),
+            GetBuilder<HomeViewModel>(builder: (controller) => Text('name: ${controller.name}')),
 
-            TextButton(onPressed: () => vm.change(), child: Text('back')),
-            // TextButton(onPressed: () => no.name = 'abc', child: Text('back')),
+            // TextButton(onPressed: () => vm.change(), child: Text('change')),
+            TextButton(onPressed: () => Get.back(), child: Text('back')),
           ],
         ),
       ),

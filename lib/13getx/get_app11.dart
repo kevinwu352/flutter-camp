@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class GetApp1 extends StatelessWidget {
-  const GetApp1({super.key});
+class GetApp11 extends StatelessWidget {
+  const GetApp11({super.key});
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(home: RootPage());
