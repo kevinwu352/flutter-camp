@@ -7,8 +7,8 @@ class HTTPMgr {
   }
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class GetApp2 extends StatelessWidget {
+  const GetApp2({super.key});
   @override
   Widget build(BuildContext context) {
     Get.put(HTTPMgr());

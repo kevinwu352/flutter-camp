@@ -3,12 +3,8 @@ import 'package:flutter/material.dart';
 import '/l10n/localizations.dart';
 import '/core/core.dart';
 import 'test_page.dart';
-// import '/11router/router_page.dart';
 
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-// import '/12states/river_app1.dart';
-// import '/12states/river_app2.dart';
-import '/01basic/freezed_page.dart';
+import '/12states/get_app0.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,7 +12,8 @@ void main() async {
   // debugPaintSizeEnabled = true;
   await pathInit();
 
-  runApp(ProviderScope(child: MyApp()));
+  // runApp(ProviderScope(child: GetApp1()));
+  runApp(GetApp0());
 }
 
 class MyApp extends StatelessWidget {
@@ -38,7 +35,7 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeMode.light,
       // builder: BotToastInit(),
       // navigatorObservers: [BotToastNavigatorObserver()],
-      home: FreezedPage(),
+      home: RootPage(),
     );
     // return MaterialApp.router(routerConfig: router);
   }

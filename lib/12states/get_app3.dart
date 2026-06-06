@@ -8,8 +8,8 @@ import 'package:get/get.dart';
 
 // 感觉很乱，要么是 ViewModel，要么是 Page，释放不掉哟
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class GetApp3 extends StatelessWidget {
+  const GetApp3({super.key});
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(home: RootPage());

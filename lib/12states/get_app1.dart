@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-// import 'package:get/get.dart';
+import 'package:get/get.dart';
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class GetApp1 extends StatelessWidget {
+  const GetApp1({super.key});
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: RootPage());
+    return GetMaterialApp(home: RootPage());
   }
 }
 
@@ -18,7 +18,7 @@ class RootPage extends StatelessWidget {
       body: Center(
         child: TextButton(
           onPressed: () {
-            Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomePage()));
+            // Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomePage()));
             // Get.to(HomePage());
           },
           child: Text('go'),
