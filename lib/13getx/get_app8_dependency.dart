@@ -8,7 +8,7 @@ import 'package:get/get.dart';
 // .full
 //   清除 未使用 且 非永久 的实例
 // .onlyBuilder
-//   没看懂
+//   没看懂，网上说：只有通过 GetBuilder / GetX 使用的 Controller 才自动管理
 // .keepFactory
 //   和 .full 类似，只是这里会保留 factory，后续可以重建实例
 

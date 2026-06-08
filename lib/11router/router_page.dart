@@ -207,6 +207,17 @@ class ProfileScreen extends StatelessWidget {
 
 // ================================================================================
 
+// 请特别注意这几个的区别
+// /home/sub
+// /detail
+//   这俩是定义在 home 分支里的，它俩 push 以后，底部的 tabbar 还在
+//
+// /settings
+//   这东西不在 home 分支里，它 push 以后，底部的 tabbar 不在了
+//
+// /profile
+//   这东西是另外一个分支，要用 go，这是切换到另外一个 tab
+
 // GoRouter router(bool showOnboard, bool showLogin) => GoRouter(
 final GoRouter router = GoRouter(
   initialLocation: "/login",
