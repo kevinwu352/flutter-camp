@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 // to(() => NextScreen()) / toNamed("/details")
+//   一个路由栈 /1/2/3/4，toNamed("2") 是新建一个 2 push，而不是回退到以前的 2
 //
 // back(result: "xxxx") 关闭 snackbar / dialog / bottomSheet，以前用 Navigator.pop(context) 的场景
 //

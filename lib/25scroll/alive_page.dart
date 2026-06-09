@@ -5,8 +5,9 @@ import 'package:flutter/material.dart';
 // Incorrect use of ParentDataWidget.
 
 // 保留某行，不让系统回收的两种方式：
-// 1) ListView.addAutomaticKeepAlives=true，行的 state 混入 AutomaticKeepAliveClientMixin
-// 2) 用 KeepAlive 组件包起某行，其它都不用设置
+// 1) ListView.addAutomaticKeepAlives=false，行的 state 混入 AutomaticKeepAliveClientMixin，自己包一个 AutomaticKeepAlive
+// 2) ListView.addAutomaticKeepAlives=true，行的 state 混入 AutomaticKeepAliveClientMixin
+// 3) 用 KeepAlive 组件包起某行，其它都不用设置
 
 class AlivePage extends StatelessWidget {
   const AlivePage({super.key});
