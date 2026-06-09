@@ -55,12 +55,7 @@ class CounterPage extends GetView<CounterController> {
 
 // ================================================================================
 // GetWidget
-
-// 好像是这样：
-//   GetView 每次都创建 controller
-//   GetWidget 保留 controller，且是从 cache 里读出来的
-// 有空再仔细研究吧
-// class XXXWidget extends GetWidget {}
+// 具体情况，参考 12 那个完整例子
 
 class RootPage extends StatelessWidget {
   const RootPage({super.key});

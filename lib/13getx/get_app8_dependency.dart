@@ -21,7 +21,9 @@ import 'package:get/get.dart';
 //     不同类型 的 相同tag 不会影响
 //     仔细想一想，很少会创建两个实例，对吧，你一个 ViewModel 就是专门给这页面用的，怎么可能在其它地方再创建实例呢？
 // bool permanent = false
-//   保持在内存中，不被销毁，不被 SmartManagement 束缚，但能被 GetInstance.reset() / Get.delete()
+//   保持在内存中，不被销毁，不被 SmartManagement 束缚，但能被 GetInstance.reset() / Get.delete()，好像没 reset 方法了
+//   delete(force: true) / reload(force: true) 时能清除 permanent 的
+//   replace 应该也能清除旧的，因为内部实现是先 delete 再 put
 // InstanceBuilderCallback<S>? builder
 //   通过这个函数来返回实例，而不是第一个参数。但代码里好像根本没用到这参数，文档也说这参数用的少
 //

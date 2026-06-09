@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 // import 'package:bot_toast/bot_toast.dart';
 import '/l10n/localizations.dart';
 import '/core/core.dart';
 import 'test_page.dart';
-
-import '/12states/get_app0.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -12,8 +11,10 @@ void main() async {
   // debugPaintSizeEnabled = true;
   await pathInit();
 
-  // runApp(ProviderScope(child: GetApp1()));
-  runApp(GetApp0());
+  await GetStorage.init();
+  await GetStorage.init("user-kevin");
+
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
