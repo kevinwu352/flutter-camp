@@ -66,6 +66,8 @@ import 'package:get/get.dart';
 // 但要注意，用 put<BaseClass> 来存，用 find<ParentClass> 来查，虽然存的是 ParentClass 实例，但是会异常，因为 key 不对，找不到
 // 都有 tag 参数，lazy 有 fenix 参数
 // 内部实现是：delete 旧的，put/lazyPut 新的
+//
+// permanent 的实例可以被 replace，但 service 无法被 replace，因为内部替换时，service 获取到的 permanent 是 false
 
 // find
 // 如果用的是 create 方式，那么这里每次 find 都会创建新的

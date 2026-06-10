@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import '/core/core.dart';
 
@@ -64,6 +65,34 @@ extension GetStorageExt on GetStorage {
 //   final cancel = box.listenKey("aa", (value) {})
 // 取消订阅
 //   cancel()
+
+class AppDefaults extends GetxService {
+  Future<AppDefaults> init() async {
+    await GetStorage("defaults-app").initStorage;
+    return this;
+  }
+
+  GetStorage get storage => GetStorage("defaults-app");
+
+  int? get theme => storage.getInt("key");
+  set theme(int? value) => storage.write("key", value);
+}
+
+// 替换时用
+// await Get.find<UserDefaults>().init("god");
+class UserDefaults extends GetxService {
+  Future<UserDefaults> init([String uid = ""]) async {
+    _name = "defaults-${uid.isNotEmpty ? uid : "shared"}";
+    await GetStorage(_name).initStorage;
+    return this;
+  }
+
+  var _name = "";
+  GetStorage get storage => GetStorage(_name);
+
+  int? get theme => storage.getInt("key");
+  set theme(int? value) => storage.write("key", value);
+}
 
 class StoragePage extends StatelessWidget {
   const StoragePage({super.key});

@@ -11,6 +11,17 @@
 
 // 非 GetController 子类也能 put/lazyPut
 
+// print(Get.width);    屏幕宽
+// print(Get.height);   屏幕宽
+// print(Get.statusBarHeight / Get.pixelRatio);   安全区上，但内容用的是 padding，键盘弹出后会变，不好
+// print(Get.bottomBarHeight / Get.pixelRatio);   安全区下，但内容用的是 padding，键盘弹出后会变，不好
+// 用 Get.safeTop / Get.safeBottom 我写的扩展
+//
+// 这仨完全等价于原生的
+// print(Get.window.viewInsets);  被系统用户界面完全遮挡的部分大小，简单来说就是键盘高度
+// print(Get.window.padding);     简单来说就是状态栏和底部安全区域，但是 bottom 会因为键盘弹出变成 0
+// print(Get.window.viewPadding); 和 padding 一样，但是 bottom 部分不会发生改变
+
 
 // ================================================================================
 // 状态管理

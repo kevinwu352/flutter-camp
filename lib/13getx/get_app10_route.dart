@@ -5,6 +5,17 @@ import 'package:get/get.dart';
 //   一个路由栈 /1/2/3/4，toNamed("2") 是新建一个 2 push，而不是回退到以前的 2
 //
 // back(result: "xxxx") 关闭 snackbar / dialog / bottomSheet，以前用 Navigator.pop(context) 的场景
+// until(RoutePredicate predicate) 实现 popToRoot
+//   Get.until((route) => !(route as GetPageRoute).canPop);
+//   Get.until((route) => Get.currentRoute.contains("root")); 官方文档里写的是这种方法
+// close(int times) 一次返回几个页面
+extension GetNavigationExt on GetInterface {
+  void popToRoot() => until((route) => !(route as GetPageRoute).canPop);
+  double get safeTop => window.viewPadding.top / pixelRatio;
+  double get safeBottom => window.viewPadding.bottom / pixelRatio;
+}
+// removeRoute(Route<dynamic> route)
+//   移除某个路由
 //
 // off(NextScreen()) / offNamed 跳转到下一页，不用返回，相当于 replace，场景 splash/login
 //   动画还是 push
@@ -20,6 +31,13 @@ import 'package:get/get.dart';
 // 只有 to() 这种函数才能传 routeName 参数
 // Get.offUntil(GetPageRoute(page: () => Child5Page()), (route) => (route as GetPageRoute).routeName == '/two');
 // Get.offNamedUntil("/five", (route) => (route as GetPageRoute).routeName == '/two');
+//
+// routeName 很可能是空，用 route.settings.name，它的值大概如下
+//   /two
+//   /two/1234
+//   /two/1234?aa=11&bb=22
+//   /two/1234%3Faa=11&bb=22?para=111 <= toNamed 里面的 parameters 参数跟在后面了，但格式错了
+// 用 Get.currentRoute 估计也行，它的值来源于 route!.settings.name
 
 // 这些函数一般有这些参数
 //   dynamic page
@@ -129,7 +147,8 @@ class Child1Page extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           // Get.to(() => Child2Page(), routeName: "/two");
-          Get.toNamed("/two?aa=11&bb=22", arguments: {"name": "kkk", "age": 111});
+          Get.toNamed("/two");
+          // Get.toNamed("/two?aa=11&bb=22", arguments: {"name": "kkk", "age": 111});
           // Get.toNamed("/two/1234?aa=11&bb=22", arguments: {"name": "kkk", "age": 111});
         },
         child: Icon(Icons.run_circle),
@@ -212,9 +231,9 @@ class Child3Page extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           // Get.to(() => Child2Page());
-          // Get.toNamed("/four", arguments: "xixi");
+          Get.toNamed("/four");
           // Get.offNamed("/four");
-          Get.offAndToNamed("/four");
+          // Get.offAndToNamed("/four");
         },
         child: Icon(Icons.run_circle),
       ),

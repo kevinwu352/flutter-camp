@@ -36,6 +36,7 @@ class MainBinding extends Bindings {
   @override
   void dependencies() {
     Get.lazyPut(() => MainController());
+    Get.lazyPut(() => ProfileController());
   }
 }
 
@@ -90,7 +91,9 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.red,
       appBar: AppBar(title: Text("Home")),
-      body: Center(child: Text("home")),
+      body: Center(
+        child: ElevatedButton(onPressed: () => Get.find<MainController>().changeTo(1), child: Text("to Favorite")),
+      ),
     );
   }
 }
@@ -137,7 +140,14 @@ class _FavoritePageState extends State<FavoritePage> {
   }
 }
 
-class ProfilePage extends StatelessWidget {
+class ProfileController extends GetxController {
+  var amount = 100.obs;
+  void increase() {
+    amount++;
+  }
+}
+
+class ProfilePage extends GetView<ProfileController> {
   const ProfilePage({super.key});
   @override
   Widget build(BuildContext context) {
@@ -147,7 +157,11 @@ class ProfilePage extends StatelessWidget {
         title: Text("Profile"),
         actions: [IconButton(onPressed: () => Get.offNamed("/login"), icon: Icon(Icons.logout))],
       ),
-      body: Center(child: Text("profile")),
+      body: Center(
+        child: Obx(
+          () => ElevatedButton(onPressed: () => controller.increase(), child: Text(controller.amount.toString())),
+        ),
+      ),
     );
   }
 }

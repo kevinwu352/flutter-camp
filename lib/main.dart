@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:get_storage/get_storage.dart';
+import 'package:get/get.dart';
+// import 'package:get_storage/get_storage.dart';
 // import 'package:bot_toast/bot_toast.dart';
 import '/l10n/localizations.dart';
 import '/core/core.dart';
 import 'test_page.dart';
+
+import '/13getx/storage_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -11,8 +14,8 @@ void main() async {
   // debugPaintSizeEnabled = true;
   await pathInit();
 
-  await GetStorage.init();
-  await GetStorage.init("user-kevin");
+  await Get.putAsync(() => AppDefaults().init());
+  await Get.putAsync(() => UserDefaults().init());
 
   runApp(MyApp());
 }
