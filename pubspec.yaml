@@ -40,20 +40,31 @@ dev_dependencies:
   flutter_lints: ^5.0.0
 
   build_runner: ^2.15.0
+  flutter_gen_runner: ^5.14.1
   riverpod_generator: ^4.0.3
   json_serializable: ^6.13.0
   # freezed: ^3.2.5
 
+# dart run build_runner build --verbose
+# dart run build_runner clean
+# https://github.com/FlutterGen/flutter_gen/blob/main/packages/core/lib/settings/config_default.dart
+flutter_gen:
+  # integrations:
+  #   image: false # 每个图片生成对应的 路径字符串/AssetGenImage
+  #   lottie: false
+  assets:
+    exclude:
+      - assets/spinner/**
+      - assets/loading/**
+
 flutter:
   generate: true
   uses-material-design: true
-
   assets:
     - assets/images/
     - assets/jsons/
     - assets/spinner/
     - assets/loading/
-
   fonts:
     - family: Bitcount Single
       fonts:
