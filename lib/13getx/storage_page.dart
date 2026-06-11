@@ -66,32 +66,57 @@ extension GetStorageExt on GetStorage {
 // 取消订阅
 //   cancel()
 
-class AppDefaults extends GetxService {
-  Future<AppDefaults> init() async {
-    await GetStorage("defaults-app").initStorage;
+// class AppDefaults extends GetxService {
+//   Future<AppDefaults> init() async {
+//     await GetStorage("defaults-app").initStorage;
+//     return this;
+//   }
+//   GetStorage get storage => GetStorage("defaults-app");
+//
+//   int? get theme => storage.getInt("key");
+//   set theme(int? value) => storage.write("key", value);
+// }
+//
+// // 替换时用
+// // await Get.find<UserDefaults>().init("god");
+// class UserDefaults extends GetxService {
+//   Future<UserDefaults> init([String uid = ""]) async {
+//     _name = "defaults-${uid.isNotEmpty ? uid : "shared"}";
+//     await GetStorage(_name).initStorage;
+//     return this;
+//   }
+//   var _name = "";
+//   GetStorage get storage => GetStorage(_name);
+//
+//   int? get theme => storage.getInt("key");
+//   set theme(int? value) => storage.write("key", value);
+// }
+
+// 不要上面两个，将它们整合到一个类里面，至于某个数据是属于 App 还是 User，自己决定
+// await Get.find<AppOptions>().reload("kevin");
+class AppOptions extends GetxService {
+  Future<AppOptions> init(String uid) async {
+    app = GetStorage("options-app");
+    await app.initStorage;
+    user = GetStorage("options-${uid.isNotEmpty ? uid : "shared"}");
+    await user.initStorage;
     return this;
   }
 
-  GetStorage get storage => GetStorage("defaults-app");
-
-  int? get theme => storage.getInt("key");
-  set theme(int? value) => storage.write("key", value);
-}
-
-// 替换时用
-// await Get.find<UserDefaults>().init("god");
-class UserDefaults extends GetxService {
-  Future<UserDefaults> init([String uid = ""]) async {
-    _name = "defaults-${uid.isNotEmpty ? uid : "shared"}";
-    await GetStorage(_name).initStorage;
+  Future<AppOptions> reload(String uid) async {
+    user = GetStorage("options-${uid.isNotEmpty ? uid : "shared"}");
+    await user.initStorage;
     return this;
   }
 
-  var _name = "";
-  GetStorage get storage => GetStorage(_name);
+  late GetStorage app;
+  late GetStorage user;
 
-  int? get theme => storage.getInt("key");
-  set theme(int? value) => storage.write("key", value);
+  int? get theme => app.getInt("theme");
+  set theme(int? value) => app.write("theme", value);
+
+  String? get username => user.getString("username");
+  set username(String? value) => user.write("username", value);
 }
 
 class StoragePage extends StatelessWidget {
@@ -106,19 +131,21 @@ class StoragePage extends StatelessWidget {
           children: [
             TextButton(
               onPressed: () {
-                GetStorage box = GetStorage();
-                box.listen(() {
-                  print("box changed");
-                });
-                box.listenKey("bb", (value) {
-                  print("box changed, $value");
-                });
+                // GetStorage box = GetStorage();
+                // box.listen(() {
+                //   print("box changed");
+                // });
+                // box.listenKey("bb", (value) {
+                //   print("box changed, $value");
+                // });
+                final ao = Get.find<AppOptions>();
+                ao.theme = 101;
               },
-              child: Text("listen"),
+              child: Text("write theme"),
             ),
             TextButton(
               onPressed: () {
-                GetStorage box = GetStorage();
+                // GetStorage box = GetStorage();
                 // box.write("aa", null);
                 // box.write("bb", 22);
                 // box.write("bol", true);
@@ -126,23 +153,27 @@ class StoragePage extends StatelessWidget {
                 // box.write("dbl", 1.23);
                 // box.write("str", "xixi");
                 // box.write("lst", [1, 2, 3]);
-                box.write("obj", Usr(name: "kkk", age: 111));
+                // box.write("obj", Usr(name: "kkk", age: 111));
+                final ao = Get.find<AppOptions>();
+                ao.username = "aaa";
               },
-              child: Text("write"),
+              child: Text("write username aaa"),
             ),
             TextButton(
               onPressed: () {
-                GetStorage box = GetStorage();
+                // GetStorage box = GetStorage();
                 // box.remove("bb");
                 // box.erase();
                 // print(box.hasData("aa"));
-                box.remove("obj");
+                // box.remove("obj");
+                final ao = Get.find<AppOptions>();
+                ao.username = "bbb";
               },
-              child: Text("remove"),
+              child: Text("write username bbb"),
             ),
             TextButton(
               onPressed: () {
-                GetStorage box = GetStorage();
+                // GetStorage box = GetStorage();
                 // print("aa: ${box.read("aa")}");
                 // print("bb: ${box.read("bb")}");
                 // print("bol: ${box.read("bol") as bool}");
@@ -154,17 +185,28 @@ class StoragePage extends StatelessWidget {
                 // final val = box.getList("lst");
                 // print(val);
 
-                print(box.getMap("obj"));
+                // print(box.getMap("obj"));
+                // final val = box.getObj<Usr>("obj", Usr.fromJson);
+                // print(val);
 
-                final val = box.getObj<Usr>("obj", Usr.fromJson);
-                print(val);
+                final ao = Get.find<AppOptions>();
+                print(ao.theme);
+                print(ao.username);
               },
               child: Text("read"),
             ),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(onPressed: () {}, child: Icon(Icons.run_circle)),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          final ao = await Get.find<AppOptions>().reload("kevin");
+          print(ao.theme);
+          print(ao.username);
+          print("change to kevin");
+        },
+        child: Icon(Icons.run_circle),
+      ),
     );
   }
 }

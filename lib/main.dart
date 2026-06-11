@@ -14,8 +14,9 @@ void main() async {
   // debugPaintSizeEnabled = true;
   await pathInit();
 
-  await Get.putAsync(() => AppDefaults().init());
-  await Get.putAsync(() => UserDefaults().init());
+  // await Get.putAsync(() => AppDefaults().init());
+  // await Get.putAsync(() => UserDefaults().init());
+  await Get.putAsync(() => AppOptions().init(""));
 
   runApp(MyApp());
 }
