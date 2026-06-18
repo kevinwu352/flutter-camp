@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 
 // 两种类型的 BottomSheet
 //   showBottomSheet 相当于页面内容的附加内容，既没有遮罩，也不影响背后的点击。另外，Scaffold.bottomSheet 参数也是此功能
+//     经测试，如果 scaffold.bottomSheet 有值，调用此方法会崩溃；如果没值，可以多次调用此方法
+//     聊天页面那种输入框，可以用这个来做，键盘弹出来以后，这东西会自动往上移，直接设置到 Scaffold(bottomSheet:) 上面也是可以的
+//       注意，上移的时候是让整个 bottomSheet 显示出来，而不仅仅移动一点点，让里面的 TextField 显示出来
 //   showModalBottomSheet 要求用户只能专注于此
 
 // 全局的 BottomSheetThemeData 会影响它俩
@@ -18,7 +21,7 @@ import 'package:flutter/material.dart';
 // Clip? clipBehavior 沿边框裁剪
 
 // bool enableDrag = true
-// bool? showDragHandle
+// bool? showDragHandle 最上面那个用来下拉的小杠杠
 // bool isDismissible = true 点击遮罩关闭弹窗
 
 // 如果为真，弹窗内的导航条不会伸到状态栏下方，那里会由遮罩盖着
@@ -49,6 +52,13 @@ import 'package:flutter/material.dart';
 
 // 文档说：内容是否有 ListView/GridView 之类的滑动组件，没试过效果
 // bool isScrollControlled = false
+// 内部用它来生成约束
+//   BoxConstraints(
+//     minWidth: constraints.maxWidth,
+//     maxWidth: constraints.maxWidth,
+//     maxHeight: isScrollControlled ? constraints.maxHeight : constraints.maxHeight * scrollControlDisabledMaxHeightRatio,
+//   )
+//
 // 文档说：确保弹窗从根上弹窗，让弹窗位于一切其它内容之上，因为有些时候调用者在其它 Navigator 内部，没试过效果
 // bool useRootNavigator = false
 

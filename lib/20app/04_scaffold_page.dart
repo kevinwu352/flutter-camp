@@ -13,8 +13,9 @@ import 'package:flutter/material.dart';
 
 // --------------------------------------------------------------------------------
 
-// 底部显示一个内容，位于 TabBar 上面，一直显示，据说 push 后也在
+// 底部显示一个内容，位于 TabBar 上面，一直显示，据说 push 后也在。经测试，push 后不在了
 // 这是非模态的，相当于 showBottomSheet 方法，另外还有 showModalBottomSheet 方法
+// 还有些细节，请查看这俩方法的介绍，在本工程里搜
 // Widget? bottomSheet
 
 // 最上面显示 bottomSheet，中间显示 persistentFooterButtons，最下面是 bottomNavigationBar
