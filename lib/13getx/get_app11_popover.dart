@@ -116,7 +116,7 @@ import 'package:get/get.dart';
 // print("args:${Get.arguments} paras:${Get.parameters}");
 //   args:null paras:{} 都不传
 //   args:abc paras:{}  传 arguments
-//   args:xyz paras:{}  传  arguments 和 routeSettings
+//   args:xyz paras:{}  传 arguments 和 routeSettings
 
 // String title = "Alert"
 // EdgeInsetsGeometry? titlePadding
@@ -133,7 +133,7 @@ import 'package:get/get.dart';
 
 // double radius = 20.0
 
-// Color? backgroundColor
+// Color? backgroundColor 弹窗实体的背景色
 // bool barrierDismissible = true
 
 // String? textConfirm
@@ -157,12 +157,22 @@ import 'package:get/get.dart';
 // List<Widget>? actions
 //   上面的 确定/取消 按钮，是追加到这个列表里的，所以，你懂的
 
+// bool useSafeArea
+//   如果为真，内部会用 SafeArea 控件包起来
+
 // WillPopCallback? onWillPop
 //
 // GlobalKey<NavigatorState>? navigatorKey
 
 // ================================================================================
 // sheet
+// 有个预定义的高度，超过会有溢出警告，找出修改高度的方法？
+//
+// isScrollControlled: false 时，最大高度应该是 852 * 9 / 16 = 479.25
+// 如果弹出来的 sheet 强行设置高度，也只会被限制在 479
+// 这时就要把 isScrollControlled: true，此时最大高度是屏幕高，所以我们能自由决定 sheet 高度
+// 并且，背景色也是半透明的，并未因为最大高度是全屏也挡住 sheet 背后的内容
+// showModalBottomSheet 也能这样，isScrollControlled: true，再自由决定高度
 
 // Widget bottomsheet
 
@@ -179,19 +189,50 @@ import 'package:get/get.dart';
 //   显示隐藏动画时间
 
 // bool? ignoreSafeArea
-//   没啥效果，看文档，好像好像说的是顶部的安全区
+//   没啥效果，看文档，好像好像说的是顶部的安全区。为什么要有此参数呢？
+//     因为 bottomSheet 位于屏幕底部，不会和顶部安全区有关系，而 bottomSheet 内部可能会拿安全区的值来布局
+//     这样就造成了，内容和安全区十万八千里，但是却给安全区留了空间，不妥，所以，最好让后代拿到的上安全区值是 0
+//     当内容里面使用了 SafeArea 这类控件，就能看出效果来了
+//   内部用 MediaQuery.removePadding(removeTop:) 实现的
+// return Scaffold(
+//   body: MediaQuery.removePadding(
+//     context: context,
+//     removeTop: true,
+//     child: SafeArea(child: Text("xyz")),
+//   ),
+// );
+// 本来 xyz 是位于顶部安全区内，xyz 顶部挨着屏幕边
+// 加上 SafeArea 以后，xyz 顶部挨着安全区下沿
+// 加上 MediaQuery.removePadding(removeTop:) 以后，xyz 又重新回到屏幕边沿了
+//
+// MediaQuery.removePadding(removeTop:) 的内部实现是将上下左右对应的值清零，它的后代拿安全区的值，拿到的是 0
 
 // double? elevation
 
 // bool persistent = true
-
+//   代码里面，如果是真，则把 sheet 赋值给 Scaffold.bottomSheet，否则直接显示 sheet
+//   但是代码没使用外面传进去的这个值，所以这参数无效果
 // bool isScrollControlled = false
+//   BoxConstraints(
+//     minWidth: constraints.maxWidth,
+//     maxWidth: constraints.maxWidth,
+//     minHeight: 0.0,
+//     maxHeight: isScrollControlled ? constraints.maxHeight : constraints.maxHeight * 9.0 / 16.0,
+//   )
+// 内部用它来生成约束
+// 所以，那个默认高度怎么来的？852 * 9 / 16 = 479.25
 
 // bool useRootNavigator = false
 // RouteSettings? settings
+//   传的参数 settings: RouteSettings(name: "st", arguments: "vvvv")
+//   内部能获取到 print("sheet, args:${Get.arguments} paras:${Get.parameters}");
+//   sheet, args:vvvv paras:{}
 
 // ShapeBorder? shape
 //   貌似只影响 左上/右上 两个角
+//   已实测，影响四个角，且，规定的是整个 sheet 实体区域，超过这个范围就算外面了
+//   如果圆角超级大，比如 200，那么区域就是一个大圆，四个角的内容肯定会显示在区域外面，此时点四个角，
+//   你以为你点在内容上的，其实已经出边界了，会让 sheet 消失
 // Clip? clipBehavior
 
 class GetApp11 extends StatelessWidget {
@@ -212,16 +253,22 @@ class RootPage extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(height: 200),
-            TextButton(onPressed: () => print("asdf"), child: Text("xxx")),
+            TextButton(
+              onPressed: () {
+                print("asdf 111");
+                // Get.to(ChildPage());
+              },
+              child: Text("xxx"),
+            ),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           // showSnackbar();
-          showDialog1();
+          // showDialog1();
           // showDialog2();
-          // showSheet();
+          showSheet();
         },
         child: Icon(Icons.run_circle),
       ),
@@ -315,18 +362,22 @@ class RootPage extends StatelessWidget {
 
   void showSheet() {
     Get.bottomSheet(
-      SafeArea(
-        child: Wrap(
-          children: [
-            ListTile(leading: Icon(Icons.music_note), title: Text('Music'), onTap: () {}),
-            ListTile(leading: Icon(Icons.videocam), title: Text('Video'), onTap: () {}),
-          ],
-        ),
-      ),
+      // SafeArea(
+      //   child: Wrap(
+      //     children: [
+      //       ListTile(leading: Icon(Icons.music_note), title: Text('Music'), onTap: () {}),
+      //       ListTile(leading: Icon(Icons.videocam), title: Text('Video'), onTap: () {}),
+      //     ],
+      //   ),
+      // ),
+      MySheet(),
       backgroundColor: Colors.green,
-      barrierColor: Colors.yellow.withValues(alpha: 0.3),
+      barrierColor: Colors.blue.withValues(alpha: 0.5),
 
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      isScrollControlled: true,
+
+      // shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(200)),
+      // clipBehavior: Clip.hardEdge
     );
   }
 }
@@ -335,11 +386,36 @@ class MyAlert extends StatelessWidget {
   const MyAlert({super.key});
   @override
   Widget build(BuildContext context) {
-    print("args:${Get.arguments} paras:${Get.parameters}");
+    print("alert, args:${Get.arguments} paras:${Get.parameters}");
     return Material(
       color: Colors.transparent,
       child: Center(
-        child: Container(color: Colors.amber, padding: EdgeInsets.all(50), child: Text("info")),
+        child: Container(color: Colors.amber, padding: EdgeInsets.all(50), child: Text("alert info")),
+      ),
+    );
+  }
+}
+
+class MySheet extends StatelessWidget {
+  const MySheet({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return Container(color: Colors.amber, width: 200, height: 500);
+  }
+}
+
+class ChildPage extends StatelessWidget {
+  const ChildPage({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('child')),
+      body: SizedBox.expand(
+        child: Column(
+          children: [
+            //
+          ],
+        ),
       ),
     );
   }
