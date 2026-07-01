@@ -22,6 +22,7 @@ dependencies:
   http: ^1.4.0
   get: ^4.7.3
   get_storage: ^2.1.1
+  flutter_svg: ^2.3.0
 
   cached_network_image: ^3.4.1
   easy_refresh: ^3.4.0
@@ -50,9 +51,9 @@ dev_dependencies:
 # dart run build_runner clean
 # https://github.com/FlutterGen/flutter_gen/blob/main/packages/core/lib/settings/config_default.dart
 flutter_gen:
-  # integrations:
-  #   image: false # 每个图片生成对应的 路径字符串/AssetGenImage
-  #   lottie: false
+  integrations:
+    image: true # 如果是 true 每个图片生成的是 AssetGenImage，否则生成的是对应的路径字符串
+    flutter_svg: true
   assets:
     exclude:
       - assets/spinner/**
