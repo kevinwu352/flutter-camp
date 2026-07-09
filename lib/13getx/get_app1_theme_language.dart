@@ -20,13 +20,13 @@ import 'package:get/get.dart';
 // Get.changeThemeMode 以后，GetApp1.build 不会调用，所以，我们需要手动调用了 forceAppUpdate 来整体刷新
 
 abstract final class MyColors {
-  // static Color text1() => Get.isDarkMode ? Colors.red : Colors.green;
-  static Color text1() {
-    final options = Get.find<AppOptions>();
-    bool darken = options.darken ?? Get.isPlatformDarkMode;
-    print('color-dark:${Get.isDarkMode} $darken');
-    return darken ? Colors.red : Colors.green;
-  }
+  static Color text1() => Get.find<AppOptions>().currentDarken ? Colors.red : Colors.green;
+  // static Color text1() {
+  //   final options = Get.find<AppOptions>();
+  //   bool darken = options.darken ?? Get.isPlatformDarkMode;
+  //   print('color-dark:${Get.isDarkMode} $darken');
+  //   return darken ? Colors.red : Colors.green;
+  // }
   // Get.isDarkMode 只是 GetMaterialApp 当前设置的值，当前的状态
   // 所以，在 Get.changeThemeMode 以后，MyColors 里面获取的状态还是旧的，要等本次刷新完成以后，Get.isDarkMode 才会变成新值
   // 那么最好的办法就是用 options.darken ?? Get.isPlatformDarkMode 来手动计算当前正确的状态
@@ -43,11 +43,13 @@ class GetApp1 extends StatelessWidget {
     final options = Get.find<AppOptions>();
 
     print('launch, options:${options.locale}, current:${Get.locale}, device:${Get.deviceLocale}');
-    Locale locale = AppTranslations.localeFrom(options.locale ?? Get.deviceLocale);
+    // Locale locale = AppTranslations.localeFrom(options.locale ?? Get.deviceLocale);
+    final locale = AppTranslations.localeFrom(options.currentLocale);
     print("set-locale:$locale");
 
     print("launch, options-dark:${options.darken}, system-dark:${Get.isPlatformDarkMode}, is-dark:${Get.isDarkMode}");
-    bool darken = options.darken ?? Get.isPlatformDarkMode;
+    // bool darken = options.darken ?? Get.isPlatformDarkMode;
+    final darken = options.currentDarken;
     print("set-darken:$darken");
 
     return GetMaterialApp(
@@ -169,13 +171,13 @@ class RootPage extends StatelessWidget {
   void changeLanguage(Locale? locale) {
     final options = Get.find<AppOptions>();
     options.locale = locale;
-    Get.updateLocale(locale ?? AppTranslations.localeFrom(Get.deviceLocale));
+    Get.updateLocale(AppTranslations.localeFrom(options.currentLocale));
   }
 
   void changeTheme(bool? darken) {
     final options = Get.find<AppOptions>();
     options.darken = darken;
-    Get.changeThemeMode((darken ?? Get.isPlatformDarkMode) ? ThemeMode.dark : ThemeMode.light);
+    Get.changeThemeMode(options.currentDarken ? ThemeMode.dark : ThemeMode.light);
     Get.forceAppUpdate();
     print("change theme to $darken");
     dump();

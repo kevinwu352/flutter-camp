@@ -174,6 +174,11 @@ Dart 当中提供了一个类似于新线程，但是不共享内存的独立运
     Flutter 主动调用原生功能，原生返回一个值给 Flutter
     一次性的，相当于 HTTP 请求，一问一答
     获取设备信息、调用原生相机 API、调用原生 SDK 功能
+    注意：原生和 Flutter 两端都可以创建 MethodChannel，它们的名字相同，然后原生和 Flutter 都可以用 invokeMethod 发送数据给对方
+          而且是主动发送，这也是上面那个 数据双向传递 的意思，而且收到消息以后，都能给对方回复，不过，回复的方式不同
+          Flutter 回复：在 setMethodCallHandler 里 return Future.value('给原生端的数据');
+          原生回复：在 setMethodCallHandler 里 result("给Flutter的消息")
+          https://juejin.cn/post/7267757520982736948
   EventChannel：用于数据流的通信。仅支持数据单向传递，无返回值
     原生发生某事件，原生主动通知 Flutter
     事件可能会发生多次，所以是数据流，无法回复

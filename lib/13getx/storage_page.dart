@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -96,39 +97,79 @@ extension GetStorageExt on GetStorage {
 // await Get.find<AppOptions>().reload("kevin");
 class AppOptions extends GetxService {
   Future<AppOptions> init(String uid) async {
-    app = GetStorage("options-app");
-    await app.initStorage;
-    user = GetStorage("options-${uid.isNotEmpty ? uid : "shared"}");
-    await user.initStorage;
+    _app = GetStorage("options-app");
+    await _app.initStorage;
+    await _loadAppData();
+    _user = GetStorage("options-${uid.isNotEmpty ? uid : "shared"}");
+    await _user.initStorage;
+    await _loadUserData();
     return this;
   }
 
+  late GetStorage _app;
+
+  late GetStorage _user;
   Future<AppOptions> reload(String uid) async {
-    user = GetStorage("options-${uid.isNotEmpty ? uid : "shared"}");
-    await user.initStorage;
+    _user = GetStorage("options-${uid.isNotEmpty ? uid : "shared"}");
+    await _user.initStorage;
+    await _loadUserData();
     return this;
   }
 
-  late GetStorage app;
-  late GetStorage user;
+  // ================================================================================
 
-  Locale? get locale => withValue(
-    app.getString("locale")?.split("_") ?? [],
-    (v) => v.isNotEmpty ? Locale(v[0], v.elementAtOrNull(1)) : null,
-  );
-  set locale(Locale? value) => withValue(
-    [value?.languageCode, value?.countryCode].whereType<String>().where((e) => e.isNotEmpty).join("_"),
-    (v) => app.write("locale", v.isNotEmpty ? v : null),
-  );
+  Future<void> _loadAppData() async {
+    (localeNotifier as ValueNotifier).value = withValue(
+      _app.getString("locale")?.split("_") ?? [],
+      (v) => v.isNotEmpty ? Locale(v[0], v.elementAtOrNull(1)) : null,
+    );
 
-  bool? get darken => app.getBool("darken");
-  set darken(bool? value) => app.write("darken", value);
+    (darkenNotifier as ValueNotifier).value = _app.getBool("darken");
 
-  int? get someint => app.getInt("someint");
-  set someint(int? value) => app.write("someint", value);
+    (someintNotifier as ValueNotifier).value = _app.getInt("someint");
+  }
 
-  String? get username => user.getString("username");
-  set username(String? value) => user.write("username", value);
+  final ValueListenable<Locale?> localeNotifier = ValueNotifier<Locale?>(null);
+  Locale? get locale => localeNotifier.value;
+  set locale(Locale? value) {
+    withValue(
+      [value?.languageCode, value?.countryCode].whereType<String>().where((e) => e.isNotEmpty).join("_"),
+      (v) => _app.write("locale", v.isNotEmpty ? v : null),
+    );
+    (localeNotifier as ValueNotifier).value = value;
+  }
+
+  final ValueListenable<bool?> darkenNotifier = ValueNotifier<bool?>(null);
+  bool? get darken => darkenNotifier.value;
+  set darken(bool? value) {
+    _app.write("darken", value);
+    (darkenNotifier as ValueNotifier).value = value;
+  }
+
+  final ValueListenable<int?> someintNotifier = ValueNotifier<int?>(null);
+  int? get someint => someintNotifier.value;
+  set someint(int? value) {
+    _app.write("someint", value);
+    (someintNotifier as ValueNotifier).value = value;
+  }
+
+  // ================================================================================
+
+  Future<void> _loadUserData() async {
+    (somestrNotifier as ValueNotifier).value = _user.getString("somestr");
+  }
+
+  final ValueListenable<String?> somestrNotifier = ValueNotifier<String?>(null);
+  String? get somestr => somestrNotifier.value;
+  set somestr(String? value) {
+    _user.write("somestr", value);
+    (somestrNotifier as ValueNotifier).value = value;
+  }
+}
+
+extension AppOptionsExt on AppOptions {
+  Locale? get currentLocale => locale ?? Get.deviceLocale;
+  bool get currentDarken => darken ?? Get.isPlatformDarkMode;
 }
 
 class StoragePage extends StatelessWidget {
@@ -167,9 +208,9 @@ class StoragePage extends StatelessWidget {
                 // box.write("lst", [1, 2, 3]);
                 // box.write("obj", Usr(name: "kkk", age: 111));
                 final ao = Get.find<AppOptions>();
-                ao.username = "aaa";
+                ao.somestr = "aaa";
               },
-              child: Text("write username aaa"),
+              child: Text("write somestr aaa"),
             ),
             TextButton(
               onPressed: () {
@@ -179,9 +220,9 @@ class StoragePage extends StatelessWidget {
                 // print(box.hasData("aa"));
                 // box.remove("obj");
                 final ao = Get.find<AppOptions>();
-                ao.username = "bbb";
+                ao.somestr = "bbb";
               },
-              child: Text("write username bbb"),
+              child: Text("write somestr bbb"),
             ),
             TextButton(
               onPressed: () {
@@ -203,7 +244,7 @@ class StoragePage extends StatelessWidget {
 
                 final ao = Get.find<AppOptions>();
                 print(ao.someint);
-                print(ao.username);
+                print(ao.somestr);
               },
               child: Text("read"),
             ),
@@ -214,7 +255,7 @@ class StoragePage extends StatelessWidget {
         onPressed: () async {
           final ao = await Get.find<AppOptions>().reload("kevin");
           print(ao.someint);
-          print(ao.username);
+          print(ao.somestr);
           print("change to kevin");
         },
         child: Icon(Icons.run_circle),
