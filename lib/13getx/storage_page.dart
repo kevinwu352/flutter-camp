@@ -112,8 +112,20 @@ class AppOptions extends GetxService {
   late GetStorage app;
   late GetStorage user;
 
-  int? get theme => app.getInt("theme");
-  set theme(int? value) => app.write("theme", value);
+  Locale? get locale => withValue(
+    app.getString("locale")?.split("_") ?? [],
+    (v) => v.isNotEmpty ? Locale(v[0], v.elementAtOrNull(1)) : null,
+  );
+  set locale(Locale? value) => withValue(
+    [value?.languageCode, value?.countryCode].whereType<String>().where((e) => e.isNotEmpty).join("_"),
+    (v) => app.write("locale", v.isNotEmpty ? v : null),
+  );
+
+  bool? get darken => app.getBool("darken");
+  set darken(bool? value) => app.write("darken", value);
+
+  int? get someint => app.getInt("someint");
+  set someint(int? value) => app.write("someint", value);
 
   String? get username => user.getString("username");
   set username(String? value) => user.write("username", value);
@@ -139,9 +151,9 @@ class StoragePage extends StatelessWidget {
                 //   print("box changed, $value");
                 // });
                 final ao = Get.find<AppOptions>();
-                ao.theme = 101;
+                ao.someint = 101;
               },
-              child: Text("write theme"),
+              child: Text("write someint"),
             ),
             TextButton(
               onPressed: () {
@@ -190,7 +202,7 @@ class StoragePage extends StatelessWidget {
                 // print(val);
 
                 final ao = Get.find<AppOptions>();
-                print(ao.theme);
+                print(ao.someint);
                 print(ao.username);
               },
               child: Text("read"),
@@ -201,7 +213,7 @@ class StoragePage extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           final ao = await Get.find<AppOptions>().reload("kevin");
-          print(ao.theme);
+          print(ao.someint);
           print(ao.username);
           print("change to kevin");
         },
