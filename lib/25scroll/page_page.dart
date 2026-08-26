@@ -12,6 +12,9 @@ import '/core/core.dart';
 // required NullableIndexedWidgetBuilder itemBuilder
 // bool pageSnapping = true 拖动结束后要不要停在整个页面结束处
 // bool padEnds = true 当单页宽度比例小于 0 时，在最前最后添加 padding，以确保每个页面拖动结束后居中
+//   此值仅在 viewportFraction<1 时，才会起作用
+//   子视图会收到紧约束，但 PageController(viewportFraction: 0.8) 时，宽度才会小一点
+//   此时，如果 padEnds 会在最前最后加填充，不是每页加填充
 // ValueChanged<int>? onPageChanged
 //
 // bool allowImplicitScrolling = false 给 Accessibility 用的
@@ -26,7 +29,7 @@ class PagePage extends StatefulWidget {
 }
 
 class _PagePageState extends State<PagePage> {
-  final pc = PageController();
+  final pc = PageController(viewportFraction: 0.8);
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +37,7 @@ class _PagePageState extends State<PagePage> {
       appBar: AppBar(title: Text('Page')),
       floatingActionButton: FloatingActionButton(onPressed: () {}, child: Icon(Icons.run_circle)),
       body: PageView.builder(
-        // controller: pc,
+        controller: pc,
         // pageSnapping: false,
         // padEnds: true,
         itemCount: 5,

@@ -45,10 +45,15 @@ import 'package:flutter/material.dart';
 
 // ImageRepeat repeat = ImageRepeat.noRepeat 平铺 repeatX repeatY repeat noRepeat
 
-// 点9图，这个尺寸是赋给图片的，以图片的尺寸为基础，不是以 Image 控件的尺寸为基础
+// 点九图，这个尺寸是赋给图片的，以图片的尺寸为基础，不是以 Image 控件的尺寸为基础
 // 我觉得用 Rect.fromLTWH(35, 30, 3, 3) 安全点
 // 用 Rect.fromLTRB(l, t, l+1, t+1) 容易出现异常，也不知内部怎么算的，如果 left <= right, top <= bottom 要异常，所以都 +1
+// 答：看内部代码，width/height 是计算得出的，LTRB 中的 RB 的起点是左上，不是右下
+//     所以 LTRB(5, 5, 6, 6) 相当于 CGRect(5, 5, 1, 1)，这里的 6/6 并不是距离右下 6
+//     fromLTWH(5, 5, 1, 1) = LTRB(5, 5, 6, 6)
 // Rect? centerSlice
+// 图片尺寸不要大于容器的尺寸，如果图片大了，它可能是几倍图，此时传 scale 来控制
+// 比如图片 300*300，scale 传 3，则我传的矩形基于 100*100 的尺寸
 
 // --------------------------------------------------------------------------------
 

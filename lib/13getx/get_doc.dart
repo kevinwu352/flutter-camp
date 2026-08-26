@@ -16,6 +16,7 @@
 // print(Get.statusBarHeight / Get.pixelRatio);   安全区上，但内容用的是 padding，键盘弹出后会变，不好
 // print(Get.bottomBarHeight / Get.pixelRatio);   安全区下，但内容用的是 padding，键盘弹出后会变，不好
 // 用 Get.safeTop / Get.safeBottom 我写的扩展
+// 更多尺寸细节，看 get_app14_metrics.dart
 //
 // 这仨完全等价于原生的
 // print(Get.window.viewInsets);  被系统用户界面完全遮挡的部分大小，简单来说就是键盘高度
