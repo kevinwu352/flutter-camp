@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:easy_refresh/easy_refresh.dart';
 import 'package:flutter_camp/20widget/sprite_widget.dart';
+
 // import 'package:lottie/lottie.dart';
 
 // required Widget? child
@@ -86,11 +87,12 @@ class Refresh2Page extends StatefulWidget {
 class _Refresh2PageState extends State<Refresh2Page> {
   // List<String> items = [];
   List<String> items = List<String>.generate(20, (i) => '0 - $i');
-  int order = 0;
   bool hasMore = false;
 
   // simultaneously 为假，头尾不会同时启动，所以，下面的函数里面不用判断
   bool loading = false;
+
+  int order = 0;
 
   Future<void> refreshData() async {
     print('do refresh');
@@ -121,7 +123,8 @@ class _Refresh2PageState extends State<Refresh2Page> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Refresh 2'), backgroundColor: Colors.green),
+      // appBar: AppBar(title: Text('Refresh 2'), backgroundColor: Colors.green),
+      backgroundColor: Colors.teal,
       body: EasyRefresh(
         // onRefresh: () async {
         //   await refreshData();
@@ -138,13 +141,14 @@ class _Refresh2PageState extends State<Refresh2Page> {
         //   backgroundColor: Colors.red,
         //   // triggerOffset: 60
         // ),
-        header: RefreshHeader(),
-        footer: CupertinoFooter(
-          backgroundColor: Colors.green,
-          // triggerOffset: 60,
-          // safeArea: true,
-          // position: IndicatorPosition.locator,
-        ),
+        header: RefreshHeader(safeArea: true),
+        // footer: CupertinoFooter(
+        //   backgroundColor: Colors.purple,
+        //   // triggerOffset: 60,
+        //   safeArea: true,
+        //   // position: IndicatorPosition.locator,
+        // ),
+        footer: ClassicFooter(showText: false, safeArea: true, backgroundColor: Colors.purple),
         // resetAfterRefresh: true,
         // canRefreshAfterNoMore: false,
         // canLoadAfterNoMore: true,
@@ -153,6 +157,7 @@ class _Refresh2PageState extends State<Refresh2Page> {
         // refreshOnStartHeader: CupertinoHeader(),
         child: ListView.builder(
           padding: EdgeInsets.zero, // 注意这行，清除底部的 padding
+          // padding: EdgeInsets.fromLTRB(0, 59, 0, 34),
           itemCount: items.length,
           itemBuilder: (context, i) => ListTile(title: Text(items[i]), tileColor: Colors.grey),
         ),
@@ -178,7 +183,7 @@ class _Refresh2PageState extends State<Refresh2Page> {
 // done 最后会变成 inactive
 
 class RefreshHeader extends Header {
-  const RefreshHeader({this.key, super.triggerOffset = 60, super.clamping = false});
+  const RefreshHeader({this.key, super.triggerOffset = 60, super.clamping = false, super.safeArea = false});
   final Key? key;
 
   double? progress(IndicatorState state) => switch (state.mode) {
@@ -204,7 +209,7 @@ class RefreshHeader extends Header {
         SizedBox(height: state.offset, width: double.infinity),
         Positioned.fill(child: ColoredBox(color: Colors.yellow)), // 这个不要，目前只是用来看 header 所占区域的
         Positioned(
-          bottom: 0,
+          bottom: 10,
           // child: CircularProgressIndicator.adaptive(),
           // child: Lottie.asset('assets/anim/dog/anim.json', width: 40, height: 40, controller: animation),
           child: SpriteWidget(

@@ -7,8 +7,8 @@ names is List<String>
 T transform<T, Q>(T param1, Q param2) {
   return param1;
 }
-transform<int, String>(5, 'string value');
-transform(5, 'string value'); // 能省略
+transform<int, String>(5, 'str');
+transform(5, 'str'); // 能省略
 
 泛型类
 class Cache<T> {

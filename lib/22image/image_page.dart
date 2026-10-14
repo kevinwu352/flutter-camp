@@ -9,6 +9,12 @@ import 'package:flutter/material.dart';
 // 且这些子目录不用在 pubspec.yaml 中分别列出来，这是例外，其它资源的子目录都要列出来
 // 不加 my_icon.png 好像会崩，一定要它吗？
 // Image.asset("assets/images/num.png")
+// 在 pubspec.yaml 里声明 assets/images 且不提供一倍图，会崩
+// 在 pubspec.yaml 里声明 assets/images/num.pn 且只提供 3.0x/num.png 或 2.0x/num.png，会加载 这个唯一的图
+// 总结：
+// 方式一要提供一倍图和三倍图，麻烦
+// 方式二要提供三倍图，但 pubspec.yaml 里太麻烦
+// 所以，最佳答案是，只提供三倍图，但是放到一倍图的位置，也就是把 3.0x 目录的内容拿出来
 //
 // AssetImage / NetworkImage 继承了 ImageProvider<Object>
 //   // 这俩等价
