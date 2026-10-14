@@ -86,7 +86,7 @@ List, Map, Set
 
 Records / Functions / Runes / Symbols
 
-!> 5/2 值是 double；5~/2 值是 int 
+!> 5/2 值是 double；5~/2 值是 int
 var x = 5/2;  // 2.5，值是 double，且不能赋给 int 变量，4/2 也不行
 int x = 5~/2; // 2  ，值是 int
 
@@ -105,6 +105,9 @@ Record 类型感觉就是元组，虽然文档说无 Tuple。可以像函数一�
 ({int a, bool b}) record = (a: 123, b: true); 这是命名参数
 
 访问起点是 $1，跳过命名部分，再到 $2
+final val = swap((10, 20));
+print(val.$1)
+
 var bt = (label: "button",
           icon: "img",
           onPressed: () => print(""),

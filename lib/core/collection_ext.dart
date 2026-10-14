@@ -1,19 +1,21 @@
 import 'uncat.dart';
 
 extension IterableExt<E> on Iterable<E> {
-  E? firstWhereOrNull(bool Function(E e) test) {
-    for (var e in this) {
-      if (test(e)) return e;
-    }
-    return null;
-  }
+  // 用 getx 提供的
+  // E? firstWhereOr(bool Function(E e) test) {
+  //   for (var e in this) {
+  //     if (test(e)) return e;
+  //   }
+  //   return null;
+  // }
 
-  E? lastWhereOrNull(bool Function(E e) test) {
-    for (var e in this) {
-      if (test(e)) return e;
-    }
-    return null;
-  }
+  // 这个作用不大，不要了
+  // E? lastWhereOr(bool Function(E e) test) {
+  //   for (var e in this) {
+  //     if (test(e)) return e;
+  //   }
+  //   return null;
+  // }
 
   Iterable<T> compactMap<T>(T? Function(E e) transform) => map((e) => transform(e)).whereType<T>();
 

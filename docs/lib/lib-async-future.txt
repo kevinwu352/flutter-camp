@@ -79,7 +79,7 @@ getstr()
       print(v);
       return 11;
     },
-    //onError: (e) { // 文档说，onError 能收到 getstr() 抛出的异常，但收不到上面 onValue 内部抛出的异常
+    //onError: (e) { // 文档说，onError 能收到 getstr() 抛出的异常，但收不到上面 onValue 内部抛出的异常，真的
     //  print(e);
     //  return 12;
     //},
@@ -88,7 +88,7 @@ getstr()
     print(e);
     return 12;
   })
-  .then((v) => print(v));
+  .then((v) => print(v)); // 前面 then 的返回值会送到这里来
 
 一个坑：解决办法是把它们全部包到一个 return Future.sync(() {}); 中
 Future<int> parseAndRead(Map<String, dynamic> data) {

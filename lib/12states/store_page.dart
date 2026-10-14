@@ -17,9 +17,9 @@ import 'package:flutter/material.dart';
 // ================================================================================
 
 // 读写安全键值对
-// import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 //
-// final storage = FlutterSecureStorage();
+final storage = FlutterSecureStorage();
 //
 // await storage.write(key: "acc_key", value: "11112222");
 // await storage.write(key: "acc_key", value: null);
