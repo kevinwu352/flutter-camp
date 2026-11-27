@@ -141,14 +141,15 @@ class _Refresh2PageState extends State<Refresh2Page> {
         //   backgroundColor: Colors.red,
         //   // triggerOffset: 60
         // ),
-        header: RefreshHeader(safeArea: true),
+        header: RefreshHeader(),
         // footer: CupertinoFooter(
         //   backgroundColor: Colors.purple,
         //   // triggerOffset: 60,
         //   safeArea: true,
         //   // position: IndicatorPosition.locator,
         // ),
-        footer: ClassicFooter(showText: false, safeArea: true, backgroundColor: Colors.purple),
+        // footer: ClassicFooter(showText: false, safeArea: true, backgroundColor: Colors.purple),
+        footer: RefreshFooter(),
         // resetAfterRefresh: true,
         // canRefreshAfterNoMore: false,
         // canLoadAfterNoMore: true,
@@ -156,8 +157,8 @@ class _Refresh2PageState extends State<Refresh2Page> {
         // refreshOnStart: true,
         // refreshOnStartHeader: CupertinoHeader(),
         child: ListView.builder(
-          padding: EdgeInsets.zero, // 注意这行，清除底部的 padding
-          // padding: EdgeInsets.fromLTRB(0, 59, 0, 34),
+          // padding: EdgeInsets.zero, // 注意这行，清除底部的 padding
+          padding: EdgeInsets.fromLTRB(0, 59, 0, 34),
           itemCount: items.length,
           itemBuilder: (context, i) => ListTile(title: Text(items[i]), tileColor: Colors.grey),
         ),
@@ -183,8 +184,15 @@ class _Refresh2PageState extends State<Refresh2Page> {
 // done 最后会变成 inactive
 
 class RefreshHeader extends Header {
-  const RefreshHeader({this.key, super.triggerOffset = 60, super.clamping = false, super.safeArea = false});
+  const RefreshHeader({
+    this.key,
+    this.backgroundColor,
+    super.triggerOffset = 60,
+    super.clamping = false,
+    super.safeArea = false,
+  });
   final Key? key;
+  final Color? backgroundColor;
 
   double? progress(IndicatorState state) => switch (state.mode) {
     IndicatorMode.drag || IndicatorMode.armed => state.offset.clamp(0, triggerOffset) / triggerOffset,
@@ -199,17 +207,27 @@ class RefreshHeader extends Header {
     // );
     // return _RefreshIndicator(key: key, state: state, height: triggerOffset);
     // return _RefreshIndicator2(state: state, height: triggerOffset);
+    // print("head: ${state.offset}");
     return Stack(
       key: key,
       alignment: Alignment.center,
+      clipBehavior: Clip.none,
       children: [
         // Stack 收到 402 0-inf
         // SizedBox 收到 0-402 0-inf
         // 这个要要，它用来撑开 stack，如果没这行，下拉以后 stack 高度是 0
-        SizedBox(height: state.offset, width: double.infinity),
-        Positioned.fill(child: ColoredBox(color: Colors.yellow)), // 这个不要，目前只是用来看 header 所占区域的
+        SizedBox(width: double.infinity, height: state.offset),
+        if (backgroundColor != null)
+          Positioned(
+            left: 0,
+            right: 0,
+            bottom: -59,
+            height: state.offset,
+            child: ColoredBox(color: backgroundColor!),
+          ),
+        // Positioned.fill(child: ColoredBox(color: Colors.yellow)), // 这个不要，目前只是用来看 header 所占区域的
         Positioned(
-          bottom: 10,
+          bottom: 10 - 59,
           // child: CircularProgressIndicator.adaptive(),
           // child: Lottie.asset('assets/anim/dog/anim.json', width: 40, height: 40, controller: animation),
           child: SpriteWidget(
@@ -222,6 +240,44 @@ class RefreshHeader extends Header {
             height: 40,
           ),
         ),
+      ],
+    );
+  }
+}
+
+class RefreshFooter extends Footer {
+  RefreshFooter({
+    this.key,
+    this.backgroundColor,
+    super.triggerOffset = 70,
+    super.clamping = false,
+    super.safeArea = false,
+  });
+  final Key? key;
+  final Color? backgroundColor;
+
+  @override
+  Widget build(BuildContext context, IndicatorState state) {
+    print("foot: ${state.mode}");
+    return Stack(
+      key: key,
+      alignment: Alignment.center,
+      clipBehavior: Clip.none,
+      children: [
+        // Stack 收到 402 0-inf
+        // SizedBox 收到 0-402 0-inf
+        // 这个要要，它用来撑开 stack，如果没这行，下拉以后 stack 高度是 0
+        SizedBox(width: double.infinity, height: state.offset),
+        if (backgroundColor != null)
+          Positioned(
+            left: 0,
+            right: 0,
+            top: -34,
+            height: state.offset,
+            child: ColoredBox(color: backgroundColor!),
+          ),
+        // Positioned.fill(child: ColoredBox(color: Colors.green)), // 这个不要，目前只是用来看 header 所占区域的
+        if (state.mode == IndicatorMode.processing) Positioned(top: 17 - 34, child: CircularProgressIndicator()),
       ],
     );
   }
